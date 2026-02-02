@@ -1,0 +1,72 @@
+.rush_sec .rush-card .img-card::after{
+   position: absolute;
+    content: "";
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 11.76%, #000000 100%);
+}   
+.rush_sec .slick_rush .slick-dots{
+    bottom: -55px;}
+.rush_sec .slick_rush .slick-dots li{
+    width:16px;
+    height: 16px;}
+.rush_sec .slick_rush .slick-dots li button:before{
+    background: #E0E0E0;
+    opacity: 1;
+    color: transparent;
+    transition: all 0.4s;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;}
+.rush_sec .slick_rush .slick-dots li.slick-active,
+.rush_sec .slick_rush .slick-dots li.custom-active,
+.rush_sec .slick_rush .slick-dots  li.slick-active button,
+.rush_sec .slick_rush .slick-dots  li.custom-active button{
+    width: 35px;}
+.rush-sec .slick_rush .slick-dots li.slick-active button:before{
+    background-color: #FF5C1A;
+    width: 100%;
+    transition: all 0.4s;
+    border-radius: 5px;}
+
+/* Price Slider Styles */
+.price-slider {
+    height: 4px;
+    width: 100%;
+    background: #e5e7eb;
+    border-radius: 999px;
+    margin: 25px 0;
+}
+
+.price-slider .thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid #FF5C1A;
+    border-radius: 50%;
+    cursor: grab;
+    top: -8px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price-slider .track {
+    height: 4px;
+    border-radius: 999px;
+}
+
+.price-slider .track-1 {
+    background: #FF5C1A;
+}
+
+/* Custom Datepicker Overrides */
+.custom-datepicker-container .react-datepicker-wrapper {
+    width: 100%;
+}
+
+/* Mobile Sidebar Animation */
+.filter-sidebar-content {
+    transition: transform 0.3s ease-in-out;
+}
