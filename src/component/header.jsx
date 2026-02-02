@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/logo/logo.svg'
 import CartIcon from '../assets/icons/cart.svg'
+import Home from '../assets/icons/home.svg'
 import HeartIcon from '../assets/icons/blackheart.svg'
 import NotificationIcon from '../assets/icons/notification.svg'
 import MenuIcon from '../assets/icons/menu-icon.svg'
@@ -62,16 +63,16 @@ function Header() {
               <div className="flex flex-col gap-3">
                 <button className="px-3 py-2 h-[41px] text-[14px] font-medium text-white bg-gradient-to-br from-[#20212B] to-[#16171F] rounded-[8px] mx-6">Sign In</button>
                 <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300  border-b border-[#E3E3E3]">
-                  <img src={CartIcon} alt="cart" className="h-auto w-auto" />
-                  <span className="text-gray-800 font-medium">Shopping Cart</span>
+                  <img src={Home} alt="cart" className="h-auto w-auto" />
+                  <span className="text-gray-800 font-medium">Home</span>
                 </button>
                 <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
-                  <img src={HeartIcon} alt="heart" className="h-auto w-auto" />
-                  <span className="text-gray-800 font-medium">Wishlist</span>
+                  <img src={CartIcon} alt="heart" className="h-auto w-auto" />
+                  <span className="text-gray-800 font-medium">Cart</span>
                 </button>
                 <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
-                  <img src={NotificationIcon} alt="notification" className="h-a w-auto" />
-                  <span className="text-gray-800 font-medium">Notifications</span>
+                  <img src={HeartIcon} alt="notification" className="h-a w-auto" />
+                  <span className="text-gray-800 font-medium">Whishlist</span>
                 </button>
               </div>
             </div>

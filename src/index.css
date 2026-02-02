@@ -22,7 +22,7 @@
 .rush_sec .slick_rush .slick-dots  li.slick-active button,
 .rush_sec .slick_rush .slick-dots  li.custom-active button{
     width: 35px;}
-.rush-sec .slick_rush .slick-dots li.slick-active button:before{
+.rush_sec .slick_rush .slick-dots li.slick-active button:before{
     background-color: #FF5C1A;
     width: 100%;
     transition: all 0.4s;

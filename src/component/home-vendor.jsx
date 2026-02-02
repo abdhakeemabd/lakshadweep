@@ -21,49 +21,100 @@ function HomeVendor() {
   };
 
   const vendorList = [
-    { img: AdventureBg },
-    { img: PlaneBg },
-    { img: AdventureBg },
-    { img: AdventureBg },
-    { img: AdventureBg },
+    {
+      img: AdventureBg,
+      tag: "GoRogue Exclusive",
+      title: "Glass-Bottom Boat & Snorkel",
+      location: "Agatti",
+      count: "(700+)",
+      categories: ["Travel & Tourism", "Coral Reef Exploration"],
+      description: "Enjoy a peaceful nature walk while learning about Lakshadweep’s marine life and sea turtle conservation.",
+      price: "₹8,900",
+      unit: "Per person"
+    },
+    {
+      img: PlaneBg,
+      tag: "GoRogue Exclusive",
+      title: "Scuba Diving Adventure",
+      location: "Kavaratti",
+      count: "(500+)",
+      categories: ["Water Sports", "Adventure"],
+      description: "Experience the vibrant underwater world with our professional scuba diving instructors.",
+      price: "₹4,500",
+      unit: "Per person"
+    },
+    {
+      img: AdventureBg,
+      tag: "GoRogue Exclusive",
+      title: "Island Hopping Tour",
+      location: "Minicoy",
+      count: "(300+)",
+      categories: ["Sightseeing", "Cultural"],
+      description: "Explore the beautiful islands of Lakshadweep and immerse yourself in the local culture.",
+      price: "₹12,000",
+      unit: "Per group"
+    },
+    {
+      img: AdventureBg,
+      tag: "GoRogue Exclusive",
+      title: "Kayak Rental Service",
+      location: "Kadmat",
+      count: "(150+)",
+      categories: ["Rentals", "Paddle Sports"],
+      description: "Rent a kayak and paddle through the crystal clear lagoons at your own pace.",
+      price: "₹1,200",
+      unit: "Per hour"
+    },
+    {
+      img: AdventureBg,
+      tag: "GoRogue Exclusive",
+      title: "Sunset Cruise",
+      location: "Kalpeni",
+      count: "(400+)",
+      categories: ["Relaxation", "Cruise"],
+      description: "Witness the breathtaking sunset over the horizon from the comfort of our luxury boat.",
+      price: "₹3,000",
+      unit: "Per person"
+    },
   ];
 
-  const Card = ({ img }) => (
-    <div className="rush-card hover:scale-102 transition-all duration-300 ease-in-out mx-3 lg:mx-4 xl:mx-5 relative overflow-hidden shadow-[0px_0px_4px_0px_#00000040] bg-white transition-all duration-[400ms] text-[#454545]">
+  const Card = ({ data }) => (
+    <div className="rush-card hover:scale-102 transition-all duration-300 ease-in-out relative overflow-hidden shadow-[0px_0px_4px_0px_#00000040] bg-white transition-all duration-[400ms] text-[#454545]">
       <div className="card-head">
         <div className="img-card relative aspect-[399/226] w-full">
-          <img className='w-full h-full object-cover' src={img} alt="Activity" />
+          <img className='w-full h-full object-cover' src={data.img} alt={data.title} />
           <div className="top-card items-strat flex gap-2 justify-between absolute top-3 z-1 left-3 right-3">
             <div>
-              <div className="tag px-[13px] py-[8px] bg-[#EB0D0D] text-white font-['Poppins'] font-bold text-[11px] leading-none">GoRogue Exclusive</div>
+              <div className="tag px-[13px] py-[8px] bg-[#EB0D0D] text-white font-['Poppins'] font-bold text-[11px] leading-none">{data.tag}</div>
             </div>
             <button className="Like-btn">
               <img src={HeartIcon} alt="Heart Icon" />
             </button>
           </div>
           <div className="cont absolute bottom-3 left-3 right-3 z-2">
-            <div className='text-white text-[clamp(20px,2vw,24px)] font-semibold mb-2'>Glass-Bottom Boat & Snorkel</div>
+            <div className='text-white text-[clamp(20px,2vw,24px)] font-semibold mb-2'>{data.title}</div>
             <div className="flex justify-between items-center gap-2">
               <div className="flex items-center gap-2">
                 <img src={Map} alt="Location" />
-                <span className='text-white text-[clamp(10px,11px,11px)] font-medium'>Agatti</span>
+                <span className='text-white text-[clamp(10px,11px,11px)] font-medium'>{data.location}</span>
               </div>
-              <div className='text-white text-[clamp(10px,11px,11px)] font-medium'>(700+)</div>
+              <div className='text-white text-[clamp(10px,11px,11px)] font-medium'>{data.count}</div>
             </div>
           </div>
         </div>
       </div>
       <div className='card-body px-3 py-3 bg-white'>
         <div className='flex px-3 justify-between items-center'>
-          <div className="bg-[#F8F8F8] text-[clamp(10px,2vw,12px)] font-medium px-[10px] py-[5px] uppercase leading-[27px]">Travel & Tourism</div>
-          <div className="bg-[#F8F8F8] text-[clamp(10px,2vw,12px)] font-medium px-[10px] py-[5px] uppercase leading-[27px]">Coral Reef Exploration</div>
+          {data.categories.map((cat, idx) => (
+             <div key={idx} className="bg-[#F8F8F8] text-[clamp(10px,2vw,12px)] font-medium px-[10px] py-[5px] uppercase leading-[27px]">{cat}</div>
+          ))}
         </div>
         <div className="font-normal text-[13px] leading-[24px] tracking-normal align-middle mb-3 lg:mb-4 xl:mb-5">
-          Enjoy a peaceful nature walk while learning about Lakshadweep’s marine life and sea turtle conservation.
+          {data.description}
         </div>
         <div className="flex justify-between items-center gap-2 mt-5">
           <div className='font-semibold text-black text-[clamp(14px,3vw,18px)] leading-[85%]'>
-            ₹8,900 / <span className='text-[clamp(9px,2vw,10px)] font-normal text-black leading-[85%]'>Per person</span>
+            {data.price} / <span className='text-[clamp(9px,2vw,10px)] font-normal text-black leading-[85%]'>{data.unit}</span>
           </div>
           <Link to="#" className='font-semibold bg-[#F8F8F8] border border-[#F4F4F4] text-[#3B2B3B] text-[14px] px-[20px] py-[10px] text-center rounded-none uppercase transition-all duration-[400ms] hover:bg-[#FF5C1A] hover:text-white transition-all duration-300 ease-in-out'>
             Book Now
@@ -73,11 +124,11 @@ function HomeVendor() {
     </div>
   );
   return (
-    <section className='rush_sec py-5 lg:py-18'>
+    <section className='rush_sec py-18'>
       <div className="container m-auto px-3">
         <div className="grid grid-cols-12 justify-center">
           <div className="col-span-12 text-center mb-3 md:mb-4 lg:mb-5 max-w-2xl mx-auto w-full">
-            <h1 className='text-[24] md:text-[30px] lg:text-[35px] text-black leading-[clamp(94%,3vw,85%)] font-medium mb-3'>Go Rogue <span className='text-[#FF5C1A]'>Verified</span> Vendors</h1>            
+            <h1 className='text-[24px] md:text-[30px] lg:text-[35px] text-black leading-[clamp(94%,3vw,85%)] font-medium mb-3'>Go Rogue <span className='text-[#FF5C1A]'>Verified</span> Vendors</h1>            
             <div className="relative max-w-4xl mx-auto mt-6 mb-10 z-[10] group">
               <div className="flex bg-white border border-blue-200 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-100">
                 <input 
@@ -91,7 +142,7 @@ function HomeVendor() {
                   </svg>
                 </button>
               </div>
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 p-6 z-[20] hidden group-focus-within:block hover:block text-left">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-xl border border-gray-100 p-6 z-[20] hidden group-focus-within:block hover:block text-left">
                 <div className="mb-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-4">Islands</h3>
                   <div className="flex flex-wrap gap-2">
@@ -162,7 +213,7 @@ function HomeVendor() {
               <Slider className='slick_rush' {...settings}>
                 {vendorList.map((item, index) => (
                   <div key={index}>
-                    <Card img={item.img} />
+                    <Card data={item} />
                   </div>
                 ))}
               </Slider>
@@ -171,7 +222,7 @@ function HomeVendor() {
             {/* ✅ Desktop / Tablet Normal Layout */}
             <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6">
               {vendorList.map((item, index) => (
-                <Card key={index} img={item.img} />
+                <Card key={index} data={item} />
               ))}
             </div>
 

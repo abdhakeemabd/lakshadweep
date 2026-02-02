@@ -3,6 +3,7 @@ import HomeBanner from '../component/home-banner'
 import HomeAdventure from '../component/home-adventure'
 import HomeRush from '../component/home-rush'
 import HomeVendor from '../component/home-vendor'
+import Gateaway from '../component/gateaway'
 function Home() {
   return (
     <>
@@ -10,6 +11,7 @@ function Home() {
     <HomeAdventure/>
     <HomeRush/>
     <HomeVendor/>
+    <Gateaway/>
     </>
   )
 }
