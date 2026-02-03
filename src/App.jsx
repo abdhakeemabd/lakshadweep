@@ -10,10 +10,15 @@ import Footer from './component/footer';
 import Gallery from './pages/gallery';
 import About from './pages/about';
 import Contact from './pages/contact';
+import ScrollToTop from './component/scroll-to-top';
+import ScrollTopButton from './component/scroll-top-button';
+
 function App() {
 
   return (
     <>
+     <ScrollToTop />
+     <ScrollTopButton />
      <Header/>
      <Routes>
       <Route>

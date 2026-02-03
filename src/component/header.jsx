@@ -64,18 +64,27 @@ function Header() {
             <div className="pt-3">
               <div className="flex flex-col gap-3">
                 <button className="px-3 py-2 h-[41px] text-[14px] font-medium text-white bg-gradient-to-br from-[#20212B] to-[#16171F] rounded-[8px] mx-6">Sign In</button>
-                <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300  border-b border-[#E3E3E3]">
-                  <img src={Home} alt="cart" className="h-auto w-auto" />
+                <Link to="/" onClick={toggleMobileMenu} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300  border-b border-[#E3E3E3]">
+                  <img src={Home} alt="home" className="h-auto w-auto" />
                   <span className="text-gray-800 font-medium">Home</span>
-                </button>
-                <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
-                  <img src={CartIcon} alt="heart" className="h-auto w-auto" />
+                </Link>
+                <Link to="/cart" onClick={toggleMobileMenu} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <img src={CartIcon} alt="cart" className="h-auto w-auto" />
                   <span className="text-gray-800 font-medium">Cart</span>
-                </button>
-                <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
-                  <img src={HeartIcon} alt="notification" className="h-a w-auto" />
-                  <span className="text-gray-800 font-medium">Whishlist</span>
-                </button>
+                </Link>
+                <Link to="/wishlist" onClick={toggleMobileMenu} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <img src={HeartIcon} alt="wishlist" className="h-auto w-auto" />
+                  <span className="text-gray-800 font-medium">Wishlist</span>
+                </Link>
+                <Link to="/about" onClick={toggleMobileMenu} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <span className="text-gray-800 font-medium ml-8">About Us</span>
+                </Link>
+                <Link to="/gallery" onClick={toggleMobileMenu} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <span className="text-gray-800 font-medium ml-8">Gallery</span>
+                </Link>
+                <Link to="/contact" onClick={toggleMobileMenu} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <span className="text-gray-800 font-medium ml-8">Contact</span>
+                </Link>
               </div>
             </div>
           </nav>
