@@ -25,10 +25,8 @@ function Header() {
               </Link>
             </div>
             <nav className="hidden lg:flex items-center gap-6">
-              <Link to="/" className="relative text-gray-800 font-medium text-base hover:text-blue-600 transition-all duration-300 hover:-translate-y-0.5 after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"> Home</Link>
-              <Link to="/about" className="relative text-gray-800 font-medium text-base hover:text-blue-600 transition-all duration-300 hover:-translate-y-0.5 after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"> About</Link>
-              <Link to="/gallery" className="relative text-gray-800 font-medium text-base hover:text-blue-600 transition-all duration-300 hover:-translate-y-0.5 after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"> Gallery</Link>
-              <Link to="/contact" className="relative text-gray-800 font-medium text-base hover:text-blue-600 transition-all duration-300 hover:-translate-y-0.5 after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"> Contact</Link>
+              <Link to="/" className="relative text-gray-800 font-medium text-base transition-all duration-300 after:transition-all after:duration-300 hover:after:w-full"> Home</Link>
+              <Link to="/" className="relative text-gray-800 font-medium text-base transition-all duration-300 after:transition-all after:duration-300 hover:after:w-full"> Packages</Link>
             </nav>
             <div className="hidden lg:flex justify-end items-center gap-2">
               <button aria-label="Shopping Cart" className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center">
