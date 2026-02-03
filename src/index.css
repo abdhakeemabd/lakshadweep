@@ -4,6 +4,17 @@
     inset: 0;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 11.76%, #000000 100%);
 }   
+
+/* Slick Equal Height */
+.slick .slick-track {
+    display: flex;}
+.slick .slick-slide {
+    display: flex;
+    height: auto;}
+.slick .item {
+    height: 100%;
+    width: 100%;}
+
 .rush_sec .slick_rush .slick-dots{
     bottom: -55px;}
 .rush_sec .slick_rush .slick-dots li{

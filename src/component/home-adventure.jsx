@@ -66,12 +66,12 @@ function HomeAdventure() {
     >
       <div className="container m-auto px-3">
         <div className="grid grid-cols-12">
-          <div className="col-span-12 md:col-span-6 lg:col-span-8 mb-3 lg:mb-4 xl:mb-5">
+          <div className="col-span-12 md:col-span-6 lg:col-span-8 mb-3 lg:mb-4 xl:mb-5" data-aos="fade-up" data-aos-delay="200">
             <h1 className='text-[50px] md:text-[60px] lg:text-[88px] text-white leading-[clamp(94%,3vw,85%)] font-medium mb-3'>
               Live the <span className='text-[#FF5C1A]'>#Adventure</span>, Redefined
             </h1>
           </div>
-          <div className="col-span-12 min-w-0">
+          <div className="col-span-12 min-w-0" data-aos="fade-up" data-aos-delay="400">
             {mounted && (
               <Slider {...settings}>
                 {adventureData.map((item) => (

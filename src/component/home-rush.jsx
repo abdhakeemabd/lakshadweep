@@ -110,7 +110,7 @@ function HomeRush() {
             <Slider className="slick_rush" {...settings}>
               {rushData.map((item) => (
                 <div className="slide" key={item.id}>
-                  <div className="rush-card hover:scale-102 transition-all duration-300 ease-in-out mx-3 lg:mx-4 xl:mx-5 relative overflow-hidden shadow-[0px_0px_4px_0px_#00000040] bg-white text-[#454545]">
+                  <div className="rush-card h-full flex flex-col hover:scale-102 transition-all duration-300 ease-in-out mx-3 lg:mx-4 xl:mx-5 relative overflow-hidden shadow-[0px_0px_4px_0px_#00000040] bg-white text-[#454545]" data-aos="fade-up" data-aos-delay="400">
                     <div className="img-card relative aspect-[399/226] w-full">
                       <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                       <div className="flex justify-between absolute top-3 left-3 right-3 z-10">
@@ -140,13 +140,13 @@ function HomeRush() {
                         </div>
                       </div>
                     </div>
-                    <div className="px-3 py-3">
+                    <div className="card-body flex flex-col flex-grow px-3 py-3">
                       <div className="flex px-3 gap-2 mb-3">
                         {item.tags.map((tag, index) => (
                           <div key={index} className="bg-[#F8F8F8] text-[12px] font-medium px-[10px] py-[5px] uppercase">{tag}</div>
                         ))}
                       </div>
-                      <p className="text-[13px] leading-[24px] mb-4">{item.description}
+                      <p className="text-[13px] leading-[24px] mb-4 flex-grow">{item.description}
                       </p>
                       <div className="flex justify-between items-center mt-4">
                         <div className='font-semibold text-black text-[clamp(14px,3vw,18px)] leading-[85%]'>

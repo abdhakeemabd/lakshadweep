@@ -73,12 +73,12 @@ function Team() {
     <section className='py-10 lg:py-20 bg-[#F5F5F5]'>
       <div className="container mx-auto px-3">
         <div className="grid grid-cols-12">
-          <div className="col-span-12 mb-8 lg:mb-12">
+          <div className="col-span-12 mb-8 lg:mb-12" data-aos="fade-up" data-aos-delay="400">
             <h1 className='font-poppins font-medium text-[clamp(24px,calc(24px+(35-24)*((100vw-320px)/(1440-320))),35px)] text-center mb-3 lg:mb-5 font-semibold'>
               Meet the Core Team
             </h1>
           </div>
-          <div className="col-span-12">
+          <div className="col-span-12" data-aos="fade-up" data-aos-delay="400">
             <Slider {...settings} className='pt-3'>
               {teamData.map((member) => (
                 <div key={member.id} className="px-3 mb-3">

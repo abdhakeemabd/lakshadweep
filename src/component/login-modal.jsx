@@ -8,25 +8,22 @@ function LoginModal() {
   const dialogRef = useRef(null)
   const [phone, setPhone] = useState('')
 
+  const handleCloseModal = () => {
+    dialogRef.current?.close()
+  }
+
   useEffect(() => {
     const dialog = dialogRef.current
-    const handleShowModal = (e) => {
+    const handleGlobalClick = (e) => {
       if (e.target.getAttribute('commandfor') === 'dialog') {
         dialog?.showModal()
       }
-    }
-    // Listen for close command
-    const handleCloseModal = (e) => {
       if (e.target.getAttribute('command') === 'close' && e.target.getAttribute('commandfor') === 'dialog') {
         dialog?.close()
       }
     }
-    document.addEventListener('click', handleShowModal)
-    document.addEventListener('click', handleCloseModal)
-    return () => {
-      document.removeEventListener('click', handleShowModal)
-      document.removeEventListener('click', handleCloseModal)
-    }
+    document.addEventListener('click', handleGlobalClick)
+    return () => document.removeEventListener('click', handleGlobalClick)
   }, [])
 
   return (
@@ -50,6 +47,29 @@ function LoginModal() {
         dialog::backdrop {
           background: rgba(0, 0, 0, 0.5);
           backdrop-filter: blur(4px);
+        }
+
+        .modal-close {
+          position: absolute;
+          top: 1.5rem;
+          right: 1.5rem;
+          z-index: 50;
+          padding: 0.5rem;
+          border-radius: 9999px;
+          color: #6b7280;
+          transition: all 0.3s;
+          cursor: pointer;
+          border: none;
+          background: #f3f4f6;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .modal-close:hover {
+          background-color: #e5e7eb;
+          color: #111827;
+          transform: rotate(90deg);
         }
 
         /* Custom styling for react-phone-input-2 */
@@ -159,10 +179,15 @@ function LoginModal() {
       <dialog ref={dialogRef} id="dialog" aria-labelledby="dialog-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className="modal-content relative w-full max-w-4xl transform overflow-hidden rounded-4xl bg-white shadow-2xl">
-            <div className="bg-white px-2 py-2">
+            <div className="modal-header flex justify-end">
+              <button className="modal-close" onClick={handleCloseModal} aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+              </button>
+            </div>
+            <div className="bg-white px-4 py-4">
               <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
-                <div>
-                  <img src={LoginImage} alt="Login" />
+                <div className='aspect-[391/229] md:aspect-[491/589]'>
+                  <img className='w-full h-full object-cover rounded-3xl' src={LoginImage} alt="Login" />
                 </div>
                 <div className='ps-3 pe-8 py-3'>
                   <img className='w-auto mb-6' src={Logo} alt="" />
@@ -171,24 +196,10 @@ function LoginModal() {
                   <form className="space-y-4">
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
-                      <PhoneInput
-                        country={'in'}
-                        value={phone}
-                        onChange={setPhone}
-                        enableSearch={true}
-                        searchPlaceholder="Search country..."
-                        inputProps={{
-                          name: 'phone',
-                          required: true,
-                          autoFocus: false
-                        }}
-                        containerClass="phone-input-container"
-                        inputClass="phone-input-field"
-                        buttonClass="phone-input-button"
-                        dropdownClass="phone-input-dropdown"
-                      />
+                      <PhoneInput country={'in'} value={phone} onChange={setPhone} enableSearch={true} searchPlaceholder="Search country..." inputProps={{ name: 'phone', required: true, autoFocus: false }} containerClass="phone-input-container" inputClass="phone-input-field" buttonClass="phone-input-button" dropdownClass="phone-input-dropdown" />
                     </div>
                     <button type="submit" className="w-full py-3 px-4 bg-gradient-to-br from-[#20212B] to-[#16171F] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300">Send OTP</button>
+                    <div className='text-[#555555] text-[12px] md:text-[15px] text-center font-medium px-[37px] max-w-[300px] mx-auto'>By contacting us, you agree to our Terms of service and Privacy Policy</div>
                   </form>
                 </div>
               </div>

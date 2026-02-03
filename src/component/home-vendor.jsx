@@ -79,7 +79,7 @@ function HomeVendor() {
   ];
 
   const Card = ({ data }) => (
-    <div className="rush-card hover:scale-102 transition-all duration-300 ease-in-out relative overflow-hidden shadow-[0px_0px_4px_0px_#00000040] bg-white transition-all duration-[400ms] text-[#454545]">
+    <div className="rush-card hover:scale-102 transition-all duration-300 ease-in-out relative overflow-hidden shadow-[0px_0px_4px_0px_#00000040] bg-white transition-all duration-[400ms] text-[#454545] mx-3 mx-sm-0" data-aos="fade-up" data-aos-delay="400">
       <div className="card-head">
         <div className="img-card relative aspect-[399/226] w-full">
           <img className='w-full h-full object-cover' src={data.img} alt={data.title} />
@@ -104,7 +104,7 @@ function HomeVendor() {
         </div>
       </div>
       <div className='card-body px-3 py-3 bg-white'>
-        <div className='flex px-3 justify-between items-center'>
+        <div className='flex flex-wrap px-3 gap-3 justify-between items-center mb-3'>
           {data.categories.map((cat, idx) => (
              <div key={idx} className="bg-[#F8F8F8] text-[clamp(10px,2vw,12px)] font-medium px-[10px] py-[5px] uppercase leading-[27px]">{cat}</div>
           ))}
@@ -128,9 +128,9 @@ function HomeVendor() {
       <div className="container m-auto px-3">
         <div className="grid grid-cols-12 justify-center">
           <div className="col-span-12 text-center mb-3 md:mb-4 lg:mb-5 max-w-2xl mx-auto w-full">
-            <h1 className='text-[24px] md:text-[30px] lg:text-[35px] text-black leading-[clamp(94%,3vw,85%)] font-medium mb-3'>Go Rogue <span className='text-[#FF5C1A]'>Verified</span> Vendors</h1>            
+            <h1 className='text-[24px] md:text-[30px] lg:text-[35px] text-black leading-[clamp(94%,3vw,85%)] font-medium mb-3' data-aos="fade-up" data-aos-delay="400">Go Rogue <span className='text-[#FF5C1A]'>Verified</span> Vendors</h1>            
             <div className="relative max-w-4xl mx-auto mt-6 mb-10 z-[10] group">
-              <div className="flex bg-white border border-blue-200 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-100">
+              <div className="flex bg-white border border-blue-200 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-100" data-aos="fade-up" data-aos-delay="400">
                 <input 
                   type="text" 
                   placeholder="Where do you want to go?" 
@@ -206,7 +206,7 @@ function HomeVendor() {
               </div>
             </div>
           </div>
-          <div className="col-span-12">
+          <div className="col-span-12" data-aos="fade-up" data-aos-delay="400">
             
             {/* ✅ Mobile Slider */}
             <div className="block md:hidden">

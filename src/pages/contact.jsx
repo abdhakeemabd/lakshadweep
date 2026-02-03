@@ -4,7 +4,7 @@ export default function ContactPage() {
   return (
     <section className="w-full bg-white py-16 px-4">
       <div className="container-fluid mx-auto px-3 lg:px-20">
-        <div className="text-center mb-14">
+        <div className="text-center mb-14" data-aos="fade-up" data-aos-delay="400">
           <h1 className="text-[clamp(42px,5.5vw+0.5rem,60px)] font-semibold text-[#0F2446] mb-4">
             Get in Touch
           </h1>
@@ -13,7 +13,7 @@ export default function ContactPage() {
             pricing, or anything else, our team is ready to answer all your questions.
           </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="400">
           <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
             <h3 className="text-[clamp(20px,2vw,26px)] font-semibold text-[#0F2446] mb-6">Send us a Message</h3>
             <form className="grid grid-cols-1 md:grid-cols-2 gap-6">

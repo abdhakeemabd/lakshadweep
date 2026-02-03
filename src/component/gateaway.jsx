@@ -37,12 +37,12 @@ function Gateaway() {
     <section className='gateaway_sec py-5 lg:py-18 bg-cover bg-center bg-no-repeat' style={{ backgroundImage: `url(${bg})` }}>
       <div className="container m-auto px-3">
         <div className="grid grid-cols-12 justify-center">
-          <div className="col-span-12 text-center mb-3 md:mb-4 lg:mb-5 max-w-5xl mx-auto w-full">
+          <div className="col-span-12 text-center mb-3 md:mb-4 lg:mb-5 max-w-5xl mx-auto w-full" data-aos="fade-up" data-aos-delay="400">
             <h1 className='font-semibold text-[clamp(28px,3vw,42px)] leading-[1.24] text-white mb-3'>Plan Your Perfect Getaway</h1>
             <div className='text-[16px] md:text-[18px] lg:text-[20px] text-white leading-[clamp(94%,3vw,85%)] font-medium mb-3 lg:mb-4'>Essential tips and information to help you prepare for an unforgettable adventure.</div>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-4">
+        <div className="grid grid-cols-12 gap-4" data-aos="fade-up" data-aos-delay="400">
           {getawayData.map((item) => (
             <div key={item.id} className="col-span-6 md:col-span-6 lg:col-span-3 mx-2 relative ">
               <div className="gateaway-card bg-[#1A1A1ABD] text-white backdrop-blur-[12px] transition-all duration-[400ms] shadow-[0px_0px_16px_0px_#F2F2F2_inset] shadow-[0px_0px_3px_0px_#FFFFFF80_inset] shadow-[-1px_-1px_0.5px_-1px_#FFFFFF_inset] shadow-[1px_1px_0.5px_-1px_#FFFFFF_inset] shadow-[-1px_-1px_0px_-0.5px_#262626_inset] shadow-[1px_1px_0px_-0.5px_#333333_inset] shadow-[0px_1px_8px_0px_#0000001F] shadow-[0px_0px_2px_0px_#0000001A] pt-4 pb-8 px-3 lg:px-8 text-center text-white hover:-translate-y-2.5 transition-all h-full">
