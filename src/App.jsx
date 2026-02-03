@@ -13,6 +13,8 @@ import About from './pages/about';
 import Contact from './pages/contact';
 import ScrollToTop from './component/scroll-to-top';
 import ScrollTopButton from './component/scroll-top-button';
+import Faq from './pages/faq';
+import Packages from './pages/packages';
 function App() {
   useEffect(() => {
     AOS.init({
@@ -32,6 +34,8 @@ function App() {
         <Route path='/gallery' element={<Gallery />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/faq' element={<Faq />} />
+        <Route path='/packages' element={<Packages />} />
       </Routes>
 
       <Footer />

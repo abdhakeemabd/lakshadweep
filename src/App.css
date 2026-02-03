@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&family=Inter:wght@100..900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-inter: "Inter", sans-serif;
+}
 
 /* Global Styles */
 body {
@@ -12,3 +18,29 @@ body {
   max-width: 1320px;
 }
 
+.package_details_sec .sub-card li:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background-image: url(./assets/icons/lightning.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.package_details_sec .sub-card{
+    position: relative;
+}
+.package_details_sec .sub-card::before{
+    content: "";
+    position: absolute;
+    right: -90px;
+    bottom: -90px;
+    width: 360px;
+    height: 360px;
+    background-image: url(./assets/img/rogue-icon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+}

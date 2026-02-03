@@ -85,7 +85,7 @@ function HomeVendor() {
           <img className='w-full h-full object-cover' src={data.img} alt={data.title} />
           <div className="top-card items-strat flex gap-2 justify-between absolute top-3 z-1 left-3 right-3">
             <div>
-              <div className="tag px-[13px] py-[8px] bg-[#EB0D0D] text-white font-['Poppins'] font-bold text-[11px] leading-none">{data.tag}</div>
+              <div className="tag px-[13px] py-[8px] bg-[#EB0D0D] text-white font-bold text-[11px] leading-none">{data.tag}</div>
             </div>
             <button className="Like-btn">
               <img src={HeartIcon} alt="Heart Icon" />
