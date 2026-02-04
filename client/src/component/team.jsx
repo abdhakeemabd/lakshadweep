@@ -1,43 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Slider from "react-slick"
 import User from '../assets/icons/default-user-icon.png'
 
 function Team() {
-  const teamData = [
-    {
-      id: 1,
-      image: User,
-      name: "Alexis Mishwells",
-      position: "Founder & Chief Explorer",
-      description: "A native islander with a passion for showing the world the true spirit of Lakshadweep."
-    },
-    {
-      id: 2,
-      image: User,
-      name: "Sarah Johnson",
-      position: "Adventure Coordinator",
-      description: "Expert in crafting personalized island experiences with over 10 years of tourism expertise."
-    },
-    {
-      id: 3,
-      image: User,
-      name: "Rahul Sharma",
-      position: "Marine Life Specialist",
-      description: "Certified diving instructor passionate about marine conservation and underwater exploration."
-    },
-    {
-      id: 4,
-      image: User,
-      name: "Priya Menon",
-      position: "Cultural Experience Manager",
-      description: "Dedicated to preserving and sharing the rich cultural heritage of Lakshadweep islands."
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/blogs");
+      if (!res.ok) throw new Error("Failed to fetch blog data");
+      const data = await res.json();
+      
+      if (data.status) {
+        // Combine latest blog and side blogs into one array
+        const allBlogs = [];
+        if (data.latest_blog) allBlogs.push(data.latest_blog);
+        if (data.side_blogs) allBlogs.push(...data.side_blogs);
+        setBlogs(allBlogs);
+      } else {
+        setBlogs([]);
+      }
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching blogs:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  // Helper function to strip HTML tags from description
+  const stripHtml = (html) => {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  };
 
   // 🔹 Slider Settings
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: blogs.length > 4,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -73,35 +82,55 @@ function Team() {
     <section className='py-10 lg:py-20 bg-[#F5F5F5]'>
       <div className="container mx-auto px-3">
         <div className="grid grid-cols-12">
-          <div className="col-span-12 mb-8 lg:mb-12" data-aos="fade-up" data-aos-delay="400">
-            <h1 className='font-poppins font-medium text-[clamp(24px,calc(24px+(35-24)*((100vw-320px)/(1440-320))),35px)] text-center mb-3 lg:mb-5 font-semibold'>
-              Meet the Core Team
+          <div className="col-span-12 mb-8 lg:mb-12" data-aos="fade-up">
+            <h1 className='font-poppins text-[clamp(24px,4vw,35px)] text-center mb-3 lg:mb-5 font-bold text-[#0F2446]'>
+              Our Latest Blogs
             </h1>
+            <p className='text-center text-gray-600 max-w-2xl mx-auto'>
+              Stay updated with the latest news, guides, and stories from our experts.
+            </p>
           </div>
-          <div className="col-span-12" data-aos="fade-up" data-aos-delay="400">
-            <Slider {...settings} className='pt-3'>
-              {teamData.map((member) => (
-                <div key={member.id} className="px-3 mb-3">
-                  <div className="team-card bg-[#FEFEFE] p-[20px_15px] text-center shadow-[0px_1px_4px_rgba(0,0,0,0.16)] transition-all duration-300 ease-in-out hover:shadow-[0px_4px_12px_rgba(0,0,0,0.2)] hover:-translate-y-1 h-full">
-                    <img 
-                      src={member.image} 
-                      loading="lazy" 
-                      alt={member.name} 
-                      className='w-[124px] aspect-square rounded-full object-cover mb-5 border-4 border-white shadow-[0_4px_10px_rgba(0,0,0,0.1)] mx-auto'
-                    />
-                    <div className="text-[clamp(14px,1.2vw,16px)] font-bold mb-2 text-[#0F2446]">
-                      {member.name}
+
+          <div className="col-span-12">
+            {loading ? (
+              <div className="flex justify-center items-center py-20">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#FF5C1A]"></div>
+              </div>
+            ) : error ? (
+              <div className="text-center py-20 text-red-500">
+                <p>Error: {error}</p>
+                <button 
+                  onClick={fetchBlogs}
+                  className="mt-4 px-6 py-2 bg-[#FF5C1A] text-white rounded-full hover:bg-[#e65217] transition-colors"
+                >
+                  Try Again
+                </button>
+              </div>
+            ) : (
+              <Slider {...settings} className='pt-3 team-slider'>
+                {blogs.map((blog) => (
+                  <div key={blog.id} className="px-3 mb-6 h-full">
+                    <div className="team-card bg-white p-8 rounded-2xl text-center shadow-lg transition-all duration-500 ease-in-out hover:shadow-2xl hover:-translate-y-2 h-full flex flex-col items-center">
+                      <div className="w-24 h-24 mb-6 rounded-full overflow-hidden border-4 border-[#FF5C1A]/10 p-1">
+                        <img 
+                          src={blog.image ? `https://lms.studyjam.in/media/${blog.image}` : User} 
+                          alt={blog.title} 
+                          className="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-300"
+                        />
+                      </div>
+                      <h3 className="text-xl font-bold mb-1 text-[#0F2446] line-clamp-1">{blog.title}</h3>
+                      <div className="text-[#FF5C1A] font-semibold text-sm mb-4 tracking-wide uppercase">{blog.category__name}</div>
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+                        {stripHtml(blog.description)}
+                      </p>
+                      <div className="flex gap-3 justify-center mt-auto">
+                        <span className="text-xs text-gray-400">{blog.created_date}</span>
+                      </div>
                     </div>
-                    <div className="text-[clamp(13px,1vw,14px)] text-[#0F2446] font-medium mb-3">
-                      {member.position}
-                    </div>
-                    <p className="text-[clamp(11px,0.9vw,12px)] font-weight-[300] text-[#0F2446] leading-[1.5] mb-3">
-                      {member.description}
-                    </p>
                   </div>
-                </div>
-              ))}
-            </Slider>
+                ))}
+              </Slider>
+            )}
           </div>
         </div>
       </div>
