@@ -15,6 +15,9 @@ import ScrollToTop from './component/scroll-to-top';
 import ScrollTopButton from './component/scroll-top-button';
 import Faq from './pages/faq';
 import Packages from './pages/packages';
+import Profile from './pages/profile';
+import BookingHistory from './pages/booking-history';
+import SavedExperiences from './pages/saved-experiences';
 function App() {
   useEffect(() => {
     AOS.init({
@@ -36,6 +39,9 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/faq' element={<Faq />} />
         <Route path='/packages' element={<Packages />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/booking-history' element={<BookingHistory />} />
+        <Route path='/saved-experiences' element={<SavedExperiences />} />
       </Routes>
 
       <Footer />

@@ -8,7 +8,7 @@ import HeartIcon from '../assets/icons/like.svg'
 import Map from '../assets/icons/map-w.svg'
 import { Link } from 'react-router-dom';
 
-function HomeVendor() {
+function HomeVendor({ hideHeader = false, columns = 3, noPadding = false }) {
   const [startDate, setStartDate] = useState(null);
   const [selectedIsland, setSelectedIsland] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -119,66 +119,68 @@ function HomeVendor() {
     </div>
   );
   return (
-    <section className='rush_sec py-18'>
+    <section className={`rush_sec ${noPadding ? '' : 'py-18'}`}>
       <div className="container m-auto px-3">
         <div className="grid grid-cols-12 justify-center">
-          <div className="col-span-12 text-center mb-3 md:mb-4 lg:mb-5 max-w-2xl mx-auto w-full">
-            <h1 className='text-[24px] md:text-[30px] lg:text-[35px] text-black leading-[clamp(94%,3vw,85%)] font-medium mb-3' data-aos="fade-up" data-aos-delay="400">Go Rogue <span className='text-[#FF5C1A]'>Verified</span> Vendors</h1>
-            <div className="relative max-w-4xl mx-auto mt-6 mb-10 z-[10] group">
-              <div className="flex bg-white border border-blue-200 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-100" data-aos="fade-up" data-aos-delay="400">
-                <input type="text" placeholder="Where do you want to go?" className="flex-1 px-5 py-3 text-gray-700 placeholder-gray-400 outline-none text-base" />
-                <button className="bg-[#FF5C1A] text-white px-6 py-3 hover:bg-[#ff4500] transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                  </svg>
-                </button>
-              </div>
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-xl border border-gray-100 p-6 z-[20] hidden group-focus-within:block hover:block text-left">
-                <div className="mb-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Islands</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {['Agatti Island', 'Kavaratti Island', 'Minicoy', 'Androth', 'Kalpeni', 'Thinnakara Island', 'Amini Island', 'Chetlat Island', 'Minicoy Island', 'Kalpeni Island', 'Amitti Island', 'Suheli Par'].map((island, index) => (
-                      <button key={index} onClick={() => setSelectedIsland(island)} className={`px-5 py-3 min-w-[130px] mb-2 rounded-full text-sm font-medium transition-colors border ${selectedIsland === island ? 'border-[#FF5C1A] text-[#FF5C1A] bg-[#FFF5F2]' : 'bg-gray-100 border-transparent text-gray-700 hover:bg-gray-200'}`}>{island}</button>
-                    ))}
-                  </div>
+          {!hideHeader && (
+            <div className="col-span-12 text-center mb-3 md:mb-4 lg:mb-5 max-w-2xl mx-auto w-full">
+              <h1 className='text-[24px] md:text-[30px] lg:text-[35px] text-black leading-[clamp(94%,3vw,85%)] font-medium mb-3' data-aos="fade-up" data-aos-delay="400">Go Rogue <span className='text-[#FF5C1A]'>Verified</span> Vendors</h1>
+              <div className="relative max-w-4xl mx-auto mt-6 mb-10 z-[10] group">
+                <div className="flex bg-white border border-blue-200 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-100" data-aos="fade-up" data-aos-delay="400">
+                  <input type="text" placeholder="Where do you want to go?" className="flex-1 px-5 py-3 text-gray-700 placeholder-gray-400 outline-none text-base" />
+                  <button className="bg-[#FF5C1A] text-white px-6 py-3 hover:bg-[#ff4500] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                  </button>
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Categories</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {['Watersports', 'Island Adventure', 'Rentals', 'Experiences', 'Honeymoon', 'Culture & Wellness', 'Solo Traveller', 'Family & Kids Activities'].map((category, index) => (
-                      <button key={index} onClick={() => setSelectedCategory(category)} className={`px-5 py-3 min-w-[130px] rounded-full text-sm font-medium transition-colors border ${selectedCategory === category ? 'border-[#FF5C1A] text-[#FF5C1A] bg-[#FFF5F2]' : 'bg-gray-100 border-transparent text-gray-700 hover:bg-gray-200'}`}>{category}</button>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Date</h3>
-                  <div className="bg-[#F8F8F8] p-3 rounded-lg inline-block w-full max-w-xs relative custom-datepicker-container">
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="DD/MM/YYYY" className="bg-transparent outline-none w-full text-gray-600 font-medium placeholder-gray-400 cursor-pointer" dateFormat="dd/MM/yyyy" />
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Price</h3>
-                  <div className="py-4">
-                    <div className="relative h-1 bg-gray-200 rounded">
-                      <div className="absolute top-0 bottom-0 left-0 right-[20%] bg-[#FF5C1A] rounded"></div>
-                      <div className="absolute top-1/2 -mt-2 -ml-2 left-0 w-5 h-5 bg-white border border-gray-200 rounded-full shadow cursor-pointer"></div>
-                      <div className="absolute top-1/2 -mt-2 -ml-2 right-[20%] w-5 h-5 bg-white border border-gray-200 rounded-full shadow cursor-pointer"></div>
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-xl border border-gray-100 p-6 z-[20] hidden group-focus-within:block hover:block text-left">
+                  <div className="mb-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">Islands</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {['Agatti Island', 'Kavaratti Island', 'Minicoy', 'Androth', 'Kalpeni', 'Thinnakara Island', 'Amini Island', 'Chetlat Island', 'Minicoy Island', 'Kalpeni Island', 'Amitti Island', 'Suheli Par'].map((island, index) => (
+                        <button key={index} onClick={() => setSelectedIsland(island)} className={`px-5 py-3 min-w-[130px] mb-2 rounded-full text-sm font-medium transition-colors border ${selectedIsland === island ? 'border-[#FF5C1A] text-[#FF5C1A] bg-[#FFF5F2]' : 'bg-gray-100 border-transparent text-gray-700 hover:bg-gray-200'}`}>{island}</button>
+                      ))}
                     </div>
                   </div>
-                  <div className="flex gap-4 mt-4">
-                    <div className="flex items-center bg-[#F8F8F8] rounded-md overflow-hidden p-1">
-                      <span className="bg-[#3B3B3B] text-white px-3 py-1 text-sm rounded text-[13px] font-medium leading-[26px]">Min</span>
-                      <input type="text" defaultValue="10" className="w-16 bg-transparent border-none text-center text-sm font-medium focus:outline-none" />
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">Categories</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {['Watersports', 'Island Adventure', 'Rentals', 'Experiences', 'Honeymoon', 'Culture & Wellness', 'Solo Traveller', 'Family & Kids Activities'].map((category, index) => (
+                        <button key={index} onClick={() => setSelectedCategory(category)} className={`px-5 py-3 min-w-[130px] rounded-full text-sm font-medium transition-colors border ${selectedCategory === category ? 'border-[#FF5C1A] text-[#FF5C1A] bg-[#FFF5F2]' : 'bg-gray-100 border-transparent text-gray-700 hover:bg-gray-200'}`}>{category}</button>
+                      ))}
                     </div>
-                    <div className="flex items-center bg-[#F8F8F8] rounded-md overflow-hidden p-1">
-                      <span className="bg-[#3B3B3B] text-white px-3 py-1 text-sm rounded text-[13px] font-medium leading-[26px]">Max</span>
-                      <input type="text" defaultValue="35000" className="w-16 bg-transparent border-none text-center text-sm font-medium focus:outline-none" />
+                  </div>
+                  <div className="mt-8">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">Date</h3>
+                    <div className="bg-[#F8F8F8] p-3 rounded-lg inline-block w-full max-w-xs relative custom-datepicker-container">
+                      <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="DD/MM/YYYY" className="bg-transparent outline-none w-full text-gray-600 font-medium placeholder-gray-400 cursor-pointer" dateFormat="dd/MM/yyyy" />
+                    </div>
+                  </div>
+                  <div className="mt-8">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">Price</h3>
+                    <div className="py-4">
+                      <div className="relative h-1 bg-gray-200 rounded">
+                        <div className="absolute top-0 bottom-0 left-0 right-[20%] bg-[#FF5C1A] rounded"></div>
+                        <div className="absolute top-1/2 -mt-2 -ml-2 left-0 w-5 h-5 bg-white border border-gray-200 rounded-full shadow cursor-pointer"></div>
+                        <div className="absolute top-1/2 -mt-2 -ml-2 right-[20%] w-5 h-5 bg-white border border-gray-200 rounded-full shadow cursor-pointer"></div>
+                      </div>
+                    </div>
+                    <div className="flex gap-4 mt-4">
+                      <div className="flex items-center bg-[#F8F8F8] rounded-md overflow-hidden p-1">
+                        <span className="bg-[#3B3B3B] text-white px-3 py-1 text-sm rounded text-[13px] font-medium leading-[26px]">Min</span>
+                        <input type="text" defaultValue="10" className="w-16 bg-transparent border-none text-center text-sm font-medium focus:outline-none" />
+                      </div>
+                      <div className="flex items-center bg-[#F8F8F8] rounded-md overflow-hidden p-1">
+                        <span className="bg-[#3B3B3B] text-white px-3 py-1 text-sm rounded text-[13px] font-medium leading-[26px]">Max</span>
+                        <input type="text" defaultValue="35000" className="w-16 bg-transparent border-none text-center text-sm font-medium focus:outline-none" />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="col-span-12" data-aos="fade-up" data-aos-delay="400">
             <div className="block md:hidden">
               <Slider className='slick_rush mb-3' {...settings}>
@@ -189,7 +191,7 @@ function HomeVendor() {
                 ))}
               </Slider>
             </div>
-            <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={`hidden md:grid gap-6 ${columns === 2 ? 'grid-cols-2' : 'grid-cols-2 lg:grid-cols-3'}`}>
               {vendorList.map((item, index) => (
                 <Card key={index} data={item} />
               ))}
