@@ -33,8 +33,8 @@ function HomeAdventure() {
   ];
 
   const settings = {
-    dots: true,
-    infinite: true,
+    dots: false,
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -46,24 +46,23 @@ function HomeAdventure() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          dots: true
         }
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          dots: true
         }
       }
     ]
   };
 
   return (
-    <section
-      className="bg-cover bg-center bg-no-repeat py-5 lg:py-10" 
-      style={{ backgroundImage: `url(${bg})` }}
-    >
+    <section className="bg-cover bg-center bg-no-repeat py-15 lg:py-20" style={{ backgroundImage: `url(${bg})` }}>
       <div className="container m-auto px-3">
         <div className="grid grid-cols-12">
           <div className="col-span-12 md:col-span-6 lg:col-span-8 mb-3 lg:mb-4 xl:mb-5" data-aos="fade-up" data-aos-delay="200">
@@ -73,21 +72,17 @@ function HomeAdventure() {
           </div>
           <div className="col-span-12 min-w-0" data-aos="fade-up" data-aos-delay="400">
             {mounted && (
-              <Slider {...settings}>
+              <Slider {...settings} className='advanture-slider'>
                 {adventureData.map((item) => (
-                  <div key={item.id} className="slide">
-                    <div className="advanture-card px-[25px] py-[26px] min-h-[200px] text-white bg-[#0f0f0f69] bg-blend-luminosity backdrop-blur-[12px] transition-all duration-[400ms] shadow-[0_0_16px_0_#F2F2F2_inset, 0_0_3px_0_#FFFFFF80_inset, -1px_-1px_0.5px_-1px_#FFFFFF_inset, 1px_1px_0.5px_-1px_#FFFFFF_inset, -1px_-1px_0px_-0.5px_#262626_inset, 1px_1px_0px_-0.5px_#333333_inset, 0_1px_8px_0_#0000001F, 0_0_2px_0_#0000001A] mx-3">
+                  <div key={item.id} className="slide h-full">
+                    <div className="advanture-card h-full flex flex-col px-[25px] py-[26px] min-h-[200px] text-white bg-[#0f0f0f69] bg-blend-luminosity backdrop-blur-[12px] transition-all duration-[400ms] shadow-[0_0_16px_0_#F2F2F2_inset, 0_0_3px_0_#FFFFFF80_inset, -1px_-1px_0.5px_-1px_#FFFFFF_inset, 1px_1px_0.5px_-1px_#FFFFFF_inset, -1px_-1px_0px_-0.5px_#262626_inset, 1px_1px_0px_-0.5px_#333333_inset, 0_1px_8px_0_#0000001F, 0_0_2px_0_#0000001A] mx-3 relative">
                       <div className='font-medium capitalize text-[clamp(30px,3vw,33px)] mb-3'>
                         {item.title}
                       </div>
                       <div className='text-[clamp(14px,1.5vw,17px)] mb-2'>
                         {item.description}
                       </div>
-                      <img 
-                        className="bottom-card absolute bottom-[5px] right-[5px] h-[58px] w-[58px]" 
-                        src={item.icon} 
-                        alt={item.title}
-                      />
+                      <img className="bottom-card absolute bottom-[5px] right-[5px] h-[58px] w-[58px]" src={item.icon} alt={item.title} />
                     </div>
                   </div>
                 ))}

@@ -181,7 +181,7 @@ function HomeVendor() {
           </div>
           <div className="col-span-12" data-aos="fade-up" data-aos-delay="400">
             <div className="block md:hidden">
-              <Slider className='slick_rush' {...settings}>
+              <Slider className='slick_rush mb-3' {...settings}>
                 {vendorList.map((item, index) => (
                   <div key={index}>
                     <Card data={item} />

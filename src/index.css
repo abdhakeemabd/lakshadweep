@@ -17,34 +17,53 @@
     display: flex;
     flex: 1;
 }
-.slick_rush .slide {
+.slick_rush .slide,
+.advanture-slider .slide {
     height: 100% !important;
     display: flex;
 }
 
-.rush_sec .slick_rush .slick-dots{
-    bottom: -55px;}
-.rush_sec .slick_rush .slick-dots li{
-    width:16px;
-    height: 16px;}
-.rush_sec .slick_rush .slick-dots li button:before{
+.rush_sec .slick_rush .slick-dots,
+.advanture-slider .slick-dots {
+    bottom: -55px;
+}
+.rush_sec .slick_rush .slick-dots li,
+.advanture-slider .slick-dots li {
+    width: 16px;
+    height: 16px;
+}
+.rush_sec .slick_rush .slick-dots li button:before,
+.advanture-slider .slick-dots li button:before {
     background: #E0E0E0;
     opacity: 1;
     color: transparent;
     transition: all 0.4s;
     border-radius: 50%;
     width: 10px;
-    height: 10px;}
+    height: 10px;
+}
 .rush_sec .slick_rush .slick-dots li.slick-active,
 .rush_sec .slick_rush .slick-dots li.custom-active,
-.rush_sec .slick_rush .slick-dots  li.slick-active button,
-.rush_sec .slick_rush .slick-dots  li.custom-active button{
-    width: 35px;}
-.rush_sec .slick_rush .slick-dots li.slick-active button:before{
+.rush_sec .slick_rush .slick-dots li.slick-active button,
+.rush_sec .slick_rush .slick-dots li.custom-active button,
+.advanture-slider .slick-dots li.slick-active,
+.advanture-slider .slick-dots li.slick-active button {
+    width: 35px;
+}
+.rush_sec .slick_rush .slick-dots li.slick-active button:before,
+.advanture-slider .slick-dots li.slick-active button:before {
     background-color: #FF5C1A;
     width: 100%;
     transition: all 0.4s;
-    border-radius: 5px;}
+    border-radius: 5px;
+}
+
+/* Hide adventure dots on desktop */
+@media (min-width: 1025px) {
+    .advanture-slider .slick-dots {
+        display: none !important;
+    }
+}
 
 /* Price Slider Styles */
 .price-slider {
