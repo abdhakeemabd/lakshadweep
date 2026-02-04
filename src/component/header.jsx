@@ -21,7 +21,7 @@ function Header() {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <Link to="/" className="flex items-center">
-                <img src={Logo} alt="Logo" className="w-auto object-contain hover:scale-105 transition-transform duration-300 sm:h-7 md:h-8 lg:h-10"/>
+                <img src={Logo} alt="Logo" className="w-auto object-contain hover:scale-105 transition-transform duration-300 sm:h-7 md:h-8 lg:h-10" />
               </Link>
             </div>
             <nav className="hidden lg:flex items-center gap-6">
@@ -38,7 +38,7 @@ function Header() {
               <button aria-label="Notifications" className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center">
                 <img src={NotificationIcon} alt="notification" className="h-auto w-auto" />
               </button>
-              <button  command="show-modal" commandfor="dialog" className="min-w-[96px] h-[36px] text-[14px] leading-[11px] font-medium text-white bg-gradient-to-br from-[#20212B] to-[#16171F] rounded-[8px] hover:shadow-lg transition-shadow duration-300 cursor-pointer">Join now</button>
+              <button command="show-modal" commandfor="dialog" className="min-w-[96px] h-[36px] text-[14px] leading-[11px] font-medium text-white bg-gradient-to-br from-[#20212B] to-[#16171F] rounded-[8px] hover:shadow-lg transition-shadow duration-300 cursor-pointer">Join now</button>
             </div>
             <div className="flex lg:hidden items-center gap-3">
               <button command="show-modal" commandfor="dialog" className="min-w-[80px] h-[32px] text-[12px] font-medium text-white bg-gradient-to-br from-[#20212B] to-[#16171F] rounded-[8px] cursor-pointer">Join now</button>
@@ -61,25 +61,25 @@ function Header() {
           <nav className="flex flex-col gap-2 py-4 flex-1 overflow-y-auto">
             <div className="pt-3">
               <div className="flex flex-col gap-3">
-                <button command="show-modal" commandfor="dialog" className="px-3 py-2 h-[41px] text-[14px] font-medium text-white bg-gradient-to-br from-[#20212B] to-[#16171F] rounded-[8px] mx-6 cursor-pointer">Sign In</button>
-                <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300  border-b border-[#E3E3E3]">
-                  <img src={Home} alt="cart" className="h-auto w-auto" />
+                <button onClick={() => setIsMobileMenuOpen(false)} command="show-modal" commandfor="dialog" className="px-3 py-2 h-[41px] text-[14px] font-medium text-white bg-gradient-to-br from-[#20212B] to-[#16171F] rounded-[8px] mx-6 cursor-pointer">Sign In</button>
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <img src={Home} alt="home" className="h-auto w-auto" />
                   <span className="text-gray-800 font-medium">Home</span>
-                </button>
-                <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
-                  <img src={CartIcon} alt="heart" className="h-auto w-auto" />
+                </Link>
+                <Link to="/packages" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <img src={CartIcon} alt="cart" className="h-auto w-auto" />
                   <span className="text-gray-800 font-medium">Cart</span>
-                </button>
-                <button className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
-                  <img src={HeartIcon} alt="notification" className="h-a w-auto" />
+                </Link>
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 py-3 px-6 hover:bg-gray-50 transition-all duration-300 border-b border-[#E3E3E3]">
+                  <img src={HeartIcon} alt="wishlist" className="h-a w-auto" />
                   <span className="text-gray-800 font-medium">Whishlist</span>
-                </button>
+                </Link>
               </div>
             </div>
           </nav>
         </div>
       </div>
-      <LoginModal/>
+      <LoginModal />
     </>
   )
 }

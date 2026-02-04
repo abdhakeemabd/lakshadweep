@@ -26,7 +26,7 @@ function PackageGallery() {
               </span>
             </nav>
           </div>
-          <div className="col-span-12 lg:col-span-6">
+          <div className="col-span-12 lg:col-span-6" data-aos="fade-up" data-aos-delay="400">
             <div className="img-card aspect-[658/504] w-full overflow-hidden">
               <a href={Packages} data-fancybox="gallery">
                 <img src={Packages} alt="Packages" className="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105" />
@@ -35,7 +35,7 @@ function PackageGallery() {
           </div>
           <div className="col-span-12 lg:col-span-6" data-aos="fade-up" data-aos-delay="400">
             <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-12 lg:col-span-6">
+              <div className="col-span-12 md:col-span-6">
                 <div className="img-card aspect-[658/504] w-full overflow-hidden">
                   <a href={Packages} data-fancybox="gallery">
                     <img src={Packages} alt="Packages" className="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105" />

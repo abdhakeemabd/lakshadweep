@@ -15,13 +15,13 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-center text-center">
           <div className="md:order-2 order-1 mb-3 md:mb-0 md:w-2/3">
             <ul className="flex flex-wrap justify-center gap-4 text-sm md:text-base">
-              <li><Link to="/gallery" aria-label="Gallery" className="hover:underline">Gallery</Link></li>
-              <li><Link to="/about" aria-label="About Us" className="hover:underline">About Us</Link></li>
-              <li><Link to="/faq" aria-label="FAQ" className="hover:underline">FAQ</Link></li>
-              <li><Link to="/terms-of-services" aria-label="Terms of Service" className="hover:underline">Terms of Service</Link></li>
-              <li><Link to="/contact" aria-label="Contact Us" className="hover:underline">Contact Us</Link></li>
-              <li><Link to="/refund-policy" aria-label="Refund Policy" className="hover:underline">Refund Policy</Link></li>
-              <li><Link to="/privacy-policy" aria-label="Privacy Policy" className="hover:underline">Privacy Policy</Link></li>
+              <li><Link to="/gallery" aria-label="Gallery">Gallery</Link></li>
+              <li><Link to="/about" aria-label="About Us">About Us</Link></li>
+              <li><Link to="/faq" aria-label="FAQ">FAQ</Link></li>
+              <li><Link to="/terms-of-services" aria-label="Terms of Service">Terms of Service</Link></li>
+              <li><Link to="/contact" aria-label="Contact Us">Contact Us</Link></li>
+              <li><Link to="/refund-policy" aria-label="Refund Policy">Refund Policy</Link></li>
+              <li><Link to="/privacy-policy" aria-label="Privacy Policy">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>

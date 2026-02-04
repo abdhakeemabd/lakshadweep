@@ -6,14 +6,21 @@
 }   
 
 /* Slick Equal Height */
-.slick .slick-track {
-    display: flex;}
-.slick .slick-slide {
+.slick-track {
+    display: flex !important;
+}
+.slick-slide {
+    display: flex !important;
+    height: auto !important;
+}
+.slick-slide > div {
     display: flex;
-    height: auto;}
-.slick .item {
-    height: 100%;
-    width: 100%;}
+    flex: 1;
+}
+.slick_rush .slide {
+    height: 100% !important;
+    display: flex;
+}
 
 .rush_sec .slick_rush .slick-dots{
     bottom: -55px;}
