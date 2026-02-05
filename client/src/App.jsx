@@ -18,6 +18,7 @@ import Packages from './pages/packages';
 import Profile from './pages/profile';
 import BookingHistory from './pages/booking-history';
 import SavedExperiences from './pages/saved-experiences';
+import VendorList from './admin-panel/pages/vendor-list';
 function App() {
   useEffect(() => {
     AOS.init({
@@ -42,6 +43,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
+        <Route path='/admin/vendors-list' element={<VendorList />} />
       </Routes>
 
       <Footer />
