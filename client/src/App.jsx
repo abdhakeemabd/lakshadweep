@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Footer from './component/footer';
 import Gallery from './pages/gallery';
 import About from './pages/about';
@@ -19,7 +19,11 @@ import Profile from './pages/profile';
 import BookingHistory from './pages/booking-history';
 import SavedExperiences from './pages/saved-experiences';
 import VendorList from './admin-panel/pages/vendor-list';
+import VendorView from './admin-panel/pages/vendor-view';
 function App() {
+  const location = useLocation();
+  const isAdminPath = location.pathname.startsWith('/admin');
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -32,7 +36,7 @@ function App() {
     <>
       <ScrollToTop />
       <ScrollTopButton />
-      <Header />
+      {!isAdminPath && <Header />}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/gallery' element={<Gallery />} />
@@ -44,9 +48,11 @@ function App() {
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
         <Route path='/admin/vendors-list' element={<VendorList />} />
+        <Route path='/admin/vendors-view' element={<VendorView />} />
+
       </Routes>
 
-      <Footer />
+      {!isAdminPath && <Footer />}
     </>
   )
 }

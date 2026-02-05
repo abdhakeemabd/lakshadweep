@@ -57,12 +57,12 @@ function VendorList() {
 
   return (
     <section>
-      <div className="container-fluid mx-auto px-3">
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 lg:col-span-3">
+      <div className="container-fluid mx-auto pr-3">
+        <div className="flex gap-2">
+          <div className="w-[262px]">
             <Slidebar />
           </div>
-          <div className="col-span-12 lg:col-span-9 lg:mt-3">
+          <div className=" w-full pt-3">
             <Header />
             <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
               <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
@@ -112,7 +112,7 @@ function VendorList() {
                                     <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px] h-[20px]'>
                                       <span className='text-[12px] text-white flex items-center justify-center h-full'>Min</span>
                                     </div>
-                                    <input type="text" className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />
+                                    <input type="text" className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />
                                   </div>
                                 </div>
                                 <div className="items">
@@ -121,13 +121,13 @@ function VendorList() {
                                     <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px] h-[20px]'>
                                       <span className='text-[12px] text-white flex items-center justify-center h-full'>Max</span>
                                     </div>
-                                    <input type="text" className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />
+                                    <input type="text" className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />
                                   </div>
                                 </div>
                               </div>
                               <div className="flex gap-3">
-                                <button className='bg-[#EDEDED] font-[12px] w-[117px] h-[38px] px-5 py-2 rounded-[8px] text-[#131313] font-semibold'>Reset</button>
-                                <button className='bg-[#007BFF] font-[12px] w-[117px] h-[38px] px-5 py-2 rounded-[8px] text-[#FFFFFF] font-semibold'>Apply</button>
+                                <button type='button' className='bg-[#EDEDED] font-[12px] w-[117px] h-[38px] px-5 cursor-pointer py-2 rounded-[8px] text-[#131313] font-semibold'>Reset</button>
+                                <button type='button' className='bg-[#007BFF] font-[12px] w-[117px] h-[38px] px-5 cursor-pointer py-2 rounded-[8px] text-[#FFFFFF] font-semibold'>Apply</button>
                               </div>
                             </div>
                           </div>
