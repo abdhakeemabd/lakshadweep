@@ -1,6 +1,7 @@
 {
   "name": "go-rogue",
   "private": true,
+  "proxy": "https://lms.studyjam.in/api/common/blogs/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
