@@ -1,0 +1,199 @@
+import React, { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import Slidebar from '../component/slidebar'
+import Header from '../component/header'
+
+function AddVendor() {
+  const fileRef = useRef(null);
+  const [preview, setPreview] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) setPreview(URL.createObjectURL(file));
+  };
+
+  const removeImage = () => {
+    setPreview(null);
+    if (fileRef.current) fileRef.current.value = "";
+  };
+
+  const [phone, setPhone] = useState('')
+  const [dialCode, setDialCode] = useState('91')
+  return (
+    <>
+      <style>{`
+        .react-tel-input .country-list .search-emoji { display: none; }
+        .react-tel-input .country-list .search-box { width: 100% !important; margin: 0 !important; padding: 8px 12px !important; }
+      `}</style>
+      <div className="container-fluid mx-auto pr-3">
+        <div className="flex gap-2">
+          <div className="w-[262px]">
+            <Slidebar />
+          </div>
+          <div className=" w-full pt-3">
+            <Header />
+            <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+              <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3">
+                <div className="flex items-center gap-3">
+                  <Link to="/admin/vendors-list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                  </Link>
+                  <div className="font-semibold text-[24px] leading-none tracking-normal text-[#2A2A2A]">Add Vendor</div>
+                </div>
+                <div className='flex gap-4'>
+                  <button className="bg-[#007BFF] rounded-[8px] py-[7px] px-[30px] gap-[5px] text-white text-[12px] font-semibold">Save</button>
+                </div>
+              </div>
+              <div className="card-body p-4">
+                <form action="">
+                  <div className="grid grid-cols-12 gap-5 lg:gap-x-6 lg:gap-y-5">
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_name" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Name <span className='text-red-700 font-semibold'>*</span></label>
+                      <input type="text" id="vendor_name" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Name' />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_latitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Latitude</label>
+                      <input type="email" id="vendor_latitude" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Latitude' />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_longitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Longitude</label>
+                      <input type="email" id="vendor_longitude" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Longitude' />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_phone" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Phone <span className='text-red-700 font-semibold'>*</span></label>
+                      <div className="relative">
+                        <PhoneInput
+                          country={'in'}
+                          value={phone}
+                          onChange={(val, country) => {
+                            const dial = country.dialCode;
+                            let strippedVal = val;
+                            if (val.startsWith(dial)) {
+                              strippedVal = val.slice(dial.length);
+                            }
+                            setPhone(strippedVal);
+                            setDialCode(dial);
+                          }}
+                          enableSearch={true}
+                          searchPlaceholder="Search country..."
+                          placeholder="Enter Vendor Phone"
+                          disableCountryCode={true}
+                          disableCountryGuess={true}
+                          inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }}
+                          containerClass="!w-full"
+                          inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all"
+                          buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200"
+                          dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-200"
+                          searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200"
+                        />
+                        <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
+                          <span className="text-gray-900 font-medium text-[14px]">+{dialCode}</span>
+                          <div className="w-[1px] h-5 bg-gray-300 mx-3"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_address_line_1" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 1</label>
+                      <input type="text" id="vendor_address_line_1" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Address Line 1' />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_address_line_2" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 2</label>
+                      <input type="text" id="vendor_address_line_2" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Address Line 2' />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_email" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Email <span className='text-red-700 font-semibold'>*</span></label>
+                      <input type="email" id="vendor_email" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Email' />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_state" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor State <span className='text-red-700 font-semibold'>*</span></label>
+                      <input type="text" id="vendor_state" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor State' />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+                      <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Pin code <span className='text-red-700 font-semibold'>*</span></label>
+                      <input type="number" id="vendor_pin_code" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Pin code' />
+                    </div>
+                    <div className="col-span-12 lg:col-span-3">
+                      <div className="xl:flex gap-6">
+                        <div className="mb-4 xl:mb-0">
+                          <label className="relative w-[160px] h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-[#E5E5E5] rounded-[16px] cursor-pointer hover:border-[#FF5C1A] transition bg-[#fafafa] overflow-hidden">
+                            <input
+                              ref={fileRef}
+                              type="file"
+                              accept="image/*"
+                              hidden
+                              onChange={handleImageChange}
+                            />
+
+                            {!preview && (
+                              <>
+                                <img src="/icons/cam.svg" alt="" className="w-8 h-8 mb-2 opacity-70" />
+                                <span className="text-[13px] text-[#777] font-medium">
+                                  Upload Profile
+                                </span>
+                              </>
+                            )}
+
+                            {preview && (
+                              <>
+                                <img
+                                  src={preview}
+                                  alt="Preview"
+                                  className="w-full h-full object-cover rounded-[16px]"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={removeImage}
+                                  className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:bg-red-50 transition"
+                                >
+                                  <img src="/icons/deletegallery.svg" alt="" className="w-4 h-4" />
+                                </button>
+                              </>
+                            )}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-span-8">
+                      <div className="flex-1 space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
+                          <div>
+                            <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
+                              Island Location <span className="text-red-700 font-semibold">*</span>
+                            </label>
+                            <select className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none">
+                              <option value="">Select Option</option>
+                              <option>Kavaratti</option>
+                              <option>Agatti</option>
+                              <option>Minicoy</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
+                              Activity <span className="text-red-700 font-semibold">*</span>
+                            </label>
+                            <select disabled className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none disabled:opacity-60">
+                              <option value="">Select Option</option>
+                            </select>
+                          </div>
+                          <button type="button" className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition">+ Add</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-span-12 lg:col-span-8">
+                      <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Description</label>
+                      <textarea id="vendor_pin_code" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141] min-h-[100px]" placeholder='Enter Description' ></textarea>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default AddVendor

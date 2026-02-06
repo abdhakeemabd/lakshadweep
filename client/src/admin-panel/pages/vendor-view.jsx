@@ -123,11 +123,7 @@ function VendorView() {
                     <div className="flex items-center gap-3">
                       {activeTab === "profile" ? (
                         <div className="relative">
-                          <select 
-                            value={statusFilter}
-                            onChange={(e) => setStatusFilter(e.target.value)}
-                            className="appearance-none bg-[#E9F5FF] text-[#0085FF] font-semibold text-[13px] px-4 py-2.5 rounded-[12px] pr-8 cursor-pointer focus:outline-none transition-all hover:bg-[#D4EAFF]"
-                          >
+                          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="appearance-none bg-[#E9F5FF] text-[#0085FF] font-semibold text-[13px] px-4 py-2.5 rounded-[12px] pr-8 cursor-pointer focus:outline-none transition-all hover:bg-[#D4EAFF]">
                             <option value="all">All Status</option>
                             <option value="active">Active</option>
                             <option value="cancelled">Cancelled</option>
@@ -143,7 +139,6 @@ function VendorView() {
                       )}
                     </div>
                   </div>
-
                   {activeTab === "home" ? (
                     <div>
                       {filteredBookings.length > 0 ? (
@@ -166,8 +161,7 @@ function VendorView() {
                                 </div>
                               </div>
                             </div>
-
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-5">
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
                               <div>
                                 <div className="text-[14px] text-[#8c8c8c] mb-1">Date</div>
                                 <div className="font-bold text-[16px] text-[#2A2A2A]">{item.date}</div>
@@ -190,12 +184,7 @@ function VendorView() {
                       ) : (
                         <div className="p-20 text-center">
                           <div className="text-[#8c8c8c] font-medium mb-2">No bookings found for this search.</div>
-                          <button
-                            onClick={() => setCurrentRange([null, null])}
-                            className="text-[#FF5C1A] text-[14px] font-bold hover:underline"
-                          >
-                            Show all bookings
-                          </button>
+                          <button onClick={() => setCurrentRange([null, null])} className="text-[#FF5C1A] text-[14px] font-bold hover:underline">Show all bookings</button>
                         </div>
                       )}
                     </div>
@@ -221,8 +210,7 @@ function VendorView() {
                                   </div>
                                 </div>
                               </div>
-
-                              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-5">
+                              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
                                 <div>
                                   <div className="text-[14px] text-[#8c8c8c] mb-1">Date</div>
                                   <div className="font-bold text-[16px] text-[#2A2A2A]">{item.date}</div>
@@ -245,15 +233,10 @@ function VendorView() {
                       ) : (
                         <div className="p-20 text-center">
                           <div className="text-[#8c8c8c] font-medium mb-2">No packages found for this status.</div>
-                          <button
-                            onClick={() => {
+                          <button onClick={() => {
                               setStatusFilter("all");
                               setCurrentRange([null, null]);
-                            }}
-                            className="text-[#FF5C1A] text-[14px] font-bold hover:underline"
-                          >
-                            Reset all filters
-                          </button>
+                            }} className="text-[#FF5C1A] text-[14px] font-bold hover:underline">Reset all filters</button>
                         </div>
                       )}
                     </div>
@@ -267,5 +250,4 @@ function VendorView() {
     </>
   )
 }
-
 export default VendorView

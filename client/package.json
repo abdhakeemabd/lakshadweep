@@ -1,7 +1,7 @@
 {
   "name": "go-rogue",
   "private": true,
-  "proxy": "https://lms.studyjam.in/api/common/blogs/",
+  "proxy": "https://subdorsal-pretracheal-natashia.ngrok-free.dev",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

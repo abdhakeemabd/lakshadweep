@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FiMoreVertical } from 'react-icons/fi'
 import Slidebar from '../component/slidebar'
 import Header from '../component/header'
 import filter from '../../assets/admin-panel-icon/icons/filter-icon.svg'
@@ -135,7 +137,7 @@ function VendorList() {
                       </div>
                     )}
                   </div>
-                  <button className="bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] gap-[5px] text-white text-[12px] font-semibold">+ Add Vendor</button>
+                  <Link to="/admin/add-vendor" className="bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] gap-[5px] text-white text-[12px] font-semibold">+ Add Vendor</Link>
                 </div>
               </div>
               <div className="card-sub-header py-6 flex align-center justify-end">
@@ -194,34 +196,17 @@ function VendorList() {
                             </td>
                             <td className='py-3'>
                               <div className="relative inline-block text-left dropdown-container">
-                                <button onClick={() => toggleDropdown(index)} className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors">
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <circle cx="12" cy="5" r="2" fill="#C5C5C5" />
-                                    <circle cx="12" cy="12" r="2" fill="#C5C5C5" />
-                                    <circle cx="12" cy="19" r="2" fill="#C5C5C5" />
-                                  </svg>
+                                <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none ${openIndex === index ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
+                                  <FiMoreVertical size={20} />
                                 </button>
                                 {openIndex === index && (
-                                  <ul className="absolute right-0 mt-2 min-w-[130px] border-0 rounded-[10px] shadow-[3px_4px_13px_0px_#0000001A] overflow-hidden z-[100] bg-white">
-                                    <li className="border-b border-[#E2E2E2] last:border-b-0">
-                                      <button className="w-full flex gap-3 items-center px-4 py-[8px] text-[#8c8c8c] hover:text-[#3d3d3d] font-medium bg-transparent cursor-pointer text-[11px]">
-                                        View
-                                      </button>
-                                    </li>
-                                    <li className="border-b border-[#E2E2E2] last:border-b-0">
-                                      <button className="w-full flex gap-3 items-center px-4 py-[8px] text-[#8c8c8c] hover:text-[#3d3d3d] font-medium bg-transparent cursor-pointer text-[11px]">
-                                        Edit
-                                      </button>
-                                    </li>
-                                    <li className="border-b border-[#E2E2E2] last:border-b-0">
-                                      <button className="w-full flex gap-3 items-center px-4 py-[8px] text-[#8c8c8c] hover:text-[#3d3d3d] font-medium bg-transparent cursor-pointer text-[11px]">
-                                        Deactivate
-                                      </button>
-                                    </li>
-                                    <li className="border-b border-[#E2E2E2] last:border-b-0">
-                                      <button className="w-full flex gap-3 items-center px-4 py-[8px] text-[#dc3545] hover:text-[#dc3545] font-medium bg-transparent cursor-pointer text-[11px]">Delete</button>
-                                    </li>
-                                  </ul>
+                                  <div className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-gray-100 rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-[100] overflow-hidden py-1">
+                                    <Link to={`/admin/vendors-view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
+                                    <Link to={`/admin/vendors-edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
+                                    <div className="mx-2 my-1 border-t border-gray-100" />
+                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
+                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Delete</button>
+                                  </div>
                                 )}
                               </div>
                             </td>

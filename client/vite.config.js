@@ -11,6 +11,22 @@ export default defineConfig({
         target: 'http://localhost:3000',
         changeOrigin: true,
       },
+      '/vendor-api': {
+        target: 'https://subdorsal-pretracheal-natashia.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/vendor-api/, ''),
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/homepage-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/homepage-api/, ''),
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
     },
   },
 })

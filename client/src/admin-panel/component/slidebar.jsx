@@ -36,7 +36,7 @@ function Slidebar() {
                     <img src={Dashboard} alt="Dashboard" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={DashboardActive} alt="Dashboard Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Dashboard</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Dashboard</span>
                 </>
               )}
             </NavLink>
@@ -49,7 +49,7 @@ function Slidebar() {
                     <img src={Vendors} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={VendorsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Vendors</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Vendors</span>
                 </>
               )}
             </NavLink>
@@ -62,7 +62,7 @@ function Slidebar() {
                     <img src={Packages} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={PackagesActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Packages</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Packages</span>
                 </>
               )}
             </NavLink>
@@ -75,7 +75,7 @@ function Slidebar() {
                     <img src={Slots} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={SlotsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Slots</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Slots</span>
                 </>
               )}
             </NavLink>
@@ -88,7 +88,7 @@ function Slidebar() {
                     <img src={Bookings} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={BookingsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Bookings</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Bookings</span>
                 </>
               )}
             </NavLink>
@@ -101,7 +101,7 @@ function Slidebar() {
                     <img src={Customers} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={CustomersActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Customers</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Customers</span>
                 </>
               )}
             </NavLink>
@@ -114,7 +114,7 @@ function Slidebar() {
                     <img src={Notifications} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={NotificationsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Notifications</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Notifications</span>
                 </>
               )}
             </NavLink>
@@ -127,7 +127,7 @@ function Slidebar() {
                     <img src={Settings} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={SettingsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Settings</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Settings</span>
                 </>
               )}
             </NavLink>
@@ -140,7 +140,7 @@ function Slidebar() {
                     <img src={Payments} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={PaymentsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-white ${isActive ? "font-semibold" : ""}`}>Payments</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Payments</span>
                 </>
               )}
             </NavLink>

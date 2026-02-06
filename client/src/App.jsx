@@ -20,6 +20,8 @@ import BookingHistory from './pages/booking-history';
 import SavedExperiences from './pages/saved-experiences';
 import VendorList from './admin-panel/pages/vendor-list';
 import VendorView from './admin-panel/pages/vendor-view';
+import VendorEdit from './admin-panel/pages/vendor-edit';
+import AddVendor from './admin-panel/pages/add-vendor';
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -49,6 +51,8 @@ function App() {
         <Route path='/saved-experiences' element={<SavedExperiences />} />
         <Route path='/admin/vendors-list' element={<VendorList />} />
         <Route path='/admin/vendors-view' element={<VendorView />} />
+        <Route path='/admin/vendors-edit' element={<VendorEdit />} />
+        <Route path='/admin/add-vendor' element={<AddVendor />} />
 
       </Routes>
 
