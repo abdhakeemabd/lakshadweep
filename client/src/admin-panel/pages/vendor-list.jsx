@@ -9,29 +9,33 @@ import Export from "../../assets/admin-panel-icon/icons/excel.svg";
 import Print from "../../assets/admin-panel-icon/icons/print.svg";
 function VendorList() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [vendors, setVendors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const vendors = [
-    {
-      id: 1,
-      name: "Vendor Name Now",
-      code: "#VND0056",
-      phone: "+91 9999999999",
-      email: "subha12@gmail.com",
-      location: "Kavaratti",
-      category: "Watersports",
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Blue Ocean Adventures",
-      code: "#VND0057",
-      phone: "+91 8888888888",
-      email: "blueocean@gmail.com",
-      location: "Agatti",
-      category: "Boating",
-      status: "Inactive",
-    }
-  ];
+  useEffect(() => {
+    const fetchVendors = async () => {
+      try {
+        setLoading(true);
+        const API_BASE_URL = '/vendor-api';           // ← Use the proxy to avoid CORS errors
+        const response = await fetch(`${API_BASE_URL}/vendor/vendors/`, {
+          headers: {
+            'Authorization': `Token CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP`,
+            'ngrok-skip-browser-warning': 'true',
+          }
+        });
+        if (!response.ok) throw new Error(`Error ${response.status}`);
+        const data = await response.json();
+        setVendors(Array.isArray(data) ? data : data.results || []);
+      } catch (err) {
+        console.error('Fetch error:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVendors();
+  }, []);
 
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -175,43 +179,51 @@ function VendorList() {
                         </tr>
                       </thead>
                       <tbody>
-                        {vendors.map((vendor, index) => (
-                          <tr key={vendor.id} className='border-b border-[#e3e3e3] last:border-b-0'>
-                            <td className='text-[#383838] text-[12px] leading-[100%] py-3 ps-3'>{index + 1}</td>
-                            <td className='text-[#383838] text-[12px] leading-[100%] py-3'>
-                              <div className='text-[#313131] font-medium text-[11px] mb-1'>{vendor.name}</div>
-                              <div className='text-[#751CC2] font-medium text-[8px]'>{vendor.code}</div>
-                            </td>
-                            <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.phone}</td>
-                            <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.email}</td>
-                            <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.location}</td>
-                            <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.category}</td>
-                            <td className='text-[#383838] text-[12px] leading-[100%] py-3'>
-                              <div className={`badge px-1 justify-center flex items-center w-[50px] h-[20px] rounded-full text-[9px] font-medium 
-                                ${vendor.status === "Active"
-                                  ? "text-[#1C9762] bg-[#B5FFDF] border border-[#1C9762]"
-                                  : "text-[#dc3545] bg-[#ffd6d6] border border-[#dc3545]"}`}>
-                                {vendor.status}
-                              </div>
-                            </td>
-                            <td className='py-3'>
-                              <div className="relative inline-block text-left dropdown-container">
-                                <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none ${openIndex === index ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
-                                  <FiMoreVertical size={20} />
-                                </button>
-                                {openIndex === index && (
-                                  <div className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-gray-100 rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-[100] overflow-hidden py-1">
-                                    <Link to={`/admin/vendors-view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
-                                    <Link to={`/admin/vendors-edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
-                                    <div className="mx-2 my-1 border-t border-gray-100" />
-                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
-                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Delete</button>
-                                  </div>
-                                )}
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
+                        {loading ? (
+                          <tr><td colSpan="8" className="text-center py-10">Loading...</td></tr>
+                        ) : error ? (
+                          <tr><td colSpan="8" className="text-center py-10 text-red-500">Error: {error}</td></tr>
+                        ) : vendors.length === 0 ? (
+                          <tr><td colSpan="8" className="text-center py-10">No vendors found on server.</td></tr>
+                        ) : (
+                          vendors.map((vendor, index) => (
+                            <tr key={vendor.id || index} className='border-b border-[#e3e3e3] last:border-b-0'>
+                              <td className='text-[#383838] text-[12px] leading-[100%] py-3 ps-3'>{index + 1}</td>
+                              <td className='text-[#383838] text-[12px] leading-[100%] py-3'>
+                                <div className='text-[#313131] font-medium text-[11px] mb-1'>{vendor.vendor_name || vendor.name}</div>
+                                <div className='text-[#751CC2] font-medium text-[8px]'>{vendor.code || `#${vendor.id}`}</div>
+                              </td>
+                              <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.mobile_no || vendor.phone}</td>
+                              <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.email}</td>
+                              <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.island_location || vendor.location}</td>
+                              <td className='text-[#383838] text-[12px] leading-[100%] py-3'>{vendor.activity || vendor.category}</td>
+                              <td className='text-[#383838] text-[12px] leading-[100%] py-3'>
+                                <div className={`badge px-1 justify-center flex items-center w-[50px] h-[20px] rounded-full text-[9px] font-medium 
+                                  ${vendor.status === "Active" || !vendor.status
+                                    ? "text-[#1C9762] bg-[#B5FFDF] border border-[#1C9762]"
+                                    : "text-[#dc3545] bg-[#ffd6d6] border border-[#dc3545]"}`}>
+                                  {vendor.status || "Active"}
+                                </div>
+                              </td>
+                              <td className='py-3'>
+                                <div className="relative inline-block text-left dropdown-container">
+                                  <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none ${openIndex === index ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
+                                    <FiMoreVertical size={20} />
+                                  </button>
+                                  {openIndex === index && (
+                                    <div className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-gray-100 rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-[100] overflow-hidden py-1">
+                                      <Link to={`/admin/vendors-view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
+                                      <Link to={`/admin/vendors-edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
+                                      <div className="mx-2 my-1 border-t border-gray-100" />
+                                      <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
+                                      <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Delete</button>
+                                    </div>
+                                  )}
+                                </div>
+                              </td>
+                            </tr>
+                          ))
+                        )}
                       </tbody>
                     </table>
                   </div>
