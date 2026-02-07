@@ -32,12 +32,103 @@ function AddVendor() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) setPreview(URL.createObjectURL(file));
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+      setImageFile(file);
+    }
   };
 
   const removeImage = () => {
     setPreview(null);
-    if (fileRef.current) fileRef.current.value = "";
+    setImageFile(null);
+    if (fileRef.current) fileRef.current.value = '';
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const payload = {
+      vendor_name: formData.vendor_name,
+      email: formData.email,
+      mobile_no: formData.mobile_no,
+      country_code: formData.country_code,
+      vendor_latitude: parseFloat(formData.vendor_latitude) || 0,
+      vendor_longitude: parseFloat(formData.vendor_longitude) || 0,
+      address1: formData.address1,
+      address2: formData.address2,
+      state: parseInt(formData.state) || 0,
+      pincode: parseInt(formData.pincode) || 0,
+      island_1: parseInt(formData.island_1) || 0,
+      activity_1: parseInt(formData.activity_1) || 0,
+      description: formData.description,
+    };
+
+    console.log('📤 Submitting Data:', payload);
+
+    try {
+      let response;
+      const headers = {
+        Authorization: `Token ${API_TOKEN}`,
+        'ngrok-skip-browser-warning': 'true',
+      };
+
+      const finalUrl = `${API_BASE_URL}/vendor/create-vendor/`;
+      console.log('→ Full URL:', finalUrl);
+
+      if (imageFile) {
+        // Use FormData for image upload
+        const data = new FormData();
+        Object.keys(payload).forEach((key) => data.append(key, payload[key]));
+        data.append('profile_image', imageFile);
+
+        response = await fetch(finalUrl, {
+          method: 'POST',
+          headers: headers,
+          body: data,
+        });
+      } else {
+        // Use JSON for better type preservation (integers stay integers)
+        response = await fetch(finalUrl, {
+          method: 'POST',
+          headers: {
+            ...headers,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+      }
+
+      console.log('← Status:', response.status);
+      const responseText = await response.text();
+      console.log('← Response Content:', responseText);
+
+      if (response.ok) {
+        alert('Vendor added successfully!');
+        window.location.href = '/admin/vendors-list'; 
+      } else {
+        let errorMsg = 'Unknown error';
+        try {
+          const errorData = JSON.parse(responseText);
+          console.error('❌ API Error Detail:', errorData);
+          if (typeof errorData === 'object') {
+            errorMsg = Object.entries(errorData)
+              .map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`)
+              .join('\n');
+          } else {
+            errorMsg = JSON.stringify(errorData);
+          }
+        } catch {
+          errorMsg = responseText.substring(0, 300) || `HTTP ${response.status}`;
+        }
+        alert(`Failed to add vendor:\n${errorMsg}`);
+      }
+    } catch (error) {
+      console.error('❌ Network/Fetch Error:', error);
+      alert('Network error. Check console for CORS or connection status.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const [phone, setPhone] = useState('')
@@ -96,12 +187,13 @@ function AddVendor() {
         .react-tel-input .country-list .search-emoji { display: none; }
         .react-tel-input .country-list .search-box { width: 100% !important; margin: 0 !important; padding: 8px 12px !important; }
       `}</style>
+
       <div className="container-fluid mx-auto pr-3">
         <div className="flex gap-2">
           <div className="w-[262px]">
             <Slidebar />
           </div>
-          <div className=" w-full pt-3">
+          <div className="w-full pt-3">
             <Header />
             <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
               <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3">
@@ -109,7 +201,9 @@ function AddVendor() {
                   <Link to="/admin/vendors-list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center transition-colors hover:bg-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                   </Link>
-                  <div className="font-semibold text-[24px] leading-none tracking-normal text-[#2A2A2A]">Add Vendor</div>
+                  <div className="font-semibold text-[24px] leading-none tracking-normal text-[#2A2A2A]">
+                    Add Vendor
+                  </div>
                 </div>
                 <div className='flex gap-4'>
                   <button 
@@ -121,9 +215,11 @@ function AddVendor() {
                   </button>
                 </div>
               </div>
+
               <div className="card-body p-4">
                 <form onSubmit={handleSubmit}>
                   <div className="grid grid-cols-12 gap-5 lg:gap-x-6 lg:gap-y-5">
+                    {/* Vendor Name */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_name" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Name <span className='text-red-700 font-semibold'>*</span></label>
                       <input 
@@ -136,6 +232,8 @@ function AddVendor() {
                         required
                       />
                     </div>
+
+                    {/* Latitude */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_latitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Latitude</label>
                       <input 
@@ -147,6 +245,8 @@ function AddVendor() {
                         placeholder='Enter Vendor Latitude' 
                       />
                     </div>
+
+                    {/* Longitude */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_longitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Longitude</label>
                       <input 
@@ -158,27 +258,39 @@ function AddVendor() {
                         placeholder='Enter Vendor Longitude' 
                       />
                     </div>
+
+                    {/* Phone */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
-                      <label htmlFor="vendor_phone" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Phone <span className='text-red-700 font-semibold'>*</span></label>
+                      <label
+                        htmlFor="vendor_phone"
+                        className="block mb-2 text-[14px] font-medium text-[#3d3d3d]"
+                      >
+                        Phone <span className="text-red-700 font-semibold">*</span>
+                      </label>
                       <div className="relative">
                         <PhoneInput
-                          country={'in'}
-                          value={phone}
+                          country="in"
+                          value={formData.mobile_no}
                           onChange={(val, country) => {
                             const dial = country.dialCode;
                             let strippedVal = val;
                             if (val.startsWith(dial)) {
                               strippedVal = val.slice(dial.length);
                             }
-                            setPhone(strippedVal);
-                            setDialCode(dial);
+                            // Update state manually since PhoneInput doesn't use standard event
+                            setFormData(prev => ({ ...prev, mobile_no: strippedVal, country_code: `+${dial}` }));
                           }}
-                          enableSearch={true}
+                          enableSearch
                           searchPlaceholder="Search country..."
                           placeholder="Enter Vendor Phone"
-                          disableCountryCode={true}
-                          disableCountryGuess={true}
-                          inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }}
+                          disableCountryCode
+                          disableCountryGuess
+                          inputProps={{
+                            name: 'mobile_no',
+                            required: true,
+                            autoFocus: false,
+                            id: 'vendor_phone',
+                          }}
                           containerClass="!w-full"
                           inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all"
                           buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200"
@@ -186,11 +298,13 @@ function AddVendor() {
                           searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200"
                         />
                         <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
-                          <span className="text-gray-900 font-medium text-[14px]">+{dialCode}</span>
+                          <span className="text-gray-900 font-medium text-[14px]">{formData.country_code}</span>
                           <div className="w-[1px] h-5 bg-gray-300 mx-3"></div>
                         </div>
                       </div>
                     </div>
+
+                    {/* Address Line 1 */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_address_line_1" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 1</label>
                       <input 
@@ -202,6 +316,8 @@ function AddVendor() {
                         placeholder='Enter Vendor Address Line 1' 
                       />
                     </div>
+
+                    {/* Address Line 2 */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_address_line_2" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 2</label>
                       <input 
@@ -213,6 +329,8 @@ function AddVendor() {
                         placeholder='Enter Vendor Address Line 2' 
                       />
                     </div>
+
+                    {/* Email */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_email" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Email <span className='text-red-700 font-semibold'>*</span></label>
                       <input 
@@ -225,6 +343,8 @@ function AddVendor() {
                         required
                       />
                     </div>
+
+                    {/* State */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_state" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor State <span className='text-red-700 font-semibold'>*</span></label>
                       <input 
@@ -237,6 +357,8 @@ function AddVendor() {
                         required
                       />
                     </div>
+
+                    {/* Pin Code */}
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Pin code <span className='text-red-700 font-semibold'>*</span></label>
                       <input 
@@ -249,6 +371,8 @@ function AddVendor() {
                         required
                       />
                     </div>
+
+                    {/* Profile Image Upload */}
                     <div className="col-span-12 lg:col-span-3">
                       <div className="xl:flex gap-6">
                         <div className="mb-4 xl:mb-0">
@@ -290,7 +414,9 @@ function AddVendor() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-span-8">
+
+                    {/* Island & Activity */}
+                    <div className="col-span-12 lg:col-span-8">
                       <div className="flex-1 space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
                           <div>
@@ -327,10 +453,17 @@ function AddVendor() {
                               <option value="Scuba Diving">Scuba Diving</option>
                             </select>
                           </div>
-                          <button type="button" className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition">+ Add</button>
+                          <button
+                            type="button"
+                            className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition"
+                          >
+                            + Add
+                          </button>
                         </div>
                       </div>
                     </div>
+
+                    {/* Description */}
                     <div className="col-span-12 lg:col-span-8">
                       <label htmlFor="vendor_description" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Description</label>
                       <textarea 
@@ -349,7 +482,7 @@ function AddVendor() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default AddVendor
