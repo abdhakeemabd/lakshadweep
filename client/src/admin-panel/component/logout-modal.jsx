@@ -57,21 +57,21 @@ function LogoutModal() {
                 <div>
                   <label className="block text-[14px] font-medium text-[#3d3d3d] mb-2">Enter Old Password</label>
                   <div className="relative">
-                    <input type={showOld ? 'text' : 'password'} placeholder="Enter your old password" className="w-full h-[48px] rounded-xl border border-gray-300 px-4 pr-12 text-[16px] focus:border-[#FF5C1A] focus:outline-none" required />
+                    <input type={showOld ? 'text' : 'password'} placeholder="Enter your old password" className="w-full h-[48px] rounded-xl border border-gray-300 px-4 pr-12 text-[16px] focus:border-[#FF5C1A] focus:outline-none" required autoComplete="current-password" />
                     <button type="button" onClick={() => setShowOld(!showOld)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700">{showOld ? <FiEye size={20} /> : <FiEyeOff size={20} />}</button>
                   </div>
                 </div>
                 <div>
                   <label className="block text-[14px] font-medium text-[#3d3d3d] mb-2">Enter New Password</label>
                   <div className="relative">
-                    <input type={showNew ? 'text' : 'password'} placeholder="Enter new password" className="w-full h-[48px] rounded-xl border border-gray-300 px-4 pr-12 text-[16px] focus:border-[#FF5C1A] focus:outline-none" required />
+                    <input type={showNew ? 'text' : 'password'} placeholder="Enter new password" className="w-full h-[48px] rounded-xl border border-gray-300 px-4 pr-12 text-[16px] focus:border-[#FF5C1A] focus:outline-none" required autoComplete="new-password" />
                     <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700">{showNew ? <FiEye size={20} /> : <FiEyeOff size={20} />}</button>
                   </div>
                 </div>
                 <div>
                   <label className="block text-[14px] font-medium text-[#3d3d3d] mb-2">Re-enter New Password</label>
                   <div className="relative">
-                    <input type={showConfirm ? 'text' : 'password'} placeholder="Re-enter new password" className="w-full h-[48px] rounded-xl border border-gray-300 px-4 pr-12 text-[16px] focus:border-[#FF5C1A] focus:outline-none" required />
+                    <input type={showConfirm ? 'text' : 'password'} placeholder="Re-enter new password" className="w-full h-[48px] rounded-xl border border-gray-300 px-4 pr-12 text-[16px] focus:border-[#FF5C1A] focus:outline-none" required autoComplete="new-password" />
                     <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700">{showConfirm ? <FiEye size={20} /> : <FiEyeOff size={20} />}</button>
                   </div>
                 </div>

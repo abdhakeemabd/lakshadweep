@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Slidebar from '../component/slidebar'
@@ -7,7 +7,28 @@ import Header from '../component/header'
 
 function AddVendor() {
   const fileRef = useRef(null);
+  const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    vendor_name: '',
+    vendor_latitude: '',
+    vendor_longitude: '',
+    vendor_address_line_1: '',
+    vendor_address_line_2: '',
+    vendor_email: '',
+    vendor_state: '',
+    vendor_pin_code: '',
+    island_location: '',
+    activity: '',
+    vendor_description: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -21,6 +42,54 @@ function AddVendor() {
 
   const [phone, setPhone] = useState('')
   const [dialCode, setDialCode] = useState('91')
+
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    setLoading(true);
+
+    const data = new FormData();
+    data.append('name', formData.vendor_name);
+    data.append('latitude', formData.vendor_latitude);
+    data.append('longitude', formData.vendor_longitude);
+    data.append('phone', `+${dialCode}${phone}`);
+    data.append('address_line_1', formData.vendor_address_line_1);
+    data.append('address_line_2', formData.vendor_address_line_2);
+    data.append('email', formData.vendor_email);
+    data.append('state', formData.vendor_state);
+    data.append('pin_code', formData.vendor_pin_code);
+    data.append('location', formData.island_location);
+    data.append('category', formData.activity);
+    data.append('description', formData.vendor_description);
+    
+    if (fileRef.current?.files[0]) {
+      data.append('image', fileRef.current.files[0]);
+    }
+
+    try {
+      const response = await fetch('/vendor-api/vendor/create-vendor/', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Token CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP',
+          'Accept': 'application/json',
+        },
+        body: data,
+      });
+
+      if (response.ok) {
+        alert('Vendor added successfully!');
+        navigate('/admin/vendors-list');
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        alert(`Error: ${errorData.message || 'Failed to add vendor'}`);
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('An error occurred while adding the vendor. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <style>{`
@@ -37,29 +106,57 @@ function AddVendor() {
             <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
               <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3">
                 <div className="flex items-center gap-3">
-                  <Link to="/admin/vendors-list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center">
+                  <Link to="/admin/vendors-list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center transition-colors hover:bg-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                   </Link>
                   <div className="font-semibold text-[24px] leading-none tracking-normal text-[#2A2A2A]">Add Vendor</div>
                 </div>
                 <div className='flex gap-4'>
-                  <button className="bg-[#007BFF] rounded-[8px] py-[7px] px-[30px] gap-[5px] text-white text-[12px] font-semibold">Save</button>
+                  <button 
+                    onClick={handleSubmit}
+                    disabled={loading}
+                    className="bg-[#007BFF] rounded-[8px] py-[7px] px-[30px] gap-[5px] text-white text-[12px] font-semibold hover:bg-blue-600 transition-colors disabled:opacity-50"
+                  >
+                    {loading ? 'Saving...' : 'Save'}
+                  </button>
                 </div>
               </div>
               <div className="card-body p-4">
-                <form action="">
+                <form onSubmit={handleSubmit}>
                   <div className="grid grid-cols-12 gap-5 lg:gap-x-6 lg:gap-y-5">
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_name" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Name <span className='text-red-700 font-semibold'>*</span></label>
-                      <input type="text" id="vendor_name" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Name' />
+                      <input 
+                        type="text" 
+                        id="vendor_name" 
+                        value={formData.vendor_name}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor Name' 
+                        required
+                      />
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_latitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Latitude</label>
-                      <input type="email" id="vendor_latitude" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Latitude' />
+                      <input 
+                        type="text" 
+                        id="vendor_latitude" 
+                        value={formData.vendor_latitude}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor Latitude' 
+                      />
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_longitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Longitude</label>
-                      <input type="email" id="vendor_longitude" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Longitude' />
+                      <input 
+                        type="text" 
+                        id="vendor_longitude" 
+                        value={formData.vendor_longitude}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor Longitude' 
+                      />
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_phone" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Phone <span className='text-red-700 font-semibold'>*</span></label>
@@ -96,23 +193,61 @@ function AddVendor() {
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_address_line_1" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 1</label>
-                      <input type="text" id="vendor_address_line_1" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Address Line 1' />
+                      <input 
+                        type="text" 
+                        id="vendor_address_line_1" 
+                        value={formData.vendor_address_line_1}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor Address Line 1' 
+                      />
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_address_line_2" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 2</label>
-                      <input type="text" id="vendor_address_line_2" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Address Line 2' />
+                      <input 
+                        type="text" 
+                        id="vendor_address_line_2" 
+                        value={formData.vendor_address_line_2}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor Address Line 2' 
+                      />
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_email" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Email <span className='text-red-700 font-semibold'>*</span></label>
-                      <input type="email" id="vendor_email" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Email' />
+                      <input 
+                        type="email" 
+                        id="vendor_email" 
+                        value={formData.vendor_email}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor Email' 
+                        required
+                      />
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_state" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor State <span className='text-red-700 font-semibold'>*</span></label>
-                      <input type="text" id="vendor_state" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor State' />
+                      <input 
+                        type="text" 
+                        id="vendor_state" 
+                        value={formData.vendor_state}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor State' 
+                        required
+                      />
                     </div>
                     <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                       <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Pin code <span className='text-red-700 font-semibold'>*</span></label>
-                      <input type="number" id="vendor_pin_code" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Pin code' />
+                      <input 
+                        type="number" 
+                        id="vendor_pin_code" 
+                        value={formData.vendor_pin_code}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
+                        placeholder='Enter Vendor Pin code' 
+                        required
+                      />
                     </div>
                     <div className="col-span-12 lg:col-span-3">
                       <div className="xl:flex gap-6">
@@ -162,19 +297,34 @@ function AddVendor() {
                             <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
                               Island Location <span className="text-red-700 font-semibold">*</span>
                             </label>
-                            <select className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none">
+                            <select 
+                              id="island_location"
+                              value={formData.island_location}
+                              onChange={handleInputChange}
+                              className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none"
+                              required
+                            >
                               <option value="">Select Option</option>
-                              <option>Kavaratti</option>
-                              <option>Agatti</option>
-                              <option>Minicoy</option>
+                              <option value="Kavaratti">Kavaratti</option>
+                              <option value="Agatti">Agatti</option>
+                              <option value="Minicoy">Minicoy</option>
                             </select>
                           </div>
                           <div>
                             <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
                               Activity <span className="text-red-700 font-semibold">*</span>
                             </label>
-                            <select disabled className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none disabled:opacity-60">
+                            <select 
+                              id="activity"
+                              value={formData.activity}
+                              onChange={handleInputChange}
+                              className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none"
+                              required
+                            >
                               <option value="">Select Option</option>
+                              <option value="Kayakking">Kayakking</option>
+                              <option value="Snorkeling">Snorkeling</option>
+                              <option value="Scuba Diving">Scuba Diving</option>
                             </select>
                           </div>
                           <button type="button" className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition">+ Add</button>
@@ -182,8 +332,14 @@ function AddVendor() {
                       </div>
                     </div>
                     <div className="col-span-12 lg:col-span-8">
-                      <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Description</label>
-                      <textarea id="vendor_pin_code" className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141] min-h-[100px]" placeholder='Enter Description' ></textarea>
+                      <label htmlFor="vendor_description" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Description</label>
+                      <textarea 
+                        id="vendor_description" 
+                        value={formData.vendor_description}
+                        onChange={handleInputChange}
+                        className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141] min-h-[100px]" 
+                        placeholder='Enter Description' 
+                      ></textarea>
                     </div>
                   </div>
                 </form>

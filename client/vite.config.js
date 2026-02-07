@@ -12,19 +12,19 @@ export default defineConfig({
         changeOrigin: true,
       },
       '/vendor-api': {
-        target: 'https://subdorsal-pretracheal-natashia.ngrok-free.dev',
+        target: 'https://z71mwq0q-8000.inc1.devtunnels.ms',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/vendor-api/, ''),
         headers: {
-          'ngrok-skip-browser-warning': 'true',
+          'X-Tunnel-Skip-AntiPhishing-Page': 'true',
         },
       },
       '/homepage-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://z71mwq0q-8000.inc1.devtunnels.ms/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/homepage-api/, ''),
         headers: {
-          'ngrok-skip-browser-warning': 'true',
+          'X-Tunnel-Skip-AntiPhishing-Page': 'true',
         },
       },
     },
