@@ -10,6 +10,7 @@ function AddVendor() {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
 
   const [formData, setFormData] = useState({
     vendor_name: '',
@@ -23,6 +24,8 @@ function AddVendor() {
     island_location: '',
     activity: '',
     vendor_description: '',
+    mobile_no: '',
+    country_code: '+91',
   });
 
   const handleInputChange = (e) => {
@@ -45,96 +48,6 @@ function AddVendor() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const payload = {
-      vendor_name: formData.vendor_name,
-      email: formData.email,
-      mobile_no: formData.mobile_no,
-      country_code: formData.country_code,
-      vendor_latitude: parseFloat(formData.vendor_latitude) || 0,
-      vendor_longitude: parseFloat(formData.vendor_longitude) || 0,
-      address1: formData.address1,
-      address2: formData.address2,
-      state: parseInt(formData.state) || 0,
-      pincode: parseInt(formData.pincode) || 0,
-      island_1: parseInt(formData.island_1) || 0,
-      activity_1: parseInt(formData.activity_1) || 0,
-      description: formData.description,
-    };
-
-    console.log('📤 Submitting Data:', payload);
-
-    try {
-      let response;
-      const headers = {
-        Authorization: `Token ${API_TOKEN}`,
-        'ngrok-skip-browser-warning': 'true',
-      };
-
-      const finalUrl = `${API_BASE_URL}/vendor/create-vendor/`;
-      console.log('→ Full URL:', finalUrl);
-
-      if (imageFile) {
-        // Use FormData for image upload
-        const data = new FormData();
-        Object.keys(payload).forEach((key) => data.append(key, payload[key]));
-        data.append('profile_image', imageFile);
-
-        response = await fetch(finalUrl, {
-          method: 'POST',
-          headers: headers,
-          body: data,
-        });
-      } else {
-        // Use JSON for better type preservation (integers stay integers)
-        response = await fetch(finalUrl, {
-          method: 'POST',
-          headers: {
-            ...headers,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-      }
-
-      console.log('← Status:', response.status);
-      const responseText = await response.text();
-      console.log('← Response Content:', responseText);
-
-      if (response.ok) {
-        alert('Vendor added successfully!');
-        window.location.href = '/admin/vendors-list'; 
-      } else {
-        let errorMsg = 'Unknown error';
-        try {
-          const errorData = JSON.parse(responseText);
-          console.error('❌ API Error Detail:', errorData);
-          if (typeof errorData === 'object') {
-            errorMsg = Object.entries(errorData)
-              .map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`)
-              .join('\n');
-          } else {
-            errorMsg = JSON.stringify(errorData);
-          }
-        } catch {
-          errorMsg = responseText.substring(0, 300) || `HTTP ${response.status}`;
-        }
-        alert(`Failed to add vendor:\n${errorMsg}`);
-      }
-    } catch (error) {
-      console.error('❌ Network/Fetch Error:', error);
-      alert('Network error. Check console for CORS or connection status.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const [phone, setPhone] = useState('')
-  const [dialCode, setDialCode] = useState('91')
-
-  const handleSubmit = async (e) => {
     if (e) e.preventDefault();
     setLoading(true);
 
@@ -142,7 +55,11 @@ function AddVendor() {
     data.append('name', formData.vendor_name);
     data.append('latitude', formData.vendor_latitude);
     data.append('longitude', formData.vendor_longitude);
-    data.append('phone', `+${dialCode}${phone}`);
+    
+    // Combine country code and mobile number
+    const fullPhone = `${formData.country_code}${formData.mobile_no}`;
+    data.append('phone', fullPhone);
+    
     data.append('address_line_1', formData.vendor_address_line_1);
     data.append('address_line_2', formData.vendor_address_line_2);
     data.append('email', formData.vendor_email);
@@ -152,7 +69,9 @@ function AddVendor() {
     data.append('category', formData.activity);
     data.append('description', formData.vendor_description);
     
-    if (fileRef.current?.files[0]) {
+    if (imageFile) {
+      data.append('image', imageFile);
+    } else if (fileRef.current?.files[0]) {
       data.append('image', fileRef.current.files[0]);
     }
 
@@ -160,8 +79,9 @@ function AddVendor() {
       const response = await fetch('/vendor-api/vendor/create-vendor/', {
         method: 'POST',
         headers: {
-          'Authorization': 'Token CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP',
+          'Authorization': 'Token D9SIHYWOO9FC8BYFBTQC2STOKF33FZ6GDL047A4Q',
           'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: data,
       });
@@ -170,16 +90,31 @@ function AddVendor() {
         alert('Vendor added successfully!');
         navigate('/admin/vendors-list');
       } else {
-        const errorData = await response.json().catch(() => ({}));
-        alert(`Error: ${errorData.message || 'Failed to add vendor'}`);
+        const text = await response.text();
+        let errorMsg = 'Failed to add vendor';
+        try {
+          const errorData = JSON.parse(text);
+          console.error('❌ API Error Detail:', errorData);
+          if (typeof errorData === 'object' && !errorData.message) {
+            errorMsg = Object.entries(errorData)
+              .map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`)
+              .join('\n');
+          } else {
+            errorMsg = errorData.message || JSON.stringify(errorData);
+          }
+        } catch {
+          errorMsg = text.substring(0, 300) || `HTTP ${response.status}`;
+        }
+        alert(`Failed to add vendor:\n${errorMsg}`);
       }
     } catch (error) {
-      console.error('Submission error:', error);
-      alert('An error occurred while adding the vendor. Please try again.');
+      console.error('❌ Network/Fetch Error:', error);
+      alert('Network error. Please check your connection or console for details.');
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <>
