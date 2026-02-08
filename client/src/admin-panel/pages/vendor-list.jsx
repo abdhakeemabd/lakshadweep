@@ -19,7 +19,7 @@ function VendorList() {
       const response = await fetch('/vendor-api/vendor/vendors/', {
         method: 'GET',
         headers: {
-          'Authorization': 'Token CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP',
+          'Authorization': 'Token D9SIHYWOO9FC8BYFBTQC2STOKF33FZ6GDL047A4Q',
           'Accept': 'application/json',
         },
       });
@@ -62,6 +62,43 @@ function VendorList() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (vendorId) => {
+    if (!vendorId) {
+      alert("Vendor ID not found");
+      return;
+    }
+
+    if (window.confirm('Are you sure you want to delete this vendor?')) {
+      try {
+        const response = await fetch(`/vendor-api/vendor/${vendorId}/delete/`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Token D9SIHYWOO9FC8BYFBTQC2STOKF33FZ6GDL047A4Q',
+            'Accept': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          alert('Vendor deleted successfully');
+          fetchVendors(); // Refresh the list
+        } else {
+          // Try to get error message from response
+          let errorMsg = 'Failed to delete vendor';
+          try {
+            const data = await response.json();
+            errorMsg = data.message || data.detail || errorMsg;
+          } catch (e) {
+            // Ignore JSON parse error
+          }
+          alert(errorMsg);
+        }
+      } catch (err) {
+        console.error('Error deleting vendor:', err);
+        alert('An error occurred while deleting the vendor');
+      }
     }
   };
 
@@ -285,7 +322,7 @@ function VendorList() {
                                       <Link to={`/admin/vendors-edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
                                       <div className="mx-2 my-1 border-t border-gray-100" />
                                       <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
-                                      <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Delete</button>
+                                      <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete(vendor.id); setOpenIndex(null); }}>Delete</button>
                                     </div>
                                   )}
                                 </div>
