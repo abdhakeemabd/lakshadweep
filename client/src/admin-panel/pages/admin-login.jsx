@@ -21,12 +21,20 @@ function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Admin login attempt:", formData);
+    if (formData.username === 'admin' && formData.password === 'Admin@123') {
+      localStorage.setItem('isAdminAuthenticated', 'true');
+      console.log("Admin login successful");
 
-    setTimeout(() => {
-      setLoading(false);
-      navigate('/admin/vendors-list');
-    }, 800);
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/admin/dashboard');
+      }, 800);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+        alert("Invalid username or password. Please try again.");
+      }, 500);
+    }
   };
 
   const isFormValid = formData.username.trim() !== '' && formData.password.trim() !== '';
@@ -48,31 +56,31 @@ function AdminLogin() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="username" className="block text-[17.52px] text-[#EDEDED] mb-2">Username</label>
-                  <input 
-                    id="username" 
-                    type="text" 
-                    value={formData.username} 
-                    onChange={handleInputChange} 
-                    placeholder="Enter your username" 
-                    className="fs-[14px] w-full h-[51px] placeholder:text-[#C4C4C4] px-5 rounded-xl border border-[#DFDFDF] bg-[#0D1F3A] text-[#fff] focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all duration-200" 
-                    required 
+                  <input
+                    id="username"
+                    type="text"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    placeholder="Enter your username"
+                    className="fs-[14px] w-full h-[51px] placeholder:text-[#C4C4C4] px-5 rounded-xl border border-[#DFDFDF] bg-[#0D1F3A] text-[#fff] focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all duration-200"
+                    required
                   />
                 </div>
                 <div className="relative">
                   <label htmlFor="password" className="block text-[17.52px] text-[#EDEDED] mb-2">Password</label>
                   <div className="relative">
-                    <input 
-                      id="password" 
-                      type={showPassword ? "text" : "password"} 
-                      value={formData.password} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter your password" 
-                      className="fs-[14px] w-full h-[51px] placeholder:text-[#C4C4C4] px-5 pr-12 rounded-xl border border-[#DFDFDF] bg-[#0D1F3A] text-[#fff] focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all duration-200" 
-                      required 
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder="Enter your password"
+                      className="fs-[14px] w-full h-[51px] placeholder:text-[#C4C4C4] px-5 pr-12 rounded-xl border border-[#DFDFDF] bg-[#0D1F3A] text-[#fff] focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition-all duration-200"
+                      required
                     />
-                    <button 
-                      type="button" 
-                      onClick={() => setShowPassword(!showPassword)} 
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-4 top-1/2 -translate-y-1/2 text-white transition-colors"
                     >
                       {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
@@ -80,12 +88,12 @@ function AdminLogin() {
                   </div>
                 </div>
                 <div className="pt-2 mb-4 lg:mb-6 mt-6 lg:mt-10">
-                  <button 
-                    type="submit" 
-                    disabled={loading || !isFormValid} 
+                  <button
+                    type="submit"
+                    disabled={loading || !isFormValid}
                     className={`relative overflow-hidden w-full h-[58px] rounded-xl text-white font-bold transition-all duration-300 shadow-lg flex items-center justify-center gap-2 group ${isFormValid ? 'cursor-pointer shadow-[#FF6A21]/20' : 'bg-[#1A3A6D] opacity-50 cursor-not-allowed'}`}
                   >
-                    <div 
+                    <div
                       className={`absolute inset-0 bg-[#FF6A21] transition-transform duration-500 ease-in-out ${isFormValid ? 'translate-x-0' : '-translate-x-full'}`}
                     ></div>
                     <div className="relative z-10 flex items-center justify-center gap-2">

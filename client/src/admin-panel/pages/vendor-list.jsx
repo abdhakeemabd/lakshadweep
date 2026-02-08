@@ -133,7 +133,7 @@ function VendorList() {
   return (
     <section>
       <div className="container-fluid mx-auto pr-3">
-        <div className="flex gap-2">
+        <div className="flex gap-5">
           <div className="w-[262px]">
             <Slidebar />
           </div>
@@ -225,7 +225,7 @@ function VendorList() {
                       </div>
                     )}
                   </div>
-                  <Link to="/admin/add-vendor" className="bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] gap-[5px] text-white text-[12px] font-semibold">+ Add Vendor</Link>
+                  <Link to="/admin/vendor/add" className="bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] gap-[5px] text-white text-[12px] font-semibold">+ Add Vendor</Link>
                 </div>
               </div>
               <div className="card-sub-header py-6 flex align-center justify-end">
@@ -288,7 +288,7 @@ function VendorList() {
                           <tr>
                             <td colSpan="8" className="text-center py-20">
                               <p className="text-[#8c8c8c] font-medium mb-2">No vendors found.</p>
-                              <Link to="/admin/add-vendor" className="text-[#007BFF] text-[14px] font-bold hover:underline">Add your first vendor</Link>
+                              <Link to="/admin/vendor/add" className="text-[#007BFF] text-[14px] font-bold hover:underline">Add your first vendor</Link>
                             </td>
                           </tr>
                         ) : (
@@ -322,8 +322,8 @@ function VendorList() {
                                         const vId = vendor.id || vendor.pk || vendor.vendor_id;
                                         return (
                                           <>
-                                            <Link to={`/admin/vendors-view/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
-                                            <Link to={`/admin/vendors-edit/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
+                                            <Link to={`/admin/vendor/view/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
+                                            <Link to={`/admin/vendor/edit/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
                                             <div className="mx-2 my-1 border-t border-gray-100" />
                                             <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
                                             <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete(vId); setOpenIndex(null); }}>Delete</button>

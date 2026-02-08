@@ -8,7 +8,7 @@ import VendorsActive from '../../assets/admin-panel-icon/sidebar/vendors-active.
 import Packages from '../../assets/admin-panel-icon/sidebar/packages.svg'
 import PackagesActive from '../../assets/admin-panel-icon/sidebar/packages-active.svg'
 import Slots from '../../assets/admin-panel-icon/sidebar/slot.svg'
-import SlotsActive from '../../assets/admin-panel-icon/sidebar/slot-active.svg'  
+import SlotsActive from '../../assets/admin-panel-icon/sidebar/slot-active.svg'
 import Bookings from '../../assets/admin-panel-icon/sidebar/bookings.svg'
 import BookingsActive from '../../assets/admin-panel-icon/sidebar/bookings-active.svg'
 import Customers from '../../assets/admin-panel-icon/sidebar/customers.svg'
@@ -24,123 +24,123 @@ function Slidebar() {
   return (
     <div className='side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen'>
       <aside>
-        <div className="p-4 mb-4 text-center">
-          <Link to="/" className="a-logo"><img src={Logo} className="h-10 mx-auto" alt="Logo" /></Link>
+        <div className="py-5 mb-4  text-center">
+          <Link to="/" className="a-logo"><img src={Logo} className="h-[30px] mx-auto" alt="Logo" /></Link>
         </div>
         <ul className="space-y-2">
-          <li>
-            <NavLink to="/admin/dashboard" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/dashboard" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Dashboard} alt="Dashboard" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={DashboardActive} alt="Dashboard Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Dashboard</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Dashboard</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/vendors-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/vendor/list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Vendors} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={VendorsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Vendors</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Vendors</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/packages-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/packages-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Packages} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={PackagesActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Packages</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Packages</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/slots-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/slots-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Slots} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={SlotsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Slots</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Slots</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/bookings-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/bookings-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Bookings} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={BookingsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Bookings</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Bookings</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/customers-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/customers-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Customers} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={CustomersActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Customers</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Customers</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/notifications-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/notifications-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Notifications} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={NotificationsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Notifications</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Notifications</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/settings-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/settings-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Settings} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={SettingsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Settings</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Settings</span>
                 </>
               )}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/admin/payments-list" className={({ isActive }) => `group flex gap-3 items-center p-2 rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+          <li className='mb-3 lg:mb-4'>
+            <NavLink to="/admin/payments-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
               {({ isActive }) => (
                 <>
                   <div className="icon">
                     <img src={Payments} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                     <img src={PaymentsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
                   </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold" : ""}`}>Payments</span>
+                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Payments</span>
                 </>
               )}
             </NavLink>

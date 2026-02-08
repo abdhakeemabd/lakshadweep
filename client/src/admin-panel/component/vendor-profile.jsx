@@ -84,7 +84,7 @@ function VendorProfile({ vendor: passedVendor, loading }) {
       <div className="vendor-profile-card px-3 shadow-[3px_4px_20px_0px_#0000000F] bg-white border-0 rounded-[1.25rem]">
         <div className="card-header py-2 border-b border-[#E5E5E5]">
           <div className="flex items-center gap-3">
-            <Link to="/admin/vendors-list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center">
+            <Link to="/admin/vendor/list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
             </Link>
             <div className="font-semibold text-[24px] leading-none tracking-normal text-[#2A2A2A]">Vendor Profile</div>

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UserIcon from "../../assets/admin-panel-icon/icons/user-default.svg";
 import PasswordIcon from "../../assets/admin-panel-icon/icons/password-check.svg";
 import LogoutIcon from "../../assets/admin-panel-icon/icons/logout.svg";
@@ -7,6 +8,13 @@ import LogoutModal from "./logout-modal";
 function Header() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAdminAuthenticated');
+    setOpen(false);
+    navigate('/admin/login');
+  };
 
   // close dropdown on outside click
   useEffect(() => {
@@ -42,7 +50,7 @@ function Header() {
                     </button>
                   </li>
                   <li>
-                    <button onClick={() => { setOpen(false); }} className="w-full flex gap-3 items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
+                    <button onClick={handleLogout} className="w-full flex gap-3 items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition">
                       <img src={LogoutIcon} alt="Logout" className="w-5 h-5" />
                       Logout
                     </button>

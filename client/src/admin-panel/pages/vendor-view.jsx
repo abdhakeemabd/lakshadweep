@@ -188,7 +188,7 @@ function VendorView() {
                 {error ? (
                   <div className="bg-white rounded-2xl shadow-sm p-10 text-center">
                     <div className="text-red-500 font-semibold mb-4 text-lg">{error}</div>
-                    <button onClick={() => navigate('/admin/vendors-list')} className="px-6 py-2 bg-[#0F2446] text-white rounded-lg font-medium">Back to List</button>
+                    <button onClick={() => navigate('/admin/vendor/list')} className="px-6 py-2 bg-[#0F2446] text-white rounded-lg font-medium">Back to List</button>
                   </div>
                 ) : (
                   <div className="bg-white rounded-2xl shadow-[1px_0px_4px_0px_#00000014] overflow-hidden p-3">
