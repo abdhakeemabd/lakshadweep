@@ -22,6 +22,7 @@ import VendorList from './admin-panel/pages/vendor-list';
 import VendorView from './admin-panel/pages/vendor-view';
 import VendorEdit from './admin-panel/pages/vendor-edit';
 import AddVendor from './admin-panel/pages/add-vendor';
+import AdminLogin from './admin-panel/pages/admin-login';
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -50,9 +51,10 @@ function App() {
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
         <Route path='/admin/vendors-list' element={<VendorList />} />
-        <Route path='/admin/vendors-view' element={<VendorView />} />
-        <Route path='/admin/vendors-edit' element={<VendorEdit />} />
+        <Route path='/admin/vendors-view/:id' element={<VendorView />} />
+        <Route path='/admin/vendors-edit/:id' element={<VendorEdit />} />
         <Route path='/admin/add-vendor' element={<AddVendor />} />
+        <Route path='/admin/login' element={<AdminLogin />} />
 
       </Routes>
 
