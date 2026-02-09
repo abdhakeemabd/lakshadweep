@@ -29,6 +29,8 @@ import AllCustomer from './admin-panel/pages/all-customer';
 import UserList from './admin-panel/pages/user-list';
 import Enquiries from './admin-panel/pages/Enquiries';
 import CustomerView from './admin-panel/pages/customer-view';
+import Payment from './admin-panel/pages/payment';
+import Notification from './admin-panel/pages/notification';
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -71,9 +73,10 @@ function App() {
           <Route path='customer-view' element={<CustomerView />} />
           <Route path='users' element={<UserList />} />
           <Route path='enquiries' element={<Enquiries />} />
-          <Route path='notifications-list' element={<VendorList />} />
-          <Route path='settings-list' element={<VendorList />} />
-          <Route path='payments-list' element={<VendorList />} />
+          <Route path='notifications-list' element={<Notification />} />
+          <Route path='setting/categories' element={<VendorList />} />
+          <Route path='setting/content-management' element={<VendorList />} />
+          <Route path='payments-list' element={<Payment />} />
         </Route>
 
         <Route path='/admin/login' element={<AdminLogin />} />

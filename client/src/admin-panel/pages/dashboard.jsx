@@ -240,9 +240,9 @@ function Dashboard() {
                       <div className="card-header py-3">
                         <h5 className="card-title text-[18px] font-semibold text[#353535]">Top Packages</h5>
                       </div>
-                      <div className="card-body py-5 max-h-[300px] overflow-y-auto pr-3">
+                      <div className="card-body py-5 max-h-[300px] overflow-y-auto pr-2">
                         {packages.map((item, index) => (
-                          <div key={index} className="flex gap-3 justify-between py-4 border-b border-[#E9E9E9] last:border-b-0">
+                          <div key={index} className="flex gap-3 justify-between py-4 px-3 border-b border-[#E9E9E9] last:border-b-0">
                             <div className="card-text font-medium text-[13px] leading-[22px] text-[#121212]">{item.name}</div>
                             <div className='font-light text-[12px] leading-[22px] text-[#121212]'>{item.bookings} Bookings</div>
                           </div>

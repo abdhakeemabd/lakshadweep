@@ -24,9 +24,12 @@ function Slidebar() {
   const location = useLocation();
   const isCustomerActive = location.pathname.startsWith('/admin/all-customer') || location.pathname.startsWith('/admin/users') || location.pathname.startsWith('/admin/enquiries');
   const isSlotsActive = location.pathname.startsWith('/slot');
+  const isSettingActive = location.pathname.startsWith('/setting');
 
   const [isCustomerOpen, setIsCustomerOpen] = React.useState(isCustomerActive);
   const [isSlotsOpen, setIsSlotsOpen] = React.useState(isSlotsActive);
+  const [isSettingOpen, setIsSettingOpen] = React.useState(isSettingActive);
+
 
   return (
     <div className='side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen h-full'>
@@ -75,9 +78,7 @@ function Slidebar() {
             </NavLink>
           </li>
           <li className='mb-3 lg:mb-4'>
-            <div
-              onClick={() => setIsSlotsOpen(!isSlotsOpen)}
-              className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isSlotsOpen || isSlotsActive) ? "bg-[#FF5C1A]" : ""}`}>
+            <div onClick={() => setIsSlotsOpen(!isSlotsOpen)} className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isSlotsOpen || isSlotsActive) ? "bg-[#FF5C1A]" : ""}`}>
               <div className="icon">
                 <img src={Slots} alt="Slots" className={`w-6 h-6 ${(isSlotsOpen || isSlotsActive) ? "hidden" : "block"} group-hover:hidden`} />
                 <img src={SlotsActive} alt="Slots Active" className={`w-6 h-6 ${(isSlotsOpen || isSlotsActive) ? "block" : "hidden"} group-hover:block`} />
@@ -158,17 +159,30 @@ function Slidebar() {
             </NavLink>
           </li>
           <li className='mb-3 lg:mb-4'>
-            <NavLink to="/admin/settings-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
-              {({ isActive }) => (
-                <>
-                  <div className="icon">
-                    <img src={Settings} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
-                    <img src={SettingsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
-                  </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Settings</span>
-                </>
-              )}
-            </NavLink>
+            <div
+              onClick={() => setIsSettingOpen(!isSettingOpen)}
+              className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isSettingOpen || isSettingActive) ? "bg-[#FF5C1A]" : ""}`}>
+              <div className="icon">
+                <img src={Settings} alt="Settings" className={`w-6 h-6 ${(isSettingOpen || isSettingActive) ? "hidden" : "block"} group-hover:hidden`} />
+                <img src={SettingsActive} alt="Settings Active" className={`w-6 h-6 ${(isSettingOpen || isSettingActive) ? "block" : "hidden"} group-hover:block`} />
+              </div>
+              <span className={`text-[#969CB9] text-[13px] font-light flex-1 ${(isSettingOpen || isSettingActive) ? "font-semibold text-white" : ""}`}>Settings</span>
+              <svg className={`w-4 h-4 transition-transform ${isSettingOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            {isSettingOpen && (
+              <ul className="sub-menu mt-2 space-y-1">
+                <li>
+                  <NavLink to="/admin/setting/categories" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-colors ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-1 rounded-[10px] border-[#FF5C1A]" : "text-[#969CB9] hover:text-white"}`}>
+                    Categories
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/admin/setting/content-management" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-colors ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-1 rounded-[10px] border-[#FF5C1A]" : "text-[#969CB9] hover:text-white"}`}>
+                    Content Management
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </li>
           <li className='mb-3 lg:mb-4'>
             <NavLink to="/admin/payments-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
