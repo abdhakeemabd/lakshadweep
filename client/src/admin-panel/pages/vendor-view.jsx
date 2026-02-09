@@ -85,9 +85,6 @@ function VendorView() {
       ? "text-white bg-[#0F2446] shadow-[0px_3px_1px_0px_#0000000F] shadow-[0px_3px_8px_0px_#00000026]"
       : "text-[#8c8c8c] hover:text-[#2A2A2A]"
     }`;
-
-  // Use fetched bookings if available in vendorData, otherwise fallback to mock
-  // Backend often nests bookings within vendor details in these types of systems
   const bookings = vendorData?.bookings || [
     {
       id: 1,

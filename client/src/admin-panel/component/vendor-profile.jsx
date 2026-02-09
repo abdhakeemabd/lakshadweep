@@ -27,8 +27,6 @@ function VendorProfile({ vendor: passedVendor, loading }) {
   };
 
   const vendor = passedVendor || defaultVendor;
-  
-  // Normalize vendor data for display
   const displayData = {
     name: vendor.name || vendor.vendor_name || defaultVendor.vendor_name,
     code: vendor.vendor_code || vendor.code || "#VND567",
@@ -94,10 +92,10 @@ function VendorProfile({ vendor: passedVendor, loading }) {
           <div className="flex gap-4">
             <div className="relative aspect-[92/89] max-w-[92px] w-full">
               <a href={profileImg} data-fancybox="profile" data-caption={displayData.name}>
-                <img 
-                  src={profileImg} 
-                  alt="Profile" 
-                  className="w-full h-full rounded-[0.875rem] object-cover cursor-pointer" 
+                <img
+                  src={profileImg}
+                  alt="Profile"
+                  className="w-full h-full rounded-[0.875rem] object-cover cursor-pointer"
                   onError={() => setProfileImg(DefaultProfile)}
                 />
               </a>
@@ -150,7 +148,7 @@ function VendorProfile({ vendor: passedVendor, loading }) {
                 <div className="relative flex items-center gap-2 p-2 bg-gray-50 rounded-lg group hover:bg-gray-100 transition-all">
                   <img src={pdfIcon} className="w-4" alt="doc" />
                   <div className="text-[13px] font-medium text-[#555555] truncate flex-1">
-                    {doc.document_name || (doc.file && doc.file.split('/').pop()) || `Document ${i+1}`}
+                    {doc.document_name || (doc.file && doc.file.split('/').pop()) || `Document ${i + 1}`}
                   </div>
                   <a href={doc.file} target="_blank" rel="noreferrer" className="text-[11px] text-[#007BFF] font-bold group-hover:underline">View</a>
                 </div>

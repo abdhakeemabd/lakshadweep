@@ -11,12 +11,10 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('isAdminAuthenticated');
+    sessionStorage.removeItem('isAdminAuthenticated');
     setOpen(false);
     navigate('/admin/login');
   };
-
-  // close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -29,7 +27,7 @@ function Header() {
 
   return (
     <>
-    <header className="bg-[#0F2446] relative z-[100] w-full px-[13px] rounded-[0.832rem] backdrop-blur-[121.76px] shadow-[0px_48.7px_48.7px_-41.35px_#290F008F] py-3 mb-3">
+    <header className="bg-[#0F2446] relative z-[100] w-full px-[13px] rounded-[0.832rem] backdrop-blur-[121.76px] shadow-[0px_48.7px_48.7px_-41.35px_#290F008F] py-3 mb-3 lg:mb-5">
       <div className="grid grid-cols-12 gap-6 items-center">
         <div className="col-span-12 lg:col-span-3">
         </div>

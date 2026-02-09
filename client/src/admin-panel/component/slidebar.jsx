@@ -22,7 +22,7 @@ import PaymentsActive from '../../assets/admin-panel-icon/sidebar/payments-activ
 
 function Slidebar() {
   return (
-    <div className='side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen'>
+    <div className='side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen h-full'>
       <aside>
         <div className="py-5 mb-4  text-center">
           <Link to="/" className="a-logo"><img src={Logo} className="h-[30px] mx-auto" alt="Logo" /></Link>

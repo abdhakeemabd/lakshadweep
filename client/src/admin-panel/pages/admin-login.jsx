@@ -22,7 +22,7 @@ function AdminLogin() {
     e.preventDefault();
     setLoading(true);
     if (formData.username === 'admin' && formData.password === 'Admin@123') {
-      localStorage.setItem('isAdminAuthenticated', 'true');
+      sessionStorage.setItem('isAdminAuthenticated', 'true');
       console.log("Admin login successful");
 
       setTimeout(() => {
