@@ -25,6 +25,10 @@ import AddVendor from './admin-panel/pages/add-vendor';
 import Dashboard from './admin-panel/pages/dashboard';
 import ProtectedRoute from './component/protected-route';
 import AdminLogin from './admin-panel/pages/admin-login';
+import AllCustomer from './admin-panel/pages/all-customer';
+import UserList from './admin-panel/pages/user-list';
+import Enquiries from './admin-panel/pages/Enquiries';
+import CustomerView from './admin-panel/pages/customer-view';
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -52,8 +56,6 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
-        
-        {/* Admin Routes */}
         <Route path='/admin' element={<ProtectedRoute />}>
           <Route index element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />
@@ -61,17 +63,19 @@ function App() {
           <Route path='vendor/view/:id' element={<VendorView />} />
           <Route path='vendor/edit/:id' element={<VendorEdit />} />
           <Route path='vendor/add' element={<AddVendor />} />
-          
-          {/* Placeholders for other admin pages mentioned in sidebar */}
           <Route path='packages-list' element={<VendorList />} />
           <Route path='slots-list' element={<VendorList />} />
           <Route path='bookings-list' element={<VendorList />} />
           <Route path='customers-list' element={<VendorList />} />
-          <Route path='notifications-list' element={<VendorList/>} />
+          <Route path='all-customer' element={<AllCustomer />} />
+          <Route path='customer-view' element={<CustomerView />} />
+          <Route path='users' element={<UserList />} />
+          <Route path='enquiries' element={<Enquiries />} />
+          <Route path='notifications-list' element={<VendorList />} />
           <Route path='settings-list' element={<VendorList />} />
           <Route path='payments-list' element={<VendorList />} />
         </Route>
-        
+
         <Route path='/admin/login' element={<AdminLogin />} />
 
       </Routes>

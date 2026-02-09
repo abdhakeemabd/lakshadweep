@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import Logo from '../../assets/admin-panel-icon/logo/logo-white.svg'
 import Dashboard from '../../assets/admin-panel-icon/sidebar/dashboard.svg'
 import DashboardActive from '../../assets/admin-panel-icon/sidebar/dashboard-active.svg'
@@ -21,6 +21,13 @@ import Payments from '../../assets/admin-panel-icon/sidebar/payments.svg'
 import PaymentsActive from '../../assets/admin-panel-icon/sidebar/payments-active.svg'
 
 function Slidebar() {
+  const location = useLocation();
+  const isCustomerActive = location.pathname.startsWith('/admin/all-customer') || location.pathname.startsWith('/admin/users') || location.pathname.startsWith('/admin/enquiries');
+  const isSlotsActive = location.pathname.startsWith('/slot');
+
+  const [isCustomerOpen, setIsCustomerOpen] = React.useState(isCustomerActive);
+  const [isSlotsOpen, setIsSlotsOpen] = React.useState(isSlotsActive);
+
   return (
     <div className='side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen h-full'>
       <aside>
@@ -68,17 +75,30 @@ function Slidebar() {
             </NavLink>
           </li>
           <li className='mb-3 lg:mb-4'>
-            <NavLink to="/admin/slots-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
-              {({ isActive }) => (
-                <>
-                  <div className="icon">
-                    <img src={Slots} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
-                    <img src={SlotsActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
-                  </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Slots</span>
-                </>
-              )}
-            </NavLink>
+            <div
+              onClick={() => setIsSlotsOpen(!isSlotsOpen)}
+              className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isSlotsOpen || isSlotsActive) ? "bg-[#FF5C1A]" : ""}`}>
+              <div className="icon">
+                <img src={Slots} alt="Slots" className={`w-6 h-6 ${(isSlotsOpen || isSlotsActive) ? "hidden" : "block"} group-hover:hidden`} />
+                <img src={SlotsActive} alt="Slots Active" className={`w-6 h-6 ${(isSlotsOpen || isSlotsActive) ? "block" : "hidden"} group-hover:block`} />
+              </div>
+              <span className={`text-[#969CB9] text-[13px] font-light flex-1 ${(isSlotsOpen || isSlotsActive) ? "font-semibold text-white" : ""}`}>Slots</span>
+              <svg className={`w-4 h-4 transition-transform ${isSlotsOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            {isSlotsOpen && (
+              <ul className="sub-menu mt-2 space-y-1">
+                <li>
+                  <NavLink to="/slot/admin-all-slots/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-colors ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-1 rounded-[10px] border-[#FF5C1A]" : "text-[#969CB9] hover:text-white"}`}>
+                    All Slots
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/slot/day-schedule/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-colors ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-1 rounded-[10px] border-[#FF5C1A]" : "text-[#969CB9] hover:text-white"}`}>
+                    Day Schedule
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </li>
           <li className='mb-3 lg:mb-4'>
             <NavLink to="/admin/bookings-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
@@ -94,17 +114,35 @@ function Slidebar() {
             </NavLink>
           </li>
           <li className='mb-3 lg:mb-4'>
-            <NavLink to="/admin/customers-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
-              {({ isActive }) => (
-                <>
-                  <div className="icon">
-                    <img src={Customers} alt="Vendors" className={`w-6 h-6 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
-                    <img src={CustomersActive} alt="Vendors Active" className={`w-6 h-6 ${isActive ? "block" : "hidden"} group-hover:block`} />
-                  </div>
-                  <span className={`text-[#969CB9] text-[13px] font-light ${isActive ? "font-semibold text-white" : ""}`}>Customers</span>
-                </>
-              )}
-            </NavLink>
+            <div
+              onClick={() => setIsCustomerOpen(!isCustomerOpen)}
+              className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isCustomerOpen || isCustomerActive) ? "bg-[#FF5C1A]" : ""}`}>
+              <div className="icon">
+                <img src={Customers} alt="Customers" className={`w-6 h-6 ${(isCustomerOpen || isCustomerActive) ? "hidden" : "block"} group-hover:hidden`} />
+                <img src={CustomersActive} alt="Customers Active" className={`w-6 h-6 ${(isCustomerOpen || isCustomerActive) ? "block" : "hidden"} group-hover:block`} />
+              </div>
+              <span className={`text-[#969CB9] text-[13px] font-light flex-1 ${(isCustomerOpen || isCustomerActive) ? "font-semibold text-white" : ""}`}>Customers</span>
+              <svg className={`w-4 h-4 transition-transform ${isCustomerOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            {isCustomerOpen && (
+              <ul className="sub-menu mt-2 space-y-1">
+                <li>
+                  <NavLink to="/admin/all-customer" className={({ isActive }) => `block pl-[20px] py-2 text-[13px] transition-colors ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-1 rounded-[10px] border-[#FF5C1A]" : "text-[#969CB9] hover:text-white"}`}>
+                    All Customers
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/admin/users" className={({ isActive }) => `block pl-[20px] py-2 text-[13px] transition-colors ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-1 rounded-[10px] border-[#FF5C1A]" : "text-[#969CB9] hover:text-white"}`}>
+                    Users
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/admin/enquiries" className={({ isActive }) => `block pl-[20px] py-2 text-[13px] transition-colors ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-1 rounded-[10px] border-[#FF5C1A]" : "text-[#969CB9] hover:text-white"}`}>
+                    Enquiries
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </li>
           <li className='mb-3 lg:mb-4'>
             <NavLink to="/admin/notifications-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
