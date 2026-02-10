@@ -5,7 +5,7 @@ const ProtectedRoute = ({ children }) => {
   const isAuthenticated = sessionStorage.getItem('isAdminAuthenticated') === 'true';
 
   if (!isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/user/login" replace />;
   }
 
   return children ? children : <Outlet />;

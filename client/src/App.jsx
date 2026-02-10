@@ -79,7 +79,7 @@ function App() {
           <Route path='payments-list' element={<Payment />} />
         </Route>
 
-        <Route path='/admin/login' element={<AdminLogin />} />
+        <Route path='/user/login' element={<AdminLogin />} />
 
       </Routes>
 
