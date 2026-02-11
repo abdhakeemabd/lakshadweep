@@ -13,7 +13,7 @@ function Header() {
   const handleLogout = () => {
     sessionStorage.removeItem('isAdminAuthenticated');
     setOpen(false);
-    navigate('/admin/login');
+    navigate('/user/login');
   };
   useEffect(() => {
     const handleClickOutside = (e) => {
