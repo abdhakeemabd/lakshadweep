@@ -166,7 +166,7 @@ function PackagesList() {
                             {openIndex === 0 && (
                               <ul className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-0 rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-[100] overflow-hidden py-1">
                                 <li className='border-b border-[#e2e2e2]'>
-                                  <Link to={`/admin/package/view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
+                                  <Link to={`/admin/packages/view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
                                 </li>
                                 <li className='border-b border-[#e2e2e2]'>
                                   <Link to={`/admin/package/edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
