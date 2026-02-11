@@ -107,3 +107,148 @@
 .filter-sidebar-content {
     transition: transform 0.3s ease-in-out;
 }
+
+/* Custom DatePicker Styling */
+.custom-daterange-picker {
+    background: white;
+    border: none !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+    border-radius: 12px !important;
+    font-family: var(--font-inter) !important;
+}
+
+.custom-daterange-picker.picker-presets-only .datepicker-sidebar {
+    border-right: none !important;
+    width: 220px !important; /* Matches the input width */
+}
+
+.custom-daterange-picker .react-datepicker {
+    border: none !important;
+    display: flex !important;
+    flex-direction: row !important;
+    background-color: transparent !important;
+    overflow: hidden !important;
+}
+
+.custom-daterange-picker .react-datepicker__triangle {
+    display: none !important;
+}
+
+.datepicker-sidebar {
+    border-right: 1px solid #f3f4f6;
+    padding: 15px 0;
+    width: 160px;
+    background: #fcfcfc;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    flex-shrink: 0;
+}
+
+.datepicker-sidebar button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: #535353;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.datepicker-sidebar button:hover {
+    background-color: #E9F5FF;
+    color: #0085FF;
+}
+
+.datepicker-sidebar button.active {
+    background-color: #0085FF;
+    color: white;
+}
+
+.datepicker-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-daterange-picker .react-datepicker__month-container {
+    float: none !important;
+    background: white !important;
+    width: 300px !important; 
+}
+
+.custom-daterange-picker .react-datepicker__month-wrapper {
+    display: flex !important;
+}
+
+.custom-daterange-picker .react-datepicker__header {
+    background-color: white !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    padding-top: 15px !important;
+}
+
+.custom-daterange-picker .react-datepicker__day--selected, 
+.custom-daterange-picker .react-datepicker__day--in-range,
+.custom-daterange-picker .react-datepicker__day--in-selecting-range {
+    background-color: #0085FF !important;
+    color: white !important;
+    border-radius: 4px !important;
+}
+
+.custom-daterange-picker .react-datepicker__day:hover {
+    background-color: #E9F5FF !important;
+    border-radius: 4px !important;
+}
+
+.datepicker-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #f3f4f6;
+    gap: 15px;
+    background: white;
+    border-bottom-right-radius: 12px;
+    margin-top: auto; /* Push to bottom */
+}
+
+.datepicker-footer .range-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2A2A2A;
+    margin-right: auto;
+}
+
+.datepicker-footer .btn-cancel {
+    font-size: 14px;
+    font-weight: 700;
+    color: #535353;
+    transition: color 0.2s;
+}
+
+.datepicker-footer .btn-cancel:hover {
+    color: #EB0D0D;
+}
+
+.datepicker-footer .btn-apply {
+    background: #0085FF;
+    color: white;
+    padding: 8px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.datepicker-footer .btn-apply:hover {
+    background: #0074E0;
+}
+
+/* Hide "No file chosen" text in file inputs */
+.upload_input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}

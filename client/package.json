@@ -1,7 +1,7 @@
 {
   "name": "go-rogue",
   "private": true,
-  "proxy": "https://lms.studyjam.in/api/common/blogs/",
+  "proxy": "https://z71mwq0q-8000.inc1.devtunnels.ms/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -11,12 +11,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@fancyapps/ui": "^6.1.10",
+    "@headlessui/react": "^2.2.9",
+    "@mui/material": "^7.3.7",
     "@tailwindcss/vite": "^4.1.18",
     "aos": "^2.3.4",
+    "apexcharts": "^5.3.6",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.9.0",
     "react-datepicker": "^9.1.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^7.13.0",
     "react-slick": "^0.30.3",

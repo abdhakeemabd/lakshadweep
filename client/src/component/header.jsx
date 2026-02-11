@@ -10,7 +10,6 @@ import LoginModal from './login-modal'
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }

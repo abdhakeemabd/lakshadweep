@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import GalleryImg from "../assets/bg/adventure-bg.webp";
 import { Fancybox } from "@fancyapps/ui";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 function Gallery() {
 
