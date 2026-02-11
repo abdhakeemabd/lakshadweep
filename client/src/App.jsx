@@ -31,9 +31,13 @@ import Enquiries from './admin-panel/pages/Enquiries';
 import CustomerView from './admin-panel/pages/customer-view';
 import Payment from './admin-panel/pages/payment';
 import Notification from './admin-panel/pages/notification';
+import PackagesList from './admin-panel/pages/packages-list';
+import CreatePackage from './admin-panel/pages/package-create';
+import PackageView from './admin-panel/pages/package-view';
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
+  const isLoginPath = location.pathname === '/user/login';
 
   useEffect(() => {
     AOS.init({
@@ -47,7 +51,7 @@ function App() {
     <>
       <ScrollToTop />
       <ScrollTopButton />
-      {!isAdminPath && <Header />}
+      {!isAdminPath && !isLoginPath && <Header />}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/gallery' element={<Gallery />} />
@@ -65,7 +69,9 @@ function App() {
           <Route path='vendor/view/:id' element={<VendorView />} />
           <Route path='vendor/edit/:id' element={<VendorEdit />} />
           <Route path='vendor/add' element={<AddVendor />} />
-          <Route path='packages-list' element={<VendorList />} />
+          <Route path='packages-list' element={<PackagesList />} />
+          <Route path='packages/add' element={<CreatePackage />} />
+          <Route path='packages/view' element={<PackageView />} />
           <Route path='slots-list' element={<VendorList />} />
           <Route path='bookings-list' element={<VendorList />} />
           <Route path='customers-list' element={<VendorList />} />
@@ -83,7 +89,7 @@ function App() {
 
       </Routes>
 
-      {!isAdminPath && <Footer />}
+      {!isAdminPath && !isLoginPath && <Footer />}
     </>
   )
 }
