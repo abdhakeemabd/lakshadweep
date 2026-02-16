@@ -96,16 +96,16 @@ function AllCustomer() {
               </div>
               <div className="card-sub-header p-4 flex justify-between items-center">
                 <div>
-                  <form action="" className='flex gap-3 items-center'>
-                    <select className='py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                      <option value="">Activity</option>
-                      <option value="">111</option>
-                    </select>
-                    <select className='py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                      <option value="">Activity</option>
-                      <option value="">111</option>
-                    </select>
-                  </form>
+                    <form action="" className='flex gap-3 items-center'>
+                      <select className='py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
+                        <option value="">Activity</option>
+                        <option value="">111</option>
+                      </select>
+                      <select className='py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
+                        <option value="">Activity</option>
+                        <option value="">111</option>
+                      </select>
+                    </form>
                 </div>
                 <div className="inline-block">
                   <form className="relative flex items-center" onSubmit={handleSearchSubmit}>
