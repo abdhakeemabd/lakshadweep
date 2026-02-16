@@ -29,6 +29,7 @@
     "react-slick": "^0.30.3",
     "react-slider": "^2.0.6",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.26.18",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

@@ -31,6 +31,15 @@ export default defineConfig({
           'X-Tunnel-Skip-AntiPhishing-Page': 'true',
         },
       },
+      '/customer-api': {
+        target: 'https://subdorsal-pretracheal-natashia.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/customer-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
     },
   },
 })
