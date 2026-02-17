@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Header from '../component/header'
 import Slidebar from '../component/slidebar'
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
@@ -14,27 +14,68 @@ function AllCustomer() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedActivity, setSelectedActivity] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
 
   useEffect(() => {
     fetchCustomers();
   }, []);
 
+  // Combined filtering logic
   useEffect(() => {
-    if (searchQuery.trim() === '') {
-      setFilteredCustomers(customers);
-    } else {
-      const filtered = customers.filter(customer => {
+    let filtered = customers;
+
+    // Filter by search query
+    if (searchQuery.trim() !== '') {
+      filtered = filtered.filter(customer => {
         const searchLower = searchQuery.toLowerCase();
+        const name = customer.full_name || customer.name || '';
+        const email = customer.email || '';
+        const phone = customer.phone || customer.phone_number || '';
+        const customerId = customer.id ? customer.id.toString() : '';
+        
         return (
-          (customer.name && customer.name.toLowerCase().includes(searchLower)) ||
-          (customer.email && customer.email.toLowerCase().includes(searchLower)) ||
-          (customer.phone && customer.phone.toLowerCase().includes(searchLower)) ||
-          (customer.customer_id && customer.customer_id.toLowerCase().includes(searchLower))
+          name.toLowerCase().includes(searchLower) ||
+          email.toLowerCase().includes(searchLower) ||
+          phone.toLowerCase().includes(searchLower) ||
+          customerId.toLowerCase().includes(searchLower)
         );
       });
-      setFilteredCustomers(filtered);
     }
-  }, [searchQuery, customers]);
+
+    // Filter by selected activity
+    if (selectedActivity !== '') {
+      console.log('Filtering by activity:', selectedActivity);
+      filtered = filtered.filter(customer => {
+        const activities = customer.distinct_activities;
+        if (activities) {
+          if (Array.isArray(activities)) {
+            const hasActivity = activities.some(activity => activity === selectedActivity);
+            return hasActivity;
+          } else {
+            return activities === selectedActivity;
+          }
+        } else {
+          const fallbackActivity = customer.activities || customer.activity;
+          return fallbackActivity === selectedActivity;
+        }
+      });
+      console.log('Filtered customers by activity:', filtered.length);
+    }
+
+    // Filter by selected location
+    if (selectedLocation !== '') {
+      console.log('Filtering by location:', selectedLocation);
+      filtered = filtered.filter(customer => {
+        const location = customer.location || customer.island_location;
+        return location === selectedLocation;
+      });
+      console.log('Filtered customers by location:', filtered.length);
+    }
+
+    console.log('Final filtered count:', filtered.length);
+    setFilteredCustomers(filtered);
+  }, [searchQuery, selectedActivity, selectedLocation, customers]);
 
   const fetchCustomers = async () => {
     try {
@@ -56,7 +97,22 @@ function AllCustomer() {
 
       const data = await response.json();
       console.log('Customers data:', data);
-      const customerList = Array.isArray(data) ? data : (data.data || data.results || []);
+      
+      // Extract customer list from API response
+      let customerList = [];
+      if (Array.isArray(data)) {
+        customerList = data;
+      } else if (data.items && Array.isArray(data.items)) {
+        customerList = data.items;
+      } else if (data.data && Array.isArray(data.data)) {
+        customerList = data.data;
+      } else if (data.results && Array.isArray(data.results)) {
+        customerList = data.results;
+      }
+      
+      console.log('Extracted customer list:', customerList);
+      console.log('Total customers found:', customerList.length);
+      
       setCustomers(customerList);
       setFilteredCustomers(customerList);
     } catch (err) {
@@ -73,6 +129,53 @@ function AllCustomer() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+  };
+
+  // Extract unique activities from customers
+  const uniqueActivities = useMemo(() => {
+    const activitiesSet = new Set();
+    customers.forEach(customer => {
+      const activities = customer.distinct_activities;
+      if (activities) {
+        if (Array.isArray(activities)) {
+          activities.forEach(activity => {
+            if (activity && activity !== 'N/A') {
+              activitiesSet.add(activity.trim());
+            }
+          });
+        } else if (typeof activities === 'string' && activities !== 'N/A') {
+          activitiesSet.add(activities.trim());
+        }
+      } else {
+        const fallbackActivity = customer.activities || customer.activity;
+        if (fallbackActivity && fallbackActivity !== 'N/A') {
+          activitiesSet.add(fallbackActivity.trim());
+        }
+      }
+    });
+    return Array.from(activitiesSet).sort();
+  }, [customers]);
+
+  // Extract unique locations from customers
+  const uniqueLocations = useMemo(() => {
+    const locationsSet = new Set();
+    customers.forEach(customer => {
+      const location = customer.location || customer.island_location;
+      if (location && location !== 'N/A') {
+        locationsSet.add(location.trim());
+      }
+    });
+    return Array.from(locationsSet).sort();
+  }, [customers]);
+
+  // Handle activity filter change
+  const handleActivityChange = (e) => {
+    setSelectedActivity(e.target.value);
+  };
+
+  // Handle location filter change
+  const handleLocationChange = (e) => {
+    setSelectedLocation(e.target.value);
   };
 
   return (
@@ -96,26 +199,36 @@ function AllCustomer() {
               </div>
               <div className="card-sub-header p-4 flex justify-between items-center">
                 <div>
-                    <form action="" className='flex gap-3 items-center'>
-                      <select className='py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                        <option value="">Activity</option>
-                        <option value="">111</option>
-                      </select>
-                      <select className='py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                        <option value="">Activity</option>
-                        <option value="">111</option>
-                      </select>
-                    </form>
+                  <form action="" className='flex gap-3 items-center'>
+                    <select 
+                      className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' 
+                      value={selectedActivity}
+                      onChange={handleActivityChange}
+                      id="activity-filter"
+                    >
+                      <option value="">All Activities</option>
+                      {uniqueActivities.map(activity => (
+                        <option key={activity} value={activity}>{activity}</option>
+                      ))}
+                    </select>
+                    <select 
+                      className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' 
+                      value={selectedLocation}
+                      onChange={handleLocationChange}
+                      id="location-filter"
+                    >
+                      <option value="">All Locations</option>
+                      {uniqueLocations.map(location => (
+                        <option key={location} value={location}>{location}</option>
+                      ))}
+                    </select>
+                  </form>
                 </div>
                 <div className="inline-block">
                   <form className="relative flex items-center" onSubmit={handleSearchSubmit}>
                     <input 
                       className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" 
-                      type="search" 
-                      placeholder="Search" 
-                      value={searchQuery}
-                      onChange={handleSearchChange}
-                    />
+                      type="search" placeholder="Search" value={searchQuery} onChange={handleSearchChange} />
                     <button type="button" className="absolute right-2 flex items-center justify-center">
                       <img src={SearchIcon} alt="search" className="w-4 h-4" />
                     </button>
@@ -156,45 +269,61 @@ function AllCustomer() {
                         {filteredCustomers.length === 0 ? (
                           <tr>
                             <td colSpan="8" className="text-center py-8 text-[#383838]">
-                              {searchQuery ? 'No customers found matching your search.' : 'No customers available.'}
+                              {searchQuery || selectedActivity || selectedLocation ? 'No customers found matching your filters.' : 'No customers available.'}
                             </td>
                           </tr>
                         ) : (
-                          filteredCustomers.map((customer, index) => (
-                            <tr key={customer.id || index} className="border-b border-[#e3e3e3]">
-                              <td className="pl-10 px-4 py-2 text-[12px] text-[#383838]">{index + 1}.</td>
-                              <td className="px-4 py-2 text-[12px] text-[#383838]">
-                                <div className='item'>
-                                  <div className='text-[#313131] text-[11px] font-medium leading[22px]'>
-                                    {customer.name || customer.full_name || 'N/A'}
-                                  </div>
-                                  {customer.customer_id && (
-                                    <div className='text-[#751CC2] text-[9px] font-medium leading[22px]'>
-                                      #{customer.customer_id}
+                          filteredCustomers.map((customer, index) => {
+                            // Extract and normalize customer data
+                            const customerId = customer.id || customer.customer_id;
+                            const customerName = customer.full_name || customer.name || 'N/A';
+                            const phone = customer.phone || customer.phone_number || 'N/A';
+                            const email = customer.email || 'N/A';
+                            const bookings = customer.booking_count || customer.bookings_count || customer.no_of_bookings || 0;
+                            // Handle distinct_activities array or single activity string
+                            const activities = customer.distinct_activities 
+                              ? (Array.isArray(customer.distinct_activities) 
+                                  ? customer.distinct_activities.join(', ') 
+                                  : customer.distinct_activities)
+                              : (customer.activities || customer.activity || 'N/A');
+                            const location = customer.location || customer.island_location || 'N/A';
+                            
+                            return (
+                              <tr key={customerId || index} className="border-b border-[#e3e3e3]">
+                                <td className="pl-10 px-4 py-2 text-[12px] text-[#383838]">{index + 1}.</td>
+                                <td className="px-4 py-2 text-[12px] text-[#383838]">
+                                  <div className='item'>
+                                    <div className='text-[#313131] text-[11px] font-medium leading[22px]'>
+                                      {customerName}
                                     </div>
-                                  )}
-                                </div>
-                              </td>
-                              <td className="px-4 py-2 text-[12px] text-[#383838]">
-                                {customer.phone || customer.phone_number || 'N/A'}
-                              </td>
-                              <td className="px-4 py-2 text-[12px] text-[#383838]">
-                                {customer.email || 'N/A'}
-                              </td>
-                              <td className="px-4 py-2 text-[12px] text-[#383838]">
-                                {customer.bookings_count || customer.no_of_bookings || 0}
-                              </td>
-                              <td className="px-4 py-2 text-[12px] text-[#383838]">
-                                {customer.activities || customer.activity || 'N/A'}
-                              </td>
-                              <td className="px-4 py-2 text-[12px] text-[#383838]">
-                                {customer.location || customer.island_location || 'N/A'}
-                              </td>
-                              <td className="px-4 py-2">
-                                <Link className='text-[#007BFF] font-medium text-[13px]' to={`/admin/customer-view/${customer.id}`}>View</Link>
-                              </td>
-                            </tr>
-                          ))
+                                    {customerId && (
+                                      <div className='text-[#751CC2] text-[9px] font-medium leading[22px]'>
+                                        #{customerId}
+                                      </div>
+                                    )}
+                                  </div>
+                                </td>
+                                <td className="px-4 py-2 text-[12px] text-[#383838]">
+                                  {phone}
+                                </td>
+                                <td className="px-4 py-2 text-[12px] text-[#383838]">
+                                  {email}
+                                </td>
+                                <td className="px-4 py-2 text-[12px] text-[#383838]">
+                                  {bookings}
+                                </td>
+                                <td className="px-4 py-2 text-[12px] text-[#383838]">
+                                  {activities}
+                                </td>
+                                <td className="px-4 py-2 text-[12px] text-[#383838]">
+                                  {location}
+                                </td>
+                                <td className="px-4 py-2">
+                                  <Link className='text-[#007BFF] font-medium text-[13px]' to={`/admin/customer-view/${customerId}`}>View</Link>
+                                </td>
+                              </tr>
+                            );
+                          })
                         )}
                       </tbody>
                     </table>

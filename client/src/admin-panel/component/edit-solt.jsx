@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import DateRangeFilter from './date-range-filter'
 
-function AddSlotModal() {
+function EditSlotModal() {
   const dialogRef = useRef(null)
   const [isClosing, setIsClosing] = useState(false)
 
@@ -16,10 +16,10 @@ function AddSlotModal() {
   useEffect(() => {
     const dialog = dialogRef.current
     const handleGlobalClick = (e) => {
-      if (e.target.getAttribute('commandfor') === 'add-slot-modal') {
+      if (e.target.getAttribute('commandfor') === 'edit-slot-modal') {
         dialog?.showModal()
       }
-      if (e.target.getAttribute('command') === 'close' && e.target.getAttribute('commandfor') === 'add-slot-modal') {
+      if (e.target.getAttribute('command') === 'close' && e.target.getAttribute('commandfor') === 'edit-slot-modal') {
         handleCloseModal()
       }
     }
@@ -110,12 +110,12 @@ function AddSlotModal() {
         dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
       `}</style>
 
-      <dialog ref={dialogRef} id="add-slot-modal" aria-labelledby="add-slot-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
+      <dialog ref={dialogRef} id="edit-slot-modal" aria-labelledby="edit-slot-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 px-6  max-w-[800px] transform overflow-hidden rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form action="">
               <div className="modal-header py-10 flex justify-between">
-                <h1 className='font-poppins font-bold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Create Slot</h1>
+                <h1 className='font-poppins font-bold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Edit Slot</h1>
                 <button className="absolute top-1 right-1 z-50 p-1 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none" onClick={handleCloseModal} aria-label="Close">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                 </button>
@@ -219,4 +219,4 @@ function AddSlotModal() {
   )
 }
 
-export default AddSlotModal
+export default EditSlotModal

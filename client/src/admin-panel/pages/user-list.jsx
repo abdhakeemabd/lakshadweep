@@ -11,12 +11,10 @@ function UserList() {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Fetch users from API
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  // Filter users based on search term
   useEffect(() => {
     if (searchTerm.trim() === '') {
       setFilteredUsers(users);
@@ -37,7 +35,7 @@ function UserList() {
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetch('/customer-api/customer/users/', {
         method: 'GET',
@@ -53,8 +51,6 @@ function UserList() {
       }
 
       const data = await response.json();
-      
-      // Handle different response formats
       const usersData = Array.isArray(data) ? data : (data.users || data.data || []);
       console.log('API Response:', data);
       console.log('First user data:', usersData[0]);
@@ -80,7 +76,6 @@ function UserList() {
   };
 
   const handleExport = () => {
-    // TODO: Implement export functionality
     console.log('Export clicked');
   };
 
@@ -97,11 +92,11 @@ function UserList() {
               <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
                 <div>
                   <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>
-                    Users {!loading && `(${filteredUsers.length})`}
+                    Users
                   </h1>
                 </div>
                 <div className='flex items-center gap-3'>
-                  <button 
+                  <button
                     onClick={handleExport}
                     className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] hover:bg-[#0056b3] transition-colors'>
                     <img src={ExportIcon} alt="Export" />Export
@@ -111,10 +106,10 @@ function UserList() {
               <div className="card-sub-header p-4 flex justify-end items-center">
                 <div className="inline-block">
                   <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
-                    <input 
-                      className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" 
-                      type="search" 
-                      placeholder="Search by phone, name, email, or pincode" 
+                    <input
+                      className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]"
+                      type="search"
+                      placeholder="Search by phone, name, email, or pincode"
                       value={searchTerm}
                       onChange={handleSearch}
                     />
@@ -133,7 +128,7 @@ function UserList() {
                   ) : error ? (
                     <div className="text-center py-8">
                       <p className="text-red-500">Error: {error}</p>
-                      <button 
+                      <button
                         onClick={fetchUsers}
                         className="mt-4 bg-[#007BFF] text-white px-4 py-2 rounded-lg hover:bg-[#0056b3] transition-colors">
                         Retry

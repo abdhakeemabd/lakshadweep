@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
 import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
+import EditSlotModal from '../component/edit-solt';
 function AllSlot() {
   const [openIndex, setOpenIndex] = useState(null);
   const toggleDropdown = (index) => {
@@ -107,7 +108,7 @@ function AllSlot() {
                         <td className="px-4 py-2 text-[12px] text-[#383838]">3</td>
                         <td className="px-4 py-2 text-[12px] text-[#383838]">3</td>
                         <td className="py-2 text-[12px] text-[#383838]"> 
-                          <button>
+                          <button className='cursor-pointer' type='button' command="show-modal" commandfor="edit-slot-modal">
                             <img className='img-fluid' src={EditIcon} alt="Edit" />
                           </button>
                         </td>
@@ -121,6 +122,7 @@ function AllSlot() {
         </div>
       </div>
       <AddSlotModal />
+      <EditSlotModal />
     </>
   )
 }
