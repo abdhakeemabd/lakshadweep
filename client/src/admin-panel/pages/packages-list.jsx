@@ -7,6 +7,7 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
+import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
 function PackagesList() {
   const [openIndex, setOpenIndex] = useState(null);
   const toggleDropdown = (index) => {
@@ -15,9 +16,30 @@ function PackagesList() {
   const toggleFilterDropdown = () => {
     setOpenIndex(openIndex === "filter" ? null : "filter");
   };
-  const handleDelete = (packageId) => {
-    // TODO: Implement delete functionality
-    console.log('Delete package:', packageId);
+  const handleDelete = async (packageId, packageTitle) => {
+    const confirmed = await showDeleteAlert(packageTitle || 'this package');
+    if (confirmed) {
+      try {
+        // TODO: Replace with your actual API endpoint
+        // const response = await fetch(`/api/packages/${packageId}`, {
+        //   method: 'DELETE',
+        //   headers: {
+        //     'Authorization': `Bearer ${token}`,
+        //   },
+        // });
+        // 
+        // if (!response.ok) {
+        //   throw new Error('Failed to delete package');
+        // }
+
+        // For now, just show success (remove this when you implement actual API call)
+        console.log('Deleting package:', packageId);
+        showDeleteSuccess(packageTitle || 'Package');
+      } catch (error) {
+        console.error('Error deleting package:', error);
+        showDeleteError(error.message || 'Failed to delete package');
+      }
+    }
   };
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -172,7 +194,8 @@ function PackagesList() {
                                   <Link to={`/admin/package/edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
                                 </li>
                                 <li>
-                                  <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete('PKG0001'); setOpenIndex(null); }}>Delete</button>
+                                  <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete('PKG0001', 'Summer Package'); setOpenIndex(null); }}> Delete
+                                  </button>
                                 </li>
                               </ul>
                             )}

@@ -15,7 +15,8 @@
     "@emotion/styled": "^11.14.1",
     "@fancyapps/ui": "^6.1.10",
     "@headlessui/react": "^2.2.9",
-    "@mui/material": "^7.3.7",
+    "@mui/icons-material": "^7.3.8",
+    "@mui/material": "^7.3.8",
     "@tailwindcss/vite": "^4.1.18",
     "aos": "^2.3.4",
     "apexcharts": "^5.3.6",
@@ -29,6 +30,7 @@
     "react-slick": "^0.30.3",
     "react-slider": "^2.0.6",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.26.18",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

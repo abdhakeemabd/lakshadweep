@@ -34,6 +34,8 @@ import Notification from './admin-panel/pages/notification';
 import PackagesList from './admin-panel/pages/packages-list';
 import CreatePackage from './admin-panel/pages/package-create';
 import PackageView from './admin-panel/pages/package-view';
+import AllSlot from './admin-panel/pages/all-slot';
+import DayShadule from './admin-panel/pages/day-shadule';
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -72,7 +74,8 @@ function App() {
           <Route path='packages-list' element={<PackagesList />} />
           <Route path='packages/add' element={<CreatePackage />} />
           <Route path='packages/view' element={<PackageView />} />
-          <Route path='slots-list' element={<VendorList />} />
+          <Route path='all-slots' element={<AllSlot />} />
+          <Route path='day-schedule' element={<DayShadule />} />
           <Route path='bookings-list' element={<VendorList />} />
           <Route path='customers-list' element={<VendorList />} />
           <Route path='all-customer' element={<AllCustomer />} />
