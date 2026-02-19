@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Slidebar from '../component/slidebar'
 import Header from '../component/header'
 import AddSlotModal from '../component/add-slot-modal';
-import { Link } from 'react-router-dom';
-import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
 import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
 import EditSlotModal from '../component/edit-solt';
