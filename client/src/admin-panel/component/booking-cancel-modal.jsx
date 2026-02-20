@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import TooltipIcon from "../../assets/admin-panel-icon/icons/tool-tip.svg"
 import * as Tooltip from '@radix-ui/react-tooltip';
+import { showBookingCancelSuccess } from './swal-delete';
 function BookingCancelModal({ booking }) {
   const dialogRef = useRef(null)
   const [isClosing, setIsClosing] = useState(false)
@@ -215,7 +216,7 @@ function BookingCancelModal({ booking }) {
                         </div>
                         <div className="col-span-12 text-end mt-3">
                           <div className='flex justify-end items-center gap-3'>
-                            <button type="button" className='bg-[#007BFF] px-4 py-2 rounded-[7px] w-[173px] h-[36px] text-white text-[14px] font-poppins font-semibold leading-full tracking-normal'>Send</button>
+                            <button type="button" onClick={() => { handleCloseModal(); setTimeout(showBookingCancelSuccess, 350); }} className='bg-[#007BFF] px-4 py-2 rounded-[7px] w-[173px] h-[36px] text-white text-[14px] font-poppins font-semibold leading-full tracking-normal'>Send</button>
                           </div>
                         </div>
                       </div>
