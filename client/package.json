@@ -17,6 +17,7 @@
     "@headlessui/react": "^2.2.9",
     "@mui/icons-material": "^7.3.8",
     "@mui/material": "^7.3.8",
+    "@radix-ui/react-tooltip": "^1.2.8",
     "@tailwindcss/vite": "^4.1.18",
     "aos": "^2.3.4",
     "apexcharts": "^5.3.6",
