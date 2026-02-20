@@ -23,12 +23,28 @@ import PaymentsActive from '../../assets/admin-panel-icon/sidebar/payments-activ
 function Slidebar() {
   const location = useLocation();
   const isCustomerActive = location.pathname.startsWith('/admin/all-customer') || location.pathname.startsWith('/admin/users') || location.pathname.startsWith('/admin/enquiries');
-  const isSlotsActive = location.pathname.startsWith('/slot');
-  const isSettingActive = location.pathname.startsWith('/setting');
+  const isSlotsActive = location.pathname.startsWith('/admin/all-slots') || location.pathname.startsWith('/admin/day-schedule');
+  const isSettingActive = location.pathname.startsWith('/admin/setting');
 
   const [isCustomerOpen, setIsCustomerOpen] = React.useState(isCustomerActive);
   const [isSlotsOpen, setIsSlotsOpen] = React.useState(isSlotsActive);
   const [isSettingOpen, setIsSettingOpen] = React.useState(isSettingActive);
+
+  React.useEffect(() => {
+    if (isCustomerActive) {
+      setIsCustomerOpen(true);
+      setIsSlotsOpen(false);
+      setIsSettingOpen(false);
+    } else if (isSlotsActive) {
+      setIsSlotsOpen(true);
+      setIsCustomerOpen(false);
+      setIsSettingOpen(false);
+    } else if (isSettingActive) {
+      setIsSettingOpen(true);
+      setIsCustomerOpen(false);
+      setIsSlotsOpen(false);
+    }
+  }, [isCustomerActive, isSlotsActive, isSettingActive]);
 
 
   return (
@@ -78,7 +94,7 @@ function Slidebar() {
             </NavLink>
           </li>
           <li className='mb-3 lg:mb-4'>
-            <div onClick={() => setIsSlotsOpen(!isSlotsOpen)} className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isSlotsOpen || isSlotsActive) ? "bg-[#FF5C1A]" : ""}`}>
+            <div onClick={() => { setIsSlotsOpen(!isSlotsOpen); setIsCustomerOpen(false); setIsSettingOpen(false); }} className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isSlotsOpen || isSlotsActive) ? "bg-[#FF5C1A]" : ""}`}>
               <div className="icon">
                 <img src={Slots} alt="Slots" className={`w-6 h-6 ${(isSlotsOpen || isSlotsActive) ? "hidden" : "block"} group-hover:hidden`} />
                 <img src={SlotsActive} alt="Slots Active" className={`w-6 h-6 ${(isSlotsOpen || isSlotsActive) ? "block" : "hidden"} group-hover:block`} />
@@ -116,7 +132,7 @@ function Slidebar() {
           </li>
           <li className='mb-3 lg:mb-4'>
             <div
-              onClick={() => setIsCustomerOpen(!isCustomerOpen)}
+              onClick={() => { setIsCustomerOpen(!isCustomerOpen); setIsSlotsOpen(false); setIsSettingOpen(false); }}
               className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isCustomerOpen || isCustomerActive) ? "bg-[#FF5C1A]" : ""}`}>
               <div className="icon">
                 <img src={Customers} alt="Customers" className={`w-6 h-6 ${(isCustomerOpen || isCustomerActive) ? "hidden" : "block"} group-hover:hidden`} />
@@ -154,7 +170,7 @@ function Slidebar() {
           </li>
           <li className='mb-3 lg:mb-4'>
             <div
-              onClick={() => setIsSettingOpen(!isSettingOpen)}
+              onClick={() => { setIsSettingOpen(!isSettingOpen); setIsSlotsOpen(false); setIsCustomerOpen(false); }}
               className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${(isSettingOpen || isSettingActive) ? "bg-[#FF5C1A]" : ""}`}>
               <div className="icon">
                 <img src={Settings} alt="Settings" className={`w-6 h-6 ${(isSettingOpen || isSettingActive) ? "hidden" : "block"} group-hover:hidden`} />
