@@ -17,7 +17,7 @@ function BookingViewModal({ booking }) {
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
-    }, 300) // Match animation duration
+    }, 300) 
   }
 
   useEffect(() => {
