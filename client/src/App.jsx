@@ -40,7 +40,7 @@ import AddCatagory from './admin-panel/pages/add-catagory';
 import DayShadule from './admin-panel/pages/day-shadule';
 import BookingList from './admin-panel/pages/booking-list';
 import UpdateCatagory from './admin-panel/pages/update-catatory';
-import Location from './admin-panel/pages/Location';
+import Location from './admin-panel/pages/location';
 import HomePageBanner from './admin-panel/pages/home-page-banner';
 import AdminGallery from './admin-panel/pages/admin-gallery';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
