@@ -35,8 +35,15 @@ import PackagesList from './admin-panel/pages/packages-list';
 import CreatePackage from './admin-panel/pages/package-create';
 import PackageView from './admin-panel/pages/package-view';
 import AllSlot from './admin-panel/pages/all-slot';
+import EntityManagement from './admin-panel/pages/Entity-Management';
+import AddCatagory from './admin-panel/pages/add-catagory';
 import DayShadule from './admin-panel/pages/day-shadule';
 import BookingList from './admin-panel/pages/booking-list';
+import UpdateCatagory from './admin-panel/pages/update-catatory';
+import Location from './admin-panel/pages/Location';
+import HomePageBanner from './admin-panel/pages/home-page-banner';
+import AdminGallery from './admin-panel/pages/admin-gallery';
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -50,6 +57,14 @@ function App() {
       offset: 10,
     });
   }, []);
+
+  useEffect(() => {
+    if (isAdminPath) {
+      document.body.style.backgroundColor = '#f6f6f7';
+    } else {
+      document.body.style.backgroundColor = '#fff';
+    }
+  }, [isAdminPath]);
   return (
     <>
       <ScrollToTop />
@@ -84,8 +99,12 @@ function App() {
           <Route path='users' element={<UserList />} />
           <Route path='enquiries' element={<Enquiries />} />
           <Route path='notifications-list' element={<Notification />} />
-          <Route path='setting/categories' element={<VendorList />} />
-          <Route path='setting/content-management' element={<VendorList />} />
+          <Route path='setting/categories' element={<EntityManagement />} />
+          <Route path='setting/add-catagory' element={<AddCatagory />} />
+          <Route path='setting/edit-catagory' element={<UpdateCatagory />} />
+          <Route path='setting/location' element={<Location />} />
+          <Route path='setting/content-management' element={<HomePageBanner />} />
+          <Route path='setting/content-gallery' element={<AdminGallery />} />
           <Route path='payments-list' element={<Payment />} />
         </Route>
 

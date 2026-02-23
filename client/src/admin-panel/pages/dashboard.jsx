@@ -185,7 +185,7 @@ function Dashboard() {
           </div>
           <div className="w-full pt-3">
             <Header />
-            <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem]">
+            <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem] bg-white">
               <div className="card-header mb-3 flex gap-3 lg:gap-5 items-center justify-center">
                 <div className="card p-3 w-full rounded-[25px] min-w-[262px] min-h-[126px] py-3 lg:py-4 flex gap-3 items-start bg-[#0F2446] shadow-[0px_19px_56px_0px_#2E25860F]">
                   <img src={Money} alt="Money" className='w-[50px] h-[50px]' />
@@ -223,7 +223,7 @@ function Dashboard() {
               <div className="card-body p-3">
                 <div className="grid grid-cols-12 gap-6">
                   <div className="col-span-12 lg:col-span-8">
-                    <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem]">
+                    <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem] bg-white">
                       <div className="card-header">
                         <div className="card-title text-[20px] font-semibold text-[#2A2A2A]">Booking Overview</div>
                       </div>
@@ -236,7 +236,7 @@ function Dashboard() {
                     </div>
                   </div>
                   <div className="col-span-12 lg:col-span-4">
-                    <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem]">
+                    <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem] bg-white ">
                       <div className="card-header py-3">
                         <h5 className="card-title text-[18px] font-semibold text[#353535]">Top Packages</h5>
                       </div>
@@ -291,7 +291,7 @@ function Dashboard() {
                     </div>
                   </div>
                   <div className="col-span-12 lg:col-span-4">
-                    <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem]">
+                    <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem] bg-white">
                       <div className="card-header py-3">
                         <div className="card-title text-[18px] font-semibold text[#353535]">Today's Schedule</div>
                       </div>

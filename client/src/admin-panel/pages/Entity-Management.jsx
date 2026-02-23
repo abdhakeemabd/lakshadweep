@@ -1,0 +1,68 @@
+import React from 'react'
+import Slidebar from '../component/slidebar'
+import Header from '../component/header'
+import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
+import DeleteIcon from "../../assets/admin-panel-icon/icons/delete-icon.svg";
+import {NavLink, Link } from 'react-router-dom';
+function EntityManagement() {
+  return (
+    <>
+      <div className="container-fluid mx-auto pr-3">
+        <div className="flex gap-5">
+          <div className="w-[262px]">
+            <Slidebar />
+          </div>
+          <div className=" w-full pt-3">
+            <Header />
+            <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+              <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
+                <div className='flex items-center gap-3 bg-[#E9E9EA] rounded-full p-[4px] border-1 border-[#E9E9EA]'>
+                  <NavLink to="/admin/setting/categories" className={({ isActive }) => `w-[170px] font-medium text-center text-[14px] rounded-full transition-all px-2 py-2 ${ isActive ? 'bg-[#0F2446] text-white border border-[#2F68C5] font-semibold' : 'text-[#393939] bg-transparent' }`}>Category & Activities</NavLink>
+                  <NavLink to="/admin/setting/location" className={({ isActive }) => `w-[170px] font-medium text-center text-[14px] rounded-full transition-all px-2 py-2 ${ isActive ? 'bg-[#0F2446] text-white border border-[#2F68C5] font-semibold' : 'text-[#393939] bg-transparent' }`}>Location</NavLink>
+                </div>
+                <div className='flex items-center gap-3'>
+                  <Link to="/admin/setting/add-catagory" className="flex min-w-[147px] h-[36px] text-[12px] items-center justify-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white font-semibold cursor-pointer">
+                    + Add
+                  </Link>
+                </div>
+              </div>
+              <div className="card-sub-header p-4 flex justify-between items-center">
+              </div>
+              <div className="card-body py-4">
+                <div className="overflow-x-auto min-h-[400px]">
+                  <table className="w-full">
+                    <thead>
+                      <tr className='border-b border-[#dee2e6]'>
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Category</th>
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Activity</th>
+                        <th className="py-2 text-left text-xs font-semibold text-[#383838]"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className='border-b border-[#dee2e6] last:border-0'>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">C</td>
+                        <td className="px-4 py-2 text-[12px] text-[#3d3d3d]"> Scuba Diving , Kayaking +3more</td>
+                        <td className="py-2 text-[12px] text-[#383838]">
+                          <div className='flex justify-center gap-3 items-center'>
+                            <Link to="/admin/setting/edit-catagory" className='cursor-pointer' type='button' command="show-modal" commandfor="edit-slot-modal">
+                              <img className='img-fluid' src={EditIcon} alt="Edit" />
+                            </Link>
+                            <button className='cursor-pointer' type='button' command="show-modal" commandfor="delete-slot-modal">
+                              <img className='img-fluid' src={DeleteIcon} alt="Edit" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default EntityManagement
