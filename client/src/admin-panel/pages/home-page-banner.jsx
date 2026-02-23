@@ -5,22 +5,13 @@ import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
 import DeleteIcon from "../../assets/admin-panel-icon/icons/delete-icon.svg";
 import { NavLink, Link } from 'react-router-dom';
 import DagableIcon from "../../assets/admin-panel-icon/icons/reorder.svg";
+import Banner from "../../assets/admin-panel-icon/img/default-image.jpg";
 import { FiMoreVertical } from 'react-icons/fi';
 import AddBannerModal from './add-banner-modal';
 import EddBannerModal from './edit-banner-modal';
+import { Fancybox } from '@fancyapps/ui';
 function HomePageBanner() {
     const [openIndex, setOpenIndex] = useState(null);
-    const [selectedBooking, setSelectedBooking] = useState(null);
-    const handleConfirmBooking = (booking) => {
-      setSelectedBooking(booking);
-      setOpenIndex(null);
-    };
-
-    const handleViewBooking = (booking) => {
-      setSelectedBooking(booking);
-      setOpenIndex(null);
-    };
-
     const banners = [
       {
         id: 1,
@@ -30,10 +21,15 @@ function HomePageBanner() {
         status: "Active"
       }
     ];
-
     const toggleDropdown = (index) => {
       setOpenIndex(openIndex === index ? null : index);
     };
+
+    useEffect(() => {
+      Fancybox.bind("[data-fancybox]", {});
+      return () => Fancybox.destroy();
+    }, []);
+
     useEffect(() => {
       const handleClickOutside = (e) => {
         if (!e.target.closest(".dropdown-container")) {
@@ -96,10 +92,10 @@ function HomePageBanner() {
                           <td className="px-4 py-2 text-[12px] text-[#383838]">
                             <img src={DagableIcon} alt="DagableIcon" />
                           </td>
-                          <td className="px-4 py-2 text-[12px] text-[#3d3d3d]">
-                            <div className="img-card relative aspect-[77/32]">
-                              <a href="" className="block w-full h-full">
-                                <img className="w-full h-full object-cover" src={DagableIcon} alt="Banner" />
+                          <td className="px-4 py-2 text-[12px] text-[#3d3d3d] min-w-[150px]">
+                            <div className="img-card relative max-w-[106px] aspect-[106/62] overflow-hidden">
+                              <a href={Banner} data-fancybox="banner" className="block w-full h-full">
+                                <img className="w-full h-full object-cover" src={Banner} alt="Banner" />
                               </a>
                             </div>
                           </td>
@@ -107,7 +103,7 @@ function HomePageBanner() {
                           <td className="px-4 py-2 text-[12px] text-[#3d3d3d]">{item.activity}</td>
                           <td className="px-4 py-2 text-[12px] text-[#3d3d3d]">{item.destination}</td>
                           <td className="px-4 py-2 text-[12px] text-[#3d3d3d]">
-                            <span className='badge font-medium flex justify-center items-center text-[10px] py-1 px-3 min-h-[20px] min-w-[50px] rounded-full inline-block bg-[#B5FFDF] text-[#1C9762] border-[1px] border-[#1C9762]'>{item.status}</span>
+                            <span className='badge font-medium flex justify-center items-center text-[10px] py-1 px-3 min-h-[20px] min-w-[50px] rounded-full inline-block bg-[#CBFFCA] text-[#16941A]'>{item.status}</span>
                           </td>
                           <td className="py-2 text-[12px] text-[#383838]">
                             <div className='flex justify-center gap-3 items-center dropdown-container relative'>
@@ -123,10 +119,10 @@ function HomePageBanner() {
                               {openIndex === index && (
                                 <ul className="absolute right-0 mt-2 top-full w-40 origin-top-right bg-white border border-gray-100 rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-[100] overflow-hidden py-1">
                                   <li className='border-b border-[#E2E2E2]'>
-                                    <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" command="show-modal" commandfor="booking-view-modal" onClick={() => handleViewBooking(item)}>Activate</button>
+                                    <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Activate</button>
                                   </li>
                                   <li>
-                                    <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" command="show-modal" commandfor="booking-conform-modal" onClick={() => handleConfirmBooking(item)}>Deactivate</button>
+                                    <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
                                   </li>
                                 </ul>
                               )}
