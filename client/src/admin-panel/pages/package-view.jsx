@@ -102,8 +102,8 @@ function PackageView() {
                       <div className='font-poppins text-[#3d3d3d] text-[14px] font-semibold'>INR 350.00</div>
                     </div>
                     <div className="flex justify-between gap-3 mb-3">
-                      <button command="show-modal" commandfor="drawer_default_slot" className='flex items-center w-[147px] text-[12px] font-semibold justify-center h-[34px] bg-[#00B8A9] text-[#FFEBEB] py-2 rounded-[8px]'>Default Slots</button>
-                      <button className='flex items-center w-[147px] text-[12px] font-semibold justify-center h-[34px] bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[8px]'>Common Slots</button>
+                      <button command="show-modal" commandfor="drawer_default_slot" className='flex items-center w-[147px] text-[12px] font-semibold justify-center h-[34px] bg-[#00B8A9] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer'>Default Slots</button>
+                      <button className='flex items-center w-[147px] text-[12px] font-semibold justify-center h-[34px] bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer'>Common Slots</button>
                     </div>
                   </div>
                 </div>

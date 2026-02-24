@@ -45,3 +45,35 @@ body {
     background-position: center;
     pointer-events: none;
 }
+
+/* Global Offcanvas Drawer Animation */
+.offcanvas-drawer {
+  display: block; /* Native dialog is normally hidden, we manage visibility via opacity/events */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, overlay 0.3s allow-discrete, display 0.3s allow-discrete;
+}
+
+.offcanvas-drawer[open] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Global Backdrop Animation */
+.offcanvas-drawer::backdrop {
+  background-color: rgba(17, 24, 39, 0);
+  backdrop-filter: blur(0px);
+  transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out, overlay 0.3s allow-discrete, display 0.3s allow-discrete;
+}
+
+.offcanvas-drawer[open]::backdrop {
+  background-color: rgba(17, 24, 39, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+/* Global Panel Animation: Slide from Right to Left */
+.offcanvas-drawer .offcanvas-panel {
+  position: absolute;
+  right: -100%; /* Start off-screen */
+  transition: right 0.4s ease-in-out;
+}
