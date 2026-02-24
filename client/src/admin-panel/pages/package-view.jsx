@@ -19,27 +19,28 @@ const ImageUploadCard = ({ imageUrl, onImageSelect, onImageRemove }) => {
   };
 
   return (
-    <div className="img-card relative">
+    <div className="img-card relative w-full aspect-square">
       {imageUrl ? (
-        <div className="w-full aspect-square relative rounded-[6.75px] overflow-hidden border border-[#007BFF]">
-          <img src={imageUrl} alt="Preview" className="w-full h-full object-cover absolute top-[50%] left-[50%]"/>
-          <button onClick={onImageRemove} className="absolute top-2 right-2 w-[28px] h-[28px] bg-[#FFFFFFE3] w-[28px] h-[28px] text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200" type="button">
-            <img className='' src={DeleteIcon} alt="Delete" />
+        <div className="w-full h-full relative rounded-[6.75px] overflow-hidden border border-[#007BFF] box-border">
+          <img src={imageUrl} alt="Preview" className="w-[190px] h-[190px] aspect-square object-cover"/>
+          <button onClick={onImageRemove} className="absolute top-2 right-2 w-[28px] h-[28px] bg-[#FFFFFFE3] text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200" type="button">
+            <img src={DeleteIcon} alt="Delete" />
           </button>
         </div>
       ) : (
-        <label className='w-full min-h-0 box-border relative flex flex-col items-center justify-center text-center cursor-pointer aspect-square border border-dashed border-[#007BFF] bg-[#DCEFFF] rounded-[6.75px] px-[10px] py-[20px]'>
-          <input type="file" className="upload_input" accept="image/*" onChange={handleFileChange}/>
+        <label className='w-full h-full box-border relative flex flex-col items-center justify-center text-center cursor-pointer border border-dashed border-[#007BFF] bg-[#DCEFFF] rounded-[6.75px] px-[10px] py-[20px]'>
+          <input type="file" className="upload_input z-1" accept="image/*" onChange={handleFileChange}/>
           <img src={UploadIcon} alt="add Image" />
-          <button type="button" className="bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[6.75px] text-[11px] font-semibold px-4 h-[31px] w-[88%] py-[5px] absolute bottom-3">Add Image</button>
+          <button type="button" className="bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[6.75px] text-[11px] font-semibold px-4 h-[31px] w-[88%] absolute bottom-3">Add Image</button>
         </label>
       )}
     </div>
   );
 };
 
+
 function PackageView() {
-  const [galleryImages, setGalleryImages] = useState([null, null, null]);
+  const [galleryImages, setGalleryImages] = useState([null, null, null, null, null, null]);
   const handleImageSelect = (index, imageUrl) => {
     const newImages = [...galleryImages];
     newImages[index] = imageUrl;
@@ -137,16 +138,23 @@ function PackageView() {
                       </div>
                       <div className="min-w-[190px] mb-3">
                         <ImageUploadCard
-                          imageUrl={galleryImages[2]}
-                          onImageSelect={(url) => handleImageSelect(2, url)}
-                          onImageRemove={() => handleImageRemove(2)}
+                          imageUrl={galleryImages[3]}
+                          onImageSelect={(url) => handleImageSelect(3, url)}
+                          onImageRemove={() => handleImageRemove(3)}
                         />
                       </div>
                       <div className="min-w-[190px] mb-3">
                         <ImageUploadCard
-                          imageUrl={galleryImages[2]}
-                          onImageSelect={(url) => handleImageSelect(2, url)}
-                          onImageRemove={() => handleImageRemove(2)}
+                          imageUrl={galleryImages[4]}
+                          onImageSelect={(url) => handleImageSelect(4, url)}
+                          onImageRemove={() => handleImageRemove(4)}
+                        />
+                      </div>
+                      <div className="min-w-[190px] mb-3">
+                        <ImageUploadCard
+                          imageUrl={galleryImages[5]}
+                          onImageSelect={(url) => handleImageSelect(5, url)}
+                          onImageRemove={() => handleImageRemove(5)}
                         />
                       </div>
                     </div>
