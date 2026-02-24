@@ -97,8 +97,8 @@ function CreateDefaultSlot() {
   };
   return (
     <>
-      <dialog id="drawer_default_slot" aria-labelledby="drawer-title" className="offcanvas-drawer">
-        <div className="offcanvas-panel flex flex-col bg-white py-6 shadow-xl">
+      <dialog id="drawer_default_slot" aria-labelledby="drawer-title" className="offcanvas-drawer fixed inset-0 bg-transparent border-0 p-0 m-0 w-screen h-screen max-w-none max-h-none overflow-hidden pointer-events-none open:pointer-events-auto not-open:hidden backdrop:bg-transparent">
+        <div className={`offcanvas-panel fixed top-0 right-0 bottom-0 w-full sm:max-w-[420px] lg:max-w-[693px] transition-transform duration-[600ms] ease-in-out will-change-transform z-[1000] bg-white py-6 shadow-[-10px_0_15px_-3px_rgba(0,0,0,0.1),_-4px_0_6px_-2px_rgba(0,0,0,0.05)] flex flex-col ${open ? "translate-x-0" : "translate-x-full"}`}>
           <div className="absolute z-10 top-2 right-2 flex">
             <button type="button" onClick={() => document.getElementById('drawer_default_slot').close()} className="relative rounded-md cursor-pointer text-gray-400 z-10 hover:text-gray-700 hover:rotate-90 transition-all duration-500 ease-in-out">
               <span className="sr-only">Close panel</span>
