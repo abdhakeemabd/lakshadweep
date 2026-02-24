@@ -44,6 +44,8 @@ import Location from './admin-panel/pages/location';
 import HomePageBanner from './admin-panel/pages/home-page-banner';
 import AdminGallery from './admin-panel/pages/admin-gallery';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import AdminLayout from './admin-panel/component/admin-layout';
+
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -80,7 +82,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
-        <Route path='/admin' element={<ProtectedRoute />}>
+        <Route path='/admin' element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='vendor/list' element={<VendorList />} />
@@ -107,6 +109,7 @@ function App() {
           <Route path='setting/content-gallery' element={<AdminGallery />} />
           <Route path='payments-list' element={<Payment />} />
         </Route>
+
 
         <Route path='/user/login' element={<AdminLogin />} />
 

@@ -66,7 +66,7 @@ function Slidebar() {
 
   return (
     <>
-      {isOpen && (<div className="fixed inset-0 bg-black/50 z-[999] lg:hidden backdrop-blur-sm transition-opacity" onClick={() => setIsOpen(false)} />)}
+      {isOpen && (<div className="fixed inset-0 bg-black/50 z-[999] lg:hidden" onClick={() => setIsOpen(false)} />)}
       <div className={`side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen h-full fixed lg:relative inset-y-0 left-0 z-[1000] lg:z-auto w-[260px] lg:w-full transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         <aside>
           <div className="py-5 mb-4 text-center flex items-center justify-between lg:justify-center">
