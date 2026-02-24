@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import UploadIcon from "../../../src/assets/admin-panel-icon/icons/add-img-icon.svg";
 import DeleteIcon from "../../../src/assets/admin-panel-icon/icons/deletegallery.svg";
 import CreateDefaultSlot from '../component/create-default-slot';
-// Image Upload Card Component
+import CreateCommonSlot from '../component/create-common-solts';
 const ImageUploadCard = ({ imageUrl, onImageSelect, onImageRemove }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -40,13 +40,11 @@ const ImageUploadCard = ({ imageUrl, onImageSelect, onImageRemove }) => {
 
 function PackageView() {
   const [galleryImages, setGalleryImages] = useState([null, null, null]);
-
   const handleImageSelect = (index, imageUrl) => {
     const newImages = [...galleryImages];
     newImages[index] = imageUrl;
     setGalleryImages(newImages);
   };
-
   const handleImageRemove = (index) => {
     const newImages = [...galleryImages];
     newImages[index] = null;
@@ -103,7 +101,7 @@ function PackageView() {
                     </div>
                     <div className="flex justify-between gap-3 mb-3">
                       <button command="show-modal" commandfor="drawer_default_slot" className='flex items-center w-[147px] text-[12px] font-semibold justify-center h-[34px] bg-[#00B8A9] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer'>Default Slots</button>
-                      <button className='flex items-center w-[147px] text-[12px] font-semibold justify-center h-[34px] bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer'>Common Slots</button>
+                      <button command="show-modal" commandfor="drawer_common_slot" className='flex items-center w-[147px] text-[12px] font-semibold justify-center h-[34px] bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer'>Common Slots</button>
                     </div>
                   </div>
                 </div>
@@ -160,6 +158,7 @@ function PackageView() {
         </div>
       </div>
       <CreateDefaultSlot />
+      <CreateCommonSlot />
     </>
   )
 }
