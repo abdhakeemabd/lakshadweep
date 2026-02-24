@@ -78,7 +78,7 @@ function PackageView() {
                       <div className="text-[14px] font-inter leading-[20px] text-[#3d3d3d]">Join our Summer Package for an exciting scuba diving experience in Kavaratti. Discover vibrant marine life, crystal-clear waters, and professional guidance to ensure both safety and fun. Perfect for adventure seekers looking to explore the beauty of the ocean.</div>
                     </div>
                     <div className="flex justify-end mb-3">
-                      <button className="flex items-center text-[12px] justify-center w-[93px] h-[34px] bg-[#FF4D4D] text-[#FFEBEB] py-2 rounded-[8px]">Deactivate</button>
+                      <button className="flex items-center text-[12px] justify-center w-[93px] h-[34px] bg-[#FF4D4D] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer">Deactivate</button>
                     </div>
                     <div className="block mb-3">
                       <div className='font-poppins text-[#8C8C8C] text-[12px] font-medium mb-2'>Category</div>

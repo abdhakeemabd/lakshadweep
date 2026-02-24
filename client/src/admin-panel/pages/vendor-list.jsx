@@ -29,7 +29,6 @@ function VendorList() {
       }
 
       const data = await response.json();
-      console.log('Raw API Response:', data);
       
       // Extensive data discovery
       let vendorsList = [];
@@ -140,9 +139,9 @@ function VendorList() {
           <div className=" w-full pt-3">
             <Header />
             <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
-              <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
+              <div className="card-header py-4 px-2 flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
                 <div className='flex items-center gap-3'>
-                  <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Vendor List</h1>
+                  <h1 className='font-poppins font-semibold text-[20px] md:text-[20px] leading-[100%] text-[#2A2A2A]'>Vendor List</h1>
                 </div>
                 <div className='flex gap-4'>
                   <div className="relative dropdown-container">
@@ -291,8 +290,8 @@ function VendorList() {
                               <td className='text-[#383838] text-[12px] py-3'>{vendor.location || vendor.island_location || vendor.address_line_1 || 'N/A'}</td>
                               <td className='text-[#383838] text-[12px] py-3'>{vendor.category || vendor.activity || 'N/A'}</td>
                               <td className='text-[#383838] text-[12px] py-3'>
-                                <div className={`badge px-2 justify-center flex items-center w-[65px] h-[22px] rounded-full text-[10px] font-semibold 
-                                  ${(vendor.status === "Active" || vendor.is_active || vendor.vendor_status === "Active")
+                                <div className={`badge px-2 justify-center flex items-center w-[60px] py-1 rounded-full text-[8px] font-semibold 
+                                  ${(vendor.status?.toUpperCase() === "ACTIVE" || vendor.is_active)
                                     ? "text-[#1C9762] bg-[#B5FFDF] border border-[#1C9762]"
                                     : "text-[#dc3545] bg-[#ffd6d6] border border-[#dc3545]"}`}>
                                   {vendor.status || (vendor.is_active ? "Active" : "Inactive")}
