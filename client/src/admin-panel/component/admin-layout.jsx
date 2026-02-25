@@ -7,7 +7,7 @@ const AdminLayout = () => {
   return (
     <div className="container-fluid mx-auto pr-3">
       <div className="flex gap-3 lg:gap-4">
-        <div className=" md:w-[262px]">
+        <div className=" lg:w-[262px]">
           <Slidebar />
         </div>
         <div className="w-full pt-3">

@@ -177,12 +177,12 @@ function VendorView() {
           </div>
         ) : (
           <div className="bg-white rounded-2xl shadow-[1px_0px_4px_0px_#00000014] overflow-hidden p-3">
-            <div className="card-header px-6 py-5 flex justify-between items-center">
+            <div className="card-header md:px-6 py-5 flex flex-wrap gap-3 justify-between items-center">
               <nav className="flex border border-[#E5E5E5] rounded-[35px] w-max px-1 py-1 bg-[#E9E9EA]">
                 <button onClick={() => setActiveTab("home")} className={tabClass("home")}>Booking History</button>
                 <button onClick={() => setActiveTab("profile")} className={tabClass("profile")}>Assigned Packages</button>
               </nav>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 {activeTab === "profile" ? (
                   <div className="relative">
                     <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="appearance-none bg-[#E9F5FF] text-[#0085FF] font-semibold text-[13px] px-4 py-2.5 rounded-[12px] pr-8 cursor-pointer focus:outline-none transition-all hover:bg-[#D4EAFF]">
@@ -228,7 +228,7 @@ function VendorView() {
                           </div>
                         </div>
                       </div>
-                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
                         <div>
                           <div className="text-[14px] text-[#8c8c8c] mb-1">Date</div>
                           <div className="font-bold text-[16px] text-[#2A2A2A]">{item.date}</div>
@@ -282,7 +282,7 @@ function VendorView() {
                             </div>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
                           <div>
                             <div className="text-[14px] text-[#8c8c8c] mb-1">Date</div>
                             <div className="font-bold text-[16px] text-[#2A2A2A]">{item.date}</div>

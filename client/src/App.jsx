@@ -45,6 +45,7 @@ import HomePageBanner from './admin-panel/pages/home-page-banner';
 import AdminGallery from './admin-panel/pages/admin-gallery';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import AdminLayout from './admin-panel/component/admin-layout';
+import UpdatePackage from './admin-panel/pages/package-edit';
 
 function App() {
   const location = useLocation();
@@ -91,6 +92,7 @@ function App() {
           <Route path='vendor/add' element={<AddVendor />} />
           <Route path='packages-list' element={<PackagesList />} />
           <Route path='packages/add' element={<CreatePackage />} />
+          <Route path='packages/edit' element={<UpdatePackage />} />
           <Route path='packages/view' element={<PackageView />} />
           <Route path='all-slots' element={<AllSlot />} />
           <Route path='day-schedule' element={<DayShadule />} />

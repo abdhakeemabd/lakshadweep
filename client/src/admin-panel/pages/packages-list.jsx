@@ -52,11 +52,11 @@ function PackagesList() {
   return (
     <>
       <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
-        <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
+        <div className="card-header p-4  flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
           <div>
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Packages</h1>
           </div>
-          <div className='flex items-center gap-3'>
+          <div className='flex flex-wrap items-center gap-3'>
             <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
               <img src={ExportIcon} alt="Export" />Export</button>
             <div className="relative dropdown-container">
@@ -183,7 +183,7 @@ function PackagesList() {
                             <Link to={`/admin/packages/view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
                           </li>
                           <li className='border-b border-[#e2e2e2]'>
-                            <Link to={`/admin/package/edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
+                            <Link to={`/admin/packages/edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
                           </li>
                           <li>
                             <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete('PKG0001', 'Summer Package'); setOpenIndex(null); }}> Delete

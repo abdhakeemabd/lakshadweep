@@ -69,13 +69,13 @@ function Slidebar() {
       {isOpen && (<div className="fixed inset-0 bg-black/50 z-[999] lg:hidden" onClick={() => setIsOpen(false)} />)}
       <div className={`side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen h-full fixed lg:relative inset-y-0 left-0 z-[1000] lg:z-auto w-[260px] lg:w-full transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         <aside>
-          <div className="py-5 mb-4 text-center flex items-center justify-between lg:justify-center">
+          <div className="py-5 pt-10 lg:pt-5 text-center flex items-center justify-between lg:justify-center">
+            <button onClick={() => setIsOpen(false)} className="lg:hidden absolute top-2 right-2 text-white p-2 hover:bg-white/10 rounded-full transition-colors">
+              <IoClose size={24} />
+            </button>
             <Link to="/" className="a-logo">
               <img src={Logo} className="h-[30px] mx-auto" alt="Logo" />
             </Link>
-            <button onClick={() => setIsOpen(false)} className="lg:hidden text-white p-2 hover:bg-white/10 rounded-full transition-colors">
-              <IoClose size={24} />
-            </button>
           </div>
           <ul className="space-y-2">
             <li className="mb-3 lg:mb-4">
@@ -142,10 +142,10 @@ function Slidebar() {
               {isSlotsOpen && (
                 <ul className="sub-menu mt-2 space-y-1">
                   <li>
-                    <NavLink to="/admin/all-slots/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>All Slots</NavLink>
+                    <NavLink to="/admin/all-slots/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>All Slots</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/day-schedule/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Day Schedule</NavLink>
+                    <NavLink to="/admin/day-schedule/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Day Schedule</NavLink>
                   </li>
                 </ul>
               )}
@@ -187,13 +187,13 @@ function Slidebar() {
               {isCustomerOpen && (
                 <ul className="sub-menu mt-2 space-y-1">
                   <li>
-                    <NavLink to="/admin/all-customer" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}> All Customers </NavLink>
+                    <NavLink to="/admin/all-customer" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}> All Customers </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/users" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Users</NavLink>
+                    <NavLink to="/admin/users" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Users</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/enquiries" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Enquiries</NavLink>
+                    <NavLink to="/admin/enquiries" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Enquiries</NavLink>
                   </li>
                 </ul>
               )}
@@ -238,11 +238,11 @@ function Slidebar() {
               {isSettingOpen && (
                 <ul className="sub-menu mt-2 space-y-1">
                   <li>
-                    <NavLink to="/admin/setting/categories" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`} >Categories
+                    <NavLink to="/admin/setting/categories" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`} >Categories
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/setting/content-management" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`} >Content Management
+                    <NavLink to="/admin/setting/content-management" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`} >Content Management
                     </NavLink>
                   </li>
                 </ul>

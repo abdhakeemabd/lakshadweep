@@ -29,31 +29,20 @@ function Enquiries() {
           <table className="w-full">
             <thead>
               <tr className='border-b border-[#e3e3e3]'>
-                <th className="pl-10 px-4 py-2 text-left text-xs font-semibold text-[#383838]">ID</th>
-                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Customer Name</th>
-                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Phone</th>
+                <th className="pl-10 pr-4 py-2 text-left text-xs font-semibold text-[#383838]">ID</th>
+                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Name</th>
                 <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Email</th>
-                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">No of Bookings</th>
-                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Activities</th>
-                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Location</th>
-                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]"></th>
+                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Subject</th>
+                <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Message</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="pl-10 px-4 py-2 text-[12px] text-[#383838]">1.</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">
-                  <div className='item'>
-                    <div className='text-[#313131] text-[11px] font-medium leading[22px]'>Jacob Lamarstein</div>
-                    <div className='text-[#751CC2] text-[9px] font-medium leading[22px]'>#NTYFC567</div>
-                  </div>
-                </td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">+91 9633485674</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">Alexieser007@gmail.com</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">3</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">Scuba Diving</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">Kerala</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">View</td>
+                <td className="pl-10 pr-4 py-2 text-[12px] text-[#383838]">1.</td>
+                <td className="px-4 py-2 text-[12px] text-[#383838]">Jacob Lamarstein</td>
+                <td className="px-4 py-2 text-[12px] text-[#383838]">alexandert007@gmail.com</td>
+                <td className="px-4 py-2 text-[12px] text-[#383838]">Lorem Ipsum dolor</td>
+                <td className="px-4 py-2 text-[12px] text-[#383838]">Lorem ipsum dolor sert is simplt dummy</td>
               </tr>
             </tbody>
           </table>

@@ -176,7 +176,7 @@ function Dashboard() {
 
   return (
     <div className="card shadow-[3px_4px_20px_0px_#0000000F] p-3 rounded-[1.25rem] bg-white">
-      <div className="card-header mb-3 flex flex-wrap gap-3 lg:gap-5 items-center justify-center">
+      <div className="card-header mb-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 lg:gap-5">
         <div className="card p-3 w-full rounded-[25px] min-w-[262px] min-h-[126px] py-3 lg:py-4 flex gap-3 items-start bg-[#0F2446] shadow-[0px_19px_56px_0px_#2E25860F]">
           <img src={Money} alt="Money" className='w-[50px] h-[50px]' />
           <div className="card-body">
@@ -245,7 +245,7 @@ function Dashboard() {
               <div className="card-header mb-3 lg:mb-5">
                 <div className="card-title text-[20px] font-semibold text-[#2A2A2A]">Upcoming Booking</div>
               </div>
-              <div className="card-body pr-3">
+              <div className="card-body pr-0 lg:pr-3">
                 <div className="table-responsive max-h-[335px] min-h-[300px] overflow-y-auto w-full">
                   <table className="table w-full border-collapse">
                     <thead className='sticky top-0 bg-white border-b border-[#e7e7e7] z-10'>

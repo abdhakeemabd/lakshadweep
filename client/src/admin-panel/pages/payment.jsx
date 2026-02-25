@@ -7,17 +7,17 @@ import { Link } from 'react-router-dom';
 function Payment() {
   return (
     <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
-      <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
+      <div className="card-header p-4 flex flex-wrap gap-3 md:gap-4 justify-between items-center border-b border-[#e3e3e3]">
         <div>
           <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Payments</h1>
         </div>
-        <div className='flex items-center gap-3'>
+        <div className='flex flex-wrap items-center gap-3'>
           <DateRangeFilter />
           <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
             <img src={ExportIcon} alt="Export" />Export</button>
         </div>
       </div>
-      <div className="card-sub-header p-4 flex justify-between items-center">
+      <div className="card-sub-header p-4 flex flex-wrap gap-3 justify-between items-center">
         <div>
           <form action="" className='flex flex-wrap gap-3 md:gap-4 items-center'>
             <div className="relative inline-block">

@@ -51,7 +51,7 @@ function BookingList() {
   return (
     <>
       <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
-        <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
+        <div className="card-header p-4 flex flex-wrap justify-between items-center border-b border-[#e3e3e3]">
           <div>
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>All Bookings</h1>
           </div>
@@ -63,7 +63,7 @@ function BookingList() {
         </div>
         <div className="card-sub-header p-4 flex justify-between items-center">
           <div>
-            <form action="" className='flex gap-3 items-center'>
+            <form action="" className='flex flex-wrap gap-3 items-center'>
               <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
                 <option className='text-[12px]' value="">Vendor</option>
                 <option className='text-[12px]' value="">111</option>

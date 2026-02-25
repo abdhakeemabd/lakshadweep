@@ -27,7 +27,7 @@ function CustomerView() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
               <div>
                 <div className="text-[14px] text-[#8c8c8c] mb-1">Date</div>
                 <div className="font-bold text-[16px] text-[#2A2A2A]">15  Oct 2025</div>

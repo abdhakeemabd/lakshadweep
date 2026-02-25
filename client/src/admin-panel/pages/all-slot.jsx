@@ -61,7 +61,7 @@ function AllSlot() {
         </div>
         <div className="card-sub-header p-4 flex justify-between items-center">
           <div>
-             <form action="" className='flex gap-3 items-center'>
+             <form action="" className='flex flex-wrap gap-3 items-center'>
               <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
                 <option className='text-[12px]' value="">Vendor</option>
                 <option className='text-[12px]' value="">111</option>
@@ -78,27 +78,27 @@ function AllSlot() {
             <table className="w-full">
               <thead>
                 <tr className='border-b border-[#dee2e6]'>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">#</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Package</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Vendor</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Slot Type</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Number of Slots</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Capacity ( per slot)</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Current Price( per Person)</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838] text-nowrap">#</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838] text-nowrap">Package</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838] text-nowrap">Vendor</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838] text-nowrap">Slot Type</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838] text-nowrap">Number of Slots</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838] text-nowrap">Capacity ( per slot)</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838] text-nowrap">Current Price ( per Person)</th>
                   <th className="py-2 text-left text-xs font-semibold text-[#383838]"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr className='border-b border-[#dee2e6] last:border-0'>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">1</td>
-                  <td className="text-[#383838] text-[12px] leading-[100%] py-3"> Summer Package A</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">David Beckham</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">Default Slot</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">3</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">3</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">3</td>
+                  <td className="px-4 py-2 text-[12px] text-[#383838] text-nowrap">1</td>
+                  <td className="px-4 py-2 text-[12px] text-[#383838] text-nowrap"> Summer Package A</td>
+                  <td className="px-4 py-2 text-[12px] text-[#383838] text-nowrap">David Beckham</td>
+                  <td className="px-4 py-2 text-[12px] text-[#383838] text-nowrap">Default Slot</td>
+                  <td className="px-4 py-2 text-[12px] text-[#383838] text-nowrap">3</td>
+                  <td className="px-4 py-2 text-[12px] text-[#383838] text-nowrap">3</td>
+                  <td className="px-4 py-2 text-[12px] text-[#383838] text-nowrap">3</td>
                   <td className="py-2 text-[12px] text-[#383838]"> 
-                    <button className='cursor-pointer' type='button' command="show-modal" commandfor="edit-slot-modal">
+                    <button className='cursor-pointer w-[31px] h-[31px]' type='button' command="show-modal" commandfor="edit-slot-modal">
                       <img className='img-fluid' src={EditIcon} alt="Edit" />
                     </button>
                   </td>

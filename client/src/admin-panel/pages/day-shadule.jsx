@@ -143,12 +143,12 @@ function DayShadule() {
   return (
     <>
       <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
-        <div className="card-header p-4 flex justify-between items-center">
+        <div className="card-header p-4 flex flex-wrap gap-3 justify-between items-center">
           <div>
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Day Schedule</h1>
           </div>
-          <div className='flex items-center gap-3'>
-            <form action="" className='flex gap-3 items-center'>
+          <div className='flex flex-wrap gap-3 items-center'>
+            <form action="" className='flex flex-wrap gap-3 items-center'>
               <select className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' >
                 <option value="">Select Vendor</option>
                 <option value="">111</option>
@@ -206,8 +206,8 @@ function DayShadule() {
                 <div className='font-poppins font-semibold text-[20px] md:text-[20px] leading-[100%] text-[#2A2A2A]'>Assigned Vendors</div>
               </div>
             </div>
-            <div className="card-body p-3">
-              <div className="flex">
+            <div className="card-body p-3 overflow-hidden">
+              <div className="flex flex-wrap gap-3 md:flex-nowrap md:gap-0">
                 <div className="w-auto min-w-[230px]">
                   <div className="flex flex-col h-full">
                     <table className="w-full border-collapse mt-15">
@@ -277,7 +277,7 @@ function DayShadule() {
                         <div className="px-2 py-1 bg-[#CAEDFF] border border-[#559CE7] text-[#016FE5] text-[13px] font-medium w-fit rounded-[8px] whitespace-nowrap mb-[53px]">
                           {selectedSlot.timeRange}
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                           <span className="bg-[#515151] text-white text-[13px] font-normal rounded-[8px] whitespace-nowrap py-[6px] pr-[27px] pl-[12px] w-[159px] max-w-[160px]">
                             Capacity: <span className="font-medium">{selectedSlot.capacity} Seats</span>
                           </span>
@@ -294,7 +294,7 @@ function DayShadule() {
                               <div className="font-semibold text-[13px] text-[#1B1A3E] mb-3">Booked Customer Details:</div>
                               {selectedSlot.customers.map((customer) => (
                                 <div key={customer.id} className="bg-white rounded-[8px] p-3 py-4 min-h-[167px]">
-                                  <div className="grid grid-cols-3 gap-4 mb-2">
+                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
                                     <div>
                                       <div className="text-[14px] font-medium text-[#6C6C6C] mb-3">Customer Name</div>
                                       <div className="text-[14px] text-[#212121] font-semibold">{customer.name}</div>
@@ -308,7 +308,7 @@ function DayShadule() {
                                       <div className="text-[14px] text-[#212121] font-semibold">{customer.email}</div>
                                     </div>
                                   </div>
-                                  <div className="grid grid-cols-3 gap-4 pt-2">
+                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                                     <div>
                                       <div className="text-[14px] font-medium text-[#6C6C6C] mb-3">Seats Booked</div>
                                       <div className="text-[14px] text-[#212121] font-semibold">{customer.seats}</div>

@@ -19,11 +19,9 @@ function AllCustomer() {
     fetchCustomers();
   }, []);
 
-  // Combined filtering logic
   useEffect(() => {
     let filtered = customers;
 
-    // Filter by search query
     if (searchQuery.trim() !== '') {
       filtered = filtered.filter(customer => {
         const searchLower = searchQuery.toLowerCase();
@@ -31,7 +29,7 @@ function AllCustomer() {
         const email = customer.email || '';
         const phone = customer.phone || customer.phone_number || '';
         const customerId = customer.id ? customer.id.toString() : '';
-        
+
         return (
           name.toLowerCase().includes(searchLower) ||
           email.toLowerCase().includes(searchLower) ||
@@ -41,7 +39,6 @@ function AllCustomer() {
       });
     }
 
-    // Filter by selected activity
     if (selectedActivity !== '') {
       console.log('Filtering by activity:', selectedActivity);
       filtered = filtered.filter(customer => {
@@ -61,7 +58,6 @@ function AllCustomer() {
       console.log('Filtered customers by activity:', filtered.length);
     }
 
-    // Filter by selected location
     if (selectedLocation !== '') {
       console.log('Filtering by location:', selectedLocation);
       filtered = filtered.filter(customer => {
@@ -79,7 +75,7 @@ function AllCustomer() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const response = await fetch(API_URL, {
         method: 'GET',
         headers: {
@@ -95,8 +91,7 @@ function AllCustomer() {
 
       const data = await response.json();
       console.log('Customers data:', data);
-      
-      // Extract customer list from API response
+
       let customerList = [];
       if (Array.isArray(data)) {
         customerList = data;
@@ -107,10 +102,10 @@ function AllCustomer() {
       } else if (data.results && Array.isArray(data.results)) {
         customerList = data.results;
       }
-      
+
       console.log('Extracted customer list:', customerList);
       console.log('Total customers found:', customerList.length);
-      
+
       setCustomers(customerList);
       setFilteredCustomers(customerList);
     } catch (err) {
@@ -129,7 +124,6 @@ function AllCustomer() {
     e.preventDefault();
   };
 
-  // Extract unique activities from customers
   const uniqueActivities = useMemo(() => {
     const activitiesSet = new Set();
     customers.forEach(customer => {
@@ -154,7 +148,6 @@ function AllCustomer() {
     return Array.from(activitiesSet).sort();
   }, [customers]);
 
-  // Extract unique locations from customers
   const uniqueLocations = useMemo(() => {
     const locationsSet = new Set();
     customers.forEach(customer => {
@@ -166,47 +159,35 @@ function AllCustomer() {
     return Array.from(locationsSet).sort();
   }, [customers]);
 
-  // Handle activity filter change
   const handleActivityChange = (e) => {
     setSelectedActivity(e.target.value);
   };
 
-  // Handle location filter change
   const handleLocationChange = (e) => {
     setSelectedLocation(e.target.value);
   };
 
   return (
     <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
-      <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
+      <div className="card-header p-4 flex flex-wrap justify-between items-center border-b border-[#e3e3e3]">
         <div>
           <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>All Customers</h1>
         </div>
-        <div className='flex items-center gap-3'>
+        <div className='flex flex-wrap items-center gap-3'>
           <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
             <img src={ExportIcon} alt="Export" />Export</button>
         </div>
       </div>
-      <div className="card-sub-header p-4 flex justify-between items-center">
+      <div className="card-sub-header p-4 flex gap-3 justify-between flex-wrap items-center">
         <div>
-          <form action="" className='flex gap-3 items-center'>
-            <select 
-              className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' 
-              value={selectedActivity}
-              onChange={handleActivityChange}
-              id="activity-filter"
-            >
+          <form action="" className='flex flex-wrap gap-3 items-center'>
+            <select className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' value={selectedActivity} onChange={handleActivityChange} id="activity-filter">
               <option value="">All Activities</option>
               {uniqueActivities.map(activity => (
                 <option key={activity} value={activity}>{activity}</option>
               ))}
             </select>
-            <select 
-              className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' 
-              value={selectedLocation}
-              onChange={handleLocationChange}
-              id="location-filter"
-            >
+            <select className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' value={selectedLocation} onChange={handleLocationChange} id="location-filter">
               <option value="">All Locations</option>
               {uniqueLocations.map(location => (
                 <option key={location} value={location}>{location}</option>
@@ -216,9 +197,7 @@ function AllCustomer() {
         </div>
         <div className="inline-block">
           <form className="relative flex items-center" onSubmit={handleSearchSubmit}>
-            <input 
-              className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" 
-              type="search" placeholder="Search" value={searchQuery} onChange={handleSearchChange} />
+            <input className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" type="search" placeholder="Search" value={searchQuery} onChange={handleSearchChange} />
             <button type="button" className="absolute right-2 flex items-center justify-center">
               <img src={SearchIcon} alt="search" className="w-4 h-4" />
             </button>
@@ -234,7 +213,7 @@ function AllCustomer() {
           ) : error ? (
             <div className="text-center py-8">
               <p className="text-red-500">Error: {error}</p>
-              <button 
+              <button
                 onClick={fetchCustomers}
                 className="mt-4 bg-[#007BFF] text-white px-4 py-2 rounded-lg"
               >
@@ -264,20 +243,17 @@ function AllCustomer() {
                   </tr>
                 ) : (
                   filteredCustomers.map((customer, index) => {
-                    // Extract and normalize customer data
                     const customerId = customer.id || customer.customer_id;
                     const customerName = customer.full_name || customer.name || 'N/A';
                     const phone = customer.phone || customer.phone_number || 'N/A';
                     const email = customer.email || 'N/A';
                     const bookings = customer.booking_count || customer.bookings_count || customer.no_of_bookings || 0;
-                    // Handle distinct_activities array or single activity string
-                    const activities = customer.distinct_activities 
-                      ? (Array.isArray(customer.distinct_activities) 
-                          ? customer.distinct_activities.join(', ') 
-                          : customer.distinct_activities)
+                    const activities = customer.distinct_activities
+                      ? (Array.isArray(customer.distinct_activities)
+                        ? customer.distinct_activities.join(', ')
+                        : customer.distinct_activities)
                       : (customer.activities || customer.activity || 'N/A');
                     const location = customer.location || customer.island_location || 'N/A';
-                    
                     return (
                       <tr key={customerId || index} className="border-b border-[#e3e3e3]">
                         <td className="pl-10 px-4 py-2 text-[12px] text-[#383838]">{index + 1}.</td>
@@ -293,24 +269,12 @@ function AllCustomer() {
                             )}
                           </div>
                         </td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">
-                          {phone}
-                        </td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">
-                          {email}
-                        </td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">
-                          {bookings}
-                        </td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">
-                          {activities}
-                        </td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">
-                          {location}
-                        </td>
-                        <td className="px-4 py-2">
-                          <Link className='text-[#007BFF] font-medium text-[13px]' to={`/admin/customer-view/${customerId}`}>View</Link>
-                        </td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{phone}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{email}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{bookings}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{activities}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{location}</td>
+                        <td className="px-4 py-2"><Link className='text-[#007BFF] font-medium text-[13px]' to={`/admin/customer-view/${customerId}`}>View</Link></td>
                       </tr>
                     );
                   })
