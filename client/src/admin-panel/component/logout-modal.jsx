@@ -16,13 +16,13 @@ function LogoutModal() {
   useEffect(() => {
     const dialog = dialogRef.current
     const handleGlobalClick = (e) => {
-      if (e.target.getAttribute('commandfor') === 'dialog') {
+      const trigger = e.target.closest('[commandfor="change-password-modal"]')
+      if (trigger) {
         dialog?.showModal()
       }
-      if (
-        e.target.getAttribute('command') === 'close' &&
-        e.target.getAttribute('commandfor') === 'dialog'
-      ) {
+      
+      const closer = e.target.closest('[command="close"][commandfor="change-password-modal"]')
+      if (closer) {
         handleCloseModal()
       }
     }

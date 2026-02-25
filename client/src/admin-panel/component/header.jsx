@@ -53,7 +53,11 @@ function Header() {
             {open && (
               <ul className="absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                 <li className="border-b border-[#F0F0F0]">
-                  <button className="w-full flex gap-3 items-center px-4 py-3 text-[13px] text-gray-700 hover:bg-gray-50 transition-colors">
+                  <button 
+                    onClick={() => setOpen(false)}
+                    commandfor="change-password-modal" 
+                    className="w-full flex gap-3 items-center px-4 py-3 text-[13px] text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
                     <img src={PasswordIcon} alt="Password" className="w-5 h-5 opacity-70" />
                     Change password
                   </button>
