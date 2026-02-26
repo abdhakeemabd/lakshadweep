@@ -46,6 +46,7 @@ import AdminGallery from './admin-panel/pages/admin-gallery';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import AdminLayout from './admin-panel/component/admin-layout';
 import UpdatePackage from './admin-panel/pages/package-edit';
+import CartPage from './pages/cart';
 
 function App() {
   const location = useLocation();
@@ -83,6 +84,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
+        <Route path='/cart' element={<CartPage />} />
         <Route path='/admin' element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />

@@ -41,7 +41,15 @@ function LoginModal() {
   }
   const handleVerifyOtp = (e) => {
     e.preventDefault()
-    console.log('Verifying OTP:', otp.join(''))
+    const enteredOtp = otp.join('')
+    
+    // For now, accepting any 6-digit OTP for demo/testing
+    if (enteredOtp.length === 6) {
+      sessionStorage.setItem('sessionId', 'user_' + Date.now())
+      sessionStorage.setItem('phoneNumber', phone)
+      window.dispatchEvent(new Event('authChange'))
+      handleCloseModal()
+    }
   }
   useEffect(() => {
     if (step === 'otp') {

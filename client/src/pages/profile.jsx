@@ -93,11 +93,11 @@ function Profile() {
                   </div>
                 </div>
                 <div className="booking-card-footer grid grid-cols-12 gap-4 items-center">
-                  <div className="col-span-12 lg:col-span-9">
+                  <div className="col-span-12 lg:col-span-8">
                     <div className='font-medium text-[16px] text-[#535353] mb-3'> Note : <span className='font-semibold text-[#E64545]'> {item.note} </span></div>
                     <div className='font-medium text-[15px] text-[#434343]'> Assigned Time Slot: <span className='font-semibold text-[#212121]'> {item.slotTime} </span></div>
                   </div>
-                  <div className="col-span-12 lg:col-span-3 lg:text-right">
+                  <div className="col-span-12 lg:col-span-4 lg:text-right">
                     <a href={item.receiptUrl} download className='inline-flex gap-2 items-center bg-[#007BFF] text-white font-[15px] font-medium px-6 py-2 rounded-[10px]'>
                       <img src={DownloadIcon} alt="Download" /> Download Receipt
                     </a>

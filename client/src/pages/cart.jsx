@@ -2,7 +2,7 @@ import React from 'react'
 import ProfileSidebar from '../component/profile-sidebar'
 import DownloadIcon from '../assets/icons/document-download.svg'
 
-function BookingHistory() {
+function CartPage() {
 
   const bookings = [
     {
@@ -103,4 +103,4 @@ function BookingHistory() {
   )
 }
 
-export default BookingHistory
+export default CartPage
