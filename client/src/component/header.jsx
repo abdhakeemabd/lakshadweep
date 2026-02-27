@@ -8,6 +8,7 @@ import NotificationIcon from '../assets/icons/notification.svg'
 import MenuIcon from '../assets/icons/menu-icon.svg'
 import UserIcon from "../assets/admin-panel-icon/icons/user-default.svg"
 import LoginModal from './login-modal'
+import RegisterModal from './register-modal'
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -125,6 +126,7 @@ function Header() {
         </div>
       </div>
       <LoginModal />
+      <RegisterModal />
     </>
   )
 }

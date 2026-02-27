@@ -2,9 +2,19 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import SearchableSelect from '../../component/searchable-select'
 
 function UpdatePackage() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [formData, setFormData] = useState({
+    category: '',
+    activity: '',
+    island_location: ''
+  });
+
+  const handleSelectChange = (id, value) => {
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -44,37 +54,37 @@ function UpdatePackage() {
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="category" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Category <span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <select className='appearance-none py-2 pl-6 pr-12 bg-[#F4F4F4] rounded-[8px] w-full text-[14px] text-[#383838] font-medium border-0 focus:border-0 focus:outline-none cursor-pointer' name="category" id="category">
-                  <option value="">Location</option>
-                  <option value="">111</option>
-                </select>
-                <svg className="absolute right-[10px] top-1/2 -translate-y-1/2 pointer-events-none" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L6 6L11 1" stroke="#383838" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <SearchableSelect
+                  options={["Activity", "Location", "111"]}
+                  value={formData.category}
+                  onChange={(val) => handleSelectChange('category', val)}
+                  placeholder="Select Category"
+                  searchPlaceholder="Search category..."
+                />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="activity" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Activity<span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <select className='appearance-none py-2 pl-6 pr-12 bg-[#F4F4F4] rounded-[8px] w-full text-[14px] text-[#383838] font-medium border-0 focus:border-0 focus:outline-none cursor-pointer' name="activity" id="activity">
-                  <option value="">Location</option>
-                  <option value="">111</option>
-                </select>
-                <svg className="absolute right-[10px] top-1/2 -translate-y-1/2 pointer-events-none" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L6 6L11 1" stroke="#383838" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <SearchableSelect
+                  options={["Activity", "Location", "111"]}
+                  value={formData.activity}
+                  onChange={(val) => handleSelectChange('activity', val)}
+                  placeholder="Select Activity"
+                  searchPlaceholder="Search activity..."
+                />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="island_location" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Island/Location<span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <select className='appearance-none py-2 pl-6 pr-12 bg-[#F4F4F4] rounded-[8px] w-full text-[14px] text-[#383838] font-medium border-0 focus:border-0 focus:outline-none cursor-pointer' name="island_location" id="island_location">
-                  <option value="">Location</option>
-                  <option value="">111</option>
-                </select>
-                <svg className="absolute right-[10px] top-1/2 -translate-y-1/2 pointer-events-none" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L6 6L11 1" stroke="#383838" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <SearchableSelect
+                  options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+                  value={formData.island_location}
+                  onChange={(val) => handleSelectChange('island_location', val)}
+                  placeholder="Select Island"
+                  searchPlaceholder="Search island..."
+                />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 mb-3">

@@ -34,29 +34,8 @@ function AddLocationModal() {
 
   return (
     <>
-      <style>{`
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(-30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideDown {
-          from { opacity: 1; transform: translateY(0); }
-          to { opacity: 0; transform: translateY(-30px); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        dialog[open] { animation: fadeIn 0.3s ease-out; }
-        dialog[open] .modal-content { animation: slideUp 0.5s ease-out forwards; }
-        dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
-      `}</style>
 
-      <dialog ref={dialogRef} id="add-location-modal" aria-labelledby="add-location-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
+      <dialog ref={dialogRef} id="add-location-modal" aria-labelledby="add-location-modal-title" className="premium-modal fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 max-w-[390px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form>

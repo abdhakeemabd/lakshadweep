@@ -44,8 +44,7 @@ function LogoutModal() {
         ref={dialogRef}
         id="dialogout"
         aria-labelledby="dialog-title"
-        className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm"
-      >
+        className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className="modal-content relative w-full max-w-[502px] overflow-hidden rounded-3xl bg-white shadow-2xl px-6 py-6 lg:py-10">
             <div className="relative flex items-center justify-center py-6 border-b border-gray-100">

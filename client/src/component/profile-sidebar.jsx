@@ -20,7 +20,7 @@ function ProfileSidebar() {
   }
   return (
     <div className='slider_part'>
-      <h1 className='text-[clamp(32px,5vw,56px)] mb-3'>My Account</h1>
+      <h1 className='text-[clamp(32px,4.5vw,46px)] font-medium mb-3'>My Account</h1>
       <div className="card bg-[#122544] rounded-[18px] px-[10px] pt-[20px] pb-[22px] text-white w-full">
         <div className="profile-header flex gap-3 bg-[url('/images/background_frame.svg')] bg-no-repeat bg-cover p-[18px_16px] rounded-[14px] w-full mb-3 lg:mb-5">
           <div className="img-card w-[64px] h-[64px]">
@@ -90,7 +90,7 @@ function ProfileSidebar() {
               </NavLink>
             </li>
             <li className="relative after:content-[''] after:absolute after:left-[7px] after:right-0 after:bottom-0 after:h-px after:bg-white/10 last:after:hidden">
-              <NavLink to="/edit-profile" className={({ isActive }) =>
+              <NavLink to="/profile-edit" className={({ isActive }) =>
                 `flex gap-3 items-center px-[12px] py-[10px] rounded-[10px] mb-[4px] text-[15px] no-underline transition-[background,color,box-shadow] duration-200 ease-in-out
                 ${isActive
                   ? "bg-[#ff6a00] text-white font-semibold shadow-[0_10px_24px_rgba(0,0,0,0.35)] relative"

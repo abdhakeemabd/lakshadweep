@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import AddImageIcon from '../../assets/admin-panel-icon/icons/cam.svg'
+import SearchableSelect from '../../component/searchable-select'
 
 function AddVendor() {
   const fileRef = useRef(null);
@@ -35,6 +36,10 @@ function AddVendor() {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSelectChange = (id, value) => {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
@@ -244,21 +249,23 @@ function AddVendor() {
                   <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
                     <div>
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Island Location <span className="text-red-700 font-semibold">*</span></label>
-                      <select id="island_location" value={formData.island_location} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none" required>
-                        <option value="">Select Option</option>
-                        <option value="Kavaratti">Kavaratti</option>
-                        <option value="Agatti">Agatti</option>
-                        <option value="Minicoy">Minicoy</option>
-                      </select>
+                      <SearchableSelect
+                        options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+                        value={formData.island_location}
+                        onChange={(val) => handleSelectChange('island_location', val)}
+                        placeholder="Select Any"
+                        searchPlaceholder="Search island..."
+                      />
                     </div>
                     <div>
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Activity <span className="text-red-700 font-semibold">*</span></label>
-                      <select id="activity" value={formData.activity} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none" required>
-                        <option value="">Select Option</option>
-                        <option value="Kayakking">Kayakking</option>
-                        <option value="Snorkeling">Snorkeling</option>
-                        <option value="Scuba Diving">Scuba Diving</option>
-                      </select>
+                      <SearchableSelect
+                        options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
+                        value={formData.activity}
+                        onChange={(val) => handleSelectChange('activity', val)}
+                        placeholder="Select Any"
+                        searchPlaceholder="Search activity..."
+                      />
                     </div>
                     <button type="button" className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition">+ Add</button>
                   </div>

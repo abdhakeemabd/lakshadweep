@@ -252,3 +252,53 @@
     width: 100%;
     height: 100%;
 }
+
+
+/* profile cart profile-cart-card */
+.profile-cart-card .img-card::after{
+    position: absolute;
+    content: "";
+    left: 0%;
+    right: 0;
+    height: 40%;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+}
+
+/* Modal Animations */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-30px); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+dialog[open] { animation: fadeIn 0.3s ease-out; }
+dialog[open] .modal-content { animation: slideUp 0.5s ease-out forwards; }
+dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
+
+/* Hide number arrows */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+
+}
+
+

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import SearchableSelect from '../../component/searchable-select'
 
 function VendorEdit() {
   const { id } = useParams();
@@ -188,6 +189,10 @@ function VendorEdit() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
+  const handleSelectChange = (id, value) => {
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -335,7 +340,7 @@ function VendorEdit() {
         .react-tel-input .country-list .search-emoji { display: none; }
         .react-tel-input .country-list .search-box { width: 100% !important; margin: 0 !important; padding: 8px 12px !important; }
       `}</style>
-      <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+      <div className="card relative flex flex-col wrap-break-word bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3">
           <div className="flex items-center gap-3">
             <Link to="/admin/vendor/list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center">
@@ -363,7 +368,7 @@ function VendorEdit() {
                   id="vendor_name" 
                   value={formData.vendor_name}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor Name' 
                   required 
                 />
@@ -375,7 +380,7 @@ function VendorEdit() {
                   id="vendor_latitude" 
                   value={formData.vendor_latitude}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor Latitude' 
                 />
               </div>
@@ -386,7 +391,7 @@ function VendorEdit() {
                   id="vendor_longitude" 
                   value={formData.vendor_longitude}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor Longitude' 
                 />
               </div>
@@ -418,7 +423,7 @@ function VendorEdit() {
                   />
                   <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
                     <span className="text-gray-900 font-medium text-[14px]">{formData.country_code}</span>
-                    <div className="w-[1px] h-5 bg-gray-300 mx-3"></div>
+                    <div className="w-px h-5 bg-gray-300 mx-3"></div>
                   </div>
                 </div>
               </div>
@@ -429,7 +434,7 @@ function VendorEdit() {
                   id="vendor_address_line_1" 
                   value={formData.vendor_address_line_1}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor Address Line 1' 
                 />
               </div>
@@ -440,7 +445,7 @@ function VendorEdit() {
                   id="vendor_address_line_2" 
                   value={formData.vendor_address_line_2}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor Address Line 2' 
                 />
               </div>
@@ -451,7 +456,7 @@ function VendorEdit() {
                   id="vendor_email" 
                   value={formData.vendor_email}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor Email' 
                   required 
                 />
@@ -463,7 +468,7 @@ function VendorEdit() {
                   id="vendor_state" 
                   value={formData.vendor_state}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor State' 
                   required 
                 />
@@ -475,7 +480,7 @@ function VendorEdit() {
                   id="vendor_pin_code" 
                   value={formData.vendor_pin_code}
                   onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141]" 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
                   placeholder='Enter Vendor Pin code' 
                   required 
                 />
@@ -529,50 +534,25 @@ function VendorEdit() {
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
                         Island Location <span className="text-red-700 font-semibold">*</span>
                       </label>
-                      <select 
-                        id="island_location"
+                      <SearchableSelect
+                        options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
                         value={formData.island_location}
-                        onChange={handleInputChange}
-                        className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none"
-                        required
-                      >
-                        <option value="">Select Island</option>
-                        <option value="Agatti">Agatti</option>
-                        <option value="Amini">Amini</option>
-                        <option value="Andrott">Andrott</option>
-                        <option value="Bangaram">Bangaram</option>
-                        <option value="Bitra">Bitra</option>
-                        <option value="Chetlat">Chetlat</option>
-                        <option value="Kadmat">Kadmat</option>
-                        <option value="Kalpeni">Kalpeni</option>
-                        <option value="Kavaratti">Kavaratti</option>
-                        <option value="Kiltan">Kiltan</option>
-                        <option value="Minicoy">Minicoy</option>
-                      </select>
+                        onChange={(val) => handleSelectChange('island_location', val)}
+                        placeholder="Select Any"
+                        searchPlaceholder="Search island..."
+                      />
                     </div>
                     <div>
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
                         Activity <span className="text-red-700 font-semibold">*</span>
                       </label>
-                      <select 
-                        id="activity"
+                      <SearchableSelect
+                        options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
                         value={formData.activity}
-                        onChange={handleInputChange}
-                        className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#f5f5f5] text-[#414141] focus:outline-none disabled:opacity-60"
-                        required
-                      >
-                        <option value="">Select Activity</option>
-                        <option value="Kayakking">Kayakking</option>
-                        <option value="Snorkeling">Snorkeling</option>
-                        <option value="Scuba Diving">Scuba Diving</option>
-                        <option value="Parasailing">Parasailing</option>
-                        <option value="Glass Bottom Boat">Glass Bottom Boat</option>
-                        <option value="Wind Surfing">Wind Surfing</option>
-                        <option value="Water Skiing">Water Skiing</option>
-                        <option value="Deep Sea Fishing">Deep Sea Fishing</option>
-                        <option value="Island Hopping">Island Hopping</option>
-                        <option value="Dolphin Watching">Dolphin Watching</option>
-                      </select>
+                        onChange={(val) => handleSelectChange('activity', val)}
+                        placeholder="Select Any"
+                        searchPlaceholder="Search activity..."
+                      />
                     </div>
                     <button type="button" className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition">+ Add</button>
                   </div>
