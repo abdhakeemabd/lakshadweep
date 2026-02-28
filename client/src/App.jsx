@@ -53,6 +53,7 @@ function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
   const isLoginPath = location.pathname === '/user/login';
+  const isProfilePage = ['/profile', '/upcoming-bookings', '/booking-history', '/saved-experiences', '/cart', '/profile-edit'].includes(location.pathname);
 
   useEffect(() => {
     AOS.init({
@@ -74,7 +75,11 @@ function App() {
     <>
       <ScrollToTop />
       <ScrollTopButton />
-      {!isAdminPath && !isLoginPath && <Header />}
+      {!isAdminPath && !isLoginPath && (
+        <div className={isProfilePage ? "hidden lg:block" : ""}>
+          <Header />
+        </div>
+      )}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/gallery' element={<Gallery />} />
@@ -82,7 +87,8 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/faq' element={<Faq />} />
         <Route path='/packages' element={<Packages />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile hubMode={true} />} />
+        <Route path='/upcoming-bookings' element={<Profile />} />
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
         <Route path='/cart' element={<CartPage />} />

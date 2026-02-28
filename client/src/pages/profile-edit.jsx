@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import ProfileSidebar from '../component/profile-sidebar'
 import ProfileDefault from '../assets/icons/edit-prfile-default.svg'
 import UploadIcon from '../assets/icons/upload_icon.svg'
@@ -37,13 +38,19 @@ function ProfileEdit() {
 
 
   return (
-    <section className='py-10 lg:py-20 bg-[#F5F5F5] min-h-screen'>
+    <section className='pt-4 pb-10 lg:py-20 bg-[#F5F5F5] min-h-screen'>
       <div className="container mx-auto px-3">
         <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 lg:col-span-3">
+          <div className="col-span-12 lg:col-span-3 hidden lg:block">
             <ProfileSidebar />
           </div>
           <div className="col-span-12 lg:col-span-9 lg:mt-20">
+            <NavLink to="/profile" className="lg:hidden flex items-center gap-2 px-1 text-[#0F2446] font-semibold mb-2">
+              <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              Profile Edit 
+            </NavLink>
             <div className="card bg-white py-6 px-6 lg:px-8 w-full rounded-2xl shadow-[1px_0px_4px_0px_#00000014]">
               <div className="card-header border-b border-gray-100 pb-4 mb-6">
                 <h2 className="card-title text-[#0F2446] text-[clamp(20px,2vw,24px)] font-bold">Edit Profile</h2>

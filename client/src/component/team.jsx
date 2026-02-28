@@ -79,7 +79,7 @@ function Team() {
   };
 
   return (
-    <section className='py-10 lg:py-20 bg-[#F5F5F5]'>
+    <section className='pb-10 lg:py-20 bg-[#F5F5F5]'>
       <div className="container mx-auto px-3">
         <div className="grid grid-cols-12">
           <div className="col-span-12 mb-8 lg:mb-12" data-aos="fade-up">
