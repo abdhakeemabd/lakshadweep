@@ -7,7 +7,6 @@
   --font-inter: "Inter", sans-serif;
 }
 
-/* Global Styles */
 body {
   margin: 0;
   padding: 0;
@@ -42,7 +41,6 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     pointer-events: none;}
-/* offcanvas drawer */
 .offcanvas-drawer {
   display: none;
   position: fixed !important;
@@ -99,7 +97,6 @@ body {
   .offcanvas-drawer[open] .offcanvas-panel {
     transform: translateX(100%);}
   }
-/* Premium Modal Animations */
 @keyframes modalShow {
   0% { opacity: 0; transform: scale(0.95) translateY(20px); }
   100% { opacity: 1; transform: scale(1) translateY(0); }

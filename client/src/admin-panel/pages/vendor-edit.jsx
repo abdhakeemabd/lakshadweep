@@ -270,7 +270,7 @@ function VendorEdit() {
               'Authorization': 'Token D9SIHYWOO9FC8BYFBTQC2STOKF33FZ6GDL047A4Q',
               'Accept': 'application/json',
               'ngrok-skip-browser-warning': 'true',
-              'X-HTTP-Method-Override': candidate.method // Help some servers recognize PATCH/PUT
+              'X-HTTP-Method-Override': candidate.method
             },
             body: data,
           });
@@ -336,10 +336,6 @@ function VendorEdit() {
 
   return (
     <>
-      <style>{`
-        .react-tel-input .country-list .search-emoji { display: none; }
-        .react-tel-input .country-list .search-box { width: 100% !important; margin: 0 !important; padding: 8px 12px !important; }
-      `}</style>
       <div className="card relative flex flex-col wrap-break-word bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3">
           <div className="flex items-center gap-3">
@@ -349,13 +345,7 @@ function VendorEdit() {
             <div className="font-semibold text-[24px] leading-none tracking-normal text-[#2A2A2A]">Edit Vendor</div>
           </div>
           <div className='flex gap-4'>
-            <button 
-              onClick={handleSubmit} 
-              disabled={loading}
-              className="bg-[#007BFF] rounded-[8px] py-[7px] px-[30px] gap-[5px] text-white text-[12px] font-semibold hover:bg-blue-600 transition-colors disabled:opacity-50"
-            >
-              {loading ? 'Saving...' : 'Save'}
-            </button>
+            <button onClick={handleSubmit} disabled={loading} className="bg-[#007BFF] rounded-[8px] py-[7px] px-[30px] gap-[5px] text-white text-[12px] font-semibold hover:bg-blue-600 transition-colors disabled:opacity-50">{loading ? 'Saving...' : 'Save'}</button>
           </div>
         </div>
         <div className="card-body p-4">
@@ -363,37 +353,15 @@ function VendorEdit() {
             <div className="grid grid-cols-12 gap-5 lg:gap-x-6 lg:gap-y-5">
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_name" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Name <span className='text-red-700 font-semibold'>*</span></label>
-                <input 
-                  type="text" 
-                  id="vendor_name" 
-                  value={formData.vendor_name}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor Name' 
-                  required 
-                />
+                <input type="text" id="vendor_name" value={formData.vendor_name} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Name' required />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_latitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Latitude</label>
-                <input 
-                  type="text" 
-                  id="vendor_latitude" 
-                  value={formData.vendor_latitude}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor Latitude' 
-                />
+                <input type="text" id="vendor_latitude" value={formData.vendor_latitude} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Latitude' />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_longitude" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Longitude</label>
-                <input 
-                  type="text" 
-                  id="vendor_longitude" 
-                  value={formData.vendor_longitude}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor Longitude' 
-                />
+                <input type="text" id="vendor_longitude" value={formData.vendor_longitude} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Longitude' />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_phone" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Phone <span className='text-red-700 font-semibold'>*</span></label>
@@ -410,17 +378,7 @@ function VendorEdit() {
                       setFormData(prev => ({ ...prev, mobile_no: strippedVal, country_code: `+${dial}` }));
                     }}
                     enableSearch={true}
-                    searchPlaceholder="Search country..."
-                    placeholder="Enter Vendor Phone"
-                    disableCountryCode={true}
-                    disableCountryGuess={false}
-                    inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }}
-                    containerClass="!w-full"
-                    inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all"
-                    buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200"
-                    dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-200"
-                    searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200"
-                  />
+                    searchPlaceholder="Search country..." placeholder="Enter Vendor Phone" disableCountryCode={true} disableCountryGuess={false} inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }} containerClass="!w-full" inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-200" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200"/>
                   <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
                     <span className="text-gray-900 font-medium text-[14px]">{formData.country_code}</span>
                     <div className="w-px h-5 bg-gray-300 mx-3"></div>
