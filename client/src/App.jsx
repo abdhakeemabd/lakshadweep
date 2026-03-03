@@ -109,7 +109,7 @@ function App() {
           <Route path='bookings-list' element={<BookingList />} />
           <Route path='customers-list' element={<VendorList />} />
           <Route path='all-customer' element={<AllCustomer />} />
-          <Route path='customer-view' element={<CustomerView />} />
+          <Route path='customer-view/:id' element={<CustomerView />} />
           <Route path='users' element={<UserList />} />
           <Route path='enquiries' element={<Enquiries />} />
           <Route path='notifications-list' element={<Notification />} />
