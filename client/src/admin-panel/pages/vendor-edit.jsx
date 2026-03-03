@@ -426,26 +426,18 @@ function VendorEdit() {
                   {/* Upload Box */}
                   <div className="mb-4 xl:mb-0">
                     <label className="relative w-[160px] h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-[#E5E5E5] rounded-[16px] cursor-pointer hover:border-[#FF5C1A] transition bg-[#fafafa] overflow-hidden">
-                      <input
-                        ref={fileRef}
-                        type="file"
-                        accept="image/*"
-                        hidden
-                        onChange={handleImageChange}
-                      />
+                      <input ref={fileRef} type="file" accept="image/*" hidden onChange={handleImageChange}/>
 
                       {!preview && (
                         <>
                           <img src="/icons/cam.svg" alt="" className="w-8 h-8 mb-2 opacity-70" />
-                          <span className="text-[13px] text-[#777] font-medium">
-                            Upload Profile
-                          </span>
+                          <span className="text-[13px] text-[#777] font-medium">Upload Profile</span>
                         </>
                       )}
 
                       {preview && (
                         <>
-                          <img src={preview}  alt="Preview"  className="w-full h-full object-cover rounded-[16px]"/>
+                          <img src={preview} alt="Preview" className="w-full h-full object-cover rounded-[16px]"/>
                           <button type="button" onClick={removeImage} className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:bg-red-50 transition">
                             <img src="/icons/deletegallery.svg" alt="" className="w-4 h-4" />
                           </button>
