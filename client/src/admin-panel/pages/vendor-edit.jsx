@@ -34,7 +34,6 @@ function VendorEdit() {
       try {
         setFetching(true);
         
-        // Define candidate endpoints to try for fetching (GET)
         const candidates = [
           `/vendor-api/vendor/vendor-details/${id}/`,
           `/vendor-api/vendor/${id}/`,
@@ -64,13 +63,10 @@ function VendorEdit() {
             if (response.ok) {
               const result = await response.json();
               console.log(`Successfully fetched from ${url}:`, result);
-              
-              // Data extraction logic
               let data = result;
               if (result.status === true || result.status === 'success') {
                 data = result.data || result.vendor || result.vendor_details || result.page_obj || result;
               }
-              // If page_obj is an array, take the first element (common in some serializers)
               if (Array.isArray(data)) data = data[0];
               if (data && data.page_obj && Array.isArray(data.page_obj)) data = data.page_obj[0];
               
@@ -79,18 +75,15 @@ function VendorEdit() {
                 continue;
               }
 
-              // Phone number normalization
               const phoneVal = String(data.phone || data.mobile_no || data.vendor_phone || '');
-              let phoneDigits = phoneVal.replace(/\D/g, ''); // Extract only digits
+              let phoneDigits = phoneVal.replace(/\D/g, '');
               let phoneCode = '+91';
               
               if (phoneVal.startsWith('+')) {
-                // If it starts with + (e.g., +919876543210)
                 if (phoneVal.startsWith('+91')) {
-                  phoneDigits = phoneDigits.slice(2); // digit string is '91987...' after \D/g, so slice(2) is '987...'
+                  phoneDigits = phoneDigits.slice(2); 
                   phoneCode = '+91';
                 } else {
-                  // Fallback for other countries if detected
                   const detectedCode = phoneVal.match(/^\+(\d+)/);
                   if (detectedCode) {
                     phoneCode = `+${detectedCode[1]}`;
@@ -98,22 +91,17 @@ function VendorEdit() {
                   }
                 }
               } else if (phoneDigits.startsWith('91') && phoneDigits.length > 10) {
-                // If it starts with 91 but no + (e.g., 919876543210)
                 phoneDigits = phoneDigits.slice(2);
                 phoneCode = '+91';
               }
-
               const islandOptions = ["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"];
               const activityOptions = ["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"];
 
               let locationVal = '';
               let activityVal = '';
-
-              // Get raw values from data
               const rawLocation = data.location || data.island_location || '';
               const rawActivity = data.activity || data.category || '';
 
-              // Clean and normalize values for matching dropdowns
               if (rawLocation) {
                 const cleanedLoc = String(rawLocation).trim().toLowerCase();
                 const matched = islandOptions.find(opt => opt.toLowerCase() === cleanedLoc);
@@ -142,17 +130,14 @@ function VendorEdit() {
                 country_code: phoneCode,
               });
 
-              // Image path normalization
               let imageUrl = data.image || data.photo || data.vendor_image || data.profile_picture;
               if (imageUrl && typeof imageUrl === 'string') {
-                // If the URL is relative (e.g., starts with /media/), prefix it with the backend URL
                 if (imageUrl.startsWith('/')) {
                    const baseUrl = 'https://z71mwq0q-8000.inc1.devtunnels.ms';
                    imageUrl = `${baseUrl}${imageUrl}`;
                 }
                 setPreview(imageUrl);
               }
-              
               success = true;
               break;
             } else {
@@ -212,16 +197,13 @@ function VendorEdit() {
     setLoading(true);
 
     const data = new FormData();
-    // Use the EXACT field names and mapping from the working add-vendor.jsx
     data.append('name', formData.vendor_name);
     data.append('latitude', formData.vendor_latitude);
     data.append('longitude', formData.vendor_longitude);
     
-    // Exact phone format from add-vendor
     const fullPhone = `${formData.country_code}${formData.mobile_no}`;
     data.append('phone', fullPhone);
     
-    // Address fields mapping from add-vendor
     data.append('address_line_1', formData.vendor_address_line_1);
     data.append('address_line_2', formData.vendor_address_line_2);
     data.append('email', formData.vendor_email);
@@ -231,20 +213,16 @@ function VendorEdit() {
     data.append('category', formData.activity);
     data.append('description', formData.vendor_description);
     
-    // Include identifiers in body just in case
     data.append('id', id);
     data.append('vendor_id', id);
 
     if (imageFile) {
-      // Send under all possible keys to ensure the backend receives it
       data.append('image', imageFile);
       data.append('photo', imageFile);
       data.append('vendor_image', imageFile);
     }
 
     try {
-      // Prioritize POST as many simple backends use it for everything, including updates.
-      // We try the user-provided pattern /vendor/ID/update/ first.
       const updateCandidates = [
         { url: `/vendor-api/vendor/${id}/update/`, method: 'POST' },
         { url: `/vendor-api/vendor/${id}/update/`, method: 'PATCH' },
@@ -467,16 +445,8 @@ function VendorEdit() {
 
                       {preview && (
                         <>
-                          <img
-                            src={preview}
-                            alt="Preview"
-                            className="w-full h-full object-cover rounded-[16px]"
-                          />
-                          <button
-                            type="button"
-                            onClick={removeImage}
-                            className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:bg-red-50 transition"
-                          >
+                          <img src={preview}  alt="Preview"  className="w-full h-full object-cover rounded-[16px]"/>
+                          <button type="button" onClick={removeImage} className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:bg-red-50 transition">
                             <img src="/icons/deletegallery.svg" alt="" className="w-4 h-4" />
                           </button>
                         </>
@@ -492,8 +462,7 @@ function VendorEdit() {
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
                         Island Location <span className="text-red-700 font-semibold">*</span>
                       </label>
-                      <SearchableSelect
-                        options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+                      <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
                         value={formData.island_location}
                         onChange={(val) => handleSelectChange('island_location', val)}
                         placeholder="Select Any"

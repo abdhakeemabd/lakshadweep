@@ -6,6 +6,8 @@ import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import Export from "../../assets/admin-panel-icon/icons/excel.svg";
 import Print from "../../assets/admin-panel-icon/icons/print.svg";
 
+import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
+
 function VendorList() {
   const [openIndex, setOpenIndex] = useState(null);
   const [vendors, setVendors] = useState([]);
@@ -28,8 +30,6 @@ function VendorList() {
       }
 
       const data = await response.json();
-      
-      // Extensive data discovery
       let vendorsList = [];
       if (Array.isArray(data)) {
         vendorsList = data;
@@ -46,13 +46,12 @@ function VendorList() {
           vendorsList = data.data.results;
         }
       } else {
-        // Look for any property that contains an array
         const arrays = Object.values(data).filter(val => Array.isArray(val));
         if (arrays.length > 0) {
-          vendorsList = arrays[0]; 
+          vendorsList = arrays[0];
         }
       }
-      
+
       setVendors(vendorsList);
       setError(null);
     } catch (err) {
@@ -65,38 +64,52 @@ function VendorList() {
 
   const handleDelete = async (vendorId) => {
     if (!vendorId) {
-      alert("Vendor ID not found");
+      showDeleteError();
       return;
     }
 
-    if (window.confirm('Are you sure you want to delete this vendor?')) {
+    const confirmed = await showDeleteAlert('vendor');
+    if (!confirmed) return;
+
+    const deleteEndpoints = [
+      { url: `/vendor-api/vendor/${vendorId}/delete/`, method: 'DELETE' },
+      { url: `/vendor-api/vendor/delete-vendor/${vendorId}/`, method: 'DELETE' },
+      { url: `/vendor-api/vendor/${vendorId}/`, method: 'DELETE' },
+      { url: `/vendor-api/vendor/vendors/${vendorId}/delete/`, method: 'DELETE' },
+      { url: `/vendor-api/vendor/vendors/${vendorId}/`, method: 'DELETE' },
+    ];
+
+    let deleted = false;
+    for (const endpoint of deleteEndpoints) {
       try {
-        const response = await fetch(`/vendor-api/vendor/${vendorId}/delete/`, {
-          method: 'DELETE',
+        const response = await fetch(endpoint.url, {
+          method: endpoint.method,
           headers: {
             'Authorization': 'Token D9SIHYWOO9FC8BYFBTQC2STOKF33FZ6GDL047A4Q',
             'Accept': 'application/json',
           },
         });
 
-        if (response.ok) {
-          alert('Vendor deleted successfully');
-          fetchVendors(); // Refresh the list
-        } else {
-          // Try to get error message from response
-          let errorMsg = 'Failed to delete vendor';
-          try {
-            const data = await response.json();
-            errorMsg = data.message || data.detail || errorMsg;
-          } catch (e) {
-            // Ignore JSON parse error
-          }
-          alert(errorMsg);
+        if (response.ok || response.status === 204) {
+          deleted = true;
+          break;
+        }
+
+        // 404 means wrong endpoint, try next; other errors mean stop
+        if (response.status !== 404 && response.status !== 405) {
+          console.error(`Delete failed with status ${response.status} on ${endpoint.url}`);
+          break;
         }
       } catch (err) {
-        console.error('Error deleting vendor:', err);
-        alert('An error occurred while deleting the vendor');
+        console.error(`Error on ${endpoint.url}:`, err);
       }
+    }
+
+    if (deleted) {
+      showDeleteSuccess('Vendor');
+      fetchVendors();
+    } else {
+      showDeleteError();
     }
   };
 
@@ -120,14 +133,14 @@ function VendorList() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const updateExportUrl = () => { 
+  const updateExportUrl = () => {
     console.log("Export clicked");
   };
 
   const printThis = () => {
     window.print();
   };
-  
+
   return (
     <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header py-4 px-2 flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
@@ -253,7 +266,7 @@ function VendorList() {
                   <tr>
                     <td colSpan="8" className="text-center py-20">
                       <p className="text-red-500 font-semibold mb-2">Error: {error}</p>
-                      <button 
+                      <button
                         onClick={fetchVendors}
                         className="px-6 py-2 bg-[#007BFF] text-white rounded-[8px] text-[12px] font-semibold hover:bg-[#0069d9] transition-colors"
                       >
