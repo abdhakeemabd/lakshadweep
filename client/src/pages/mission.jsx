@@ -10,12 +10,12 @@ function MissionAndVision() {
         <div className="bg-[#0F2446] text-white lg:me-25 me-3 [clip-path:polygon(0_0,calc(100%-70px)_0,100%_120px,100%_100%,0_100%)]">
           <img src="" alt="" />
           <div className="grid grid-cols-12 justify-center">
-            <div className="hidden lg:block col-span-2" data-aos="fade-up" data-aos-delay="400">
+            <div className="hidden lg:block col-span-2">
               <div className="img-card relative w-full h-full">
                 <img className='w-full h-full' src={AboutImg} alt="" />
               </div>
             </div>
-            <div className="col-span-12 lg:col-span-10 flex lg:block mb-8 lg:mb-12">
+            <div className="col-span-12 lg:col-span-10 flex lg:block mb-8 lg:mb-12"  data-aos="fade-up" data-aos-delay="400">
               <div className="img-card absolute lg:hidden">
                 <img className='w-full h-full object-cover' src={AboutResImg1} alt="" />
               </div>
@@ -53,7 +53,7 @@ function MissionAndVision() {
                 </div>
               </div>
             </div>
-            <div className="hidden lg:block col-span-2" data-aos="fade-up" data-aos-delay="400">
+            <div className="hidden lg:block col-span-2">
               <div className="img-card relative w-full h-full">
                 <img className='w-full h-full ' src={AboutImg2} alt="" />
               </div>
