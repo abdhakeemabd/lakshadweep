@@ -44,10 +44,10 @@ function Profile({ hubMode = false }) {
     <section className={`pb-10 lg:py-20 bg-[#F5F5F5] min-h-screen ${hubMode ? 'pt-0' : 'pt-4'}`}>
       <div className="container mx-auto px-0 lg:px-3">
         <div className="grid grid-cols-12 gap-6">
-          <div className={`col-span-12 lg:col-span-3 ${hubMode ? 'block' : 'hidden lg:block'}`}>
+          <div className={`col-span-12 lg:col-span-4 xl:col-span-3 ${hubMode ? 'block' : 'hidden lg:block'}`}>
             <ProfileSidebar />
           </div>
-          <div className={`col-span-12 lg:col-span-9 ${hubMode ? 'hidden lg:block' : 'block'} lg:mt-24 space-y-6`}>
+          <div className={`col-span-12 lg:col-span-8 xl:col-span-9 ${hubMode ? 'hidden lg:block' : 'block'} lg:mt-24 space-y-6`}>
             {!hubMode && (
               <NavLink to="/profile" className="lg:hidden flex items-center gap-2 px-1 text-[#0F2446] font-semibold mb-2">
                 <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,7 +61,7 @@ function Profile({ hubMode = false }) {
                 <div className="booking-card-header pb-4 border-b border-[#DADADA] mb-3 lg:mb-5">
                   <div className="booking-card-header-content grid grid-cols-12 gap-3 items-center">
 
-                    <div className="col-span-12 lg:col-span-9">
+                    <div className="col-span-12 lg:col-span-8 xl:col-span-9">
                       <div className="booking-card-header-content-title font-poppins font-bold mb-3 text-[24px] leading-[100%] tracking-[-0.02em] text-[#0F2446]">
                         {item.title}
                       </div>
@@ -72,7 +72,7 @@ function Profile({ hubMode = false }) {
                         </span>
                       </div>
                     </div>
-                    <div className="col-span-12 lg:col-span-3 lg:text-right">
+                    <div className="col-span-12 lg:col-span-4 xl:col-span-3 lg:text-right">
                       <span className={`badge font-semibold text-[15px] ${item.statusBg} ${item.statusText} py-2 px-6 rounded-[22px] inline-block`}>{item.status}</span>
                     </div>
                   </div>
@@ -102,11 +102,11 @@ function Profile({ hubMode = false }) {
                   </div>
                 </div>
                 <div className="booking-card-footer grid grid-cols-12 gap-4 items-center">
-                  <div className="col-span-12 lg:col-span-8">
+                  <div className="col-span-12 lg:col-span-7 xl:col-span-8">
                     <div className='font-medium text-[16px] text-[#535353] mb-3'> Note : <span className='font-semibold text-[#E64545]'> {item.note} </span></div>
                     <div className='font-medium text-[15px] text-[#434343]'> Assigned Time Slot: <span className='font-semibold text-[#212121]'> {item.slotTime} </span></div>
                   </div>
-                  <div className="col-span-12 lg:col-span-4 lg:text-right">
+                  <div className="col-span-12 lg:col-span-5 xl:col-span-4 lg:text-right">
                     <a href={item.receiptUrl} download className='inline-flex gap-2 items-center bg-[#007BFF] text-white font-medium px-6 py-2 rounded-[10px]'>
                       <img src={DownloadIcon} alt="Download" /> Download Receipt
                     </a>
