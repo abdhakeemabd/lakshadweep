@@ -42,7 +42,7 @@ function Profile({ hubMode = false }) {
 
   return (
     <section className={`pb-10 lg:py-20 bg-[#F5F5F5] min-h-screen ${hubMode ? 'pt-0' : 'pt-4'}`}>
-      <div className="container mx-auto px-3">
+      <div className="container mx-auto px-0 lg:px-3">
         <div className="grid grid-cols-12 gap-6">
           <div className={`col-span-12 lg:col-span-3 ${hubMode ? 'block' : 'hidden lg:block'}`}>
             <ProfileSidebar />
