@@ -2,8 +2,15 @@ import React from 'react'
 import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
 import DeleteIcon from "../../assets/admin-panel-icon/icons/delete-icon.svg";
 import {NavLink, Link } from 'react-router-dom';
+import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
 
 function EntityManagement() {
+  const handleDelete = async (categoryName) => {
+    const confirmed = await showDeleteAlert(categoryName || 'category');
+    if (!confirmed) return;
+    // TODO: Call delete API when available
+    showDeleteSuccess(categoryName || 'Category');
+  };
   return (
     <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-1 lg:p-4 flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
@@ -36,8 +43,8 @@ function EntityManagement() {
                     <Link to="/admin/setting/edit-catagory" className='cursor-pointer' type='button' command="show-modal" commandfor="edit-slot-modal">
                       <img className='img-fluid' src={EditIcon} alt="Edit" />
                     </Link>
-                    <button className='cursor-pointer' type='button' command="show-modal" commandfor="delete-slot-modal">
-                      <img className='img-fluid' src={DeleteIcon} alt="Edit" />
+                    <button className='cursor-pointer' type='button' onClick={() => handleDelete('C')}>
+                      <img className='img-fluid' src={DeleteIcon} alt="Delete" />
                     </button>
                   </div>
                 </td>

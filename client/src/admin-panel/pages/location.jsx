@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
 import DeleteIcon from "../../assets/admin-panel-icon/icons/delete-icon.svg";
 import { NavLink, Link } from 'react-router-dom';
 import AddLanguageModal from '../component/add-location-modal';
 import EditLocationModal from '../component/edit-location-modal';
+import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
 
 function Location() {
+  const handleDelete = async (locationName) => {
+    const confirmed = await showDeleteAlert(locationName || 'location');
+    if (!confirmed) return;
+    // TODO: Call delete API when available
+    showDeleteSuccess(locationName || 'Location');
+  };
   return (
     <>
       <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
@@ -39,8 +46,8 @@ function Location() {
                       <button className='cursor-pointer' type='button' command="show-modal" commandfor="edit-location-modal">
                         <img className='img-fluid' src={EditIcon} alt="Edit" />
                       </button>
-                      <button className='cursor-pointer' type='button' command="show-modal" commandfor="delete-slot-modal">
-                        <img className='img-fluid' src={DeleteIcon} alt="Edit" />
+                      <button className='cursor-pointer' type='button' onClick={() => handleDelete('Agatti')}>
+                        <img className='img-fluid' src={DeleteIcon} alt="Delete" />
                       </button>
                     </div>
                   </td>

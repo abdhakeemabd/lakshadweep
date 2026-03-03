@@ -6,7 +6,7 @@ import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import Export from "../../assets/admin-panel-icon/icons/excel.svg";
 import Print from "../../assets/admin-panel-icon/icons/print.svg";
 
-import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
+import { showDeleteAlert, showDeleteSuccess, showDeleteError, showDeactivateAlert, showDeactivateSuccess } from '../component/swal-delete';
 
 function VendorList() {
   const [openIndex, setOpenIndex] = useState(null);
@@ -122,6 +122,15 @@ function VendorList() {
   };
   const toggleFilterDropdown = () => {
     setOpenIndex(openIndex === "filter" ? null : "filter");
+  };
+
+  const handleDeactivate = async (vendorId) => {
+    if (!vendorId) return;
+    const confirmed = await showDeactivateAlert('vendor');
+    if (!confirmed) return;
+    // TODO: Call API to deactivate vendor when endpoint is available
+    // e.g. PATCH /vendor-api/vendor/${vendorId}/deactivate/
+    showDeactivateSuccess('Vendor');
   };
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -315,7 +324,7 @@ function VendorList() {
                                     <Link to={`/admin/vendor/view/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
                                     <Link to={`/admin/vendor/edit/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
                                     <div className="mx-2 my-1 border-t border-gray-100" />
-                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
+                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDeactivate(vId); setOpenIndex(null); }}>Deactivate</button>
                                     <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete(vId); setOpenIndex(null); }}>Delete</button>
                                   </>
                                 );

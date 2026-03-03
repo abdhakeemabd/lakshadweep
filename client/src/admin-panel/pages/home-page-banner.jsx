@@ -8,6 +8,7 @@ import { FiMoreVertical } from 'react-icons/fi';
 import AddBannerModal from './add-banner-modal';
 import EddBannerModal from './edit-banner-modal';
 import { Fancybox } from '@fancyapps/ui';
+import { showDeleteAlert, showDeleteSuccess, showDeleteError, showDeactivateAlert, showDeactivateSuccess, showActivateAlert, showActivateSuccess } from '../component/swal-delete';
 
 function HomePageBanner() {
     const [openIndex, setOpenIndex] = useState(null);
@@ -22,6 +23,27 @@ function HomePageBanner() {
     ];
     const toggleDropdown = (index) => {
       setOpenIndex(openIndex === index ? null : index);
+    };
+
+    const handleDelete = async (bannerId, bannerTitle) => {
+      const confirmed = await showDeleteAlert(bannerTitle || 'banner');
+      if (!confirmed) return;
+      // TODO: Call delete API when available
+      showDeleteSuccess(bannerTitle || 'Banner');
+    };
+
+    const handleDeactivate = async (bannerId, bannerTitle) => {
+      const confirmed = await showDeactivateAlert(bannerTitle || 'banner');
+      if (!confirmed) return;
+      // TODO: Call deactivate API when available
+      showDeactivateSuccess(bannerTitle || 'Banner');
+    };
+
+    const handleActivate = async (bannerId, bannerTitle) => {
+      const confirmed = await showActivateAlert(bannerTitle || 'banner');
+      if (!confirmed) return;
+      // TODO: Call activate API when available
+      showActivateSuccess(bannerTitle || 'Banner');
     };
 
     useEffect(() => {
@@ -99,7 +121,7 @@ function HomePageBanner() {
                     </td>
                     <td className="py-2 text-[12px] text-[#383838]">
                       <div className='flex justify-center gap-3 items-center dropdown-container relative'>
-                         <button className='cursor-pointer w-[17px] h-[20px]' type='button'>
+                         <button className='cursor-pointer w-[17px] h-[20px]' type='button' onClick={() => handleDelete(item.id, item.title)}>
                           <img className='img-fluid' src={DeleteIcon} alt="Delete" />
                         </button>
                         <button className='cursor-pointer w-[31px] h-[31px]' type='button' command="show-modal" commandfor="edit-banner-modal">
@@ -111,10 +133,10 @@ function HomePageBanner() {
                         {openIndex === index && (
                           <ul className="absolute right-0 mt-2 top-full w-40 origin-top-right bg-white border border-gray-100 rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-[100] overflow-hidden py-1">
                             <li className='border-b border-[#E2E2E2]'>
-                              <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Activate</button>
+                              <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" onClick={() => { handleActivate(item.id, item.title); setOpenIndex(null); }}>Activate</button>
                             </li>
                             <li>
-                              <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Deactivate</button>
+                              <button className="flex items-center gap-3 px-5 py-3 text-[11px] font-medium text-[#3D3D3D] hover:text-black hover:font-semibold transition-colors w-full text-left cursor-pointer" onClick={() => { handleDeactivate(item.id, item.title); setOpenIndex(null); }}>Deactivate</button>
                             </li>
                           </ul>
                         )}

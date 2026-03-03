@@ -6,10 +6,18 @@ import { NavLink } from 'react-router-dom';
 import { Fancybox } from "@fancyapps/ui";
 import AddGalleryModal from './add-gallery-modal';
 import EditGalleryModal from './edit-gallery-modal';
+import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
 
 function AdminGallery() {
   const [openIndex, setOpenIndex] = useState(null);
   const [selectedBooking, setSelectedBooking] = useState(null);
+
+  const handleDelete = async (itemId, itemLocation) => {
+    const confirmed = await showDeleteAlert(`gallery image (${itemLocation || 'this item'})`);
+    if (!confirmed) return;
+    // TODO: Call delete API when available
+    showDeleteSuccess('Gallery image');
+  };
 
   const galleryItems = [
     { id: 1, location: "Kavaratti", image: Gallery },
@@ -61,7 +69,7 @@ function AdminGallery() {
               <div key={item.id} className="col-span-12 md:col-span-4 lg:col-span-3 mb-3">
                 <div className="rounded-[3px] relative overflow-hidden">
                   <div className="img-card relative w-full aspect-[260/237]">
-                    <button className='absolute top-2 right-2'>
+                    <button className='absolute top-2 right-2' onClick={() => handleDelete(item.id, item.location)}>
                       <img src={DeleteIcon} alt="" />
                     </button>
                     <a className='' href={item.image} data-fancybox="gallery">

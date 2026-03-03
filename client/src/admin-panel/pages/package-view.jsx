@@ -4,6 +4,7 @@ import UploadIcon from "../../../src/assets/admin-panel-icon/icons/add-img-icon.
 import DeleteIcon from "../../../src/assets/admin-panel-icon/icons/deletegallery.svg";
 import CreateDefaultSlot from '../component/create-default-slot';
 import CreateCommonSlot from '../component/create-common-solts';
+import { showDeactivateAlert, showDeactivateSuccess } from '../component/swal-delete';
 
 const ImageUploadCard = ({ imageUrl, onImageSelect, onImageRemove }) => {
   const handleFileChange = (e) => {
@@ -50,6 +51,12 @@ function PackageView() {
     newImages[index] = null;
     setGalleryImages(newImages);
   };
+  const handleDeactivate = async () => {
+    const confirmed = await showDeactivateAlert('package');
+    if (!confirmed) return;
+    // TODO: Call deactivate API when available
+    showDeactivateSuccess('Package');
+  };
 
   return (
     <>
@@ -70,7 +77,7 @@ function PackageView() {
                 <div className="text-[14px] font-inter leading-[20px] text-[#3d3d3d]">Join our Summer Package for an exciting scuba diving experience in Kavaratti. Discover vibrant marine life, crystal-clear waters, and professional guidance to ensure both safety and fun. Perfect for adventure seekers looking to explore the beauty of the ocean.</div>
               </div>
               <div className="flex justify-end mb-3">
-                <button className="flex items-center text-[12px] justify-center w-[93px] h-[34px] bg-[#FF4D4D] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer">Deactivate</button>
+                <button onClick={handleDeactivate} className="flex items-center text-[12px] justify-center w-[93px] h-[34px] bg-[#FF4D4D] text-[#FFEBEB] py-2 rounded-[8px] cursor-pointer">Deactivate</button>
               </div>
               <div className="block mb-3">
                 <div className='font-poppins text-[#8C8C8C] text-[12px] font-medium mb-2'>Category</div>
