@@ -45,7 +45,7 @@ async function tryEndpoints(endpoints) {
         const data = await res.json();
         return data;
       }
-    } catch (_)
+    } catch (_) {}
   }
   return null;
 }
