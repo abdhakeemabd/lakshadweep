@@ -3,10 +3,15 @@ import { FiMoreVertical } from 'react-icons/fi'
 import BookingViewModal from '../component/booking-view-modal';
 import BookingConfirmModal from '../component/booking-conform-modal';
 import BookingCancelModal from '../component/booking-cancel-modal';
+import SearchableSelect from '../../component/searchable-select';
 
 function BookingList() {
   const [openIndex, setOpenIndex] = useState(null);
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const [filterVendor, setFilterVendor] = useState('');
+  const [filterActivity, setFilterActivity] = useState('');
+  const [filterLocation, setFilterLocation] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
 
   const bookings = [
     {
@@ -64,22 +69,34 @@ function BookingList() {
         <div className="card-sub-header p-4 flex justify-between items-center">
           <div>
             <form action="" className='flex flex-wrap gap-3 items-center'>
-              <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                <option className='text-[12px]' value="">Vendor</option>
-                <option className='text-[12px]' value="">111</option>
-              </select>
-              <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                <option className='text-[12px]' value="">Activity</option>
-                <option className='text-[12px]' value="">111</option>
-              </select>
-              <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                <option className='text-[12px]' value="">Location</option>
-                <option className='text-[12px]' value="">111</option>
-              </select>
-              <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                <option className='text-[12px]' value="">Status</option>
-                <option className='text-[12px]' value="">111</option>
-              </select>
+              <SearchableSelect
+                options={["Vendor A", "Vendor B", "Vendor C"]}
+                value={filterVendor}
+                onChange={(val) => setFilterVendor(val)}
+                placeholder="Vendor"
+                searchPlaceholder="Search vendor..."
+              />
+              <SearchableSelect
+                options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
+                value={filterActivity}
+                onChange={(val) => setFilterActivity(val)}
+                placeholder="Activity"
+                searchPlaceholder="Search activity..."
+              />
+              <SearchableSelect
+                options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+                value={filterLocation}
+                onChange={(val) => setFilterLocation(val)}
+                placeholder="Location"
+                searchPlaceholder="Search location..."
+              />
+              <SearchableSelect
+                options={["Pending", "Confirmed", "Cancelled", "Completed"]}
+                value={filterStatus}
+                onChange={(val) => setFilterStatus(val)}
+                placeholder="Status"
+                searchPlaceholder="Search status..."
+              />
             </form>
           </div>
         </div>

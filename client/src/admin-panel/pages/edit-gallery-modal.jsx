@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
+import SearchableSelect from '../../component/searchable-select'
 
 function EditGalleryModal() {
   const dialogRef = useRef(null)
   const [fileName, setFileName] = useState("No file chosen")
   const [isClosing, setIsClosing] = useState(false)
+  const [formData, setFormData] = useState({
+    location: ''
+  })
   const fileInputRef = useRef(null)
+
+  const handleSelectChange = (id, value) => {
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]
@@ -61,10 +69,15 @@ function EditGalleryModal() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-5">
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Title' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Select Location  <span className="text-red-500">*</span>  </label>
-                    <select className="w-full text-[12px] mt-3 py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none" name="" id="">
-                      <option className="text-[12px]" value="">Destination</option>
-                      <option className="text-[12px]" value="">111</option>
-                    </select>
+                    <div className='mt-3'>
+                      <SearchableSelect
+                        options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+                        value={formData.location}
+                        onChange={(val) => handleSelectChange('location', val)}
+                        placeholder="Select Location"
+                        searchPlaceholder="Search location..."
+                      />
+                    </div>
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='banner' className="text-[#3D3D3D] font-poppins font-medium text-[14px] block mb-3">Upload Image <span className="text-red-500">*</span></label>

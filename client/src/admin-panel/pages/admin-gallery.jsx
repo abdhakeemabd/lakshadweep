@@ -7,6 +7,7 @@ import { Fancybox } from "@fancyapps/ui";
 import AddGalleryModal from './add-gallery-modal';
 import EditGalleryModal from './edit-gallery-modal';
 import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
+import SearchableSelect from '../../component/searchable-select';
 
 function AdminGallery() {
   const [openIndex, setOpenIndex] = useState(null);
@@ -32,15 +33,7 @@ function AdminGallery() {
     return () => Fancybox.destroy();
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.target.closest(".dropdown-container")) {
-        setOpenIndex(null);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const [filterActivity, setFilterActivity] = useState('');
 
   return (
     <>
@@ -57,10 +50,13 @@ function AdminGallery() {
         </div>
         <div className="card-sub-header p-4 flex gap-3 items-center">
           <div>
-            <select className="text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none" name="" id="">
-              <option className="text-[12px]" value="">Activity</option>
-              <option className="text-[12px]" value="">111</option>
-            </select>
+            <SearchableSelect
+              options={["Kayakking", "Snorkeling", "Scuba Diving"]}
+              value={filterActivity}
+              onChange={(val) => setFilterActivity(val)}
+              placeholder="Activity"
+              searchPlaceholder="Search activity..."
+            />
           </div>
         </div>
         <div className="card-body py-4">

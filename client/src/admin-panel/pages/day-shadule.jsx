@@ -7,11 +7,14 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Editicon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchableSelect from '../../component/searchable-select';
 
 function DayShadule() {
   const [openIndex, setOpenIndex] = useState(null);
   const [activeFilter, setActiveFilter] = useState('total'); // 'total', 'booked', 'available'
   const [selectedSlot, setSelectedSlot] = useState(null);
+  const [filterVendor, setFilterVendor] = useState('');
+  const [filterActivity, setFilterActivity] = useState('');
 
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -143,20 +146,28 @@ function DayShadule() {
   return (
     <>
       <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
-        <div className="card-header p-4 flex flex-wrap gap-3 justify-between items-center">
+        <div className="card-header p-4 flex flex-wrap gap-3 justify-between items-center border-b border-[#e3e3e3]">
           <div>
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Day Schedule</h1>
           </div>
+        </div>
+        <div className="card-sub-header p-4 flex flex-wrap gap-3 justify-between items-center">
           <div className='flex flex-wrap gap-3 items-center'>
             <form action="" className='flex flex-wrap gap-3 items-center'>
-              <select className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' >
-                <option value="">Select Vendor</option>
-                <option value="">111</option>
-              </select>
-              <select className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' >
-                <option value="">Select Activity</option>
-                <option value="">111</option>
-              </select>
+              <SearchableSelect
+                options={vendors.map(v => v.name).filter(Boolean)}
+                value={filterVendor}
+                onChange={(val) => setFilterVendor(val)}
+                placeholder="Select Vendor"
+                searchPlaceholder="Search vendor..."
+              />
+              <SearchableSelect
+                options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
+                value={filterActivity}
+                onChange={(val) => setFilterActivity(val)}
+                placeholder="Select Activity"
+                searchPlaceholder="Search activity..."
+              />
             </form>
           </div>
         </div>

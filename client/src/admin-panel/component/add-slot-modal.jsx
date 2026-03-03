@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import DateRangeFilter from './date-range-filter'
+import SearchableSelect from '../../component/searchable-select';
 
 function AddSlotModal() {
   const dialogRef = useRef(null)
@@ -65,6 +66,8 @@ function AddSlotModal() {
   };
 
   const [selectedSlots, setSelectedSlots] = useState([]);
+  const [selectedPackage, setSelectedPackage] = useState("");
+  const [selectedVendor, setSelectedVendor] = useState("");
 
   const handleSlotToggle = (slotId) => {
     setSelectedSlots(prev =>
@@ -86,7 +89,7 @@ function AddSlotModal() {
             <form action="">
               <div className="modal-header py-10 flex justify-between">
                 <h1 className='font-poppins font-bold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Create Slot</h1>
-                <button className="absolute top-1 right-1 z-50 p-1 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none" onClick={handleCloseModal} aria-label="Close">
+                <button type="button" className="absolute top-1 right-1 z-50 p-1 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none" onClick={handleCloseModal} aria-label="Close">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                 </button>
                 <button type='button' className="absolute top-13 right-10 z-50 p-[10px_50px_10px_50px] bg-[#007BFF] text-white rounded-[10px] transition-all duration-300 cursor-pointer flex items-center justify-center border-none font-semibold" onClick={handleCloseModal} aria-label="Close"> Save
@@ -96,15 +99,23 @@ function AddSlotModal() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-5">
                   <div className='col-span-1 md:col-span-6 mb-3'>
                     <label htmlFor="slot-name" className='text-[#3d3d3d] text-medium text-[13px] mb-2'>Package <span className='text-red-500'>*</span> </label>
-                    <select name="" id="" className='bg-[#F5F5F5] w-full text-[13px] text-start rounded-[10px] p-[10px_50px_10px_10px] focus:outline-none '>
-                      <option value="">Select Package</option>
-                    </select>
+                    <SearchableSelect
+                      options={["Summer Package", "Scuba Diving Package", "Island Hopping"]}
+                      value={selectedPackage}
+                      onChange={(val) => setSelectedPackage(val)}
+                      placeholder="Select Package"
+                      searchPlaceholder="Search package..."
+                    />
                   </div>
                   <div className='col-span-1 md:col-span-6 mb-3'>
                     <label htmlFor="slot-name" className='text-[#3d3d3d] text-medium text-[13px] mb-2'>Vendor <span className='text-red-500'>*</span> </label>
-                    <select name="" id="" className='bg-[#F5F5F5] w-full text-[13px] text-start rounded-[10px] p-[10px_50px_10px_10px] focus:outline-none '>
-                      <option value="">Select Vendor</option>
-                    </select>
+                    <SearchableSelect
+                      options={["Vendor A", "Vendor B", "Vendor C"]}
+                      value={selectedVendor}
+                      onChange={(val) => setSelectedVendor(val)}
+                      placeholder="Select Vendor"
+                      searchPlaceholder="Search vendor..."
+                    />
                   </div>
                   <div className="col-span-12">
                     <div className="w-full">

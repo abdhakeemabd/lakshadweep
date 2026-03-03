@@ -3,9 +3,12 @@ import AddSlotModal from '../component/add-slot-modal';
 import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
 import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
 import EditSlotModal from '../component/edit-solt';
+import SearchableSelect from '../../component/searchable-select';
 
 function AllSlot() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [filterVendor, setFilterVendor] = useState('');
+  const [filterPackage, setFilterPackage] = useState('');
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -62,14 +65,20 @@ function AllSlot() {
         <div className="card-sub-header p-4 flex justify-between items-center">
           <div>
              <form action="" className='flex flex-wrap gap-3 items-center'>
-              <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                <option className='text-[12px]' value="">Vendor</option>
-                <option className='text-[12px]' value="">111</option>
-              </select>
-              <select className='text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' name="" id="">
-                <option className='text-[12px]' value="">Package</option>
-                <option className='text-[12px]' value="">111</option>
-              </select>
+              <SearchableSelect
+                options={["Vendor A", "Vendor B", "Vendor C"]}
+                value={filterVendor}
+                onChange={(val) => setFilterVendor(val)}
+                placeholder="Vendor"
+                searchPlaceholder="Search vendor..."
+              />
+              <SearchableSelect
+                options={["Summer Package", "Scuba Diving Package", "Island Hopping"]}
+                value={filterPackage}
+                onChange={(val) => setFilterPackage(val)}
+                placeholder="Package"
+                searchPlaceholder="Search package..."
+              />
             </form>
           </div>
         </div>

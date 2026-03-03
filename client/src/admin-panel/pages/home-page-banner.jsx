@@ -9,9 +9,12 @@ import AddBannerModal from './add-banner-modal';
 import EddBannerModal from './edit-banner-modal';
 import { Fancybox } from '@fancyapps/ui';
 import { showDeleteAlert, showDeleteSuccess, showDeleteError, showDeactivateAlert, showDeactivateSuccess, showActivateAlert, showActivateSuccess } from '../component/swal-delete';
+import SearchableSelect from '../../component/searchable-select';
 
 function HomePageBanner() {
     const [openIndex, setOpenIndex] = useState(null);
+    const [filterActivity, setFilterActivity] = useState('');
+    const [filterDestination, setFilterDestination] = useState('');
     const banners = [
       {
         id: 1,
@@ -75,15 +78,23 @@ function HomePageBanner() {
         </div>
         <div className="card-sub-header p-4 flex gap-3 items-center">
           <div>
-            <select className="text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none" name="" id="">
-              <option className="text-[12px]" value="">Activity</option>
-              <option className="text-[12px]" value="">111</option>
-            </select>
+            <SearchableSelect
+              options={["Bike Rentals", "Scuba Diving", "Kayaking"]}
+              value={filterActivity}
+              onChange={(val) => setFilterActivity(val)}
+              placeholder="Activity"
+              searchPlaceholder="Search activity..."
+            />
           </div>
-          <select className="text-[12px] py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none" name="" id="">
-            <option className="text-[12px]" value="">Destination</option>
-            <option className="text-[12px]" value="">111</option>
-          </select>
+          <div>
+            <SearchableSelect
+              options={["Minicoy Island", "Agatti Island", "Kavaratti Island"]}
+              value={filterDestination}
+              onChange={(val) => setFilterDestination(val)}
+              placeholder="Destination"
+              searchPlaceholder="Search destination..."
+            />
+          </div>
         </div>
         <div className="card-body py-4">
           <div className="overflow-x-auto min-h-[400px]">

@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
 import DateRangeFilter from '../component/date-range-filter';
 import { Link } from 'react-router-dom';
+import SearchableSelect from '../../component/searchable-select';
 
 function Payment() {
+  const [filterVendor, setFilterVendor] = useState('');
+  const [filterLocation, setFilterLocation] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
   return (
     <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-4 flex flex-wrap gap-3 md:gap-4 justify-between items-center border-b border-[#e3e3e3]">
@@ -20,33 +24,27 @@ function Payment() {
       <div className="card-sub-header p-4 flex flex-wrap gap-3 justify-between items-center">
         <div>
           <form action="" className='flex flex-wrap gap-3 md:gap-4 items-center'>
-            <div className="relative inline-block">
-              <select className='appearance-none py-2 pl-6 pr-12 bg-[#F4F4F4] rounded-[8px] min-w-[113px] text-[14px] text-[#383838] font-medium border-0 focus:border-0 focus:outline-none cursor-pointer' name="" id="">
-                <option value="">Vendor</option>
-                <option value="">111</option>
-              </select>
-              <svg className="absolute right-[10px] top-1/2 -translate-y-1/2 pointer-events-none" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L6 6L11 1" stroke="#383838" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div className="relative inline-block">
-              <select className='appearance-none py-2 pl-6 pr-12 bg-[#F4F4F4] rounded-[8px] min-w-[113px] text-[14px] text-[#383838] font-medium border-0 focus:border-0 focus:outline-none cursor-pointer' name="" id="">
-                <option value="">Location</option>
-                <option value="">111</option>
-              </select>
-              <svg className="absolute right-[10px] top-1/2 -translate-y-1/2 pointer-events-none" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L6 6L11 1" stroke="#383838" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div className="relative inline-block">
-              <select className='appearance-none py-2 pl-6 pr-12 bg-[#F4F4F4] rounded-[8px] min-w-[113px] text-[14px] text-[#383838] font-medium border-0 focus:border-0 focus:outline-none cursor-pointer' name="" id="">
-                <option value="">Status</option>
-                <option value="">111</option>
-              </select>
-              <svg className="absolute right-[10px] top-1/2 -translate-y-1/2 pointer-events-none" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L6 6L11 1" stroke="#383838" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
+            <SearchableSelect
+              options={["Vendor A", "Vendor B", "Vendor C"]}
+              value={filterVendor}
+              onChange={(val) => setFilterVendor(val)}
+              placeholder="Vendor"
+              searchPlaceholder="Search vendor..."
+            />
+            <SearchableSelect
+              options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+              value={filterLocation}
+              onChange={(val) => setFilterLocation(val)}
+              placeholder="Location"
+              searchPlaceholder="Search location..."
+            />
+            <SearchableSelect
+              options={["Pending", "Paid", "Failed", "Refunded"]}
+              value={filterStatus}
+              onChange={(val) => setFilterStatus(val)}
+              placeholder="Status"
+              searchPlaceholder="Search status..."
+            />
           </form>
         </div>
         <div className="inline-block">

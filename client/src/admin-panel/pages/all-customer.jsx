@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
 import { Link } from 'react-router-dom';
+import SearchableSelect from '../../component/searchable-select';
 
 const API_URL = '/customer-api/customer/customers/';
 const API_TOKEN = 'CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP';
@@ -159,12 +160,12 @@ function AllCustomer() {
     return Array.from(locationsSet).sort();
   }, [customers]);
 
-  const handleActivityChange = (e) => {
-    setSelectedActivity(e.target.value);
+  const handleActivityChange = (val) => {
+    setSelectedActivity(val);
   };
 
-  const handleLocationChange = (e) => {
-    setSelectedLocation(e.target.value);
+  const handleLocationChange = (val) => {
+    setSelectedLocation(val);
   };
 
   return (
@@ -181,18 +182,20 @@ function AllCustomer() {
       <div className="card-sub-header p-4 flex gap-3 justify-between flex-wrap items-center">
         <div>
           <form action="" className='flex flex-wrap gap-3 items-center'>
-            <select className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' value={selectedActivity} onChange={handleActivityChange} id="activity-filter">
-              <option value="">All Activities</option>
-              {uniqueActivities.map(activity => (
-                <option key={activity} value={activity}>{activity}</option>
-              ))}
-            </select>
-            <select className='py-2 pl-4 text-[12px] pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none' value={selectedLocation} onChange={handleLocationChange} id="location-filter">
-              <option value="">All Locations</option>
-              {uniqueLocations.map(location => (
-                <option key={location} value={location}>{location}</option>
-              ))}
-            </select>
+            <SearchableSelect
+              options={uniqueActivities.length > 0 ? uniqueActivities : ["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
+              value={selectedActivity}
+              onChange={handleActivityChange}
+              placeholder="All Activities"
+              searchPlaceholder="Search activity..."
+            />
+            <SearchableSelect
+              options={uniqueLocations.length > 0 ? uniqueLocations : ["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+              value={selectedLocation}
+              onChange={handleLocationChange}
+              placeholder="All Locations"
+              searchPlaceholder="Search location..."
+            />
           </form>
         </div>
         <div className="inline-block">

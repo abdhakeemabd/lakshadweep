@@ -6,14 +6,15 @@ import { Link } from 'react-router-dom';
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
 import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
+import SearchableSelect from '../../component/searchable-select';
 
 function PackagesList() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [filterCategory, setFilterCategory] = useState('');
+  const [filterLocation, setFilterLocation] = useState('');
+  const [filterVendor, setFilterVendor] = useState('');
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
-  };
-  const toggleFilterDropdown = () => {
-    setOpenIndex(openIndex === "filter" ? null : "filter");
   };
   const handleDelete = async (packageId, packageTitle) => {
     const confirmed = await showDeleteAlert(packageTitle || 'this package');
@@ -60,7 +61,7 @@ function PackagesList() {
             <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
               <img src={ExportIcon} alt="Export" />Export</button>
             <div className="relative dropdown-container">
-              <button onClick={toggleFilterDropdown} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
+              <button onClick={() => toggleDropdown('filter')} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
                 Filters
                 <img className='ms-4 w-[16px] h-[16px]' src={filter} alt="filter" />
               </button>
@@ -74,27 +75,39 @@ function PackagesList() {
                       <div className="flex flex-col gap-4">
                         <div className="item">
                           <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Category</label>
-                          <select name="category" id="category" className="w-full appearance-none border border-[#E5E5E5] rounded-lg px-3 py-2 mt-1 text-[14px] text-[#414242] bg-[#F4F4F4] focus:outline-none focus:ring-1 focus:ring-[#0F2446] focus:border-[#0F2446] cursor-pointer" defaultValue="">
-                            <option value="" disabled>Select Category</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </select>
+                          <div className="mt-1">
+                            <SearchableSelect
+                              options={["Watersports", "Adventure", "Eco Tourism", "Leisure"]}
+                              value={filterCategory}
+                              onChange={(val) => setFilterCategory(val)}
+                              placeholder="Select Category"
+                              searchPlaceholder="Search category..."
+                            />
+                          </div>
                         </div>
                         <div className="items">
                           <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Location</label>
-                          <select name="category" id="category" className="w-full appearance-none border border-[#E5E5E5] rounded-lg px-3 py-2 mt-1 text-[14px] text-[#414242] bg-[#F4F4F4] focus:outline-none focus:ring-1 focus:ring-[#0F2446] focus:border-[#0F2446] cursor-pointer" defaultValue="">
-                            <option value="" disabled>Select Category</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </select>
+                          <div className="mt-1">
+                            <SearchableSelect
+                              options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+                              value={filterLocation}
+                              onChange={(val) => setFilterLocation(val)}
+                              placeholder="Select Location"
+                              searchPlaceholder="Search location..."
+                            />
+                          </div>
                         </div>
                         <div className="items">
                           <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Vendor</label>
-                          <select name="category" id="category" className="w-full appearance-none border border-[#E5E5E5] rounded-lg px-3 py-2 mt-1 text-[14px] text-[#414242] bg-[#F4F4F4] focus:outline-none focus:ring-1 focus:ring-[#0F2446] focus:border-[#0F2446] cursor-pointer" defaultValue="">
-                            <option value="" disabled>Select Category</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </select>
+                          <div className="mt-1">
+                            <SearchableSelect
+                              options={["Vendor A", "Vendor B", "Vendor C"]}
+                              value={filterVendor}
+                              onChange={(val) => setFilterVendor(val)}
+                              placeholder="Select Vendor"
+                              searchPlaceholder="Search vendor..."
+                            />
+                          </div>
                         </div>
                         <div className="flex gap-3 mb-3">
                           <div className="items">
@@ -170,7 +183,7 @@ function PackagesList() {
                   <td className="px-4 py-2 text-[12px] text-[#383838]">Alexander Sharington</td>
                   <td className="px-4 py-2 text-[12px] text-[#383838]">INR 35000</td>
                   <td className="py-2 text-[12px] text-[#383838]">
-                    <span className='badge font-semibold text-[9px] bg-[#B5FFDF] text-[#1C9762] border-1 border-[#1C9762] py-[5px] px-4 rounded-[22px]'>Active</span>
+                    <span className='badge font-semibold text-[9px] bg-[#B5FFDF] text-[#1C9762] border border-[#1C9762] py-[5px] px-4 rounded-[22px]'>Active</span>
                   </td>
                   <td className="px-4 py-2 text-[12px] text-[#383838]">
                     <div className="relative inline-block text-left dropdown-container">
@@ -178,7 +191,7 @@ function PackagesList() {
                         <FiMoreVertical size={20} />
                       </button>
                       {openIndex === 0 && (
-                        <ul className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-0 rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-[100] overflow-hidden py-1">
+                        <ul className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-[#E2E2E2] rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-100 overflow-hidden py-1">
                           <li className='border-b border-[#e2e2e2]'>
                             <Link to={`/admin/packages/view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
                           </li>

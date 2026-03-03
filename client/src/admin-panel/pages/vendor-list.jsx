@@ -5,7 +5,7 @@ import filter from '../../assets/admin-panel-icon/icons/filter-icon.svg'
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import Export from "../../assets/admin-panel-icon/icons/excel.svg";
 import Print from "../../assets/admin-panel-icon/icons/print.svg";
-
+import SearchableSelect from '../../component/searchable-select';
 import { showDeleteAlert, showDeleteSuccess, showDeleteError, showDeactivateAlert, showDeactivateSuccess } from '../component/swal-delete';
 
 function VendorList() {
@@ -13,6 +13,9 @@ function VendorList() {
   const [vendors, setVendors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterCategory, setFilterCategory] = useState('');
+  const [filterLocation, setFilterLocation] = useState('');
+  const [filterVendor, setFilterVendor] = useState('');
 
   const fetchVendors = async () => {
     try {
@@ -120,9 +123,6 @@ function VendorList() {
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-  const toggleFilterDropdown = () => {
-    setOpenIndex(openIndex === "filter" ? null : "filter");
-  };
 
   const handleDeactivate = async (vendorId) => {
     if (!vendorId) return;
@@ -158,7 +158,7 @@ function VendorList() {
         </div>
         <div className='flex gap-4'>
           <div className="relative dropdown-container">
-            <button onClick={toggleFilterDropdown} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
+            <button onClick={() => toggleDropdown('filter')} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
               Filters
               <img className='ms-4 w-[16px] h-[16px]' src={filter} alt="filter" />
             </button>
@@ -172,27 +172,39 @@ function VendorList() {
                     <div className="flex flex-col gap-4">
                       <div className="item">
                         <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Category</label>
-                        <select name="category" id="category" className="w-full appearance-none border border-[#E5E5E5] rounded-lg px-3 py-2 mt-1 text-[14px] text-[#414242] bg-[#F4F4F4] focus:outline-none focus:ring-1 focus:ring-[#0F2446] focus:border-[#0F2446] cursor-pointer" defaultValue="">
-                          <option value="" disabled>Select Category</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
+                        <div className="mt-1">
+                          <SearchableSelect
+                            options={["Watersports", "Adventure", "Eco Tourism", "Leisure"]}
+                            value={filterCategory}
+                            onChange={(val) => setFilterCategory(val)}
+                            placeholder="Select Category"
+                            searchPlaceholder="Search category..."
+                          />
+                        </div>
                       </div>
                       <div className="items">
                         <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Location</label>
-                        <select name="category" id="category" className="w-full appearance-none border border-[#E5E5E5] rounded-lg px-3 py-2 mt-1 text-[14px] text-[#414242] bg-[#F4F4F4] focus:outline-none focus:ring-1 focus:ring-[#0F2446] focus:border-[#0F2446] cursor-pointer" defaultValue="">
-                          <option value="" disabled>Select Category</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
+                        <div className="mt-1">
+                          <SearchableSelect
+                            options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
+                            value={filterLocation}
+                            onChange={(val) => setFilterLocation(val)}
+                            placeholder="Select Location"
+                            searchPlaceholder="Search location..."
+                          />
+                        </div>
                       </div>
                       <div className="items">
                         <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Vendor</label>
-                        <select name="category" id="category" className="w-full appearance-none border border-[#E5E5E5] rounded-lg px-3 py-2 mt-1 text-[14px] text-[#414242] bg-[#F4F4F4] focus:outline-none focus:ring-1 focus:ring-[#0F2446] focus:border-[#0F2446] cursor-pointer" defaultValue="">
-                          <option value="" disabled>Select Category</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
+                        <div className="mt-1">
+                          <SearchableSelect
+                            options={vendors.map(v => v.name || v.vendor_name || '').filter(Boolean)}
+                            value={filterVendor}
+                            onChange={(val) => setFilterVendor(val)}
+                            placeholder="Select Vendor"
+                            searchPlaceholder="Search vendor..."
+                          />
+                        </div>
                       </div>
                       <div className="flex gap-3 mb-3">
                         <div className="items">

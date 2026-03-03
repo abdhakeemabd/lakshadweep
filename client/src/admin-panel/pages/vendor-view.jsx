@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import VendorProfile from '../component/vendor-profile'
 import DateRangeFilter from '../component/date-range-filter'
+import SearchableSelect from '../../component/searchable-select';
 
 function VendorView() {
   const { id } = useParams();
@@ -185,16 +186,13 @@ function VendorView() {
               <div className="flex flex-wrap items-center gap-3">
                 {activeTab === "profile" ? (
                   <div className="relative">
-                    <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="appearance-none bg-[#E9F5FF] text-[#0085FF] font-semibold text-[13px] px-4 py-2.5 rounded-[12px] pr-8 cursor-pointer focus:outline-none transition-all hover:bg-[#D4EAFF]">
-                      <option value="all">All Status</option>
-                      <option value="active">Active</option>
-                      <option value="cancelled">Cancelled</option>
-                    </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.92 8.95L13.4 15.47C12.63 16.24 11.37 16.24 10.6 15.47L4.08 8.95" stroke="#0085FF" strokeWidth="2.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
+                    <SearchableSelect
+                      options={["all", "active", "cancelled"]}
+                      value={statusFilter}
+                      onChange={(val) => setStatusFilter(val)}
+                      placeholder="Status"
+                      searchPlaceholder="Search status..."
+                    />
                   </div>
                 ) : (
                   <DateRangeFilter onRangeChange={(range) => setCurrentRange(range)} />
@@ -210,7 +208,7 @@ function VendorView() {
                   </div>
                 ) : filteredBookings.length > 0 ? (
                   filteredBookings.map((item, index) => (
-                    <div key={item.id || index} className={`py-6 px-6 lg:px-8 border-1 border-[#E9E9E9] rounded-[18px] mb-3`}>
+                    <div key={item.id || index} className={`py-6 px-6 lg:px-8 border border-[#E9E9E9] rounded-[18px] mb-3`}>
                       <div className="booking-item-header pb-4 border-b border-[#DADADA] mb-5">
                         <div className="flex flex-wrap justify-between items-center gap-4">
                           <div>
@@ -264,7 +262,7 @@ function VendorView() {
                   </div>
                 ) : filteredAssignedPackages.length > 0 ? (
                   filteredAssignedPackages.map((item, index) => (
-                    <div key={item.id || index} className={`py-6 px-6 lg:px-8 border-1 border-[#E9E9E9] rounded-[18px] mb-3`}>
+                    <div key={item.id || index} className={`py-6 px-6 lg:px-8 border border-[#E9E9E9] rounded-[18px] mb-3`}>
                        <div className="booking-item-header pb-4 border-b border-[#DADADA] mb-5">
                           <div className="flex flex-wrap justify-between items-center gap-4">
                             <div>

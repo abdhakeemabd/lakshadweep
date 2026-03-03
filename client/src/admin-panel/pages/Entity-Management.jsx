@@ -20,7 +20,7 @@ function EntityManagement() {
         </div>
         <div className='flex items-center gap-3'>
           <Link to="/admin/setting/add-catagory" className="flex min-w-[147px] h-[36px] text-[12px] md:text-[14px] items-center justify-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white font-semibold cursor-pointer">
-            + Add
+            + Add 
           </Link>
         </div>
       </div>
@@ -40,10 +40,10 @@ function EntityManagement() {
                 <td className="px-4 py-2 text-[12px] text-[#3d3d3d]"> Scuba Diving , Kayaking +3more</td>
                 <td className="py-2 text-[12px] text-[#383838]">
                   <div className='flex justify-center gap-3 items-center'>
-                    <Link to="/admin/setting/edit-catagory" className='cursor-pointer' type='button' command="show-modal" commandfor="edit-slot-modal">
+                    <Link to="/admin/setting/edit-catagory" className='cursor-pointer border-none bg-transparent p-0'>
                       <img className='img-fluid' src={EditIcon} alt="Edit" />
                     </Link>
-                    <button className='cursor-pointer' type='button' onClick={() => handleDelete('C')}>
+                    <button className='cursor-pointer border-none bg-transparent p-0' type='button' onClick={() => handleDelete('C')}>
                       <img className='img-fluid' src={DeleteIcon} alt="Delete" />
                     </button>
                   </div>

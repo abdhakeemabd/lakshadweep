@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import CustomerProfile from '../component/customer-profile'
+import SearchableSelect from '../../component/searchable-select'
 
 const API_TOKEN = 'CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP';
 const BASE_URL = '/customer-api';
@@ -28,6 +29,7 @@ const getBookingEndpoints = (id) => [
 const STATUS_STYLES = {
   completed:  { bg: 'bg-[#ECFFEF]', text: 'text-[#16C032]' },
   confirmed:  { bg: 'bg-[#EEF4FF]', text: 'text-[#007BFF]' },
+  assigned:   { bg: 'bg-[#EEF4FF]', text: 'text-[#007BFF]' },
   pending:    { bg: 'bg-[#FFF8EC]', text: 'text-[#F5A700]' },
   cancelled:  { bg: 'bg-[#FFF0F0]', text: 'text-[#dc3545]' },
   default:    { bg: 'bg-[#F4F4F4]', text: 'text-[#8c8c8c]' },
@@ -69,6 +71,7 @@ function CustomerView() {
   const [loadingBookings, setLoadingBookings] = useState(true);
   const [errorCustomer, setErrorCustomer]     = useState(null);
   const [errorBookings, setErrorBookings]     = useState(null);
+  const [statusFilter, setStatusFilter]       = useState('All');
 
   useEffect(() => {
     if (!id) return;
@@ -96,18 +99,30 @@ function CustomerView() {
       .finally(() => setLoadingBookings(false));
   }, [id]);
 
+  const filteredBookings = bookings.filter(booking => {
+    if (statusFilter === 'All') return true;
+    const status = (booking.status || booking.booking_status || '').toLowerCase();
+    return status === statusFilter.toLowerCase();
+  });
+
   return (
     <div className="grid grid-cols-12 gap-6 mt-3">
       <div className="col-span-12 lg:col-span-4"><CustomerProfile customer={customer} loading={loadingCustomer} /></div>
       <div className="col-span-12 lg:col-span-8">
         <div className="bg-white rounded-2xl shadow-[1px_0px_4px_0px_#00000014] overflow-hidden p-4 min-h-[480px]">
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#e3e3e3]">
+          <div className="flex flex-wrap items-center justify-between mb-4 pb-3 border-b border-[#e3e3e3] gap-3">
             <h2 className="font-semibold text-[16px] text-[#2A2A2A]">Booking History</h2>
-            {!loadingBookings && (
-              <span className="text-[12px] text-[#8c8c8c]">
-                {bookings.length} booking{bookings.length !== 1 ? 's' : ''}
-              </span>
-            )}
+            <div className="flex items-center gap-4">
+              <div className="w-[180px]">
+                <SearchableSelect
+                  options={['All', 'Pending', 'Assigned', 'Completed', 'Cancelled']}
+                  value={statusFilter}
+                  onChange={(val) => setStatusFilter(val)}
+                  placeholder="Select Option"
+                  searchPlaceholder="Search status..."
+                />
+              </div>
+            </div>
           </div>
           {loadingBookings && (
             <div className="flex justify-center items-center py-20">
@@ -120,12 +135,12 @@ function CustomerView() {
               <button onClick={() => window.location.reload()} className="px-5 py-2 bg-[#007BFF] text-white rounded-[8px] text-[12px] font-semibold">Retry</button>
             </div>
           )}
-          {!loadingBookings && !errorBookings && bookings.length === 0 && (
-            <div className="text-center py-20"><p className="text-[#8c8c8c] text-[13px]">No bookings found for this customer.</p></div>
+          {!loadingBookings && !errorBookings && filteredBookings.length === 0 && (
+            <div className="text-center py-20"><p className="text-[#8c8c8c] text-[13px]">No bookings found for the selected status.</p></div>
           )}
-          {!loadingBookings && !errorBookings && bookings.length > 0 && (
+          {!loadingBookings && !errorBookings && filteredBookings.length > 0 && (
             <div className="flex flex-col gap-4">
-              {bookings.map((booking, idx) => {
+              {filteredBookings.map((booking, idx) => {
                 const bookingId   = booking.id || booking.booking_id || idx + 1;
                 const packageName = booking.package_name || booking.package || booking.activity || 'N/A';
                 const status      = booking.status || booking.booking_status || 'Pending';

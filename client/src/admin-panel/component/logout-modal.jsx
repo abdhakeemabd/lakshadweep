@@ -48,7 +48,7 @@ function LogoutModal() {
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className="modal-content relative w-full max-w-[502px] overflow-hidden rounded-3xl bg-white shadow-2xl px-6 py-6 lg:py-10">
             <div className="relative flex items-center justify-center py-6 border-b border-gray-100">
-              <button className="absolute top-5 right-5 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 w-[40px] h-[40px]" onClick={handleCloseModal} aria-label="Close">✕</button>
+              <button type="button" className="absolute top-5 right-5 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 w-[40px] h-[40px]" onClick={handleCloseModal} aria-label="Close">✕</button>
               <img className="h-[44px]" src={Logo} alt="Logo" />
             </div>
             <div className="px-6 py-6">

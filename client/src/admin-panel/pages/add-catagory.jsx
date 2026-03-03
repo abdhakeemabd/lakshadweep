@@ -2,33 +2,46 @@ import React, { useState } from 'react'
 import AddIcon from "../../assets/admin-panel-icon/icons/add_icon.svg"
 import DeleteIcon from "../../assets/admin-panel-icon/icons/delete-icon.svg"
 import { Link } from 'react-router-dom';
+import SearchableSelect from '../../component/searchable-select';
 
 function AddCatagory() {
-  const [vendorDocs, setVendorDocs] = useState([{ docName: '', docType: '' }]);
+  const [categoryName, setCategoryName] = useState('');
+  const [vendorDocs, setVendorDocs] = useState([{ docName: '', docType: 'Mandatory' }]);
+  const [activityRows, setActivityRows] = useState([
+    { name: '', vendorDocs: [{ docName: '', docType: 'Mandatory' }] }
+  ]);
 
   const addVendorDoc = () => {
-    setVendorDocs(prev => [...prev, { docName: '', docType: '' }]);
+    setVendorDocs(prev => [...prev, { docName: '', docType: 'Mandatory' }]);
   };
 
   const removeVendorDoc = (index) => {
     setVendorDocs(prev => prev.filter((_, i) => i !== index));
   };
 
-  const [activityRows, setActivityRows] = useState([
-    { name: '', vendorDocs: [{ docName: '', docType: '' }] }
-  ]);
+  const updateVendorDoc = (index, field, value) => {
+    setVendorDocs(prev => prev.map((doc, i) => 
+      i === index ? { ...doc, [field]: value } : doc
+    ));
+  };
 
   const addActivityRow = () => {
-    setActivityRows(prev => [...prev, { name: '', vendorDocs: [{ docName: '', docType: '' }] }]);
+    setActivityRows(prev => [...prev, { name: '', vendorDocs: [{ docName: '', docType: 'Mandatory' }] }]);
   };
 
   const removeActivityRow = (rowIdx) => {
     setActivityRows(prev => prev.filter((_, i) => i !== rowIdx));
   };
 
+  const updateActivityRow = (rowIdx, field, value) => {
+    setActivityRows(prev => prev.map((row, i) => 
+      i === rowIdx ? { ...row, [field]: value } : row
+    ));
+  };
+
   const addVendorDocInRow = (rowIdx) => {
     setActivityRows(prev => prev.map((row, i) =>
-      i === rowIdx ? { ...row, vendorDocs: [...row.vendorDocs, { docName: '', docType: '' }] } : row
+      i === rowIdx ? { ...row, vendorDocs: [...row.vendorDocs, { docName: '', docType: 'Mandatory' }] } : row
     ));
   };
 
@@ -37,6 +50,19 @@ function AddCatagory() {
       i === rowIdx ? { ...row, vendorDocs: row.vendorDocs.filter((_, j) => j !== docIdx) } : row
     ));
   };
+
+  const updateVendorDocInRow = (rowIdx, docIdx, field, value) => {
+    setActivityRows(prev => prev.map((row, i) => 
+      i === rowIdx ? {
+        ...row,
+        vendorDocs: row.vendorDocs.map((doc, j) => 
+          j === docIdx ? { ...doc, [field]: value } : doc
+        )
+      } : row
+    ));
+  };
+
+  const docTypeOptions = ['Mandatory', 'Optional'];
 
   return (
     <>
@@ -61,7 +87,14 @@ function AddCatagory() {
             <div className="grid grid-cols-12 gap-3">
               <div className="col-span-12 md:col-span-6 lg:col-span-4">
                 <label className='text-[#3D3D3D] font-poppins font-medium text-[14px]' htmlFor="category">Category <span className='text-red-500'>*</span> </label>
-                <input id="category" type="text" className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full p-2' />
+                <input 
+                  id="category" 
+                  type="text" 
+                  value={categoryName}
+                  onChange={(e) => setCategoryName(e.target.value)}
+                  className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full p-2' 
+                  placeholder="Enter Category Name"
+                />
               </div>
             </div>
           </div>
@@ -71,8 +104,13 @@ function AddCatagory() {
           <div className="card-body p-3">
             <div className="grid grid-cols-12 gap-3 md:gap-2 lg:gap-3 border-b border-[#DADADA] last:border-0 py-5">
               <div className="col-span-12 md:col-span-6 lg:col-span-4">
-                <label className='text-[#3D3D3D] font-poppins font-medium text-[13px]' htmlFor="activity-0">Activity <span className='text-red-500'>*</span> </label>
-                <input id="activity-0" type="text" className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full px-3 py-2' placeholder='Enter here' />
+                <label className='text-[#3D3D3D] font-poppins font-medium text-[13px]' htmlFor="activity-initial">Activity <span className='text-red-500'>*</span> </label>
+                <input 
+                  id="activity-initial" 
+                  type="text" 
+                  className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full px-3 py-2' 
+                  placeholder='Enter here' 
+                />
               </div>
               <div className="col-span-12 md:col-span-6 lg:col-span-7 lg:col-start-6">
                 {vendorDocs.map((doc, index) => (
@@ -81,13 +119,25 @@ function AddCatagory() {
                       {index === 0 && (
                         <label className='text-[#3D3D3D] font-poppins font-medium text-[13px]' htmlFor={`doc-name-${index}`}>Vendor Document Uploads <span className='text-[#6c757d]'>(Activity Specific) </span> </label>
                       )}
-                      <input id={`doc-name-${index}`} type="text" className={`text-[#3D3D3D] ${index === 0 ? 'mt-3' : ''} bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3`} placeholder='Name of vendor document for the activity' />
+                      <input 
+                        id={`doc-name-${index}`} 
+                        type="text" 
+                        value={doc.docName}
+                        onChange={(e) => updateVendorDoc(index, 'docName', e.target.value)}
+                        className={`text-[#3D3D3D] ${index === 0 ? 'mt-3' : ''} bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3`} 
+                        placeholder='Name of vendor document for the activity' 
+                      />
                     </div>
                     <div className="col-span-12 md:col-span-6 lg:col-span-4">
-                      <div className={`flex gap-3 ${index === 0 ? 'mt-8.5' : ''}`}>
-                        <select className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3'>
-                          <option value="">Select</option>
-                        </select>
+                      <div className={`flex gap-3 ${index === 0 ? 'mt-8.5' : ''} items-center`}>
+                        <div className="w-full">
+                          <SearchableSelect
+                            options={docTypeOptions}
+                            value={doc.docType}
+                            onChange={(val) => updateVendorDoc(index, 'docType', val)}
+                            placeholder="Select"
+                          />
+                        </div>
                         {index === vendorDocs.length - 1 ? (
                           <button type='button' aria-label='Add More' onClick={addVendorDoc}>
                             <img className='w-[18px] h-[18px]' src={AddIcon} alt="add" />
@@ -108,7 +158,13 @@ function AddCatagory() {
                 <div className="col-span-12 md:col-span-6 lg:col-span-5">
                   <div className="flex gap-3 items-center">
                     <div className='w-full max-w-[79%]'>
-                      <input type="text" className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' placeholder='Enter here' />
+                      <input 
+                        type="text" 
+                        value={actRow.name}
+                        onChange={(e) => updateActivityRow(rowIdx, 'name', e.target.value)}
+                        className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' 
+                        placeholder='Enter Activity Name' 
+                      />
                     </div>
                     <div>
                       {rowIdx === activityRows.length - 1 ? (
@@ -127,13 +183,24 @@ function AddCatagory() {
                   {actRow.vendorDocs.map((doc, docIdx) => (
                     <div className="grid grid-cols-12 gap-3 mb-3" key={docIdx}>
                       <div className="col-span-12 md:col-span-6 lg:col-span-8">
-                        <input type="text" className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' placeholder="Name of vendor document for the activity" />
+                        <input 
+                          type="text" 
+                          value={doc.docName}
+                          onChange={(e) => updateVendorDocInRow(rowIdx, docIdx, 'docName', e.target.value)}
+                          className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' 
+                          placeholder="Name of vendor document for the activity" 
+                        />
                       </div>
                       <div className="col-span-12 md:col-span-6 lg:col-span-4">
-                        <div className="flex gap-3">
-                          <select className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full p-2'>
-                            <option value="">Select</option>
-                          </select>
+                        <div className="flex gap-3 items-center">
+                          <div className="w-full">
+                            <SearchableSelect
+                              options={docTypeOptions}
+                              value={doc.docType}
+                              onChange={(val) => updateVendorDocInRow(rowIdx, docIdx, 'docType', val)}
+                              placeholder="Select"
+                            />
+                          </div>
                           {docIdx === actRow.vendorDocs.length - 1 ? (
                             <button type='button' aria-label='Add More' onClick={() => addVendorDocInRow(rowIdx)}>
                               <img className='w-[18px] h-[18px]' src={AddIcon} alt="add" />
