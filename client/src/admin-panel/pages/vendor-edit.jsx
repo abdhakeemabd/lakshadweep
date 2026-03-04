@@ -33,7 +33,7 @@ function VendorEdit() {
     const fetchVendorDetails = async () => {
       try {
         setFetching(true);
-        
+
         const candidates = [
           `/vendor-api/vendor/vendor-details/${id}/`,
           `/vendor-api/vendor/${id}/`,
@@ -44,7 +44,7 @@ function VendorEdit() {
           `/vendor-api/vendor-details/${id}/`,
           `/vendor-api/vendor-detail/${id}/`
         ];
-        
+
         let success = false;
         let lastError = '';
 
@@ -69,7 +69,7 @@ function VendorEdit() {
               }
               if (Array.isArray(data)) data = data[0];
               if (data && data.page_obj && Array.isArray(data.page_obj)) data = data.page_obj[0];
-              
+
               if (!data) {
                 console.warn("Fetch succeeded but no data found in response.");
                 continue;
@@ -78,10 +78,10 @@ function VendorEdit() {
               const phoneVal = String(data.phone || data.mobile_no || data.vendor_phone || '');
               let phoneDigits = phoneVal.replace(/\D/g, '');
               let phoneCode = '+91';
-              
+
               if (phoneVal.startsWith('+')) {
                 if (phoneVal.startsWith('+91')) {
-                  phoneDigits = phoneDigits.slice(2); 
+                  phoneDigits = phoneDigits.slice(2);
                   phoneCode = '+91';
                 } else {
                   const detectedCode = phoneVal.match(/^\+(\d+)/);
@@ -133,8 +133,8 @@ function VendorEdit() {
               let imageUrl = data.image || data.photo || data.vendor_image || data.profile_picture;
               if (imageUrl && typeof imageUrl === 'string') {
                 if (imageUrl.startsWith('/')) {
-                   const baseUrl = 'https://z71mwq0q-8000.inc1.devtunnels.ms';
-                   imageUrl = `${baseUrl}${imageUrl}`;
+                  const baseUrl = 'https://z71mwq0q-8000.inc1.devtunnels.ms';
+                  imageUrl = `${baseUrl}${imageUrl}`;
                 }
                 setPreview(imageUrl);
               }
@@ -200,10 +200,10 @@ function VendorEdit() {
     data.append('name', formData.vendor_name);
     data.append('latitude', formData.vendor_latitude);
     data.append('longitude', formData.vendor_longitude);
-    
+
     const fullPhone = `${formData.country_code}${formData.mobile_no}`;
     data.append('phone', fullPhone);
-    
+
     data.append('address_line_1', formData.vendor_address_line_1);
     data.append('address_line_2', formData.vendor_address_line_2);
     data.append('email', formData.vendor_email);
@@ -212,7 +212,7 @@ function VendorEdit() {
     data.append('location', formData.island_location);
     data.append('category', formData.activity);
     data.append('description', formData.vendor_description);
-    
+
     data.append('id', id);
     data.append('vendor_id', id);
 
@@ -241,7 +241,7 @@ function VendorEdit() {
       for (const candidate of updateCandidates) {
         try {
           console.log(`🌐 Trying to SAVE via ${candidate.method} to ${candidate.url}...`);
-          
+
           const response = await fetch(candidate.url, {
             method: candidate.method,
             headers: {
@@ -255,7 +255,7 @@ function VendorEdit() {
 
           lastResponse = response;
           const responseText = await response.text();
-          
+
           if (response.ok) {
             console.log(`✅ SUCCESS on ${candidate.url}! Server response:`, responseText.substring(0, 200));
             try {
@@ -356,7 +356,7 @@ function VendorEdit() {
                       setFormData(prev => ({ ...prev, mobile_no: strippedVal, country_code: `+${dial}` }));
                     }}
                     enableSearch={true}
-                    searchPlaceholder="Search country..." placeholder="Enter Vendor Phone" disableCountryCode={true} disableCountryGuess={false} inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }} containerClass="!w-full" inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-200" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200"/>
+                    searchPlaceholder="Search country..." placeholder="Enter Vendor Phone" disableCountryCode={true} disableCountryGuess={false} inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }} containerClass="!w-full" inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-200" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200" />
                   <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
                     <span className="text-gray-900 font-medium text-[14px]">{formData.country_code}</span>
                     <div className="w-px h-5 bg-gray-300 mx-3"></div>
@@ -365,60 +365,60 @@ function VendorEdit() {
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_address_line_1" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 1</label>
-                <input 
-                  type="text" 
-                  id="vendor_address_line_1" 
+                <input
+                  type="text"
+                  id="vendor_address_line_1"
                   value={formData.vendor_address_line_1}
                   onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor Address Line 1' 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
+                  placeholder='Enter Vendor Address Line 1'
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_address_line_2" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 2</label>
-                <input 
-                  type="text" 
-                  id="vendor_address_line_2" 
+                <input
+                  type="text"
+                  id="vendor_address_line_2"
                   value={formData.vendor_address_line_2}
                   onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor Address Line 2' 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
+                  placeholder='Enter Vendor Address Line 2'
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_email" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Email <span className='text-red-700 font-semibold'>*</span></label>
-                <input 
-                  type="email" 
-                  id="vendor_email" 
+                <input
+                  type="email"
+                  id="vendor_email"
                   value={formData.vendor_email}
                   onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor Email' 
-                  required 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
+                  placeholder='Enter Vendor Email'
+                  required
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_state" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor State <span className='text-red-700 font-semibold'>*</span></label>
-                <input 
-                  type="text" 
-                  id="vendor_state" 
+                <input
+                  type="text"
+                  id="vendor_state"
                   value={formData.vendor_state}
                   onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor State' 
-                  required 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
+                  placeholder='Enter Vendor State'
+                  required
                 />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Pin code <span className='text-red-700 font-semibold'>*</span></label>
-                <input 
-                  type="number" 
-                  id="vendor_pin_code" 
+                <input
+                  type="number"
+                  id="vendor_pin_code"
                   value={formData.vendor_pin_code}
                   onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" 
-                  placeholder='Enter Vendor Pin code' 
-                  required 
+                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
+                  placeholder='Enter Vendor Pin code'
+                  required
                 />
               </div>
               <div className="col-span-12 lg:col-span-3">
@@ -426,7 +426,7 @@ function VendorEdit() {
                   {/* Upload Box */}
                   <div className="mb-4 xl:mb-0">
                     <label className="relative w-[160px] h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-[#E5E5E5] rounded-[16px] cursor-pointer hover:border-[#FF5C1A] transition bg-[#fafafa] overflow-hidden">
-                      <input ref={fileRef} type="file" accept="image/*" hidden onChange={handleImageChange}/>
+                      <input ref={fileRef} type="file" accept="image/*" hidden onChange={handleImageChange} />
 
                       {!preview && (
                         <>
@@ -437,7 +437,7 @@ function VendorEdit() {
 
                       {preview && (
                         <>
-                          <img src={preview} alt="Preview" className="w-full h-full object-cover rounded-[16px]"/>
+                          <img src={preview} alt="Preview" className="w-full h-full object-cover rounded-[16px]" />
                           <button type="button" onClick={removeImage} className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:bg-red-50 transition">
                             <img src="/icons/deletegallery.svg" alt="" className="w-4 h-4" />
                           </button>
@@ -454,38 +454,62 @@ function VendorEdit() {
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
                         Island Location <span className="text-red-700 font-semibold">*</span>
                       </label>
-                      <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-                        value={formData.island_location}
-                        onChange={(val) => handleSelectChange('island_location', val)}
-                        placeholder="Select Any"
-                        searchPlaceholder="Search island..."
-                      />
+                      <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={formData.island_location} onChange={(val) => handleSelectChange('island_location', val)} placeholder="Select Any" searchPlaceholder="Search island..." />
                     </div>
                     <div>
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">
                         Activity <span className="text-red-700 font-semibold">*</span>
                       </label>
-                      <SearchableSelect
-                        options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
-                        value={formData.activity}
-                        onChange={(val) => handleSelectChange('activity', val)}
-                        placeholder="Select Any"
-                        searchPlaceholder="Search activity..."
-                      />
+                      <SearchableSelect options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]} value={formData.activity} onChange={(val) => handleSelectChange('activity', val)} placeholder="Select Any" searchPlaceholder="Search activity..." />
                     </div>
                     <button type="button" className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition">+ Add</button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div className="col-span-1 sm:col-span-1 lg:col-span-1">
+                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 1</label>
+                      <input ref={licenseFileRef1} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile1Change} />
+                      <button type="button" onClick={() => licenseFileRef1.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+                        Choose File
+                      </button>
+                      {licenseFile1 && (
+                        <p className="mt-2 text-[12px] text-[#666] truncate" title={licenseFile1.name}>
+                          {licenseFile1.name}
+                        </p>
+                      )}
+                    </div>
+                    <div className="col-span-1 sm:col-span-1 lg:col-span-1">
+                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 2</label>
+                      <input ref={licenseFileRef2} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile2Change} />
+                      <button type="button" onClick={() => licenseFileRef2.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+                        Choose File
+                      </button>
+                      {licenseFile2 && (
+                        <p className="mt-2 text-[12px] text-[#666] truncate" title={licenseFile2.name}>
+                          {licenseFile2.name}
+                        </p>
+                      )}
+                    </div>
+                    <div className="col-span-1 sm:col-span-1 lg:col-span-1">
+                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 3</label>
+                      <input ref={licenseFileRef3} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile3Change} />
+                      <button type="button" onClick={() => licenseFileRef3.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+                        Choose File
+                      </button>
+                      {licenseFile3 && (
+                        <p className="mt-2 text-[12px] text-[#666] truncate" title={licenseFile3.name}>
+                          {licenseFile3.name}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="col-span-12 lg:col-span-8">
                 <label htmlFor="vendor_description" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Description</label>
-                <textarea 
-                  id="vendor_description" 
-                  value={formData.vendor_description}
-                  onChange={handleInputChange}
-                  className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141] min-h-[100px]" 
-                  placeholder='Enter Description' 
-                ></textarea>
+                <textarea id="vendor_description" value={formData.vendor_description} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none  bg-[#f5f5f5] text-[#414141] min-h-[100px]" placeholder='Enter Description'></textarea>
               </div>
             </div>
           </form>
