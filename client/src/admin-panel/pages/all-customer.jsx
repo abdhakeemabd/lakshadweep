@@ -175,7 +175,7 @@ function AllCustomer() {
           <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>All Customers</h1>
         </div>
         <div className='flex flex-wrap items-center gap-3'>
-          <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
+          <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer'>
             <img src={ExportIcon} alt="Export" />Export</button>
         </div>
       </div>
@@ -201,7 +201,7 @@ function AllCustomer() {
         <div className="inline-block">
           <form className="relative flex items-center" onSubmit={handleSearchSubmit}>
             <input className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" type="search" placeholder="Search" value={searchQuery} onChange={handleSearchChange} />
-            <button type="button" className="absolute right-2 flex items-center justify-center">
+            <button type="button" className="absolute right-2 flex items-center justify-center cursor-pointer">
               <img src={SearchIcon} alt="search" className="w-4 h-4" />
             </button>
           </form>
@@ -218,7 +218,7 @@ function AllCustomer() {
               <p className="text-red-500">Error: {error}</p>
               <button
                 onClick={fetchCustomers}
-                className="mt-4 bg-[#007BFF] text-white px-4 py-2 rounded-lg"
+                className="mt-4 bg-[#007BFF] text-white px-4 py-2 rounded-lg cursor-pointer"
               >
                 Retry
               </button>
@@ -277,7 +277,7 @@ function AllCustomer() {
                         <td className="px-4 py-2 text-[12px] text-[#383838]">{bookings}</td>
                         <td className="px-4 py-2 text-[12px] text-[#383838]">{activities}</td>
                         <td className="px-4 py-2 text-[12px] text-[#383838]">{location}</td>
-                        <td className="px-4 py-2"><Link className='text-[#007BFF] font-medium text-[13px]' to={`/admin/customer-view/${customerId}`}>View</Link></td>
+                        <td className="px-4 py-2"><Link className='text-[#007BFF] font-medium text-[13px] cursor-pointer' to={`/admin/customer-view/${customerId}`}>View</Link></td>
                       </tr>
                     );
                   })

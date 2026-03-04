@@ -61,13 +61,13 @@ function AdminLogin() {
                 <label htmlFor="password" className="block text-[17.52px] text-[#EDEDED] mb-2">Password</label>
                 <div className="relative">
                   <input id="password" type={showPassword ? "text" : "password"} value={formData.password} onChange={handleInputChange} placeholder="Enter your password" className="w-full h-[51px] placeholder:text-[#C4C4C4]/60 px-5 pr-12 rounded-xl border border-[#DFDFDF] bg-[#0D1F3A] text-white focus:ring-1 focus:ring-[#FF6A21] focus:border-[#FF6A21] outline-none transition-all duration-200" required />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors">
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors cursor-pointer">
                     {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
                   </button>
                 </div>
               </div>
               <div className="pt-4">
-                <button type="submit" disabled={loading || !isFormValid} className={`w-full h-[58px] rounded-xl text-white font-bold transition-all duration-300 shadow-lg flex items-center justify-center gap-2 ${isFormValid ? 'bg-[#FF6A21] hover:bg-[#e85a1a] shadow-[#FF6A21]/20' : 'bg-[#1A3A6D] opacity-50 cursor-not-allowed'}`}>
+                <button type="submit" disabled={loading || !isFormValid} className={`w-full h-[58px] rounded-xl text-white font-bold transition-all duration-300 shadow-lg flex items-center justify-center gap-2 ${isFormValid ? 'bg-[#FF6A21] hover:bg-[#e85a1a] shadow-[#FF6A21]/20 cursor-pointer' : 'bg-[#1A3A6D] opacity-50 cursor-not-allowed'}`}>
                   {loading ? (
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                   ) : (

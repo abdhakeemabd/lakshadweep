@@ -61,7 +61,7 @@ function BookingList() {
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>All Bookings</h1>
           </div>
           <div className='flex items-center gap-3'>
-            <button type='button' commandfor="add-slot-modal" className="flex items-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
+            <button type='button' commandfor="add-slot-modal" className="flex items-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold cursor-pointer">
               + Create Slot
             </button>
           </div>
@@ -142,7 +142,7 @@ function BookingList() {
                     </td>
                     <td className="py-2 text-[12px] text-[#545454]">
                       <div className="relative inline-block text-left dropdown-container">
-                        <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none ${openIndex === index ? 'text-[#383838]' : 'text-[#383838]'}`}>
+                        <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none cursor-pointer ${openIndex === index ? 'text-[#383838]' : 'text-[#383838]'}`}>
                           <FiMoreVertical size={20} />
                         </button>
                         {openIndex === index && (

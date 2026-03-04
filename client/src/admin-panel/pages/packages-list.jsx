@@ -58,10 +58,10 @@ function PackagesList() {
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Packages</h1>
           </div>
           <div className='flex flex-wrap items-center gap-3'>
-            <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
+            <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer'>
               <img src={ExportIcon} alt="Export" />Export</button>
             <div className="relative dropdown-container">
-              <button onClick={() => toggleDropdown('filter')} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
+              <button onClick={() => toggleDropdown('filter')} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold cursor-pointer">
                 Filters
                 <img className='ms-4 w-[16px] h-[16px]' src={filter} alt="filter" />
               </button>
@@ -139,7 +139,7 @@ function PackagesList() {
                 </div>
               )}
             </div>
-            <Link to="/admin/packages/add" className="flex items-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
+            <Link to="/admin/packages/add" className="flex items-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold cursor-pointer">
               + Create Package
             </Link>
           </div>
@@ -148,7 +148,7 @@ function PackagesList() {
           <div className="inline-block">
             <form className="relative flex items-center">
               <input className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" type="search" placeholder="Search" />
-              <button type="button" className="absolute right-2 flex items-center justify-center">
+              <button type="button" className="absolute right-2 flex items-center justify-center cursor-pointer">
                 <img src={SearchIcon} alt="search" className="w-4 h-4" />
               </button>
             </form>
@@ -187,13 +187,13 @@ function PackagesList() {
                   </td>
                   <td className="px-4 py-2 text-[12px] text-[#383838]">
                     <div className="relative inline-block text-left dropdown-container">
-                      <button onClick={() => toggleDropdown(0)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none ${openIndex === 0 ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
+                      <button onClick={() => toggleDropdown(0)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none cursor-pointer ${openIndex === 0 ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
                         <FiMoreVertical size={20} />
                       </button>
                       {openIndex === 0 && (
                         <ul className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-[#E2E2E2] rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-100 overflow-hidden py-1">
                           <li className='border-b border-[#e2e2e2]'>
-                            <Link to={`/admin/packages/view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
+                            <Link to={`/admin/packages/view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors cursor-pointer" onClick={() => setOpenIndex(null)}>View</Link>
                           </li>
                           <li className='border-b border-[#e2e2e2]'>
                             <Link to={`/admin/packages/edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>

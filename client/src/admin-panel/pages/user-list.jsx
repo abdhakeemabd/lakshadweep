@@ -86,7 +86,7 @@ function UserList() {
         <div className='flex items-center gap-3'>
           <button
             onClick={handleExport}
-            className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] hover:bg-[#0056b3] transition-colors'>
+            className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer hover:bg-[#0056b3] transition-colors'>
             <img src={ExportIcon} alt="Export" />Export
           </button>
         </div>

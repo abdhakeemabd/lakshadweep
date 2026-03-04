@@ -98,7 +98,6 @@ function VendorList() {
           break;
         }
 
-        // 404 means wrong endpoint, try next; other errors mean stop
         if (response.status !== 404 && response.status !== 405) {
           console.error(`Delete failed with status ${response.status} on ${endpoint.url}`);
           break;
@@ -128,8 +127,6 @@ function VendorList() {
     if (!vendorId) return;
     const confirmed = await showDeactivateAlert('vendor');
     if (!confirmed) return;
-    // TODO: Call API to deactivate vendor when endpoint is available
-    // e.g. PATCH /vendor-api/vendor/${vendorId}/deactivate/
     showDeactivateSuccess('Vendor');
   };
   useEffect(() => {
@@ -158,7 +155,7 @@ function VendorList() {
         </div>
         <div className='flex gap-4'>
           <div className="relative dropdown-container">
-            <button onClick={() => toggleDropdown('filter')} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold">
+            <button onClick={() => toggleDropdown('filter')} className="flex items-center gap-4 bg-[#26354D] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold cursor-pointer">
               Filters
               <img className='ms-4 w-[16px] h-[16px]' src={filter} alt="filter" />
             </button>
@@ -173,37 +170,19 @@ function VendorList() {
                       <div className="item">
                         <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Category</label>
                         <div className="mt-1">
-                          <SearchableSelect
-                            options={["Watersports", "Adventure", "Eco Tourism", "Leisure"]}
-                            value={filterCategory}
-                            onChange={(val) => setFilterCategory(val)}
-                            placeholder="Select Category"
-                            searchPlaceholder="Search category..."
-                          />
+                          <SearchableSelect options={["Watersports", "Adventure", "Eco Tourism", "Leisure"]} value={filterCategory} onChange={(val) => setFilterCategory(val)} placeholder="Select Category" searchPlaceholder="Search category..." />
                         </div>
                       </div>
                       <div className="items">
                         <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Location</label>
                         <div className="mt-1">
-                          <SearchableSelect
-                            options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-                            value={filterLocation}
-                            onChange={(val) => setFilterLocation(val)}
-                            placeholder="Select Location"
-                            searchPlaceholder="Search location..."
-                          />
+                          <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={filterLocation} onChange={(val) => setFilterLocation(val)} placeholder="Select Location" searchPlaceholder="Search location..." />
                         </div>
                       </div>
                       <div className="items">
                         <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Vendor</label>
                         <div className="mt-1">
-                          <SearchableSelect
-                            options={vendors.map(v => v.name || v.vendor_name || '').filter(Boolean)}
-                            value={filterVendor}
-                            onChange={(val) => setFilterVendor(val)}
-                            placeholder="Select Vendor"
-                            searchPlaceholder="Search vendor..."
-                          />
+                          <SearchableSelect options={vendors.map(v => v.name || v.vendor_name || '').filter(Boolean)} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder="Select Vendor" searchPlaceholder="Search vendor..." />
                         </div>
                       </div>
                       <div className="flex gap-3 mb-3">
@@ -236,14 +215,14 @@ function VendorList() {
               </div>
             )}
           </div>
-          <Link to="/admin/vendor/add" className="bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] gap-[5px] text-white text-[12px] font-semibold">+ Add Vendor</Link>
+          <Link to="/admin/vendor/add" className="bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] gap-[5px] text-white text-[12px] font-semibold cursor-pointer">+ Add Vendor</Link>
         </div>
       </div>
       <div className="card-sub-header py-6 flex align-center justify-end">
         <div className="inline-block mr-[15px]">
           <form className="relative flex items-center">
             <input className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" type="search" placeholder="Search" />
-            <button type="button" className="absolute right-2 flex items-center justify-center">
+            <button type="button" className="absolute right-2 flex items-center justify-center cursor-pointer">
               <img src={SearchIcon} alt="search" className="w-4 h-4" />
             </button>
           </form>
@@ -289,7 +268,7 @@ function VendorList() {
                       <p className="text-red-500 font-semibold mb-2">Error: {error}</p>
                       <button
                         onClick={fetchVendors}
-                        className="px-6 py-2 bg-[#007BFF] text-white rounded-[8px] text-[12px] font-semibold hover:bg-[#0069d9] transition-colors"
+                        className="px-6 py-2 bg-[#007BFF] text-white rounded-[8px] text-[12px] font-semibold hover:bg-[#0069d9] transition-colors cursor-pointer"
                       >
                         Try Again
                       </button>
@@ -299,7 +278,7 @@ function VendorList() {
                   <tr>
                     <td colSpan="8" className="text-center py-20">
                       <p className="text-[#8c8c8c] font-medium mb-2">No vendors found.</p>
-                      <Link to="/admin/vendor/add" className="text-[#007BFF] text-[14px] font-bold hover:underline">Add your first vendor</Link>
+                      <Link to="/admin/vendor/add" className="text-[#007BFF] text-[14px] font-bold hover:underline cursor-pointer">Add your first vendor</Link>
                     </td>
                   </tr>
                 ) : (
@@ -324,7 +303,7 @@ function VendorList() {
                       </td>
                       <td className='py-3'>
                         <div className="relative inline-block text-left dropdown-container">
-                          <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none ${openIndex === index ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
+                          <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none cursor-pointer ${openIndex === index ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
                             <FiMoreVertical size={20} />
                           </button>
                           {openIndex === index && (
@@ -333,7 +312,7 @@ function VendorList() {
                                 const vId = vendor.id || vendor.pk || vendor.vendor_id;
                                 return (
                                   <>
-                                    <Link to={`/admin/vendor/view/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors" onClick={() => setOpenIndex(null)}>View</Link>
+                                    <Link to={`/admin/vendor/view/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors cursor-pointer" onClick={() => setOpenIndex(null)}>View</Link>
                                     <Link to={`/admin/vendor/edit/${vId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
                                     <div className="mx-2 my-1 border-t border-gray-100" />
                                     <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDeactivate(vId); setOpenIndex(null); }}>Deactivate</button>

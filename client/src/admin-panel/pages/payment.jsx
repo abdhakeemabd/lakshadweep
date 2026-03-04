@@ -17,7 +17,7 @@ function Payment() {
         </div>
         <div className='flex flex-wrap items-center gap-3'>
           <DateRangeFilter />
-          <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
+          <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer'>
             <img src={ExportIcon} alt="Export" />Export</button>
         </div>
       </div>

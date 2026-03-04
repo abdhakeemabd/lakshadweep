@@ -10,7 +10,7 @@ function Enquiries() {
           <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Enquiries</h1>
         </div>
         <div className='flex items-center gap-3'>
-          <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px]'>
+          <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer'>
             <img src={ExportIcon} alt="Export" />Export</button>
         </div>
       </div>
