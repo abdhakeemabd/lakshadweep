@@ -114,13 +114,7 @@ function CustomerView() {
             <h2 className="font-semibold text-[16px] text-[#2A2A2A]">Booking History</h2>
             <div className="flex items-center gap-4">
               <div className="w-[180px]">
-                <SearchableSelect
-                  options={['All', 'Pending', 'Assigned', 'Completed', 'Cancelled']}
-                  value={statusFilter}
-                  onChange={(val) => setStatusFilter(val)}
-                  placeholder="Select Option"
-                  searchPlaceholder="Search status..."
-                />
+                <SearchableSelect options={['All', 'Pending', 'Assigned', 'Completed', 'Cancelled']} value={statusFilter} onChange={(val) => setStatusFilter(val)} placeholder="Select Option" searchPlaceholder="Search status..." align="right" />
               </div>
             </div>
           </div>
