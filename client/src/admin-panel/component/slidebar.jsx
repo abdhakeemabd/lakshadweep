@@ -124,12 +124,7 @@ function Slidebar() {
               </NavLink>
             </li>
             <li className="mb-3 lg:mb-4">
-              <div onClick={() => {
-                setIsSlotsOpen(!isSlotsOpen);
-                setIsCustomerOpen(false);
-                setIsSettingOpen(false);
-              }}
-                className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${isSlotsOpen || isSlotsActive ? "bg-[#FF5C1A]" : ""}`} >
+              <div onClick={() => { setIsSlotsOpen(!isSlotsOpen); setIsCustomerOpen(false); setIsSettingOpen(false); }} className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${isSlotsOpen || isSlotsActive ? "bg-[#FF5C1A]" : ""}`}>
                 <div className="icon">
                   <img src={Slots} alt="Slots" className={`w-6 h-6 transition-all duration-300 ${isSlotsOpen || isSlotsActive ? "hidden" : "block"} group-hover:hidden`} />
                   <img src={SlotsActive} alt="Slots Active" className={`w-6 h-6 transition-all duration-300 ${isSlotsOpen || isSlotsActive ? "block" : "hidden"} group-hover:block`} />
@@ -142,10 +137,10 @@ function Slidebar() {
               {isSlotsOpen && (
                 <ul className="sub-menu mt-2 space-y-1">
                   <li>
-                    <NavLink to="/admin/all-slots/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>All Slots</NavLink>
+                    <NavLink to="/admin/all-slots/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 rounded-[10px] border ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border-[#FF5C1A] font-semibold" : "text-[#969CB9] border-transparent hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>All Slots</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/day-schedule/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Day Schedule</NavLink>
+                    <NavLink to="/admin/day-schedule/" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 rounded-[10px] border ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border-[#FF5C1A] font-semibold" : "text-[#969CB9] border-transparent hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Day Schedule</NavLink>
                   </li>
                 </ul>
               )}
@@ -166,13 +161,7 @@ function Slidebar() {
               </NavLink>
             </li>
             <li className="mb-3 lg:mb-4">
-              <div
-                onClick={() => {
-                  setIsCustomerOpen(!isCustomerOpen);
-                  setIsSlotsOpen(false);
-                  setIsSettingOpen(false);
-                }}
-                className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${isCustomerOpen || isCustomerActive ? "bg-[#FF5C1A]" : ""}`}>
+              <div onClick={() => { setIsCustomerOpen(!isCustomerOpen); setIsSlotsOpen(false); setIsSettingOpen(false); }} className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${isCustomerOpen || isCustomerActive ? "bg-[#FF5C1A]" : ""}`}>
                 <div className="icon">
                   <img src={Customers} alt="Customers" className={`w-6 h-6 transition-all duration-300 ${isCustomerOpen || isCustomerActive ? "hidden" : "block"} group-hover:hidden`} />
                   <img src={CustomersActive} alt="Customers Active" className={`w-6 h-6 transition-all duration-300 ${isCustomerOpen || isCustomerActive ? "block" : "hidden"} group-hover:block`} />
@@ -187,50 +176,37 @@ function Slidebar() {
               {isCustomerOpen && (
                 <ul className="sub-menu mt-2 space-y-1">
                   <li>
-                    <NavLink to="/admin/all-customer" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}> All Customers </NavLink>
+                    <NavLink to="/admin/all-customer" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 rounded-[10px] border ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border-[#FF5C1A] font-semibold" : "text-[#969CB9] border-transparent hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}> All Customers </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/users" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Users</NavLink>
+                    <NavLink to="/admin/users" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 rounded-[10px] border ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border-[#FF5C1A] font-semibold" : "text-[#969CB9] border-transparent hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Users</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/enquiries" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Enquiries</NavLink>
+                    <NavLink to="/admin/enquiries" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 rounded-[10px] border ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border-[#FF5C1A] font-semibold" : "text-[#969CB9] border-transparent hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Enquiries</NavLink>
                   </li>
                 </ul>
               )}
             </li>
             <li className="mb-3 lg:mb-4">
-              <NavLink
-                to="/admin/notifications-list"
-                className={({ isActive }) =>
-                  `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+              <NavLink to="/admin/notifications-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
                 {({ isActive }) => (
                   <>
                     <div className="icon">
                       <img src={Notifications} alt="Notifications" className={`w-6 h-6 transition-all duration-300 ${isActive ? "hidden" : "block"} group-hover:hidden`} />
                       <img src={NotificationsActive} alt="Notifications Active" className={`w-6 h-6 transition-all duration-300 ${isActive ? "block" : "hidden"} group-hover:block`} />
                     </div>
-                    <span className={`text-[#969CB9] text-[13px] font-light transition-all duration-300 group-hover:text-white group-hover:font-semibold ${isActive ? "font-semibold text-white" : ""}`}>
-                      Notifications
-                    </span>
+                    <span className={`text-[#969CB9] text-[13px] font-light transition-all duration-300 group-hover:text-white group-hover:font-semibold ${isActive ? "font-semibold text-white" : ""}`}>Notifications</span>
                   </>
                 )}
               </NavLink>
             </li>
             <li className="mb-3 lg:mb-4">
-              <div
-                onClick={() => {
-                  setIsSettingOpen(!isSettingOpen);
-                  setIsSlotsOpen(false);
-                  setIsCustomerOpen(false);
-                }}
-                className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${isSettingOpen || isSettingActive ? "bg-[#FF5C1A]" : ""}`}>
+              <div onClick={() => { setIsSettingOpen(!isSettingOpen); setIsSlotsOpen(false); setIsCustomerOpen(false); }} className={`group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] cursor-pointer ${isSettingOpen || isSettingActive ? "bg-[#FF5C1A]" : ""}`}>
                 <div className="icon">
                   <img src={Settings} alt="Settings" className={`w-6 h-6 transition-all duration-300 ${isSettingOpen || isSettingActive ? "hidden" : "block"} group-hover:hidden`} />
                   <img src={SettingsActive} alt="Settings Active" className={`w-6 h-6 transition-all duration-300 ${isSettingOpen || isSettingActive ? "block" : "hidden"} group-hover:block`} />
                 </div>
-                <span className={`text-[#969CB9] text-[13px] font-light transition-all duration-300 flex-1 group-hover:text-white group-hover:font-semibold ${isSettingOpen || isSettingActive ? "font-semibold text-white" : ""}`}>
-                  Settings
-                </span>
+                <span className={`text-[#969CB9] text-[13px] font-light transition-all duration-300 flex-1 group-hover:text-white group-hover:font-semibold ${isSettingOpen || isSettingActive ? "font-semibold text-white" : ""}`}>Settings</span>
                 <svg className={`w-4 h-4 transition-transform duration-300 group-hover:text-white ${isSettingOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
@@ -238,21 +214,16 @@ function Slidebar() {
               {isSettingOpen && (
                 <ul className="sub-menu mt-2 space-y-1">
                   <li>
-                    <NavLink to="/admin/setting/categories" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`} >Categories
-                    </NavLink>
+                    <NavLink to="/admin/setting/categories" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 rounded-[10px] border ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border-[#FF5C1A] font-semibold" : "text-[#969CB9] border-transparent hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Categories</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/admin/setting/content-management" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 border border-transparent rounded-[10px] ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border font-semibold border-[#FF5C1A]" : "text-[#969CB9] hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`} >Content Management
-                    </NavLink>
+                    <NavLink to="/admin/setting/content-management" className={({ isActive }) => `block py-2 pl-[20px] text-[13px] transition-all duration-300 rounded-[10px] border ${isActive ? "text-[#D9D9D9] bg-[#1B3969] border-[#FF5C1A] font-semibold" : "text-[#969CB9] border-transparent hover:text-white hover:bg-[#1B3969] hover:font-semibold hover:border-[#FF5C1A]"}`}>Content Management</NavLink>
                   </li>
                 </ul>
               )}
             </li>
             <li className="mb-3 lg:mb-4">
-              <NavLink
-                to="/admin/payments-list"
-                className={({ isActive }) =>
-                  `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
+              <NavLink to="/admin/payments-list" className={({ isActive }) => `group flex gap-3 items-center py-[10px] px-[15px] rounded-[10px] hover:bg-[#FF5C1A] transition-all duration-300 ease-in-out lg:pl-[20px] ${isActive ? "bg-[#FF5C1A]" : ""}`}>
                 {({ isActive }) => (
                   <>
                     <div className="icon">
