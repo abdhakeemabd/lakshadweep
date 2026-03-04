@@ -9,7 +9,7 @@ function NotificationModal() {
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
-    }, 300) // Match animation duration
+    }, 300)
   }
 
   useEffect(() => {
@@ -28,8 +28,7 @@ function NotificationModal() {
 
   return (
     <>
-
-      <dialog ref={dialogRef} id="notification-modal" aria-labelledby="notification-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
+      <dialog ref={dialogRef} id="notification-modal" aria-labelledby="notification-modal-title" className="fixed inset-0 z-100 w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full max-w-[800px] transform overflow-hidden rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <div className="modal-header flex justify-end">

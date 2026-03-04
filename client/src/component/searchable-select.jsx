@@ -5,12 +5,7 @@ import { HiChevronDown, HiCheck, HiSearch } from 'react-icons/hi'
 const SearchableSelect = ({ options, value, onChange, placeholder = 'Select Option', searchPlaceholder = 'Search...', align = 'left' }) => {
   const [query, setQuery] = useState('');
   const filteredOptions = useMemo(() =>
-    query === ''
-      ? options
-      : options.filter((option) =>
-        option.toLowerCase().replace(/\s+/g, '').includes(query.toLowerCase().replace(/\s+/g, ''))
-      ), [query, options]);
-
+    query === '' ? options : options.filter((option) => option.toLowerCase().replace(/\s+/g, '').includes(query.toLowerCase().replace(/\s+/g, ''))), [query, options]);
   return (
     <Listbox value={value} onChange={onChange}>
       {({ open }) => (
@@ -44,12 +39,7 @@ const SearchableSelect = ({ options, value, onChange, placeholder = 'Select Opti
                   </div>
                 ) : (
                   filteredOptions.map((option) => (
-                    <ListboxOption
-                      key={option}
-                      className={({ active }) =>
-                        `relative cursor-pointer select-none py-2.5 pl-10 pr-4 text-sm transition-colors ${active ? 'bg-orange-50 text-orange-900' : 'text-gray-700'
-                        }`
-                      }
+                    <ListboxOption key={option} className={({ active }) => `relative cursor-pointer select-none py-2.5 pl-10 pr-4 text-sm transition-colors ${active ? 'bg-orange-50 text-orange-900' : 'text-gray-700'}`}
                       value={option}>
                       {({ selected, active }) => (
                         <>
@@ -70,8 +60,9 @@ const SearchableSelect = ({ options, value, onChange, placeholder = 'Select Opti
             </ListboxOptions>
           </Transition>
         </div>
-      )}
-    </Listbox>
+      )
+      }
+    </Listbox >
   );
 };
 

@@ -60,7 +60,7 @@ function PackageDetails() {
                 </div>
               </div>
               <div className='col-span-12 mt-3 mb-3' data-aos="fade-up" data-aos-delay="400">
-                <div className='text-[#0F2446] font-[700] mb-3 text-[clamp(20px,2vw,24px)]'>
+                <div className='text-[#0F2446] font-bold mb-3 text-[clamp(20px,2vw,24px)]'>
                   What’s Included
                 </div>
                 <ul className='font-inter text-[clamp(14px,1.2vw,16px)] font-normal'>
@@ -68,7 +68,7 @@ function PackageDetails() {
                 </ul>
               </div>
               <div className='col-span-12 mt-3 mb-3' data-aos="fade-up" data-aos-delay="400">
-                <div className='text-[#0F2446] font-[700] mb-3 text-[clamp(20px,2vw,24px)]'>
+                <div className='text-[#0F2446] font-bold mb-3 text-[clamp(20px,2vw,24px)]'>
                   What’s Excluded
                 </div>
                 <ul className='font-inter text-[clamp(14px,1.2vw,16px)] font-normal'>

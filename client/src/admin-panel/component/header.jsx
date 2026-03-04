@@ -33,7 +33,7 @@ function Header() {
 
   return (
     <>
-    <header className="bg-[#0F2446] relative z-[100] w-full px-[13px] rounded-[0.832rem] backdrop-blur-[121.76px] shadow-[0px_48.7px_48.7px_-41.35px_#290F008F] py-2 mb-3 lg:mb-5">
+    <header className="bg-[#0F2446] relative z-100 w-full px-[13px] rounded-[0.832rem] backdrop-blur-[121.76px] shadow-[0px_48.7px_48.7px_-41.35px_#290F008F] py-2 mb-3 lg:mb-5">
       <div className="flex items-center justify-between">
         <button onClick={toggleMobileSidebar} className="lg:hidden text-white hover:bg-white/10 rounded-lg transition-colors ms-1 cursor-pointer">
           <FiMenu size={28} />

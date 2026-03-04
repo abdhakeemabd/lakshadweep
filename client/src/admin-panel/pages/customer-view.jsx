@@ -27,12 +27,12 @@ const getBookingEndpoints = (id) => [
 ];
 
 const STATUS_STYLES = {
-  completed:  { bg: 'bg-[#ECFFEF]', text: 'text-[#16C032]' },
-  confirmed:  { bg: 'bg-[#EEF4FF]', text: 'text-[#007BFF]' },
-  assigned:   { bg: 'bg-[#EEF4FF]', text: 'text-[#007BFF]' },
-  pending:    { bg: 'bg-[#FFF8EC]', text: 'text-[#F5A700]' },
-  cancelled:  { bg: 'bg-[#FFF0F0]', text: 'text-[#dc3545]' },
-  default:    { bg: 'bg-[#F4F4F4]', text: 'text-[#8c8c8c]' },
+  completed: { bg: 'bg-[#ECFFEF]', text: 'text-[#16C032]' },
+  confirmed: { bg: 'bg-[#EEF4FF]', text: 'text-[#007BFF]' },
+  assigned: { bg: 'bg-[#EEF4FF]', text: 'text-[#007BFF]' },
+  pending: { bg: 'bg-[#FFF8EC]', text: 'text-[#F5A700]' },
+  cancelled: { bg: 'bg-[#FFF0F0]', text: 'text-[#dc3545]' },
+  default: { bg: 'bg-[#F4F4F4]', text: 'text-[#8c8c8c]' },
 };
 
 function getStatusStyle(status = '') {
@@ -47,7 +47,7 @@ async function tryEndpoints(endpoints) {
         const data = await res.json();
         return data;
       }
-    } catch (_) {}
+    } catch (_) { }
   }
   return null;
 }
@@ -65,13 +65,13 @@ function extractList(data) {
 function CustomerView() {
   const { id } = useParams();
 
-  const [customer, setCustomer]     = useState(null);
-  const [bookings, setBookings]     = useState([]);
+  const [customer, setCustomer] = useState(null);
+  const [bookings, setBookings] = useState([]);
   const [loadingCustomer, setLoadingCustomer] = useState(true);
   const [loadingBookings, setLoadingBookings] = useState(true);
-  const [errorCustomer, setErrorCustomer]     = useState(null);
-  const [errorBookings, setErrorBookings]     = useState(null);
-  const [statusFilter, setStatusFilter]       = useState('All');
+  const [errorCustomer, setErrorCustomer] = useState(null);
+  const [errorBookings, setErrorBookings] = useState(null);
+  const [statusFilter, setStatusFilter] = useState('All');
 
   useEffect(() => {
     if (!id) return;
@@ -135,13 +135,13 @@ function CustomerView() {
           {!loadingBookings && !errorBookings && filteredBookings.length > 0 && (
             <div className="flex flex-col gap-4">
               {filteredBookings.map((booking, idx) => {
-                const bookingId   = booking.id || booking.booking_id || idx + 1;
+                const bookingId = booking.id || booking.booking_id || idx + 1;
                 const packageName = booking.package_name || booking.package || booking.activity || 'N/A';
-                const status      = booking.status || booking.booking_status || 'Pending';
-                const date        = booking.booking_date || booking.date || booking.created_at || '';
-                const guests      = booking.guest_count || booking.num_guests || booking.guests || booking.no_of_guests || 'N/A';
-                const totalPaid   = booking.total_paid || booking.amount || booking.total_amount || booking.price || null;
-                const vendor      = booking.vendor_name || booking.vendor || null;
+                const status = booking.status || booking.booking_status || 'Pending';
+                const date = booking.booking_date || booking.date || booking.created_at || '';
+                const guests = booking.guest_count || booking.num_guests || booking.guests || booking.no_of_guests || 'N/A';
+                const totalPaid = booking.total_paid || booking.amount || booking.total_amount || booking.price || null;
+                const vendor = booking.vendor_name || booking.vendor || null;
                 let formattedDate = date;
                 if (date) {
                   try {
@@ -156,14 +156,8 @@ function CustomerView() {
                     <div className="booking-item-header pb-4 border-b border-[#DADADA] mb-4">
                       <div className="flex flex-wrap justify-between items-center gap-3">
                         <div>
-                          <div className="text-[16px] text-[#4A4A4B] mb-2">
-                            Package —{' '}
-                            <span className="font-bold text-[18px] text-[#0F2446]">{packageName}</span>
-                          </div>
-                          <div className="text-[14px] text-[#535353]">
-                            Booking ID :{' '}
-                            <span className="font-semibold">#{bookingId}</span>
-                          </div>
+                          <div className="text-[16px] text-[#4A4A4B] mb-2">Package —{' '} <span className="font-bold text-[18px] text-[#0F2446]">{packageName}</span></div>
+                          <div className="text-[14px] text-[#535353]">Booking ID :{' '} <span className="font-semibold">#{bookingId}</span></div>
                         </div>
                         <span className={`badge font-medium flex justify-center items-center text-[12px] py-1 px-4 rounded-full ${bg} ${text}`}>{status}</span>
                       </div>
@@ -171,9 +165,7 @@ function CustomerView() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>
                         <div className="text-[12px] text-[#8c8c8c] mb-1">Date</div>
-                        <div className="font-bold text-[14px] text-[#2A2A2A]">
-                          {formattedDate || '—'}
-                        </div>
+                        <div className="font-bold text-[14px] text-[#2A2A2A]">{formattedDate || '—'}</div>
                       </div>
                       <div>
                         <div className="text-[12px] text-[#8c8c8c] mb-1">Guests</div>

@@ -41,7 +41,7 @@ function CartItem({ item, onDelete }) {
               <div className='bg-black text-white px-3 py-1 mx-3 my-3'>{badge}</div>
             </div>
             <div>
-              <button 
+              <button
                 type="button"
                 onClick={() => onDelete && onDelete(item.id)}
                 className='px-2 py-2 mx-3 my-3 border-[#DBDBDB] bg-[#FFFFFF78] rounded-sm'

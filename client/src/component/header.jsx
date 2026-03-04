@@ -54,7 +54,7 @@ function Header() {
   }, [])
   return (
     <>
-      <header className="header sticky top-0 z-50 py-4 bg-white shadow-md w-full absolute">
+      <header className="header sticky top-0 z-50 py-4 bg-white shadow-md w-full">
         <div className="container m-auto px-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">

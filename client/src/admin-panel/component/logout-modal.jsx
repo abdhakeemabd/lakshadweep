@@ -44,11 +44,15 @@ function LogoutModal() {
         ref={dialogRef}
         id="dialogout"
         aria-labelledby="dialog-title"
-        className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50">
+        className="fixed inset-0 z-100 w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className="modal-content relative w-full max-w-[502px] overflow-hidden rounded-3xl bg-white shadow-2xl px-6 py-6 lg:py-10">
             <div className="relative flex items-center justify-center py-6 border-b border-gray-100">
-              <button type="button" className="absolute top-5 right-5 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 w-[40px] h-[40px]" onClick={handleCloseModal} aria-label="Close">✕</button>
+              <button type="button" className="absolute top-5 right-5 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 w-[40px] h-[40px]" onClick={handleCloseModal} aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-6">
+                <path d="M6 18 18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              </button>
               <img className="h-[44px]" src={Logo} alt="Logo" />
             </div>
             <div className="px-6 py-6">

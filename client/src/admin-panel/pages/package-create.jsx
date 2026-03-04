@@ -21,7 +21,7 @@ function CreatePackage() {
       setSelectedFile(e.target.files[0]);
     }
   };
-  
+
   const label = { inputProps: { 'aria-label': 'Size switch demo' } };
 
   return (
@@ -54,37 +54,19 @@ function CreatePackage() {
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="category" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Category <span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <SearchableSelect
-                  options={["Activity", "Location", "111"]}
-                  value={formData.category}
-                  onChange={(val) => handleSelectChange('category', val)}
-                  placeholder="Select Any"
-                  searchPlaceholder="Search category..."
-                />
+                <SearchableSelect options={["Activity", "Location", "111"]} value={formData.category} onChange={(val) => handleSelectChange('category', val)} placeholder="Select Any" searchPlaceholder="Search category..." />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="activity" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Activity<span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <SearchableSelect
-                  options={["Activity", "Location", "111"]}
-                  value={formData.activity}
-                  onChange={(val) => handleSelectChange('activity', val)}
-                  placeholder="Select Any"
-                  searchPlaceholder="Search activity..."
-                />
+                <SearchableSelect options={["Activity", "Location", "111"]} value={formData.activity} onChange={(val) => handleSelectChange('activity', val)} placeholder="Select Any" searchPlaceholder="Search activity..." />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="island_location" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Island/Location<span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <SearchableSelect
-                  options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-                  value={formData.island_location}
-                  onChange={(val) => handleSelectChange('island_location', val)}
-                  placeholder="Select Any"
-                  searchPlaceholder="Search island..."
-                />
+                <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={formData.island_location} onChange={(val) => handleSelectChange('island_location', val)} placeholder="Select Any" searchPlaceholder="Search island..." />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 mb-3">

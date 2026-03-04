@@ -70,13 +70,7 @@ function AddGalleryModal() {
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Title' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Select Location  <span className="text-red-500">*</span>  </label>
                     <div className='mt-3'>
-                      <SearchableSelect
-                        options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-                        value={formData.location}
-                        onChange={(val) => handleSelectChange('location', val)}
-                        placeholder="Select Location"
-                        searchPlaceholder="Search location..."
-                      />
+                      <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={formData.location} onChange={(val) => handleSelectChange('location', val)} placeholder="Select Location" searchPlaceholder="Search location..." />
                     </div>
                   </div>
                   <div className="col-span-12 mb-2">

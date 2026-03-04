@@ -240,7 +240,7 @@ function VendorEdit() {
 
       for (const candidate of updateCandidates) {
         try {
-          console.log(`🌐 Trying to SAVE via ${candidate.method} to ${candidate.url}...`);
+          console.log(`Trying to SAVE via ${candidate.method} to ${candidate.url}...`);
 
           const response = await fetch(candidate.url, {
             method: candidate.method,
@@ -257,7 +257,7 @@ function VendorEdit() {
           const responseText = await response.text();
 
           if (response.ok) {
-            console.log(`✅ SUCCESS on ${candidate.url}! Server response:`, responseText.substring(0, 200));
+            console.log(`SUCCESS on ${candidate.url}! Server response:`, responseText.substring(0, 200));
             try {
               resultBody = JSON.parse(responseText);
             } catch (e) {
@@ -266,16 +266,15 @@ function VendorEdit() {
             updateSuccess = true;
             break;
           } else {
-            console.warn(`❌ FAILED on ${candidate.url} with status ${response.status}. Response:`, responseText.substring(0, 100));
+            console.warn(`FAILED on ${candidate.url} with status ${response.status}. Response:`, responseText.substring(0, 100));
           }
         } catch (e) {
-          console.error(`💥 Error during save attempt to ${candidate.url}:`, e);
+          console.error(`Error during save attempt to ${candidate.url}:`, e);
         }
       }
 
       if (updateSuccess) {
         alert('Vendor updated successfully!');
-        // Allow a slight buffer for server persistence
         setTimeout(() => navigate('/admin/vendor/list'), 100);
       } else {
         const response = lastResponse;
@@ -296,7 +295,7 @@ function VendorEdit() {
         alert(`Failed to update vendor. All endpoints rejected the changes.\nDetails: ${errorMsg}`);
       }
     } catch (error) {
-      console.error('❌ Outer Shell Save Error:', error);
+      console.error('Outer Shell Save Error:', error);
       alert('An unexpected error occurred while saving.');
     } finally {
       setLoading(false);
@@ -344,19 +343,7 @@ function VendorEdit() {
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_phone" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Phone <span className='text-red-700 font-semibold'>*</span></label>
                 <div className="relative">
-                  <PhoneInput
-                    country={formData.country_code.replace('+', '').toLowerCase() === '91' ? 'in' : ''}
-                    value={formData.country_code + formData.mobile_no}
-                    onChange={(val, country) => {
-                      const dial = country.dialCode;
-                      let strippedVal = val;
-                      if (val.startsWith(dial)) {
-                        strippedVal = val.slice(dial.length);
-                      }
-                      setFormData(prev => ({ ...prev, mobile_no: strippedVal, country_code: `+${dial}` }));
-                    }}
-                    enableSearch={true}
-                    searchPlaceholder="Search country..." placeholder="Enter Vendor Phone" disableCountryCode={true} disableCountryGuess={false} inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }} containerClass="!w-full" inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-200" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200" />
+                  <PhoneInput country={formData.country_code.replace('+', '').toLowerCase() === '91' ? 'in' : ''} value={formData.country_code + formData.mobile_no} onChange={(val, country) => { const dial = country.dialCode; let strippedVal = val; if (val.startsWith(dial)) { strippedVal = val.slice(dial.length); } setFormData(prev => ({ ...prev, mobile_no: strippedVal, country_code: `+${dial}` })); }} enableSearch={true} searchPlaceholder="Search country..." placeholder="Enter Vendor Phone" disableCountryCode={true} disableCountryGuess={false} inputProps={{ name: 'phone', required: true, autoFocus: false, id: 'vendor_phone' }} containerClass="!w-full" inputClass="!w-full !h-[42px] !pl-[95px] !pr-4 !py-2 !border-0 !rounded-[10px] !text-[14px] !bg-[#f5f5f5] !text-[#414141] focus:!outline-none !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-[10px] hover:!bg-gray-200" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-200" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200" />
                   <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
                     <span className="text-gray-900 font-medium text-[14px]">{formData.country_code}</span>
                     <div className="w-px h-5 bg-gray-300 mx-3"></div>
@@ -365,76 +352,35 @@ function VendorEdit() {
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_address_line_1" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 1</label>
-                <input
-                  type="text"
-                  id="vendor_address_line_1"
-                  value={formData.vendor_address_line_1}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
-                  placeholder='Enter Vendor Address Line 1'
-                />
+                <input type="text" id="vendor_address_line_1" value={formData.vendor_address_line_1} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Address Line 1' />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_address_line_2" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Address Line 2</label>
-                <input
-                  type="text"
-                  id="vendor_address_line_2"
-                  value={formData.vendor_address_line_2}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
-                  placeholder='Enter Vendor Address Line 2'
-                />
+                <input type="text" id="vendor_address_line_2" value={formData.vendor_address_line_2} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Address Line 2' />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_email" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Email <span className='text-red-700 font-semibold'>*</span></label>
-                <input
-                  type="email"
-                  id="vendor_email"
-                  value={formData.vendor_email}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
-                  placeholder='Enter Vendor Email'
-                  required
-                />
+                <input type="email" id="vendor_email" value={formData.vendor_email} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Email' required />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_state" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor State <span className='text-red-700 font-semibold'>*</span></label>
-                <input
-                  type="text"
-                  id="vendor_state"
-                  value={formData.vendor_state}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
-                  placeholder='Enter Vendor State'
-                  required
-                />
+                <input type="text" id="vendor_state" value={formData.vendor_state} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor State' required />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Pin code <span className='text-red-700 font-semibold'>*</span></label>
-                <input
-                  type="number"
-                  id="vendor_pin_code"
-                  value={formData.vendor_pin_code}
-                  onChange={handleInputChange}
-                  className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]"
-                  placeholder='Enter Vendor Pin code'
-                  required
-                />
+                <input type="number" id="vendor_pin_code" value={formData.vendor_pin_code} onChange={handleInputChange} className="w-full rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor Pin code' required />
               </div>
               <div className="col-span-12 lg:col-span-3">
                 <div className="xl:flex gap-6">
-                  {/* Upload Box */}
                   <div className="mb-4 xl:mb-0">
                     <label className="relative w-[160px] h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-[#E5E5E5] rounded-[16px] cursor-pointer hover:border-[#FF5C1A] transition bg-[#fafafa] overflow-hidden">
                       <input ref={fileRef} type="file" accept="image/*" hidden onChange={handleImageChange} />
-
                       {!preview && (
                         <>
                           <img src="/icons/cam.svg" alt="" className="w-8 h-8 mb-2 opacity-70" />
                           <span className="text-[13px] text-[#777] font-medium">Upload Profile</span>
                         </>
                       )}
-
                       {preview && (
                         <>
                           <img src={preview} alt="Preview" className="w-full h-full object-cover rounded-[16px]" />

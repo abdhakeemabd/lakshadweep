@@ -48,7 +48,7 @@ function LoginModal() {
   const handleVerifyOtp = (e) => {
     e.preventDefault()
     const enteredOtp = otp.join('')
-    
+
     if (enteredOtp.length === 6) {
       sessionStorage.setItem('sessionId', 'user_' + Date.now())
       sessionStorage.setItem('phoneNumber', phone)
@@ -93,10 +93,10 @@ function LoginModal() {
         .react-tel-input .country-list .search-box { width: 100% }
       `}</style>
 
-      <dialog 
-        ref={dialogRef} 
-        id="dialog" 
-        aria-labelledby="dialog-title" 
+      <dialog
+        ref={dialogRef}
+        id="dialog"
+        aria-labelledby="dialog-title"
         className={`premium-modal fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 ${isClosing ? 'closing' : ''}`}>
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full max-w-5xl transform overflow-hidden rounded-4xl bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
@@ -121,9 +121,9 @@ function LoginModal() {
                           <label htmlFor="phone" className="text-black text-[17.5px] font-medium">Mobile Number</label>
                           <div className="relative mt-3">
                             <PhoneInput country={'in'} value={phone} onChange={(val, country) => {
-                                setPhone(val)
-                                setDialCode(country.dialCode)
-                              }} enableSearch={true} searchPlaceholder="Search country..." placeholder="Enter your mobile number" disableCountryCode={true} disableCountryGuess={true} inputProps={{ name: 'phone', required: true, autoFocus: false }} containerClass="!w-full" inputClass="!w-full !h-12 !pl-[95px] !pr-4 !py-3 !border !border-gray-300 !rounded-lg !text-base focus:!outline-none focus:!border-[#FF5C1A] !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-lg hover:!bg-[#FFF8F1]" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-300" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200"/>
+                              setPhone(val)
+                              setDialCode(country.dialCode)
+                            }} enableSearch={true} searchPlaceholder="Search country..." placeholder="Enter your mobile number" disableCountryCode={true} disableCountryGuess={true} inputProps={{ name: 'phone', required: true, autoFocus: false }} containerClass="!w-full" inputClass="!w-full !h-12 !pl-[95px] !pr-4 !py-3 !border !border-gray-300 !rounded-lg !text-base focus:!outline-none focus:!border-[#FF5C1A] !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-lg hover:!bg-[#FFF8F1]" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-300" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200" />
                             <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
                               <span className="text-gray-900 font-medium">+{dialCode}</span>
                               <div className="w-[1px] h-6 bg-gray-300 mx-3"></div>

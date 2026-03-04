@@ -22,14 +22,14 @@ const ImageUploadCard = ({ imageUrl, onImageSelect, onImageRemove }) => {
     <div className="img-card relative w-full aspect-square">
       {imageUrl ? (
         <div className="w-full h-full relative rounded-[6.75px] overflow-hidden border border-[#007BFF] box-border">
-          <img src={imageUrl} alt="Preview" className="w-[190px] h-[190px] aspect-square object-cover"/>
+          <img src={imageUrl} alt="Preview" className="w-[190px] h-[190px] aspect-square object-cover" />
           <button onClick={onImageRemove} className="absolute top-2 right-2 w-[28px] h-[28px] bg-[#FFFFFFE3] text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200" type="button">
             <img src={DeleteIcon} alt="Delete" />
           </button>
         </div>
       ) : (
         <label className='w-full h-full box-border relative flex flex-col items-center justify-center text-center cursor-pointer border border-dashed border-[#007BFF] bg-[#DCEFFF] rounded-[6.75px] px-[10px] py-[20px]'>
-          <input type="file" className="upload_input z-1" accept="image/*" onChange={handleFileChange}/>
+          <input type="file" className="upload_input z-1" accept="image/*" onChange={handleFileChange} />
           <img src={UploadIcon} alt="add Image" />
           <button type="button" className="bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[6.75px] text-[11px] font-semibold px-4 h-[31px] w-[88%] absolute bottom-3">Add Image</button>
         </label>
@@ -54,7 +54,6 @@ function PackageView() {
   const handleDeactivate = async () => {
     const confirmed = await showDeactivateAlert('package');
     if (!confirmed) return;
-    // TODO: Call deactivate API when available
     showDeactivateSuccess('Package');
   };
 
@@ -62,7 +61,7 @@ function PackageView() {
     <>
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 lg:col-span-4 xl:col-span-3">
-          <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+          <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
             <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3 lg:mb-5">
               <div className="flex items-center gap-3">
                 <Link to="/admin/packages/list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center">
@@ -107,7 +106,7 @@ function PackageView() {
           </div>
         </div>
         <div className="col-span-12 lg:col-span-8 xl:col-span-9">
-          <div className="card min-h-[calc(100vh-220px)] relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+          <div className="card min-h-[calc(100vh-220px)] relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
             <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3 lg:mb-5">
               <div className="font-semibold text-[20px] leading-none tracking-normal text-[#1C1C1C] mb-3">Gallery</div>
               <button className="flex items-center text-[12px] justify-center font-semibold w-[93px] h-[34px] bg-[#007BFF] text-[#FFEBEB] py-2 rounded-[8px]">Save</button>
@@ -115,46 +114,22 @@ function PackageView() {
             <div className="card-body p-4">
               <div className="flex flex-wrap gap-6">
                 <div className="min-w-[190px] mb-3">
-                  <ImageUploadCard
-                    imageUrl={galleryImages[0]}
-                    onImageSelect={(url) => handleImageSelect(0, url)}
-                    onImageRemove={() => handleImageRemove(0)}
-                  />
+                  <ImageUploadCard imageUrl={galleryImages[0]} onImageSelect={(url) => handleImageSelect(0, url)} onImageRemove={() => handleImageRemove(0)} />
                 </div>
                 <div className="min-w-[190px] mb-3">
-                  <ImageUploadCard
-                    imageUrl={galleryImages[1]}
-                    onImageSelect={(url) => handleImageSelect(1, url)}
-                    onImageRemove={() => handleImageRemove(1)}
-                  />
+                  <ImageUploadCard imageUrl={galleryImages[1]} onImageSelect={(url) => handleImageSelect(1, url)} onImageRemove={() => handleImageRemove(1)} />
                 </div>
                 <div className="min-w-[190px] mb-3">
-                  <ImageUploadCard
-                    imageUrl={galleryImages[2]}
-                    onImageSelect={(url) => handleImageSelect(2, url)}
-                    onImageRemove={() => handleImageRemove(2)}
-                  />
+                  <ImageUploadCard imageUrl={galleryImages[2]} onImageSelect={(url) => handleImageSelect(2, url)} onImageRemove={() => handleImageRemove(2)} />
                 </div>
                 <div className="min-w-[190px] mb-3">
-                  <ImageUploadCard
-                    imageUrl={galleryImages[3]}
-                    onImageSelect={(url) => handleImageSelect(3, url)}
-                    onImageRemove={() => handleImageRemove(3)}
-                  />
+                  <ImageUploadCard imageUrl={galleryImages[3]} onImageSelect={(url) => handleImageSelect(3, url)} onImageRemove={() => handleImageRemove(3)} />
                 </div>
                 <div className="min-w-[190px] mb-3">
-                  <ImageUploadCard
-                    imageUrl={galleryImages[4]}
-                    onImageSelect={(url) => handleImageSelect(4, url)}
-                    onImageRemove={() => handleImageRemove(4)}
-                  />
+                  <ImageUploadCard imageUrl={galleryImages[4]} onImageSelect={(url) => handleImageSelect(4, url)} onImageRemove={() => handleImageRemove(4)} />
                 </div>
                 <div className="min-w-[190px] mb-3">
-                  <ImageUploadCard
-                    imageUrl={galleryImages[5]}
-                    onImageSelect={(url) => handleImageSelect(5, url)}
-                    onImageRemove={() => handleImageRemove(5)}
-                  />
+                  <ImageUploadCard imageUrl={galleryImages[5]} onImageSelect={(url) => handleImageSelect(5, url)} onImageRemove={() => handleImageRemove(5)} />
                 </div>
               </div>
             </div>

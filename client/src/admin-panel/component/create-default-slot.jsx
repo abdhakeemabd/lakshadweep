@@ -107,23 +107,19 @@ function CreateDefaultSlot() {
               </svg>
             </button>
           </div>
-          
           <div className="px-4 sm:px-6">
             <h2 id="drawer-title" className="text-base font-semibold text-[19px] text-[#3d3d3d]">Create Default Slot</h2>
           </div>
-          
           <div className="relative mt-6 flex-1 px-4 sm:px-6 overflow-y-auto">
             <form action="" onSubmit={(e) => e.preventDefault()}>
               {slots.map((slot, index) => (
                 <div key={slot.id} className="grid grid-cols-10 gap-6 mb-4">
-
                   <div className="col-span-12 md:col-span-4 lg:col-span-3">
                     <label htmlFor={`slot_name_${slot.id}`} className="block text-[14px] font-medium text-[#3d3d3d] mb-2">Slot Name <span className="text-red-500">*</span></label>
                     <input type="text" name="name" id={`slot_name_${slot.id}`} placeholder='Enter Slot Name' value={slot.name} onChange={(e) => handleInputChange(slot.id, 'name', e.target.value)} onFocus={() => markTouched(slot.id, 'name')} required className={`mt-1 block w-full rounded-md border ${!slot.name.trim() && slot.touched.includes('name') ? 'border-red-500' : 'border-[#e3e3e3]'} bg-[#F5F5F5] py-2 px-3 text-[14px] font-poppins font-normal text-[#3d3d3d] placeholder:text-[#8C8C8C] focus:border-[#007BFF] focus:ring-[#007BFF]`} />
                     {!slot.name.trim() && slot.touched.includes('name') && (
                       <p className="text-red-500 absolute text-[10px] mt-1">Slot Name is required</p>)}
                   </div>
-                  
                   <div className="col-span-12 md:col-span-4 lg:col-span-3">
                     <label htmlFor={`start_time_${slot.id}`} className="block text-[14px] font-medium text-[#3d3d3d] mb-2">Start Time <span className="text-red-500">*</span></label>
                     <input type="text" name="start_time" id={`start_time_${slot.id}`} placeholder='HH:MM AM/PM' value={slot.start_time} onChange={(e) => handleInputChange(slot.id, 'start_time', e.target.value)} onFocus={() => markTouched(slot.id, 'start_time')} required className={`mt-1 block w-full rounded-md border ${(slot.touched.includes('start_time') && (!slot.start_time || !validateTimeFormat(slot.start_time))) ? 'border-red-500' : 'border-[#e3e3e3]'} bg-[#F5F5F5] py-2 px-3 text-[14px] font-poppins font-normal text-[#3d3d3d] placeholder:text-[#474747] placeholder:font-medium focus:border-[#007BFF] focus:ring-[#007BFF]`} />
@@ -134,10 +130,9 @@ function CreateDefaultSlot() {
                       <p className="text-red-500 absolute text-[10px] mt-1">Format: HH:MM AM/PM</p>
                     )}
                   </div>
-                  
                   <div className="col-span-12 md:col-span-4 lg:col-span-3">
                     <label htmlFor={`end_time_${slot.id}`} className="block text-[14px] font-medium text-[#3d3d3d] mb-2">End Time <span className="text-red-500">*</span></label>
-                    <input type="text" name="end_time" id={`end_time_${slot.id}`} placeholder='HH:MM AM/PM' value={slot.end_time} onChange={(e) => handleInputChange(slot.id, 'end_time', e.target.value)} onFocus={() => markTouched(slot.id, 'end_time')} required className={`mt-1 block w-full rounded-md border ${(slot.touched.includes('end_time') && (!slot.end_time || !validateTimeFormat(slot.end_time) || !isEndTimeLater(slot.start_time, slot.end_time))) ? 'border-red-500' : 'border-[#e3e3e3]'} bg-[#F5F5F5] py-2 px-3 text-[14px] font-poppins font-normal text-[#3d3d3d] placeholder:text-[#474747] placeholder:font-medium focus:border-[#007BFF] focus:ring-[#007BFF]`}/>
+                    <input type="text" name="end_time" id={`end_time_${slot.id}`} placeholder='HH:MM AM/PM' value={slot.end_time} onChange={(e) => handleInputChange(slot.id, 'end_time', e.target.value)} onFocus={() => markTouched(slot.id, 'end_time')} required className={`mt-1 block w-full rounded-md border ${(slot.touched.includes('end_time') && (!slot.end_time || !validateTimeFormat(slot.end_time) || !isEndTimeLater(slot.start_time, slot.end_time))) ? 'border-red-500' : 'border-[#e3e3e3]'} bg-[#F5F5F5] py-2 px-3 text-[14px] font-poppins font-normal text-[#3d3d3d] placeholder:text-[#474747] placeholder:font-medium focus:border-[#007BFF] focus:ring-[#007BFF]`} />
                     {slot.touched.includes('end_time') && !slot.end_time && (
                       <p className="text-red-500 absolute text-[10px] mt-1">End Time is required</p>
                     )}
@@ -148,7 +143,6 @@ function CreateDefaultSlot() {
                       <p className="text-red-500 absolute text-[10px] mt-1">Must be later than start time</p>
                     )}
                   </div>
-                  
                   <div className="col-span-12 md:col-span-4 lg:col-span-1 mt-6 flex items-center">
                     {index === slots.length - 1 ? (
                       <button type="button" onClick={(e) => handleAddRow(e, slot)} className="btn SAVE_ICON cursor-pointer">

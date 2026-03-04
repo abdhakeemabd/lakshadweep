@@ -157,7 +157,7 @@ function BookingCancelModal({ booking }) {
                                       <Tooltip.Trigger asChild>
                                         <img src={TooltipIcon} alt="tooltip" className='inline-block ml-2 cursor-pointer' />
                                       </Tooltip.Trigger>
-                                      <Tooltip.Content className="z-[1000] rounded-[6px] bg-[#1A1A1A] px-3 py-2 text-[12px] text-white shadow-xl max-w-[200px] text-center" sideOffset={5}>
+                                      <Tooltip.Content className="z-100 rounded-[6px] bg-[#1A1A1A] px-3 py-2 text-[12px] text-white shadow-xl max-w-[200px] text-center" sideOffset={5}>
                                         The time slot originally requested by the customer
                                         <Tooltip.Arrow className="fill-[#1A1A1A]" />
                                       </Tooltip.Content>

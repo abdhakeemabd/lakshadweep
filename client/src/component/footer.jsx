@@ -7,11 +7,11 @@ function Footer() {
         <img src={Whatsapp} alt="whatsapp" />
       </a>
       <div className="container m-auto px-3">
-         <div className="text-center mb-3">
-            <p className="m-0 text-sm md:text-base">
-              © 2026 Go Rogue. All Rights Reserved.
-            </p>
-          </div>
+        <div className="text-center mb-3">
+          <p className="m-0 text-sm md:text-base">
+            © 2026 Go Rogue. All Rights Reserved.
+          </p>
+        </div>
         <div className="flex flex-col md:flex-row items-center justify-center text-center">
           <div className="md:order-2 order-1 mb-3 md:mb-0 md:w-2/3">
             <ul className="flex flex-wrap justify-center gap-4 text-sm md:text-base">

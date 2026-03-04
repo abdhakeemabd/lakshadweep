@@ -4,7 +4,7 @@ import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
 
 function Enquiries() {
   return (
-    <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+    <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
         <div>
           <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Enquiries</h1>

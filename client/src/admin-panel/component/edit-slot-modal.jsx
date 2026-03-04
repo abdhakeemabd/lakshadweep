@@ -56,22 +56,9 @@ const MyContainer = ({ className, children, showCalendar, setShowCalendar, setPr
 
 const CustomInput = forwardRef(({ value, onClick, disabled, showEditButton, onEditClick }, ref) => (
   <div className="flex items-center gap-2 relative w-full" ref={ref}>
-    <input
-      type="text"
-      placeholder='DD/MM/YYYY - DD/MM/YYYY'
-      disabled={disabled}
-      value={value}
-      readOnly
-      onClick={!disabled ? onClick : undefined}
-      className={`w-full rounded-[0px_10px_10px_0px] pl-0 ${showEditButton ? 'pr-[65px]' : 'pr-10'} py-2 text-[13.7px] text-[#414242] bg-[#F5F5F5] focus:outline-none ${disabled ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'}`}
-    />
+    <input type="text" placeholder='DD/MM/YYYY - DD/MM/YYYY' disabled={disabled} value={value} readOnly onClick={!disabled ? onClick : undefined} className={`w-full rounded-[0px_10px_10px_0px] pl-0 ${showEditButton ? 'pr-[65px]' : 'pr-10'} py-2 text-[13.7px] text-[#414242] bg-[#F5F5F5] focus:outline-none ${disabled ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'}`} />
     <div className='absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2'>
-      <button
-        type="button"
-        className="p-0 cursor-pointer"
-        disabled={disabled}
-        onClick={!disabled ? onClick : undefined}
-      >
+      <button type="button" className="p-0 cursor-pointer" disabled={disabled} onClick={!disabled ? onClick : undefined}>
         <img src={CalendarIcon} alt="Calendar" className="w-[22px] h-[22px]" />
       </button>
       {showEditButton && (
@@ -88,14 +75,12 @@ function EditSlotModal() {
   const formRef = useRef(null)
   const [isClosing, setIsClosing] = useState(false)
 
-  // Seasonal Slot State
   const [isSeasonalEditing, setIsSeasonalEditing] = useState(false)
   const [seasonalDateRange, setSeasonalDateRange] = useState([null, null]);
   const [seasonalStartDate, seasonalEndDate] = seasonalDateRange;
   const [isSeasonalCalendarOpen, setIsSeasonalCalendarOpen] = useState(false);
   const [showSeasonalSidebar, setShowSeasonalSidebar] = useState(false);
 
-  // Custom Slot State
   const [isCustomEditing, setIsCustomEditing] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([null, null]);
   const [customStartDate, customEndDate] = customDateRange;
@@ -108,7 +93,6 @@ function EditSlotModal() {
       dialogRef.current?.close()
       setIsClosing(false)
 
-      // Reset State
       setIsSeasonalEditing(false)
       setSeasonalDateRange([null, null])
       setIsSeasonalCalendarOpen(false)
@@ -119,7 +103,6 @@ function EditSlotModal() {
       setIsCustomCalendarOpen(false)
       setShowCustomSidebar(false)
 
-      // Reset Form
       if (formRef.current) {
         formRef.current.reset()
       }
@@ -226,20 +209,18 @@ function EditSlotModal() {
     setOpen(false);
     setShowSidebar(false);
   };
-  
+
   const handleReset = () => {
-    // Reset State
     setIsSeasonalEditing(false)
     setSeasonalDateRange([null, null])
     setIsSeasonalCalendarOpen(false)
     setShowSeasonalSidebar(false)
-    
+
     setIsCustomEditing(false)
     setCustomDateRange([null, null])
     setIsCustomCalendarOpen(false)
     setShowCustomSidebar(false)
 
-    // Reset Form
     if (formRef.current) {
       formRef.current.reset()
     }
@@ -247,7 +228,6 @@ function EditSlotModal() {
 
   return (
     <>
-      
       <dialog ref={dialogRef} id="edit-slot-modal" aria-labelledby="edit-slot-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 px-6  max-w-[396px] transform rounded-[8px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>

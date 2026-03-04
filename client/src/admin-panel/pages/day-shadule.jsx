@@ -11,7 +11,7 @@ import SearchableSelect from '../../component/searchable-select';
 
 function DayShadule() {
   const [openIndex, setOpenIndex] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('total'); // 'total', 'booked', 'available'
+  const [activeFilter, setActiveFilter] = useState('total');
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [filterVendor, setFilterVendor] = useState('');
   const [filterActivity, setFilterActivity] = useState('');
@@ -23,7 +23,6 @@ function DayShadule() {
     setOpenIndex(openIndex === "filter" ? null : "filter");
   };
 
-  // Sample slot data - Replace with your API data
   const sampleSlots = [
     {
       id: 1,
@@ -61,12 +60,10 @@ function DayShadule() {
     }
   ];
 
-  // Calculate totals based on seat counts
   const totalSlots = sampleSlots.reduce((sum, slot) => sum + slot.capacity, 0);
   const bookedSlots = sampleSlots.reduce((sum, slot) => sum + slot.booked, 0);
   const availableSlots = sampleSlots.reduce((sum, slot) => sum + slot.available, 0);
 
-  // Filter slots based on active filter
   const getFilteredSlots = () => {
     switch (activeFilter) {
       case 'booked':
@@ -81,14 +78,12 @@ function DayShadule() {
 
   const filteredSlots = getFilteredSlots();
 
-  // Set first slot as selected by default
   useEffect(() => {
     if (filteredSlots.length > 0 && !selectedSlot) {
       setSelectedSlot(filteredSlots[0]);
     }
   }, [filteredSlots, selectedSlot]);
 
-  // Sample vendors data - Replace with your API data
   const [vendors, setVendors] = useState([
     {
       id: 1,
@@ -154,20 +149,8 @@ function DayShadule() {
         <div className="card-sub-header p-4 flex flex-wrap gap-3 justify-between items-center">
           <div className='flex flex-wrap gap-3 items-center'>
             <form action="" className='flex flex-wrap gap-3 items-center'>
-              <SearchableSelect
-                options={vendors.map(v => v.name).filter(Boolean)}
-                value={filterVendor}
-                onChange={(val) => setFilterVendor(val)}
-                placeholder="Select Vendor"
-                searchPlaceholder="Search vendor..."
-              />
-              <SearchableSelect
-                options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
-                value={filterActivity}
-                onChange={(val) => setFilterActivity(val)}
-                placeholder="Select Activity"
-                searchPlaceholder="Search activity..."
-              />
+              <SearchableSelect options={vendors.map(v => v.name).filter(Boolean)} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder="Select Vendor" searchPlaceholder="Search vendor..." />
+              <SearchableSelect options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]} value={filterActivity} onChange={(val) => setFilterActivity(val)} placeholder="Select Activity" searchPlaceholder="Search activity..." />
             </form>
           </div>
         </div>
@@ -184,12 +167,7 @@ function DayShadule() {
               <div>
                 {vendors.map((vendor, index) => (
                   <Accordion key={vendor.id} defaultExpanded={index === 0} sx={{ boxShadow: 'none', padding: '0', border: 'none', '&:before': { display: 'none' } }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls={`panel${vendor.id}-content`}
-                      id={`panel${vendor.id}-header`}
-                      className='!border-1 !border-[#EDE3E3] !mb-2 rounded-[16px] !p-[10px_14px]'
-                      sx={{ padding: '0', minHeight: 'auto', borderRadius: '16px', transition: 'all 0.3s ease-in-out', '& .MuiAccordionSummary-content': { margin: '0px !important' }, '& *': { transition: 'color 0.3s ease-in-out' }, '&[aria-expanded="true"]': { backgroundColor: '#0F2446', color: '#fff !important', borderRadius: '10px 10px 0px 0px !important', '& *': { color: '#fff !important' } } }}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${vendor.id}-content`} id={`panel${vendor.id}-header`} className='!border-1 !border-[#EDE3E3] !mb-2 rounded-[16px] !p-[10px_14px]' sx={{ padding: '0', minHeight: 'auto', borderRadius: '16px', transition: 'all 0.3s ease-in-out', '& .MuiAccordionSummary-content': { margin: '0px !important' }, '& *': { transition: 'color 0.3s ease-in-out' }, '&[aria-expanded="true"]': { backgroundColor: '#0F2446', color: '#fff !important', borderRadius: '10px 10px 0px 0px !important', '& *': { color: '#fff !important' } } }}>
                       <div className="flex flex-col w-full">
                         <Typography component="span" className="!font-semibold text-[#1B1A3E] !text-[13px]">{vendor.name}</Typography>
                         <Typography component="span" className="!text-[12px] text-[#6A6A6A]">Total Package: {vendor.totalPackages}</Typography>
@@ -211,7 +189,7 @@ function DayShadule() {
           </div>
         </div>
         <div className="col-span-12 lg:col-span-9">
-          <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3">
+          <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3">
             <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
               <div>
                 <div className='font-poppins font-semibold text-[20px] md:text-[20px] leading-[100%] text-[#2A2A2A]'>Assigned Vendors</div>
@@ -233,25 +211,25 @@ function DayShadule() {
                         </tr>
                         <tr>
                           <td colSpan="2" className="pt-2">
-                            <button onClick={() => setActiveFilter('total')} className={`w-full flex gap-3 items-center pr-4 rounded-[10px_0px_0px_10px] px-3 py-2 transition ${activeFilter === 'total' ? 'bg-[#D3E3FF] text-[#000]' : 'bg-[#fff] hover:bg-[#F5F7FF]'}`}>
-                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'total' ? 'text-[#000] font-semibold' : 'text-[#000] font-normal'}`}>Total Slots</span>
-                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'total' ? 'text-[#000] font-semibold' : 'text-[#000] font-normal'}`}>{totalSlots}</span>
+                            <button onClick={() => setActiveFilter('total')} className={`w-full flex gap-3 items-center pr-4 rounded-[10px_0px_0px_10px] px-3 py-2 transition ${activeFilter === 'total' ? 'bg-[#D3E3FF] text-black' : 'bg-white hover:bg-[#F5F7FF]'}`}>
+                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'total' ? 'text-black font-semibold' : 'text-black font-normal'}`}>Total Slots</span>
+                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'total' ? 'text-black font-semibold' : 'text-black font-normal'}`}>{totalSlots}</span>
                             </button>
                           </td>
                         </tr>
                         <tr>
                           <td colSpan="2" className="pt-2">
-                            <button onClick={() => setActiveFilter('booked')} className={`w-full flex gap-3 items-center pr-4 rounded-[10px_0px_0px_10px] px-3 py-2 transition ${activeFilter === 'booked' ? 'bg-[#D3E3FF] text-[#000]' : 'bg-[#fff] hover:bg-[#F5F7FF]'}`}>
-                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'booked' ? 'text-[#000] font-semibold' : 'text-[#000] font-normal'}`}>Booked</span>
-                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'booked' ? 'text-[#000] font-semibold' : 'text-[#000] font-normal'}`}>{bookedSlots}</span>
+                            <button onClick={() => setActiveFilter('booked')} className={`w-full flex gap-3 items-center pr-4 rounded-[10px_0px_0px_10px] px-3 py-2 transition ${activeFilter === 'booked' ? 'bg-[#D3E3FF] text-black' : 'bg-white hover:bg-[#F5F7FF]'}`}>
+                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'booked' ? 'text-black font-semibold' : 'text-black font-normal'}`}>Booked</span>
+                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'booked' ? 'text-black font-semibold' : 'text-black font-normal'}`}>{bookedSlots}</span>
                             </button>
                           </td>
                         </tr>
                         <tr>
                           <td colSpan="2" className="pt-2">
-                            <button onClick={() => setActiveFilter('available')} className={`w-full flex gap-3 items-center pr-4 rounded-[10px_0px_0px_10px] px-3 py-2 transition ${activeFilter === 'available' ? 'bg-[#D3E3FF] text-[#000]' : 'bg-[#fff] hover:bg-[#F5F7FF]'}`} >
-                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'available' ? 'text-[#000] font-semibold' : 'text-[#000] font-normal'}`}>Available</span>
-                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'available' ? 'text-[#000] font-semibold' : 'text-[#000] font-normal'}`}>{availableSlots}</span>
+                            <button onClick={() => setActiveFilter('available')} className={`w-full flex gap-3 items-center pr-4 rounded-[10px_0px_0px_10px] px-3 py-2 transition ${activeFilter === 'available' ? 'bg-[#D3E3FF] text-black' : 'bg-white hover:bg-[#F5F7FF]'}`} >
+                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'available' ? 'text-black font-semibold' : 'text-black font-normal'}`}>Available</span>z
+                              <span className={`text-[13px] w-[50%] text-left ${activeFilter === 'available' ? 'text-black font-semibold' : 'text-black font-normal'}`}>{availableSlots}</span>
                             </button>
                           </td>
                         </tr>
@@ -262,7 +240,7 @@ function DayShadule() {
                       <div className="relative mr-3">
                         <input type="text" value="INR 1300.00" readOnly className="w-full border border-[#E3E3E3] rounded-[10px] px-3 py-2 text-[13px] font-semibold bg-[#F9F9F9]" />
                         <button type="button" className="absolute right-3 z-2 top-1/2 -translate-y-1/2" command="show-modal" commandfor="edit-slot-modal" >
-                          <img src={Editicon} className="w-[24px] h-[24px]" alt="edit"  />
+                          <img src={Editicon} className="w-[24px] h-[24px]" alt="edit" />
                         </button>
                       </div>
                     </div>
@@ -273,11 +251,8 @@ function DayShadule() {
                     <div className="card-header flex gap-3">
                       {filteredSlots.map((slot) => (
                         <div key={slot.id}>
-                          <button
-                            onClick={() => setSelectedSlot(slot)}
-                            className={`w-[48px] min-h-[29px] rounded-[10px_10px_0px_0px] text-[13px] font-semibold transition ${selectedSlot?.id === slot.id ? 'bg-[#0F2446] text-white' : 'bg-[#D3E3FF] text-[#0F2446]'
-                              }`}
-                          >
+                          <button onClick={() => setSelectedSlot(slot)} className={`w-[48px] min-h-[29px] rounded-[10px_10px_0px_0px] text-[13px] font-semibold transition ${selectedSlot?.id === slot.id ? 'bg-[#0F2446] text-white' : 'bg-[#D3E3FF] text-[#0F2446]'
+                            }`}>
                             {slot.slotName}
                           </button>
                         </div>

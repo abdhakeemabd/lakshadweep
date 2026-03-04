@@ -11,7 +11,7 @@ function VendorView() {
   const [currentRange, setCurrentRange] = useState([null, null]);
   const [startDate, endDate] = currentRange;
   const [statusFilter, setStatusFilter] = useState("all");
-  
+
   const [vendorData, setVendorData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,13 +20,12 @@ function VendorView() {
     const fetchVendorData = async () => {
       try {
         setLoading(true);
-        // Try the candidate URLs similar to vendor-edit.jsx
         const candidates = [
           `/vendor-api/vendor/vendor-details/${id}/`,
           `/vendor-api/vendor/${id}/`,
           `/vendor-api/vendor/vendor-detail/${id}/`
         ];
-        
+
         let fetchedData = null;
         let success = false;
 
@@ -42,14 +41,13 @@ function VendorView() {
 
             if (response.ok) {
               const result = await response.json();
-              // Data extraction logic similar to vendor-edit.jsx
               fetchedData = result;
               if (result.status === true || result.status === 'success') {
                 fetchedData = result.data || result.vendor || result.vendor_details || result.page_obj || result;
               }
               if (Array.isArray(fetchedData)) fetchedData = fetchedData[0];
               if (fetchedData && fetchedData.page_obj && Array.isArray(fetchedData.page_obj)) fetchedData = fetchedData.page_obj[0];
-              
+
               if (fetchedData) {
                 success = true;
                 break;
@@ -186,13 +184,7 @@ function VendorView() {
               <div className="flex flex-wrap items-center gap-3">
                 {activeTab === "profile" ? (
                   <div className="relative">
-                    <SearchableSelect
-                      options={["all", "active", "cancelled"]}
-                      value={statusFilter}
-                      onChange={(val) => setStatusFilter(val)}
-                      placeholder="Status"
-                      searchPlaceholder="Search status..."
-                    />
+                    <SearchableSelect options={["all", "active", "cancelled"]} value={statusFilter} onChange={(val) => setStatusFilter(val)} placeholder="Status" searchPlaceholder="Search status..." />
                   </div>
                 ) : (
                   <DateRangeFilter onRangeChange={(range) => setCurrentRange(range)} />
@@ -263,50 +255,50 @@ function VendorView() {
                 ) : filteredAssignedPackages.length > 0 ? (
                   filteredAssignedPackages.map((item, index) => (
                     <div key={item.id || index} className={`py-6 px-6 lg:px-8 border border-[#E9E9E9] rounded-[18px] mb-3`}>
-                       <div className="booking-item-header pb-4 border-b border-[#DADADA] mb-5">
-                          <div className="flex flex-wrap justify-between items-center gap-4">
-                            <div>
-                              <div className="text-[18px] text-[#4A4A4B] mb-3">
-                                Package -   <span className='font-bold text-[20px] text-[#0F2446]'>{item.title}</span>
-                              </div>
-                              <div className="text-[16px] text-[#535353]">
-                                Booking ID : <span className="font-semibold">{item.bookingId}</span>
-                              </div>
+                      <div className="booking-item-header pb-4 border-b border-[#DADADA] mb-5">
+                        <div className="flex flex-wrap justify-between items-center gap-4">
+                          <div>
+                            <div className="text-[18px] text-[#4A4A4B] mb-3">
+                              Package -   <span className='font-bold text-[20px] text-[#0F2446]'>{item.title}</span>
                             </div>
-                            <div className="flex items-center gap-3">
-                              <span className={`badge font-semibold text-[14px] ${item.statusBg} ${item.statusText} py-2 px-6 rounded-full inline-block`}>
-                                {item.status}
-                              </span>
+                            <div className="text-[16px] text-[#535353]">
+                              Booking ID : <span className="font-semibold">{item.bookingId}</span>
                             </div>
                           </div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
-                          <div>
-                            <div className="text-[14px] text-[#8c8c8c] mb-1">Date</div>
-                            <div className="font-bold text-[16px] text-[#2A2A2A]">{item.date}</div>
-                          </div>
-                          <div>
-                            <div className="text-[14px] text-[#8c8c8c] mb-1">Guest</div>
-                            <div className="font-bold text-[16px] text-[#2A2A2A]">{item.guest}</div>
-                          </div>
-                          <div>
-                            <div className="text-[14px] text-[#8c8c8c] mb-1">Total Paid</div>
-                            <div className="font-bold text-[16px] text-[#2A2A2A]">{item.totalPaid}</div>
-                          </div>
-                          <div>
-                            <div className="text-[14px] text-[#8c8c8c] mb-1">Customer</div>
-                            <div className="font-bold text-[16px] text-[#2A2A2A]">{item.customer}</div>
+                          <div className="flex items-center gap-3">
+                            <span className={`badge font-semibold text-[14px] ${item.statusBg} ${item.statusText} py-2 px-6 rounded-full inline-block`}>
+                              {item.status}
+                            </span>
                           </div>
                         </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
+                        <div>
+                          <div className="text-[14px] text-[#8c8c8c] mb-1">Date</div>
+                          <div className="font-bold text-[16px] text-[#2A2A2A]">{item.date}</div>
+                        </div>
+                        <div>
+                          <div className="text-[14px] text-[#8c8c8c] mb-1">Guest</div>
+                          <div className="font-bold text-[16px] text-[#2A2A2A]">{item.guest}</div>
+                        </div>
+                        <div>
+                          <div className="text-[14px] text-[#8c8c8c] mb-1">Total Paid</div>
+                          <div className="font-bold text-[16px] text-[#2A2A2A]">{item.totalPaid}</div>
+                        </div>
+                        <div>
+                          <div className="text-[14px] text-[#8c8c8c] mb-1">Customer</div>
+                          <div className="font-bold text-[16px] text-[#2A2A2A]">{item.customer}</div>
+                        </div>
+                      </div>
                     </div>
                   ))
                 ) : (
                   <div className="p-20 text-center">
                     <div className="text-[#8c8c8c] font-medium mb-2">No packages found for this status.</div>
                     <button onClick={() => {
-                        setStatusFilter("all");
-                        setCurrentRange([null, null]);
-                      }} className="text-[#FF5C1A] text-[14px] font-bold hover:underline">Reset all filters</button>
+                      setStatusFilter("all");
+                      setCurrentRange([null, null]);
+                    }} className="text-[#FF5C1A] text-[14px] font-bold hover:underline">Reset all filters</button>
                   </div>
                 )}
               </div>

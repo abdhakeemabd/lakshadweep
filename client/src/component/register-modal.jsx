@@ -33,7 +33,7 @@ function RegisterModal() {
       dialogRef.current?.close()
       setIsClosing(false)
       setPhone('')
-    }, 400) // Match animation duration
+    }, 400) 
   }
 
   useEffect(() => {
@@ -68,7 +68,7 @@ function RegisterModal() {
         ref={dialogRef} 
         id="register-modal" 
         aria-labelledby="register-modal-title" 
-        className={`premium-modal fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 ${isClosing ? 'closing' : ''}`}>
+        className={`premium-modal fixed inset-0 z-100 w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 ${isClosing ? 'closing' : ''}`}>
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full max-w-[800px] transform rounded-[9px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <div className="modal-header flex items-center justify-between px-8 py-6 border-b border-gray-100">

@@ -11,7 +11,7 @@ function AddSlotModal() {
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
-    }, 300) // Match animation duration
+    }, 300)
   }
 
   useEffect(() => {
@@ -79,11 +79,7 @@ function AddSlotModal() {
 
   return (
     <>
-      <dialog 
-        ref={dialogRef} 
-        id="add-slot-modal" 
-        aria-labelledby="add-slot-modal-title" 
-        className={`premium-modal fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7 ${isClosing ? 'closing' : ''}`}>
+      <dialog ref={dialogRef} id="add-slot-modal" aria-labelledby="add-slot-modal-title" className={`premium-modal fixed inset-0 z-100 w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7 ${isClosing ? 'closing' : ''}`}>
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 px-6  max-w-[800px] transform overflow-hidden rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form action="">
@@ -99,23 +95,11 @@ function AddSlotModal() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-5">
                   <div className='col-span-1 md:col-span-6 mb-3'>
                     <label htmlFor="slot-name" className='text-[#3d3d3d] text-medium text-[13px] mb-2'>Package <span className='text-red-500'>*</span> </label>
-                    <SearchableSelect
-                      options={["Summer Package", "Scuba Diving Package", "Island Hopping"]}
-                      value={selectedPackage}
-                      onChange={(val) => setSelectedPackage(val)}
-                      placeholder="Select Package"
-                      searchPlaceholder="Search package..."
-                    />
+                    <SearchableSelect options={["Summer Package", "Scuba Diving Package", "Island Hopping"]} value={selectedPackage} onChange={(val) => setSelectedPackage(val)} placeholder="Select Package" searchPlaceholder="Search package..." />
                   </div>
                   <div className='col-span-1 md:col-span-6 mb-3'>
                     <label htmlFor="slot-name" className='text-[#3d3d3d] text-medium text-[13px] mb-2'>Vendor <span className='text-red-500'>*</span> </label>
-                    <SearchableSelect
-                      options={["Vendor A", "Vendor B", "Vendor C"]}
-                      value={selectedVendor}
-                      onChange={(val) => setSelectedVendor(val)}
-                      placeholder="Select Vendor"
-                      searchPlaceholder="Search vendor..."
-                    />
+                    <SearchableSelect options={["Vendor A", "Vendor B", "Vendor C"]} value={selectedVendor} onChange={(val) => setSelectedVendor(val)} placeholder="Select Vendor" searchPlaceholder="Search vendor..." />
                   </div>
                   <div className="col-span-12">
                     <div className="w-full">

@@ -12,63 +12,60 @@ import { showDeleteAlert, showDeleteSuccess, showDeleteError, showDeactivateAler
 import SearchableSelect from '../../component/searchable-select';
 
 function HomePageBanner() {
-    const [openIndex, setOpenIndex] = useState(null);
-    const [filterActivity, setFilterActivity] = useState('');
-    const [filterDestination, setFilterDestination] = useState('');
-    const banners = [
-      {
-        id: 1,
-        title: "baneree",
-        activity: "Bike Rentals",
-        destination: "Minicoy Island",
-        status: "Active"
+  const [openIndex, setOpenIndex] = useState(null);
+  const [filterActivity, setFilterActivity] = useState('');
+  const [filterDestination, setFilterDestination] = useState('');
+  const banners = [
+    {
+      id: 1,
+      title: "baneree",
+      activity: "Bike Rentals",
+      destination: "Minicoy Island",
+      status: "Active"
+    }
+  ];
+  const toggleDropdown = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const handleDelete = async (bannerId, bannerTitle) => {
+    const confirmed = await showDeleteAlert(bannerTitle || 'banner');
+    if (!confirmed) return;
+    showDeleteSuccess(bannerTitle || 'Banner');
+  };
+
+  const handleDeactivate = async (bannerId, bannerTitle) => {
+    const confirmed = await showDeactivateAlert(bannerTitle || 'banner');
+    if (!confirmed) return;
+    showDeactivateSuccess(bannerTitle || 'Banner');
+  };
+
+  const handleActivate = async (bannerId, bannerTitle) => {
+    const confirmed = await showActivateAlert(bannerTitle || 'banner');
+    if (!confirmed) return;
+    showActivateSuccess(bannerTitle || 'Banner');
+  };
+
+  useEffect(() => {
+    Fancybox.bind("[data-fancybox]", {});
+    return () => Fancybox.destroy();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest(".dropdown-container")) {
+        setOpenIndex(null);
       }
-    ];
-    const toggleDropdown = (index) => {
-      setOpenIndex(openIndex === index ? null : index);
     };
-
-    const handleDelete = async (bannerId, bannerTitle) => {
-      const confirmed = await showDeleteAlert(bannerTitle || 'banner');
-      if (!confirmed) return;
-      // TODO: Call delete API when available
-      showDeleteSuccess(bannerTitle || 'Banner');
-    };
-
-    const handleDeactivate = async (bannerId, bannerTitle) => {
-      const confirmed = await showDeactivateAlert(bannerTitle || 'banner');
-      if (!confirmed) return;
-      // TODO: Call deactivate API when available
-      showDeactivateSuccess(bannerTitle || 'Banner');
-    };
-
-    const handleActivate = async (bannerId, bannerTitle) => {
-      const confirmed = await showActivateAlert(bannerTitle || 'banner');
-      if (!confirmed) return;
-      // TODO: Call activate API when available
-      showActivateSuccess(bannerTitle || 'Banner');
-    };
-
-    useEffect(() => {
-      Fancybox.bind("[data-fancybox]", {});
-      return () => Fancybox.destroy();
-    }, []);
-
-    useEffect(() => {
-      const handleClickOutside = (e) => {
-        if (!e.target.closest(".dropdown-container")) {
-          setOpenIndex(null);
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <>
       <div className='text-[24px] text-[#2A2A2A] font-semibold mt-3'>Content Management</div>
-      <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+      <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-2 lg:p-4 flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
-          <div className='flex items-center gap-3 bg-[#E9E9EA] rounded-full p-[4px] border-1 border-[#E9E9EA]'>
+          <div className='flex items-center gap-3 bg-[#E9E9EA] rounded-full p-[4px] border border-[#E9E9EA]'>
             <NavLink to="/admin/setting/content-management" className={({ isActive }) => `w-[160px] md:w-[170px] font-medium text-center text-[12px] md:text-[14px] rounded-full transition-all px-2 py-2 ${isActive ? 'bg-[#0F2446] text-white border border-[#2F68C5] font-semibold' : 'text-[#393939] bg-transparent'}`}>Homepage Banner</NavLink>
             <NavLink to="/admin/setting/content-gallery" className={({ isActive }) => `w-[160px] md:w-[170px] font-medium text-center text-[12px] md:text-[14px] rounded-full transition-all px-2 py-2 ${isActive ? 'bg-[#0F2446] text-white border border-[#2F68C5] font-semibold' : 'text-[#393939] bg-transparent'}`}>Gallery</NavLink>
           </div>
@@ -78,22 +75,10 @@ function HomePageBanner() {
         </div>
         <div className="card-sub-header p-4 flex gap-3 items-center">
           <div>
-            <SearchableSelect
-              options={["Bike Rentals", "Scuba Diving", "Kayaking"]}
-              value={filterActivity}
-              onChange={(val) => setFilterActivity(val)}
-              placeholder="Activity"
-              searchPlaceholder="Search activity..."
-            />
+            <SearchableSelect options={["Bike Rentals", "Scuba Diving", "Kayaking"]} value={filterActivity} onChange={(val) => setFilterActivity(val)} placeholder="Activity" searchPlaceholder="Search activity..." />
           </div>
           <div>
-            <SearchableSelect
-              options={["Minicoy Island", "Agatti Island", "Kavaratti Island"]}
-              value={filterDestination}
-              onChange={(val) => setFilterDestination(val)}
-              placeholder="Destination"
-              searchPlaceholder="Search destination..."
-            />
+            <SearchableSelect options={["Minicoy Island", "Agatti Island", "Kavaratti Island"]} value={filterDestination} onChange={(val) => setFilterDestination(val)} placeholder="Destination" searchPlaceholder="Search destination..." />
           </div>
         </div>
         <div className="card-body py-4">
@@ -132,7 +117,7 @@ function HomePageBanner() {
                     </td>
                     <td className="py-2 text-[12px] text-[#383838]">
                       <div className='flex justify-center gap-3 items-center dropdown-container relative'>
-                         <button className='cursor-pointer w-[17px] h-[20px]' type='button' onClick={() => handleDelete(item.id, item.title)}>
+                        <button className='cursor-pointer w-[17px] h-[20px]' type='button' onClick={() => handleDelete(item.id, item.title)}>
                           <img className='img-fluid' src={DeleteIcon} alt="Delete" />
                         </button>
                         <button className='cursor-pointer w-[31px] h-[31px]' type='button' command="show-modal" commandfor="edit-banner-modal">

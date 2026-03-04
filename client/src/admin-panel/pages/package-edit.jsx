@@ -21,11 +21,11 @@ function UpdatePackage() {
       setSelectedFile(e.target.files[0]);
     }
   };
-  
+
   const label = { inputProps: { 'aria-label': 'Size switch demo' } };
 
   return (
-    <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+    <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3 lg:mb-5">
         <div className="flex items-center gap-3">
           <Link to="/admin/packages-list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center">
@@ -54,37 +54,19 @@ function UpdatePackage() {
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="category" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Category <span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <SearchableSelect
-                  options={["Activity", "Location", "111"]}
-                  value={formData.category}
-                  onChange={(val) => handleSelectChange('category', val)}
-                  placeholder="Select Category"
-                  searchPlaceholder="Search category..."
-                />
+                <SearchableSelect options={["Activity", "Location", "111"]} value={formData.category} onChange={(val) => handleSelectChange('category', val)} placeholder="Select Category" searchPlaceholder="Search category..." />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="activity" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Activity<span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <SearchableSelect
-                  options={["Activity", "Location", "111"]}
-                  value={formData.activity}
-                  onChange={(val) => handleSelectChange('activity', val)}
-                  placeholder="Select Activity"
-                  searchPlaceholder="Search activity..."
-                />
+                <SearchableSelect options={["Activity", "Location", "111"]} value={formData.activity} onChange={(val) => handleSelectChange('activity', val)} placeholder="Select Activity" searchPlaceholder="Search activity..." />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 lg:col-span-4 mb-3">
               <label htmlFor="island_location" className="block text-[13px] font-medium text-[#3D3D3D] mb-3">Island/Location<span className='text-red-600'>*</span> </label>
               <div className="relative inline-block w-full">
-                <SearchableSelect
-                  options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-                  value={formData.island_location}
-                  onChange={(val) => handleSelectChange('island_location', val)}
-                  placeholder="Select Island"
-                  searchPlaceholder="Search island..."
-                />
+                <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={formData.island_location} onChange={(val) => handleSelectChange('island_location', val)} placeholder="Select Island" searchPlaceholder="Search island..." />
               </div>
             </div>
             <div className="col-span-1 md:col-span-6 mb-3">

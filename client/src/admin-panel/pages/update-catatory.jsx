@@ -20,7 +20,7 @@ function UpdateCatagory() {
   };
 
   const updateVendorDoc = (index, field, value) => {
-    setVendorDocs(prev => prev.map((doc, i) => 
+    setVendorDocs(prev => prev.map((doc, i) =>
       i === index ? { ...doc, [field]: value } : doc
     ));
   };
@@ -34,7 +34,7 @@ function UpdateCatagory() {
   };
 
   const updateActivityRow = (rowIdx, field, value) => {
-    setActivityRows(prev => prev.map((row, i) => 
+    setActivityRows(prev => prev.map((row, i) =>
       i === rowIdx ? { ...row, [field]: value } : row
     ));
   };
@@ -52,10 +52,10 @@ function UpdateCatagory() {
   };
 
   const updateVendorDocInRow = (rowIdx, docIdx, field, value) => {
-    setActivityRows(prev => prev.map((row, i) => 
+    setActivityRows(prev => prev.map((row, i) =>
       i === rowIdx ? {
         ...row,
-        vendorDocs: row.vendorDocs.map((doc, j) => 
+        vendorDocs: row.vendorDocs.map((doc, j) =>
           j === docIdx ? { ...doc, [field]: value } : doc
         )
       } : row
@@ -71,7 +71,7 @@ function UpdateCatagory() {
           <div className='flex items-center gap-3'>
             <Link to="/admin/setting/categories" className='w-[36px] h-[36px] flex items-center justify-center bg-[#f1f1f1] rounded-[10px] transition-colors'>
               <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 1L1 7L7 13" stroke="#333333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M7 1L1 7L7 13" stroke="#333333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
             <h2 className='text-[24px] font-semibold text-[#2A2A2A]'>Edit Category & Activity</h2>
@@ -87,14 +87,7 @@ function UpdateCatagory() {
             <div className="grid grid-cols-12 gap-3">
               <div className="col-span-12 md:col-span-6 lg:col-span-4">
                 <label className='text-[#3D3D3D] font-poppins font-medium text-[14px]' htmlFor="category">Category <span className='text-red-500'>*</span> </label>
-                <input 
-                  id="category" 
-                  type="text" 
-                  value={categoryName}
-                  onChange={(e) => setCategoryName(e.target.value)}
-                  className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full p-2' 
-                  placeholder="Enter Category Name"
-                />
+                <input id="category" type="text" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full p-2' placeholder="Enter Category Name" />
               </div>
             </div>
           </div>
@@ -105,12 +98,7 @@ function UpdateCatagory() {
             <div className="grid grid-cols-12 gap-3 md:gap-2 lg:gap-3 border-b border-[#DADADA] last:border-0 py-5">
               <div className="col-span-12 md:col-span-6 lg:col-span-4">
                 <label className='text-[#3D3D3D] font-poppins font-medium text-[13px]' htmlFor="activity-initial">Activity <span className='text-red-500'>*</span> </label>
-                <input 
-                  id="activity-initial" 
-                  type="text" 
-                  className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full px-3 py-2' 
-                  placeholder='Enter here' 
-                />
+                <input id="activity-initial" type="text" className='text-[#3D3D3D] mt-3 bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full px-3 py-2' placeholder='Enter here' />
               </div>
               <div className="col-span-12 md:col-span-6 lg:col-span-7 lg:col-start-6">
                 {vendorDocs.map((doc, index) => (
@@ -119,24 +107,12 @@ function UpdateCatagory() {
                       {index === 0 && (
                         <label className='text-[#3D3D3D] font-poppins font-medium text-[13px]' htmlFor={`doc-name-${index}`}>Vendor Document Uploads <span className='text-[#6c757d]'>(Activity Specific) </span> </label>
                       )}
-                      <input 
-                        id={`doc-name-${index}`} 
-                        type="text" 
-                        value={doc.docName}
-                        onChange={(e) => updateVendorDoc(index, 'docName', e.target.value)}
-                        className={`text-[#3D3D3D] ${index === 0 ? 'mt-3' : ''} bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3`} 
-                        placeholder='Name of vendor document for the activity' 
-                      />
+                      <input id={`doc-name-${index}`} type="text" value={doc.docName} onChange={(e) => updateVendorDoc(index, 'docName', e.target.value)} className={`text-[#3D3D3D] ${index === 0 ? 'mt-3' : ''} bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3`} placeholder='Name of vendor document for the activity' />
                     </div>
                     <div className="col-span-12 md:col-span-6 lg:col-span-4">
                       <div className={`flex gap-3 ${index === 0 ? 'mt-8.5' : ''} items-center`}>
                         <div className="w-full">
-                          <SearchableSelect
-                            options={docTypeOptions}
-                            value={doc.docType}
-                            onChange={(val) => updateVendorDoc(index, 'docType', val)}
-                            placeholder="Select"
-                          />
+                          <SearchableSelect options={docTypeOptions} value={doc.docType} onChange={(val) => updateVendorDoc(index, 'docType', val)} placeholder="Select" />
                         </div>
                         {index === vendorDocs.length - 1 ? (
                           <button type='button' aria-label='Add More' onClick={addVendorDoc}>
@@ -158,13 +134,7 @@ function UpdateCatagory() {
                 <div className="col-span-12 md:col-span-6 lg:col-span-5">
                   <div className="flex gap-3 items-center">
                     <div className='w-full max-w-[79%]'>
-                      <input 
-                        type="text" 
-                        value={actRow.name}
-                        onChange={(e) => updateActivityRow(rowIdx, 'name', e.target.value)}
-                        className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' 
-                        placeholder='Enter Activity Name' 
-                      />
+                      <input type="text" value={actRow.name} onChange={(e) => updateActivityRow(rowIdx, 'name', e.target.value)} className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' placeholder='Enter Activity Name' />
                     </div>
                     <div>
                       {rowIdx === activityRows.length - 1 ? (
@@ -183,23 +153,12 @@ function UpdateCatagory() {
                   {actRow.vendorDocs.map((doc, docIdx) => (
                     <div className="grid grid-cols-12 gap-3 mb-3" key={docIdx}>
                       <div className="col-span-12 md:col-span-6 lg:col-span-8">
-                        <input 
-                          type="text" 
-                          value={doc.docName}
-                          onChange={(e) => updateVendorDocInRow(rowIdx, docIdx, 'docName', e.target.value)}
-                          className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' 
-                          placeholder="Name of vendor document for the activity" 
-                        />
+                        <input value={doc.docName} type="text" onChange={(e) => updateVendorDocInRow(rowIdx, docIdx, 'docName', e.target.value)} className='text-[#3D3D3D] bg-[#F5F5F5] font-poppins font-medium text-[14px] rounded-[8px] w-full py-2 px-3' placeholder="Name of vendor document for the activity" />
                       </div>
                       <div className="col-span-12 md:col-span-6 lg:col-span-4">
                         <div className="flex gap-3 items-center">
                           <div className="w-full">
-                            <SearchableSelect
-                              options={docTypeOptions}
-                              value={doc.docType}
-                              onChange={(val) => updateVendorDocInRow(rowIdx, docIdx, 'docType', val)}
-                              placeholder="Select"
-                            />
+                            <SearchableSelect options={docTypeOptions} value={doc.docType} onChange={(val) => updateVendorDocInRow(rowIdx, docIdx, 'docType', val)} placeholder="Select" />
                           </div>
                           {docIdx === actRow.vendorDocs.length - 1 ? (
                             <button type='button' aria-label='Add More' onClick={() => addVendorDocInRow(rowIdx)}>

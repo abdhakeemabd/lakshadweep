@@ -5,12 +5,10 @@ import squre3 from "../assets/icons/squre-3.svg";
 
 function HomeAdventure() {
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // 🔹 Adventure Cards Data (Ready for backend integration)
   const adventureData = [
     {
       id: 1,
@@ -75,7 +73,7 @@ function HomeAdventure() {
               <Slider {...settings} className='advanture-slider'>
                 {adventureData.map((item) => (
                   <div key={item.id} className="slide h-full">
-                    <div className="advanture-card h-full flex flex-col px-[25px] py-[26px] min-h-[200px] text-white bg-[#0f0f0f69] bg-blend-luminosity backdrop-blur-[12px] transition-all duration-[400ms] shadow-[0_0_16px_0_#F2F2F2_inset, 0_0_3px_0_#FFFFFF80_inset, -1px_-1px_0.5px_-1px_#FFFFFF_inset, 1px_1px_0.5px_-1px_#FFFFFF_inset, -1px_-1px_0px_-0.5px_#262626_inset, 1px_1px_0px_-0.5px_#333333_inset, 0_1px_8px_0_#0000001F, 0_0_2px_0_#0000001A] mx-3 relative">
+                    <div className="advanture-card h-full flex flex-col px-[25px] py-[26px] min-h-[200px] text-white bg-[#0f0f0f69] bg-blend-luminosity transition-all duration-[400ms] shadow-[0_0_16px_0_#F2F2F2_inset, 0_0_3px_0_#FFFFFF80_inset, -1px_-1px_0.5px_-1px_#FFFFFF_inset, 1px_1px_0.5px_-1px_#FFFFFF_inset, -1px_-1px_0px_-0.5px_#262626_inset, 1px_1px_0px_-0.5px_#333333_inset, 0_1px_8px_0_#0000001F, 0_0_2px_0_#0000001A] mx-3 relative">
                       <div className='font-medium capitalize text-[clamp(30px,3vw,33px)] mb-3'>
                         {item.title}
                       </div>

@@ -169,7 +169,7 @@ function AllCustomer() {
   };
 
   return (
-    <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+    <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-4 flex flex-wrap justify-between items-center border-b border-[#e3e3e3]">
         <div>
           <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>All Customers</h1>
@@ -182,20 +182,8 @@ function AllCustomer() {
       <div className="card-sub-header p-4 flex gap-3 justify-between flex-wrap items-center">
         <div>
           <form action="" className='flex flex-wrap gap-3 items-center'>
-            <SearchableSelect
-              options={uniqueActivities.length > 0 ? uniqueActivities : ["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
-              value={selectedActivity}
-              onChange={handleActivityChange}
-              placeholder="All Activities"
-              searchPlaceholder="Search activity..."
-            />
-            <SearchableSelect
-              options={uniqueLocations.length > 0 ? uniqueLocations : ["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-              value={selectedLocation}
-              onChange={handleLocationChange}
-              placeholder="All Locations"
-              searchPlaceholder="Search location..."
-            />
+            <SearchableSelect options={uniqueActivities.length > 0 ? uniqueActivities : ["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]} value={selectedActivity} onChange={handleActivityChange} placeholder="All Activities" searchPlaceholder="Search activity..." />
+            <SearchableSelect options={uniqueLocations.length > 0 ? uniqueLocations : ["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={selectedLocation} onChange={handleLocationChange} placeholder="All Locations" searchPlaceholder="Search location..." />
           </form>
         </div>
         <div className="inline-block">
@@ -258,7 +246,7 @@ function AllCustomer() {
                       : (customer.activities || customer.activity || 'N/A');
                     const location = customer.location || customer.island_location || 'N/A';
                     return (
-                      <tr key={customerId || index} className="border-b border-[#e3e3e3]">
+                      <tr key={customerId || index} className="border-b border-[#e3e3e3] last:border-0">
                         <td className="pl-10 px-4 py-2 text-[12px] text-[#383838]">{index + 1}.</td>
                         <td className="px-4 py-2 text-[12px] text-[#383838]">
                           <div className='item'>

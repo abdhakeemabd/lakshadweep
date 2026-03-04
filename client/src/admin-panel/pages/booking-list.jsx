@@ -61,42 +61,16 @@ function BookingList() {
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>All Bookings</h1>
           </div>
           <div className='flex items-center gap-3'>
-            <button type='button' commandfor="add-slot-modal" className="flex items-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold cursor-pointer">
-              + Create Slot
-            </button>
+            <button type='button' commandfor="add-slot-modal" className="flex items-center gap-4 bg-[#007BFF] rounded-[8px] py-[7px] px-[20px] text-white text-[12px] font-semibold cursor-pointer"> + Create Slot</button>
           </div>
         </div>
         <div className="card-sub-header p-4 flex justify-between items-center">
           <div>
             <form action="" className='flex flex-wrap gap-3 items-center'>
-              <SearchableSelect
-                options={["Vendor A", "Vendor B", "Vendor C"]}
-                value={filterVendor}
-                onChange={(val) => setFilterVendor(val)}
-                placeholder="Vendor"
-                searchPlaceholder="Search vendor..."
-              />
-              <SearchableSelect
-                options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]}
-                value={filterActivity}
-                onChange={(val) => setFilterActivity(val)}
-                placeholder="Activity"
-                searchPlaceholder="Search activity..."
-              />
-              <SearchableSelect
-                options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-                value={filterLocation}
-                onChange={(val) => setFilterLocation(val)}
-                placeholder="Location"
-                searchPlaceholder="Search location..."
-              />
-              <SearchableSelect
-                options={["Pending", "Confirmed", "Cancelled", "Completed"]}
-                value={filterStatus}
-                onChange={(val) => setFilterStatus(val)}
-                placeholder="Status"
-                searchPlaceholder="Search status..."
-              />
+              <SearchableSelect options={["Vendor A", "Vendor B", "Vendor C"]} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder="Vendor" searchPlaceholder="Search vendor..." />
+              <SearchableSelect options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]} value={filterActivity} onChange={(val) => setFilterActivity(val)} placeholder="Activity" searchPlaceholder="Search activity..." />
+              <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={filterLocation} onChange={(val) => setFilterLocation(val)} placeholder="Location" searchPlaceholder="Search location..." />
+              <SearchableSelect options={["Pending", "Confirmed", "Cancelled", "Completed"]} value={filterStatus} onChange={(val) => setFilterStatus(val)} placeholder="Status" searchPlaceholder="Search status..." />
             </form>
           </div>
         </div>

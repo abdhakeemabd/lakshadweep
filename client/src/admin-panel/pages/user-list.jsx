@@ -76,17 +76,13 @@ function UserList() {
   };
 
   return (
-    <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+    <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
         <div>
-          <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>
-            Users
-          </h1>
+          <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Users</h1>
         </div>
         <div className='flex items-center gap-3'>
-          <button
-            onClick={handleExport}
-            className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer hover:bg-[#0056b3] transition-colors'>
+          <button onClick={handleExport} className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer hover:bg-[#0056b3] transition-colors'>
             <img src={ExportIcon} alt="Export" />Export
           </button>
         </div>
@@ -94,13 +90,7 @@ function UserList() {
       <div className="card-sub-header p-4 flex justify-end items-center">
         <div className="inline-block">
           <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
-            <input
-              className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]"
-              type="search"
-              placeholder="Search by phone, name, email, or pincode"
-              value={searchTerm}
-              onChange={handleSearch}
-            />
+            <input className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" type="search" placeholder="Search by phone, name, email, or pincode" value={searchTerm} onChange={handleSearch} />
             <button type="button" className="absolute right-2 flex items-center justify-center">
               <img src={SearchIcon} alt="search" className="w-4 h-4" />
             </button>

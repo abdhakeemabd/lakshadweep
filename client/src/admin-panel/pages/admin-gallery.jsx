@@ -16,7 +16,6 @@ function AdminGallery() {
   const handleDelete = async (itemId, itemLocation) => {
     const confirmed = await showDeleteAlert(`gallery image (${itemLocation || 'this item'})`);
     if (!confirmed) return;
-    // TODO: Call delete API when available
     showDeleteSuccess('Gallery image');
   };
 
@@ -50,13 +49,7 @@ function AdminGallery() {
         </div>
         <div className="card-sub-header p-4 flex gap-3 items-center">
           <div>
-            <SearchableSelect
-              options={["Kayakking", "Snorkeling", "Scuba Diving"]}
-              value={filterActivity}
-              onChange={(val) => setFilterActivity(val)}
-              placeholder="Activity"
-              searchPlaceholder="Search activity..."
-            />
+            <SearchableSelect options={["Kayakking", "Snorkeling", "Scuba Diving"]} value={filterActivity} onChange={(val) => setFilterActivity(val)} placeholder="Activity" searchPlaceholder="Search activity..." />
           </div>
         </div>
         <div className="card-body py-4">

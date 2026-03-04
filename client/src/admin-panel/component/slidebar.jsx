@@ -66,8 +66,8 @@ function Slidebar() {
 
   return (
     <>
-      {isOpen && (<div className="fixed inset-0 bg-black/50 z-[999] lg:hidden" onClick={() => setIsOpen(false)} />)}
-      <div className={`side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen h-full fixed lg:relative inset-y-0 left-0 z-[1000] lg:z-auto w-[260px] lg:w-full transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
+      {isOpen && (<div className="fixed inset-0 bg-black/50 z-999 lg:hidden" onClick={() => setIsOpen(false)} />)}
+      <div className={`side-bar admin-sidebar bg-[#0F2446] text-white px-[20px] py-4 min-h-screen h-full fixed lg:relative inset-y-0 left-0 z-1000 lg:z-auto w-[260px] lg:w-full transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         <aside>
           <div className="py-5 pt-10 lg:pt-5 text-center flex items-center justify-between lg:justify-center">
             <button onClick={() => setIsOpen(false)} className="lg:hidden absolute top-2 right-2 text-white p-2 hover:bg-white/10 rounded-full transition-colors">

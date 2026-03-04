@@ -10,14 +10,13 @@ function Location() {
   const handleDelete = async (locationName) => {
     const confirmed = await showDeleteAlert(locationName || 'location');
     if (!confirmed) return;
-    // TODO: Call delete API when available
     showDeleteSuccess(locationName || 'Location');
   };
   return (
     <>
-      <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+      <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-1 lg:p-4 flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
-          <div className='flex items-center gap-3 bg-[#E9E9EA] rounded-full p-[4px] border-1 border-[#E9E9EA]'>
+          <div className='flex items-center gap-3 bg-[#E9E9EA] rounded-full p-[4px] border border-[#E9E9EA]'>
             <NavLink to="/admin/setting/categories" className={({ isActive }) => `w-[160px] md:w-[170px] font-medium text-center text-[12px] md:text-[14px] rounded-full transition-all px-2 py-2 ${isActive ? 'bg-[#0F2446] text-white border border-[#2F68C5] font-semibold' : 'text-[#393939] bg-transparent'}`}>Category & Activities</NavLink>
             <NavLink to="/admin/setting/location" className={({ isActive }) => `w-[160px] md:w-[170px] font-medium text-center text-[12px] md:text-[14px] rounded-full transition-all px-2 py-2 ${isActive ? 'bg-[#0F2446] text-white border border-[#2F68C5] font-semibold' : 'text-[#393939] bg-transparent'}`}>Location</NavLink>
           </div>

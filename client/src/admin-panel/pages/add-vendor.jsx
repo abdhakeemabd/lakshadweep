@@ -81,7 +81,6 @@ function AddVendor() {
     data.append('latitude', formData.vendor_latitude);
     data.append('longitude', formData.vendor_longitude);
 
-    // Combine country code and mobile number
     const fullPhone = `${formData.country_code}${formData.mobile_no}`;
     data.append('phone', fullPhone);
 
@@ -123,7 +122,7 @@ function AddVendor() {
         let errorMsg = 'Failed to add vendor';
         try {
           const errorData = JSON.parse(text);
-          console.error('❌ API Error Detail:', errorData);
+          console.error('API Error Detail:', errorData);
           if (typeof errorData === 'object' && !errorData.message) {
             errorMsg = Object.entries(errorData)
               .map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`)
@@ -137,7 +136,7 @@ function AddVendor() {
         alert(`Failed to add vendor:\n${errorMsg}`);
       }
     } catch (error) {
-      console.error('❌ Network/Fetch Error:', error);
+      console.error('Network/Fetch Error:', error);
       alert('Network error. Please check your connection or console for details.');
     } finally {
       setLoading(false);
@@ -152,7 +151,7 @@ function AddVendor() {
         .react-tel-input .country-list .search-box { width: 100% !important; margin: 0 !important; padding: 8px 12px !important; }
       `}</style>
 
-      <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+      <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3] mb-3">
           <div className="flex items-center gap-3">
             <Link to="/admin/vendor/list" className="w-[34px] h-[34px] bg-[#f9f9f9] rounded-xl flex items-center justify-center transition-colors hover:bg-gray-200">
@@ -262,7 +261,7 @@ function AddVendor() {
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 1</label>
                       <input ref={licenseFileRef1} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile1Change} />
                       <button type="button" onClick={() => licenseFileRef1.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                         Choose File
                       </button>
                       {licenseFile1 && (
@@ -275,7 +274,7 @@ function AddVendor() {
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 2</label>
                       <input ref={licenseFileRef2} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile2Change} />
                       <button type="button" onClick={() => licenseFileRef2.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                         Choose File
                       </button>
                       {licenseFile2 && (
@@ -288,7 +287,7 @@ function AddVendor() {
                       <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 3</label>
                       <input ref={licenseFileRef3} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile3Change} />
                       <button type="button" onClick={() => licenseFileRef3.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                         Choose File
                       </button>
                       {licenseFile3 && (

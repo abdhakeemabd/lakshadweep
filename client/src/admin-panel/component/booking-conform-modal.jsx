@@ -28,7 +28,7 @@ function BookingConformModal({ booking }) {
     <button
       className='bg-[#007BFF] px-4 py-2.5 rounded-[12px] text-white text-[14px] font-poppins font-medium leading-full tracking-normal flex items-center gap-2 hover:bg-[#0069D9] transition-all'
       onClick={(e) => {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault(); 
         console.log("Reschedule clicked");
         onClick(e);
       }}
@@ -43,7 +43,7 @@ function BookingConformModal({ booking }) {
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
-    }, 300) // Match animation duration
+    }, 300)
   }
 
   useEffect(() => {

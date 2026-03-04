@@ -65,20 +65,8 @@ function AllSlot() {
         <div className="card-sub-header p-4 flex justify-between items-center">
           <div>
              <form action="" className='flex flex-wrap gap-3 items-center'>
-              <SearchableSelect
-                options={["Vendor A", "Vendor B", "Vendor C"]}
-                value={filterVendor}
-                onChange={(val) => setFilterVendor(val)}
-                placeholder="Vendor"
-                searchPlaceholder="Search vendor..."
-              />
-              <SearchableSelect
-                options={["Summer Package", "Scuba Diving Package", "Island Hopping"]}
-                value={filterPackage}
-                onChange={(val) => setFilterPackage(val)}
-                placeholder="Package"
-                searchPlaceholder="Search package..."
-              />
+              <SearchableSelect options={["Vendor A", "Vendor B", "Vendor C"]} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder="Vendor" searchPlaceholder="Search vendor..." />
+              <SearchableSelect options={["Summer Package", "Scuba Diving Package", "Island Hopping"]} value={filterPackage} onChange={(val) => setFilterPackage(val)} placeholder="Package" searchPlaceholder="Search package..." />
             </form>
           </div>
         </div>

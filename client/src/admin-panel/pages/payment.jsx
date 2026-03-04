@@ -10,7 +10,7 @@ function Payment() {
   const [filterLocation, setFilterLocation] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   return (
-    <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+    <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-4 flex flex-wrap gap-3 md:gap-4 justify-between items-center border-b border-[#e3e3e3]">
         <div>
           <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Payments</h1>
@@ -24,27 +24,9 @@ function Payment() {
       <div className="card-sub-header p-4 flex flex-wrap gap-3 justify-between items-center">
         <div>
           <form action="" className='flex flex-wrap gap-3 md:gap-4 items-center'>
-            <SearchableSelect
-              options={["Vendor A", "Vendor B", "Vendor C"]}
-              value={filterVendor}
-              onChange={(val) => setFilterVendor(val)}
-              placeholder="Vendor"
-              searchPlaceholder="Search vendor..."
-            />
-            <SearchableSelect
-              options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-              value={filterLocation}
-              onChange={(val) => setFilterLocation(val)}
-              placeholder="Location"
-              searchPlaceholder="Search location..."
-            />
-            <SearchableSelect
-              options={["Pending", "Paid", "Failed", "Refunded"]}
-              value={filterStatus}
-              onChange={(val) => setFilterStatus(val)}
-              placeholder="Status"
-              searchPlaceholder="Search status..."
-            />
+            <SearchableSelect options={["Vendor A", "Vendor B", "Vendor C"]} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder="Vendor" searchPlaceholder="Search vendor..." />
+            <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={filterLocation} onChange={(val) => setFilterLocation(val)} placeholder="Location" searchPlaceholder="Search location..." />
+            <SearchableSelect options={["Pending", "Paid", "Failed", "Refunded"]} value={filterStatus} onChange={(val) => setFilterStatus(val)} placeholder="Status" searchPlaceholder="Search status..." />
           </form>
         </div>
         <div className="inline-block">

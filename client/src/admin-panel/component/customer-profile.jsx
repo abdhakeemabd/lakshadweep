@@ -61,7 +61,6 @@ function CustomerProfile({ customer: passedCustomer, loading }) {
       </div>
     );
   }
-
   return (
     <div>
       <div className="customer-profile-card px-3 shadow-[3px_4px_20px_0px_#0000000F] bg-white border-0 rounded-[1.25rem]">

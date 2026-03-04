@@ -107,7 +107,6 @@ function CreateCommonSlot() {
               </svg>
             </button>
           </div>
-
           <div className="px-4 sm:px-6">
             <h2 id="drawer-title" className="text-base font-semibold text-[19px] text-[#3d3d3d]">Create Default Slot</h2>
           </div>
@@ -144,7 +143,6 @@ function CreateCommonSlot() {
                       <p className="text-red-500 absolute text-[10px] mt-1">Must be later than start time</p>
                     )}
                   </div>
-
                   <div className="col-span-12 md:col-span-4 lg:col-span-1 mt-6 flex items-center">
                     {index === slots.length - 1 ? (
                       <button type="button" onClick={(e) => handleAddRow(e, slot)} className="btn SAVE_ICON cursor-pointer">
@@ -164,7 +162,6 @@ function CreateCommonSlot() {
       </dialog>
     </>
   )
-
 }
 
 export default CreateCommonSlot

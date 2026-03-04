@@ -52,7 +52,7 @@ function PackagesList() {
   }, []);
   return (
     <>
-      <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+      <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-4  flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
           <div>
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Packages</h1>
@@ -76,44 +76,26 @@ function PackagesList() {
                         <div className="item">
                           <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Category</label>
                           <div className="mt-1">
-                            <SearchableSelect
-                              options={["Watersports", "Adventure", "Eco Tourism", "Leisure"]}
-                              value={filterCategory}
-                              onChange={(val) => setFilterCategory(val)}
-                              placeholder="Select Category"
-                              searchPlaceholder="Search category..."
-                            />
+                            <SearchableSelect options={["Watersports", "Adventure", "Eco Tourism", "Leisure"]} value={filterCategory} onChange={(val) => setFilterCategory(val)} placeholder="Select Category" searchPlaceholder="Search category..." />
                           </div>
                         </div>
                         <div className="items">
                           <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Location</label>
                           <div className="mt-1">
-                            <SearchableSelect
-                              options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]}
-                              value={filterLocation}
-                              onChange={(val) => setFilterLocation(val)}
-                              placeholder="Select Location"
-                              searchPlaceholder="Search location..."
-                            />
+                            <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={filterLocation} onChange={(val) => setFilterLocation(val)} placeholder="Select Location" searchPlaceholder="Search location..." />
                           </div>
                         </div>
                         <div className="items">
                           <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Vendor</label>
                           <div className="mt-1">
-                            <SearchableSelect
-                              options={["Vendor A", "Vendor B", "Vendor C"]}
-                              value={filterVendor}
-                              onChange={(val) => setFilterVendor(val)}
-                              placeholder="Select Vendor"
-                              searchPlaceholder="Search vendor..."
-                            />
+                            <SearchableSelect options={["Vendor A", "Vendor B", "Vendor C"]} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder="Select Vendor" searchPlaceholder="Search vendor..." />
                           </div>
                         </div>
                         <div className="flex gap-3 mb-3">
                           <div className="items">
                             <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Price</label>
                             <div className="relative rounded-[8px] overflow-hidden">
-                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px] h-[20px]'>
+                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px]'>
                                 <span className='text-[12px] text-white flex items-center justify-center h-full'>Min</span>
                               </div>
                               <input type="text" className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />
@@ -122,7 +104,7 @@ function PackagesList() {
                           <div className="items">
                             <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Price</label>
                             <div className="relative rounded-[8px] overflow-hidden">
-                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px] h-[20px]'>
+                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px]'>
                                 <span className='text-[12px] text-white flex items-center justify-center h-full'>Max</span>
                               </div>
                               <input type="text" className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />

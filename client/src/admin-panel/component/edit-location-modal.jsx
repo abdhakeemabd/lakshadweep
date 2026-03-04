@@ -35,7 +35,7 @@ function EditLocationModal() {
   return (
     <>
 
-      <dialog ref={dialogRef} id="edit-location-modal" aria-labelledby="edit-location-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
+      <dialog ref={dialogRef} id="edit-location-modal" aria-labelledby="edit-location-modal-title" className="fixed inset-0 z-100 w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 max-w-[390px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form>

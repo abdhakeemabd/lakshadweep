@@ -57,7 +57,6 @@ function AddBannerModal() {
 
   return (
     <>
-
       <dialog ref={dialogRef} id="add-banner-modal" aria-labelledby="add-banner-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50  py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 max-w-[490px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
@@ -72,50 +71,25 @@ function AddBannerModal() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-5">
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Title' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Title  <span className="text-red-500">*</span>  </label>
-                    <input 
-                      className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" 
-                      placeholder='Enter Banner Title' 
-                      value={formData.title}
-                      onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      required 
-                    />
+                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" placeholder='Enter Banner Title' value={formData.title}onChange={(e) => setFormData({...formData, title: e.target.value})}required />
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Destination' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Destination </label>
-                    <input 
-                      className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" 
-                      placeholder='Enter Destination' 
-                      value={formData.destination}
-                      onChange={(e) => setFormData({...formData, destination: e.target.value})}
-                    />
+                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" placeholder='Enter Destination' value={formData.destination}onChange={(e) => setFormData({...formData, destination: e.target.value})}/>
                   </div>
                   <div className="col-span-12 mb-2 text-[#3D3D3D] font-poppins font-medium text-[13px]">
                     <label htmlFor='Type' className="block mb-3">Select Type </label>
-                    <SearchableSelect
-                      options={["Home Page", "Activity", "Destination"]}
-                      value={formData.type}
-                      onChange={(val) => handleSelectChange('type', val)}
-                      placeholder="Select Type"
-                      searchPlaceholder="Search type..."
-                    />
+                    <SearchableSelect  options={["Home Page", "Activity", "Destination"]}  value={formData.type}  onChange={(val) => handleSelectChange('type', val)}  placeholder="Select Type"  searchPlaceholder="Search type..."/>
                   </div>
                   <div className="col-span-12 mb-2 text-[#3D3D3D] font-poppins font-medium text-[13px]">
                     <label htmlFor='Activity' className="block mb-3">Select Activity </label>
-                    <SearchableSelect
-                      options={["Bike Rentals", "Scuba Diving", "Kayaking"]}
-                      value={formData.activity}
-                      onChange={(val) => handleSelectChange('activity', val)}
-                      placeholder="Select Activity"
-                      searchPlaceholder="Search activity..."
-                    />
+                    <SearchableSelect  options={["Bike Rentals", "Scuba Diving", "Kayaking"]}  value={formData.activity}  onChange={(val) => handleSelectChange('activity', val)}  placeholder="Select Activity"  searchPlaceholder="Search activity..."/>
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='banner' className="text-[#3D3D3D] font-poppins font-medium text-[14px] block mb-3">Upload Image <span className="text-red-500">*</span></label>
                     <div className="flex items-center gap-4">
                       <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" id="banner-upload"/>
-                      <button type="button" onClick={() => fileInputRef.current?.click()} className="bg-[#393838] text-white px-6 py-3 rounded-[10px] min-w-[155px] text-[13px] font-medium cursor-pointer transition-colors hover:bg-[#2A2A2A] border-none">
-                        Choose File
-                      </button>
+                      <button type="button" onClick={() => fileInputRef.current?.click()} className="bg-[#393838] text-white px-6 py-3 rounded-[10px] min-w-[155px] text-[13px] font-medium cursor-pointer transition-colors hover:bg-[#2A2A2A] border-none">Choose File</button>
                       <span className="text-[#989898] text-[12px] font-poppins">{fileName}</span>
                     </div>
                     <div className=' mt-3 text-[#8C8C8C] font-poppins text-normal text-[10px]'>(The image size should be 1440px X 505px & less than 2 mb)</div>

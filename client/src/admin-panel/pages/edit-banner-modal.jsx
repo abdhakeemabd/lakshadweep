@@ -72,47 +72,24 @@ function EddBannerModal() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-5">
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Title' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Title  <span className="text-red-500">*</span>  </label>
-                    <input 
-                      className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" 
-                      placeholder='Enter Banner Title' 
-                      value={formData.title}
-                      onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      required 
-                    />
+                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" placeholder='Enter Banner Title' value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Destination' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Destination </label>
-                    <input 
-                      className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" 
-                      placeholder='Enter Destination' 
-                      value={formData.destination}
-                      onChange={(e) => setFormData({...formData, destination: e.target.value})}
-                    />
+                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" placeholder='Enter Destination' value={formData.destination} onChange={(e) => setFormData({ ...formData, destination: e.target.value })} />
                   </div>
                   <div className="col-span-12 mb-2 text-[#3D3D3D] font-poppins font-medium text-[13px]">
                     <label htmlFor='Type' className="block mb-3">Select Type </label>
-                    <SearchableSelect
-                      options={["Home Page", "Activity", "Destination"]}
-                      value={formData.type}
-                      onChange={(val) => handleSelectChange('type', val)}
-                      placeholder="Select Type"
-                      searchPlaceholder="Search type..."
-                    />
+                    <SearchableSelect options={["Home Page", "Activity", "Destination"]} value={formData.type} onChange={(val) => handleSelectChange('type', val)} placeholder="Select Type" searchPlaceholder="Search type..." />
                   </div>
                   <div className="col-span-12 mb-2 text-[#3D3D3D] font-poppins font-medium text-[13px]">
                     <label htmlFor='Activity' className="block mb-3">Select Activity </label>
-                    <SearchableSelect
-                      options={["Bike Rentals", "Scuba Diving", "Kayaking"]}
-                      value={formData.activity}
-                      onChange={(val) => handleSelectChange('activity', val)}
-                      placeholder="Select Activity"
-                      searchPlaceholder="Search activity..."
-                    />
+                    <SearchableSelect options={["Bike Rentals", "Scuba Diving", "Kayaking"]} value={formData.activity} onChange={(val) => handleSelectChange('activity', val)} placeholder="Select Activity" searchPlaceholder="Search activity..." />
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='banner' className="text-[#3D3D3D] font-poppins font-medium text-[14px] block mb-3">Upload Image <span className="text-red-500">*</span></label>
                     <div className="flex items-center gap-4">
-                      <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" id="banner-upload"/>
+                      <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" id="banner-upload" />
                       <button type="button" onClick={() => fileInputRef.current?.click()} className="bg-[#393838] text-white px-6 py-3 rounded-[10px] min-w-[155px] text-[13px] font-medium cursor-pointer transition-colors hover:bg-[#2A2A2A] border-none">
                         Choose File
                       </button>

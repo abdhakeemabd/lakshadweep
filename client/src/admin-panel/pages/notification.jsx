@@ -5,7 +5,7 @@ import NotificationModal from '../component/notification-modal';
 function Notification() {
   return (
     <>
-      <div className="card relative flex flex-col break-words bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
+      <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
           <div>
             <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Messages Logs</h1>
@@ -32,10 +32,10 @@ function Notification() {
                   <td className="px-4 py-2 text-[12px] text-[#383838]">Alexander Sharington</td>
                   <td className="px-4 py-2 text-[12px] text-[#383838]">Summer Package</td>
                   <td className="px-4 py-2 text-[12px] text-[#383838]">
-                    <div className="max-w-[400px] line-clamp-2">Hello Jhon Abraham! 👋Your booking is confirmed! Thank you for choosing Go Rogue. We are excited to take you on an adventure......</div>
+                    <div className="max-w-[400px] line-clamp-2">Hello Jhon Abraham! Your booking is confirmed! Thank you for choosing Go Rogue. We are excited to take you on an adventure......</div>
                   </td>
                   <td className="px-4 py-2 text-[12px] text-[#383838]">
-                    <button command="show-modal" commandfor="notification-modal" className="text-[#007BFF] text-nowrap text-[14px] font-[500]">View</button>
+                    <button command="show-modal" commandfor="notification-modal" className="text-[#007BFF] text-nowrap text-[14px] font-medium">View</button>
                   </td>
                 </tr>
               </tbody>
