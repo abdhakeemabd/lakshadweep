@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AddSlotIcon from "../../../src/assets/admin-panel-icon/icons/add_icon.svg";
 import DeleteIcon from "../../../src/assets/admin-panel-icon/icons/delete-icon.svg";
 
-function CreateDefaultSlot() {
+function CreateCommonSlot() {
   const [slots, setSlots] = useState([
     { id: Date.now(), name: '', start_time: '', end_time: '', touched: [] }
   ]);
@@ -46,7 +46,7 @@ function CreateDefaultSlot() {
     return endMins > startMins;
   };
   React.useEffect(() => {
-    const dialog = document.getElementById('drawer_default_slot');
+    const dialog = document.getElementById('drawer_common_slot');
     if (dialog) {
       const handleClose = () => {
         setSlots([{ id: Date.now(), name: '', start_time: '', end_time: '', touched: [] }]);
@@ -97,10 +97,10 @@ function CreateDefaultSlot() {
   };
   return (
     <>
-      <dialog id="drawer_default_slot" aria-labelledby="drawer-title" className="offcanvas-drawer">
+      <dialog id="drawer_common_slot" aria-labelledby="drawer-title" className="offcanvas-drawer">
         <div className="offcanvas-panel flex flex-col bg-white py-6 shadow-xl">
           <div className="absolute z-10 top-2 right-2 flex">
-            <button type="button" onClick={() => document.getElementById('drawer_default_slot').close()} className="relative rounded-md cursor-pointer text-gray-400 z-10 hover:text-gray-700 hover:rotate-90 transition-all duration-500 ease-in-out">
+            <button type="button" onClick={() => document.getElementById('drawer_common_slot').close()} className="relative rounded-md cursor-pointer text-gray-400 z-10 hover:text-gray-700 hover:rotate-90 transition-all duration-500 ease-in-out">
               <span className="sr-only">Close panel</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-6">
                 <path d="M6 18 18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
@@ -162,7 +162,6 @@ function CreateDefaultSlot() {
       </dialog>
     </>
   )
-
 }
 
-export default CreateDefaultSlot
+export default CreateCommonSlot

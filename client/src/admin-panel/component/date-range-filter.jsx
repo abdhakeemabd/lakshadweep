@@ -124,29 +124,12 @@ const DateRangeFilter = ({ onRangeChange, initialRange = [null, null] }) => {
 
   return (
     <div className="flex items-center gap-4">
-      <DatePicker
-        selectsRange={true}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={(update) => setDateRange(update)}
-        customInput={<CustomDateInput />}
-        calendarContainer={MyContainer}
-        shouldCloseOnSelect={false}
-        monthsShown={2}
-        popperPlacement="bottom-end"
-        dateFormat="dd/MM/yyyy"
-        open={isOpen}
-        onClickOutside={() => setIsOpen(false)}
-        onInputClick={() => setIsOpen(true)}
-      />
+      <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={(update) => setDateRange(update)} customInput={<CustomDateInput />} calendarContainer={MyContainer} shouldCloseOnSelect={false} monthsShown={2} popperPlacement="bottom-end" dateFormat="dd/MM/yyyy" open={isOpen} onClickOutside={() => setIsOpen(false)} onInputClick={() => setIsOpen(true)} />
       {startDate && (
-        <button
-          onClick={() => {
-            handleCancel();
-            setShowCalendar(false);
-          }}
-          className="text-[12px] text-[#8c8c8c] hover:text-[#FF5C1A] font-medium transition-colors"
-        >
+        <button onClick={() => {
+          handleCancel();
+          setShowCalendar(false);
+        }} className="text-[12px] text-[#8c8c8c] hover:text-[#FF5C1A] font-medium transition-colors">
           Clear Filter
         </button>
       )}

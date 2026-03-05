@@ -11,11 +11,17 @@ function LoginModal() {
   const [step, setStep] = useState('phone')
   const [otp, setOtp] = useState(['', '', '', '', '', ''])
 
+  const [isClosing, setIsClosing] = useState(false)
+
   const handleCloseModal = () => {
-    dialogRef.current?.close()
-    setStep('phone')
-    setPhone('')
-    setOtp(['', '', '', '', '', ''])
+    setIsClosing(true)
+    setTimeout(() => {
+      dialogRef.current?.close()
+      setIsClosing(false)
+      setStep('phone')
+      setPhone('')
+      setOtp(['', '', '', '', '', ''])
+    }, 400)
   }
 
   const handleSendOtp = (e) => {
@@ -41,7 +47,24 @@ function LoginModal() {
   }
   const handleVerifyOtp = (e) => {
     e.preventDefault()
-    console.log('Verifying OTP:', otp.join(''))
+    const enteredOtp = otp.join('')
+
+    if (enteredOtp.length === 6) {
+      sessionStorage.setItem('sessionId', 'user_' + Date.now())
+      sessionStorage.setItem('phoneNumber', phone)
+      window.dispatchEvent(new Event('authChange'))
+
+      const isRegistered = phone.endsWith('0');
+
+      if (isRegistered) {
+        handleCloseModal()
+      } else {
+        handleCloseModal()
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('openRegister', { detail: { phone } }))
+        }, 100)
+      }
+    }
   }
   useEffect(() => {
     if (step === 'otp') {
@@ -66,30 +89,19 @@ function LoginModal() {
   return (
     <>
       <style>{`
-        @keyframes modalPopUp {
-          0% { opacity: 0; transform: scale(0.8) translateY(20px); }
-          100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        dialog[open] .modal-content { animation: modalPopUp 0.3s ease-out forwards; }
-        .step-transition { animation: fadeIn 0.4s ease-out; }
         .react-tel-input .country-list .search-emoji { display: none; }
-        .react-tel-input .country-list .search-box{width:100%}
+        .react-tel-input .country-list .search-box { width: 100% }
       `}</style>
 
-      <dialog 
-        ref={dialogRef} 
-        id="dialog" 
-        aria-labelledby="dialog-title" 
-        className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm"
-      >
+      <dialog
+        ref={dialogRef}
+        id="dialog"
+        aria-labelledby="dialog-title"
+        className={`premium-modal fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 ${isClosing ? 'closing' : ''}`}>
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
-          <div className="modal-content relative w-full max-w-5xl transform overflow-hidden rounded-4xl bg-white shadow-2xl">
+          <div className={`modal-content relative w-full max-w-5xl transform overflow-hidden rounded-4xl bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <div className="modal-header flex justify-end">
-              <button className="absolute top-6 right-6 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none" onClick={handleCloseModal} aria-label="Close">
+              <button type="button" className="absolute top-6 right-6 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none" onClick={handleCloseModal} aria-label="Close">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
               </button>
             </div>
@@ -109,21 +121,9 @@ function LoginModal() {
                           <label htmlFor="phone" className="text-black text-[17.5px] font-medium">Mobile Number</label>
                           <div className="relative mt-3">
                             <PhoneInput country={'in'} value={phone} onChange={(val, country) => {
-                                setPhone(val)
-                                setDialCode(country.dialCode)
-                              }}
-                              enableSearch={true}
-                              searchPlaceholder="Search country..."
-                              placeholder="Enter your mobile number"
-                              disableCountryCode={true}
-                              disableCountryGuess={true}
-                              inputProps={{ name: 'phone', required: true, autoFocus: false }}
-                              containerClass="!w-full"
-                              inputClass="!w-full !h-12 !pl-[95px] !pr-4 !py-3 !border !border-gray-300 !rounded-lg !text-base focus:!outline-none focus:!border-[#FF5C1A] !transition-all"
-                              buttonClass="!bg-transparent !border-none !rounded-l-lg hover:!bg-[#FFF8F1]"
-                              dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-300"
-                              searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200"
-                            />
+                              setPhone(val)
+                              setDialCode(country.dialCode)
+                            }} enableSearch={true} searchPlaceholder="Search country..." placeholder="Enter your mobile number" disableCountryCode={true} disableCountryGuess={true} inputProps={{ name: 'phone', required: true, autoFocus: false }} containerClass="!w-full" inputClass="!w-full !h-12 !pl-[95px] !pr-4 !py-3 !border !border-gray-300 !rounded-lg !text-base focus:!outline-none focus:!border-[#FF5C1A] !transition-all" buttonClass="!bg-transparent !border-none !rounded-l-lg hover:!bg-[#FFF8F1]" dropdownClass="!w-80 !max-h-[200px] !rounded-lg !shadow-xl !border !border-gray-300" searchClass="!p-3 !sticky !top-0 !bg-white !border-b !border-gray-200" />
                             <div className="absolute left-[45px] top-1/2 -translate-y-1/2 flex items-center pointer-events-none select-none">
                               <span className="text-gray-900 font-medium">+{dialCode}</span>
                               <div className="w-[1px] h-6 bg-gray-300 mx-3"></div>
@@ -141,17 +141,7 @@ function LoginModal() {
                       <form className="space-y-6" onSubmit={handleVerifyOtp}>
                         <div className="flex justify-between gap-2">
                           {otp.map((digit, index) => (
-                            <input 
-                              key={index} 
-                              id={`otp-${index}`} 
-                              type="text" 
-                              maxLength={1} 
-                              value={digit} 
-                              onChange={(e) => handleOtpChange(index, e.target.value)} 
-                              onKeyDown={(e) => handleKeyDown(index, e)} 
-                              className="w-14 h-14 text-center text-base font-medium rounded-[14.9px] bg-[#FFF8F1] text-[#FF5C1A] outline-none border border-transparent focus:border-[#FF5C1A] focus:bg-[#FEF1E4] focus:-translate-y-0.5 transition-all duration-300" 
-                              onFocus={(e) => e.target.select()} 
-                            />
+                            <input key={index} id={`otp-${index}`} type="text" maxLength={1} value={digit} onChange={(e) => handleOtpChange(index, e.target.value)} onKeyDown={(e) => handleKeyDown(index, e)} className="w-14 h-14 text-center text-base font-medium rounded-[14.9px] bg-[#FFF8F1] text-[#FF5C1A] outline-none border border-transparent focus:border-[#FF5C1A] focus:bg-[#FEF1E4] focus:-translate-y-0.5 transition-all duration-300" onFocus={(e) => e.target.select()} />
                           ))}
                         </div>
                         <div className="text-base text-gray-500 mb-10 cursor-pointer">Don't receive the OTP? <button type="button" className="text-gray-900 font-bold hover:underline">Resend OTP</button></div>

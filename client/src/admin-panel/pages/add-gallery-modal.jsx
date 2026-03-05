@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
+import SearchableSelect from '../../component/searchable-select'
 
 function AddGalleryModal() {
   const dialogRef = useRef(null)
   const [fileName, setFileName] = useState("No file chosen")
   const [isClosing, setIsClosing] = useState(false)
+  const [formData, setFormData] = useState({
+    location: ''
+  })
   const fileInputRef = useRef(null)
+
+  const handleSelectChange = (id, value) => {
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]
@@ -46,29 +54,8 @@ function AddGalleryModal() {
 
   return (
     <>
-      <style>{`
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(-30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideDown {
-          from { opacity: 1; transform: translateY(0); }
-          to { opacity: 0; transform: translateY(-30px); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        dialog[open] { animation: fadeIn 0.3s ease-out; }
-        dialog[open] .modal-content { animation: slideUp 0.5s ease-out forwards; }
-        dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
-      `}</style>
 
-      <dialog ref={dialogRef} id="add-gallery-modal" aria-labelledby="add-gallery-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
+      <dialog ref={dialogRef} id="add-gallery-modal" aria-labelledby="add-gallery-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50  py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 max-w-[420px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form>
@@ -82,10 +69,9 @@ function AddGalleryModal() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-5">
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Title' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Select Location  <span className="text-red-500">*</span>  </label>
-                    <select className="w-full text-[12px] mt-3 py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none" name="" id="">
-                      <option className="text-[12px]" value="">Destination</option>
-                      <option className="text-[12px]" value="">111</option>
-                    </select>
+                    <div className='mt-3'>
+                      <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={formData.location} onChange={(val) => handleSelectChange('location', val)} placeholder="Select Location" searchPlaceholder="Search location..." />
+                    </div>
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='banner' className="text-[#3D3D3D] font-poppins font-medium text-[14px] block mb-3">Upload Image <span className="text-red-500">*</span></label>

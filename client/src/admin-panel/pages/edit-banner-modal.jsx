@@ -1,10 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
+import SearchableSelect from '../../component/searchable-select'
 
 function EddBannerModal() {
   const dialogRef = useRef(null)
   const [fileName, setFileName] = useState("No file chosen")
   const [isClosing, setIsClosing] = useState(false)
+  const [formData, setFormData] = useState({
+    title: '',
+    destination: '',
+    type: '',
+    activity: ''
+  })
   const fileInputRef = useRef(null)
+
+  const handleSelectChange = (id, value) => {
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]
@@ -46,29 +57,8 @@ function EddBannerModal() {
 
   return (
     <>
-      <style>{`
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(-30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideDown {
-          from { opacity: 1; transform: translateY(0); }
-          to { opacity: 0; transform: translateY(-30px); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        dialog[open] { animation: fadeIn 0.3s ease-out; }
-        dialog[open] .modal-content { animation: slideUp 0.5s ease-out forwards; }
-        dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
-      `}</style>
 
-      <dialog ref={dialogRef} id="edit-banner-modal" aria-labelledby="edit-banner-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
+      <dialog ref={dialogRef} id="edit-banner-modal" aria-labelledby="edit-banner-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 max-w-[490px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form>
@@ -82,23 +72,24 @@ function EddBannerModal() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-5">
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Title' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Title  <span className="text-red-500">*</span>  </label>
-                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full" placeholder='Enter Banner Title' required />
+                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" placeholder='Enter Banner Title' value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Destination' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Destination </label>
-                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full" placeholder='Enter Banner Title' />
+                    <input className="text-[#3D3D3D] bg-[#F5F5F5] py-2 px-3 rounded-[8px] font-poppins font-semibold text-[13px] mt-3 w-full focus:outline-none" placeholder='Enter Destination' value={formData.destination} onChange={(e) => setFormData({ ...formData, destination: e.target.value })} />
                   </div>
-                  <div className="col-span-12 mb-2">
-                    <label htmlFor='Activity' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Select Activity </label>
-                    <select className="w-full text-[12px] mt-3 py-2 pl-4 pr-10 bg-[#F4F4F4] rounded-[10px] min-w-[113px] focus:border-0 focus:outline-none" name="" id="">
-                      <option className="text-[12px]" value="">Destination</option>
-                      <option className="text-[12px]" value="">111</option>
-                    </select>
+                  <div className="col-span-12 mb-2 text-[#3D3D3D] font-poppins font-medium text-[13px]">
+                    <label htmlFor='Type' className="block mb-3">Select Type </label>
+                    <SearchableSelect options={["Home Page", "Activity", "Destination"]} value={formData.type} onChange={(val) => handleSelectChange('type', val)} placeholder="Select Type" searchPlaceholder="Search type..." />
+                  </div>
+                  <div className="col-span-12 mb-2 text-[#3D3D3D] font-poppins font-medium text-[13px]">
+                    <label htmlFor='Activity' className="block mb-3">Select Activity </label>
+                    <SearchableSelect options={["Bike Rentals", "Scuba Diving", "Kayaking"]} value={formData.activity} onChange={(val) => handleSelectChange('activity', val)} placeholder="Select Activity" searchPlaceholder="Search activity..." />
                   </div>
                   <div className="col-span-12 mb-2">
                     <label htmlFor='banner' className="text-[#3D3D3D] font-poppins font-medium text-[14px] block mb-3">Upload Image <span className="text-red-500">*</span></label>
                     <div className="flex items-center gap-4">
-                      <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" id="banner-upload"/>
+                      <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" id="banner-upload" />
                       <button type="button" onClick={() => fileInputRef.current?.click()} className="bg-[#393838] text-white px-6 py-3 rounded-[10px] min-w-[155px] text-[13px] font-medium cursor-pointer transition-colors hover:bg-[#2A2A2A] border-none">
                         Choose File
                       </button>

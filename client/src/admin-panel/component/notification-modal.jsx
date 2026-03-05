@@ -9,7 +9,7 @@ function NotificationModal() {
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
-    }, 300) // Match animation duration
+    }, 300)
   }
 
   useEffect(() => {
@@ -28,45 +28,11 @@ function NotificationModal() {
 
   return (
     <>
-      <style>{`
-        @keyframes slideUp {
-          from { 
-            opacity: 0; 
-            transform: translateY(-30px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        @keyframes slideDown {
-          from { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-          to { 
-            opacity: 0; 
-            transform: translateY(-30px); 
-          }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        dialog[open] { animation: fadeIn 0.3s ease-out; }
-        dialog[open] .modal-content { animation: slideUp 0.5s ease-out forwards; }
-        dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
-      `}</style>
-
-      <dialog ref={dialogRef} id="notification-modal" aria-labelledby="notification-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
+      <dialog ref={dialogRef} id="notification-modal" aria-labelledby="notification-modal-title" className="fixed inset-0 z-100 w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full max-w-[800px] transform overflow-hidden rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <div className="modal-header flex justify-end">
-              <button className="absolute top-3 right-3 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none" onClick={handleCloseModal} aria-label="Close">
+              <button type="button" className="absolute top-1 right-1 z-50 p-2 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none" onClick={handleCloseModal} aria-label="Close">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
               </button>
             </div>

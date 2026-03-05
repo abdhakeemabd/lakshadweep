@@ -28,7 +28,7 @@ function BookingConformModal({ booking }) {
     <button
       className='bg-[#007BFF] px-4 py-2.5 rounded-[12px] text-white text-[14px] font-poppins font-medium leading-full tracking-normal flex items-center gap-2 hover:bg-[#0069D9] transition-all'
       onClick={(e) => {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault(); 
         console.log("Reschedule clicked");
         onClick(e);
       }}
@@ -43,7 +43,7 @@ function BookingConformModal({ booking }) {
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
-    }, 300) // Match animation duration
+    }, 300)
   }
 
   useEffect(() => {
@@ -94,41 +94,8 @@ function BookingConformModal({ booking }) {
 
   return (
     <>
-      <style>{`
-        @keyframes slideUp {
-          from { 
-            opacity: 0; 
-            transform: translateY(-30px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        @keyframes slideDown {
-          from { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-          to { 
-            opacity: 0; 
-            transform: translateY(-30px); 
-          }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        dialog[open] { animation: fadeIn 0.3s ease-out; }
-        dialog[open] .modal-content { animation: slideUp 0.5s ease-out forwards; }
-        dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
-      `}</style>
 
-      <dialog ref={dialogRef} id="booking-conform-modal" aria-labelledby="booking-conform-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
+      <dialog ref={dialogRef} id="booking-conform-modal" aria-labelledby="booking-conform-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 px-6  max-w-[853px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form action="">

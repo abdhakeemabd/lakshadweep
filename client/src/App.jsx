@@ -44,10 +44,16 @@ import Location from './admin-panel/pages/location';
 import HomePageBanner from './admin-panel/pages/home-page-banner';
 import AdminGallery from './admin-panel/pages/admin-gallery';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import AdminLayout from './admin-panel/component/admin-layout';
+import UpdatePackage from './admin-panel/pages/package-edit';
+import CartPage from './pages/cart';
+import ProfileEdit from './pages/profile-edit';
+
 function App() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
   const isLoginPath = location.pathname === '/user/login';
+  const isProfilePage = ['/profile', '/upcoming-bookings', '/booking-history', '/saved-experiences', '/cart', '/profile-edit'].includes(location.pathname);
 
   useEffect(() => {
     AOS.init({
@@ -69,7 +75,11 @@ function App() {
     <>
       <ScrollToTop />
       <ScrollTopButton />
-      {!isAdminPath && !isLoginPath && <Header />}
+      {!isAdminPath && !isLoginPath && (
+        <div className={isProfilePage ? "hidden lg:block" : ""}>
+          <Header />
+        </div>
+      )}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/gallery' element={<Gallery />} />
@@ -77,10 +87,13 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/faq' element={<Faq />} />
         <Route path='/packages' element={<Packages />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile hubMode={true} />} />
+        <Route path='/upcoming-bookings' element={<Profile />} />
         <Route path='/booking-history' element={<BookingHistory />} />
         <Route path='/saved-experiences' element={<SavedExperiences />} />
-        <Route path='/admin' element={<ProtectedRoute />}>
+        <Route path='/cart' element={<CartPage />} />
+        <Route path='/profile-edit' element={<ProfileEdit />} />
+        <Route path='/admin' element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='vendor/list' element={<VendorList />} />
@@ -89,13 +102,14 @@ function App() {
           <Route path='vendor/add' element={<AddVendor />} />
           <Route path='packages-list' element={<PackagesList />} />
           <Route path='packages/add' element={<CreatePackage />} />
+          <Route path='packages/edit' element={<UpdatePackage />} />
           <Route path='packages/view' element={<PackageView />} />
           <Route path='all-slots' element={<AllSlot />} />
           <Route path='day-schedule' element={<DayShadule />} />
           <Route path='bookings-list' element={<BookingList />} />
           <Route path='customers-list' element={<VendorList />} />
           <Route path='all-customer' element={<AllCustomer />} />
-          <Route path='customer-view' element={<CustomerView />} />
+          <Route path='customer-view/:id' element={<CustomerView />} />
           <Route path='users' element={<UserList />} />
           <Route path='enquiries' element={<Enquiries />} />
           <Route path='notifications-list' element={<Notification />} />
@@ -107,6 +121,7 @@ function App() {
           <Route path='setting/content-gallery' element={<AdminGallery />} />
           <Route path='payments-list' element={<Payment />} />
         </Route>
+
 
         <Route path='/user/login' element={<AdminLogin />} />
 

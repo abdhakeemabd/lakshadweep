@@ -39,41 +39,8 @@ function BookingCancelModal({ booking }) {
 
   return (
     <>
-      <style>{`
-        @keyframes slideUp {
-          from { 
-            opacity: 0; 
-            transform: translateY(-30px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        @keyframes slideDown {
-          from { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-          to { 
-            opacity: 0; 
-            transform: translateY(-30px); 
-          }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        dialog[open] { animation: fadeIn 0.3s ease-out; }
-        dialog[open] .modal-content { animation: slideUp 0.5s ease-out forwards; }
-        dialog[open] .modal-content.closing { animation: slideDown 0.5s ease-out forwards; }
-      `}</style>
 
-      <dialog ref={dialogRef} id="booking-cancel-modal" aria-labelledby="booking-cancel-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 backdrop:backdrop-blur-sm py-3 md:py-7">
+      <dialog ref={dialogRef} id="booking-cancel-modal" aria-labelledby="booking-cancel-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 px-6  max-w-[853px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
             <form action="">
@@ -190,7 +157,7 @@ function BookingCancelModal({ booking }) {
                                       <Tooltip.Trigger asChild>
                                         <img src={TooltipIcon} alt="tooltip" className='inline-block ml-2 cursor-pointer' />
                                       </Tooltip.Trigger>
-                                      <Tooltip.Content className="z-[1000] rounded-[6px] bg-[#1A1A1A] px-3 py-2 text-[12px] text-white shadow-xl max-w-[200px] text-center" sideOffset={5}>
+                                      <Tooltip.Content className="z-100 rounded-[6px] bg-[#1A1A1A] px-3 py-2 text-[12px] text-white shadow-xl max-w-[200px] text-center" sideOffset={5}>
                                         The time slot originally requested by the customer
                                         <Tooltip.Arrow className="fill-[#1A1A1A]" />
                                       </Tooltip.Content>
