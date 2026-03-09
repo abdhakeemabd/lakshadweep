@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import SearchableSelect from '../../component/searchable-select'
 
-function AddGalleryModal() {
+function AddGalleryModal({ onSuccess }) {
   const dialogRef = useRef(null)
   const [fileName, setFileName] = useState("No file chosen")
   const [isClosing, setIsClosing] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     location: ''
   })
+  const [locations, setLocations] = useState([]) // Stores full objects [{id, name}, ...]
   const fileInputRef = useRef(null)
 
   const handleSelectChange = (id, value) => {
@@ -23,14 +25,45 @@ function AddGalleryModal() {
     }
   }
 
+  const fetchLocations = async () => {
+    try {
+      const response = await fetch('/setting-api/settings/gallery/', {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data.locations && Array.isArray(data.locations)) {
+          setLocations(data.locations);
+        } else if (Array.isArray(data)) {
+           setLocations(data);
+        } else {
+           const arrays = Object.values(data).filter(val => Array.isArray(val));
+           if (arrays.length > 0) setLocations(arrays[0]);
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching locations:', err);
+    }
+  };
+
   const handleCloseModal = () => {
     setIsClosing(true)
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
       setFileName("No file chosen")
+      setFormData({ location: '' })
     }, 300)
   }
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -52,13 +85,72 @@ function AddGalleryModal() {
     return () => document.removeEventListener('click', handleGlobalClick)
   }, [])
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.location || !fileInputRef.current?.files[0]) {
+      alert("Please fill all required fields and choose a file");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const data = new FormData();
+      
+      // Find the ID for the selected location name
+      const selectedLoc = locations.find(l => (l.name || l.location_name) === formData.location);
+      const locationValue = selectedLoc ? selectedLoc.id : formData.location;
+      
+      data.append('location', locationValue);
+      data.append('image', fileInputRef.current.files[0]);
+
+      const response = await fetch('/setting-api/settings/gallery/', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'ngrok-skip-browser-warning': 'true',
+        },
+        body: data,
+      });
+
+      if (response.ok) {
+        handleCloseModal();
+        if (onSuccess) onSuccess();
+      } else {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const errData = await response.json();
+          let errorMsg = 'Invalid Data:';
+          const errors = errData.errors || errData.data?.errors || errData;
+          if (typeof errors === 'object' && !Array.isArray(errors)) {
+            Object.entries(errors).forEach(([field, msgs]) => {
+              if (field !== 'status' && field !== 'message') {
+                errorMsg += `\n• ${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`;
+              }
+            });
+          } else {
+            errorMsg = errData.message || 'Failed to add gallery image';
+          }
+          throw new Error(errorMsg);
+        } else {
+          const text = await response.text();
+          throw new Error('Server Error: ' + (text.substring(0, 50) || 'Unknown error'));
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
 
       <dialog ref={dialogRef} id="add-gallery-modal" aria-labelledby="add-gallery-modal-title" className="fixed inset-0 z-[100] w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50  py-3 md:py-7">
         <div className="flex min-h-screen min-w-full items-center justify-center p-4">
           <div className={`modal-content relative w-full py-4 max-w-[420px] transform rounded-[15px] bg-white shadow-2xl ${isClosing ? 'closing' : ''}`}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="modal-header border-b border-[#DEDCDC] px-6 py-3 flex justify-between">
                 <h1 className="font-poppins font-bold text-[14px] md:text-[16px] leading-[100%] text-[#2A2A2A]">Add Image</h1>
                 <button type="button" onClick={handleCloseModal} className="absolute top-1 right-1 z-50 p-1 rounded-full text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 cursor-pointer hover:rotate-90 flex items-center justify-center border-none">
@@ -70,7 +162,13 @@ function AddGalleryModal() {
                   <div className="col-span-12 mb-2">
                     <label htmlFor='Title' className="text-[#3D3D3D] font-poppins font-medium text-[13px] ">Select Location  <span className="text-red-500">*</span>  </label>
                     <div className='mt-3'>
-                      <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={formData.location} onChange={(val) => handleSelectChange('location', val)} placeholder="Select Location" searchPlaceholder="Search location..." />
+                      <SearchableSelect 
+                        options={locations.map(loc => loc.name || loc.location_name).filter(Boolean)} 
+                        value={formData.location} 
+                        onChange={(val) => handleSelectChange('location', val)} 
+                        placeholder="Select Location" 
+                        searchPlaceholder="Search location..." 
+                      />
                     </div>
                   </div>
                   <div className="col-span-12 mb-2">
@@ -84,7 +182,9 @@ function AddGalleryModal() {
                     </div>
                   </div>
                   <div className="col-span-12">
-                    <button className='w-full bg-[#007BFF] text-white text-[16px] font-semibold py-2 px-3 rounded-[8px]'>Save </button>
+                    <button disabled={loading} type="submit" className='w-full bg-[#007BFF] text-white text-[16px] font-semibold py-2 px-3 rounded-[8px] flex justify-center items-center'>
+                      {loading ? <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div> : 'Save'}
+                    </button>
                   </div>
                 </div>
               </div>

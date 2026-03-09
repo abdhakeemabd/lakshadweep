@@ -5,7 +5,7 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
-import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
+import { showDeleteAlert, showDeleteSuccess, showDeleteError, showActivateAlert, showActivateSuccess, showDeactivateAlert, showDeactivateSuccess, showError } from '../component/swal-delete';
 import SearchableSelect from '../../component/searchable-select';
 
 function PackagesList() {
@@ -13,6 +13,61 @@ function PackagesList() {
   const [filterCategory, setFilterCategory] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
   const [filterVendor, setFilterVendor] = useState('');
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchPackages = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/package-api/package/packages/', {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Accept': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch packages');
+      }
+
+      const data = await response.json();
+      let packagesList = [];
+      if (Array.isArray(data)) {
+        packagesList = data;
+      } else if (data.packages && Array.isArray(data.packages)) {
+        packagesList = data.packages;
+      } else if (data.results && Array.isArray(data.results)) {
+        packagesList = data.results;
+      } else if (data.data) {
+        if (Array.isArray(data.data)) {
+          packagesList = data.data;
+        } else if (data.data.packages && Array.isArray(data.data.packages)) {
+          packagesList = data.data.packages;
+        } else if (data.data.results && Array.isArray(data.data.results)) {
+          packagesList = data.data.results;
+        }
+      } else {
+        const arrays = Object.values(data).filter((val) => Array.isArray(val));
+        if (arrays.length > 0) {
+          packagesList = arrays[0];
+        }
+      }
+
+      setPackages(packagesList);
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching packages:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPackages();
+  }, []);
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -20,25 +75,73 @@ function PackagesList() {
     const confirmed = await showDeleteAlert(packageTitle || 'this package');
     if (confirmed) {
       try {
-        // TODO: Replace with your actual API endpoint
-        // const response = await fetch(`/api/packages/${packageId}`, {
-        //   method: 'DELETE',
-        //   headers: {
-        //     'Authorization': `Bearer ${token}`,
-        //   },
-        // });
-        // 
-        // if (!response.ok) {
-        //   throw new Error('Failed to delete package');
-        // }
+        const response = await fetch(`/package-api/package/package-delete/${packageId}/`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Accept': 'application/json',
+          },
+        });
+        
+        if (!response.ok && response.status !== 204) {
+          throw new Error('Failed to delete package');
+        }
 
-        // For now, just show success (remove this when you implement actual API call)
-        console.log('Deleting package:', packageId);
+        console.log('Deleted package:', packageId);
         showDeleteSuccess(packageTitle || 'Package');
+        fetchPackages();
       } catch (error) {
         console.error('Error deleting package:', error);
         showDeleteError(error.message || 'Failed to delete package');
       }
+    }
+  };
+
+  const handleActivate = async (packageId, packageTitle) => {
+    if (!packageId) return;
+    const confirmed = await showActivateAlert(packageTitle || 'this package');
+    if (!confirmed) return;
+    try {
+      const response = await fetch(`/package-api/package/package-activate/${packageId}/`, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Accept': 'application/json',
+        },
+      });
+      if (response.ok) {
+        showActivateSuccess(packageTitle || 'Package');
+        fetchPackages();
+      } else {
+        showError('Error', 'Failed to activate package');
+      }
+    } catch (err) {
+      console.error(err);
+      showError('Error', 'An unexpected error occurred while activating');
+    }
+  };
+
+  const handleDeactivate = async (packageId, packageTitle) => {
+    if (!packageId) return;
+    const confirmed = await showDeactivateAlert(packageTitle || 'this package');
+    if (!confirmed) return;
+    try {
+      const response = await fetch(`/package-api/package/${packageId}/deactivate/`, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Accept': 'application/json',
+        },
+      });
+      if (response.ok) {
+        showDeactivateSuccess(packageTitle || 'Package');
+        fetchPackages();
+      } else {
+        showError('Error', 'Failed to deactivate package');
+      }
+    } catch (err) {
+      console.error(err);
+      showError('Error', 'An unexpected error occurred while deactivating');
     }
   };
   useEffect(() => {
@@ -153,42 +256,91 @@ function PackagesList() {
                 </tr>
               </thead>
               <tbody>
-                <tr className='border-b border-[#dee2e6] last:border-0'>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">1</td>
-                  <td className="text-[#383838] text-[12px] leading-[100%] py-3">
-                    <div className="font-medium text-[13px] mb-1 text-[#2A2A2A]">Summer Package </div>
-                    <div className="text-[#751CC2] font-medium text-[9px]">#PKG0001</div>
-                  </td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">Watersports</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">Scuba Diving</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">Kavaratti</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">Alexander Sharington</td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">INR 35000</td>
-                  <td className="py-2 text-[12px] text-[#383838]">
-                    <span className='badge font-semibold text-[9px] bg-[#B5FFDF] text-[#1C9762] border border-[#1C9762] py-[5px] px-4 rounded-[22px]'>Active</span>
-                  </td>
-                  <td className="px-4 py-2 text-[12px] text-[#383838]">
-                    <div className="relative inline-block text-left dropdown-container">
-                      <button onClick={() => toggleDropdown(0)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none cursor-pointer ${openIndex === 0 ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
-                        <FiMoreVertical size={20} />
+                {loading ? (
+                  <tr>
+                    <td colSpan="9" className="text-center py-20">
+                      <div className="flex justify-center items-center">
+                        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#007BFF]"></div>
+                      </div>
+                      <p className="mt-4 text-gray-500 font-medium">Loading packages...</p>
+                    </td>
+                  </tr>
+                ) : error ? (
+                  <tr>
+                    <td colSpan="9" className="text-center py-20">
+                      <p className="text-red-500 font-semibold mb-2">Error: {error}</p>
+                      <button
+                        onClick={fetchPackages}
+                        className="px-6 py-2 bg-[#007BFF] text-white rounded-[8px] text-[12px] font-semibold hover:bg-[#0069d9] transition-colors cursor-pointer"
+                      >
+                        Try Again
                       </button>
-                      {openIndex === 0 && (
-                        <ul className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-[#E2E2E2] rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-100 overflow-hidden py-1">
-                          <li className='border-b border-[#e2e2e2]'>
-                            <Link to={`/admin/packages/view`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors cursor-pointer" onClick={() => setOpenIndex(null)}>View</Link>
-                          </li>
-                          <li className='border-b border-[#e2e2e2]'>
-                            <Link to={`/admin/packages/edit`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
-                          </li>
-                          <li>
-                            <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete('PKG0001', 'Summer Package'); setOpenIndex(null); }}> Delete
+                    </td>
+                  </tr>
+                ) : packages.length === 0 ? (
+                  <tr>
+                    <td colSpan="9" className="text-center py-20">
+                      <p className="text-[#8c8c8c] font-medium mb-2">No packages found.</p>
+                      <Link to="/admin/packages/add" className="text-[#007BFF] text-[14px] font-bold hover:underline cursor-pointer">Create your first package</Link>
+                    </td>
+                  </tr>
+                ) : (
+                  packages.map((pkg, index) => {
+                    const pId = pkg.id || pkg.pk || pkg.package_id;
+                    const pTitle = pkg.name || pkg.title || pkg.package_name || 'Package';
+                    const isActive = pkg.status === 'Active' || pkg.status?.toLowerCase() === 'active' || pkg.is_active;
+
+                    return (
+                      <tr key={pId || index} className='border-b border-[#dee2e6] last:border-0'>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{index + 1}</td>
+                        <td className="text-[#383838] text-[12px] leading-[100%] py-3">
+                          <div className="font-medium text-[13px] mb-1 text-[#2A2A2A]">{pTitle}</div>
+                          <div className="text-[#751CC2] font-medium text-[9px]">{pkg.package_code || pkg.code || `#PKG${String(pId || index + 1).padStart(4, '0')}`}</div>
+                        </td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.category_name || pkg.category || 'N/A'}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.activity_name || pkg.activity || 'N/A'}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.location_name || pkg.location || 'N/A'}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.vendor_name || pkg.vendor || 'N/A'}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">INR {pkg.price || pkg.base_price || 0}</td>
+                        <td className="py-2 text-[12px] text-[#383838]">
+                          <span className={`badge font-semibold text-[9px] py-[5px] px-4 rounded-[22px] ${isActive ? 'bg-[#B5FFDF] text-[#1C9762] border border-[#1C9762]' : 'bg-[#ffd6d6] text-[#dc3545] border border-[#dc3545]'}`}>
+                            {pkg.status || (isActive ? 'Active' : 'Inactive')}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">
+                          <div className="relative inline-block text-left dropdown-container">
+                            <button onClick={() => toggleDropdown(index)} className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none cursor-pointer ${openIndex === index ? 'bg-gray-100 text-[#007BFF]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}>
+                              <FiMoreVertical size={20} />
                             </button>
-                          </li>
-                        </ul>
-                      )}
-                    </div>
-                  </td>
-                </tr>
+                            {openIndex === index && (
+                              <ul className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-[#E2E2E2] rounded-[12px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] z-100 overflow-hidden py-1">
+                                <li className='border-b border-[#e2e2e2]'>
+                                  <Link to={`/admin/packages/view/${pId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors cursor-pointer" onClick={() => setOpenIndex(null)}>View</Link>
+                                </li>
+                                <li className='border-b border-[#e2e2e2]'>
+                                  <Link to={`/admin/packages/edit/${pId}`} className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => setOpenIndex(null)}>Edit</Link>
+                                </li>
+                                {isActive ? (
+                                  <li className='border-b border-[#e2e2e2]'>
+                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDeactivate(pId, pTitle); setOpenIndex(null); }}>Deactivate</button>
+                                  </li>
+                                ) : (
+                                  <li className='border-b border-[#e2e2e2]'>
+                                    <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#3d3d3d] transition-colors w-full text-left cursor-pointer" onClick={() => { handleActivate(pId, pTitle); setOpenIndex(null); }}>Activate</button>
+                                  </li>
+                                )}
+                                <li>
+                                  <button className="flex items-center gap-3 px-4 py-2.5 text-[11px] font-medium text-[#dc3545] hover:text-[#dc3545] transition-colors w-full text-left cursor-pointer" onClick={() => { handleDelete(pId, pTitle); setOpenIndex(null); }}> Delete
+                                  </button>
+                                </li>
+                              </ul>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
           </div>

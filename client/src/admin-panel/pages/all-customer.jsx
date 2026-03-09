@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import SearchableSelect from '../../component/searchable-select';
 
 const API_URL = '/customer-api/customer/customers/';
-const API_TOKEN = 'CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP';
+const API_TOKEN = '8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X';
 
 function AllCustomer() {
   const [customers, setCustomers] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-function NotificationModal() {
+function NotificationModal({ notification, onClose }) {
   const dialogRef = useRef(null)
   const [isClosing, setIsClosing] = useState(false)
 
@@ -9,8 +9,25 @@ function NotificationModal() {
     setTimeout(() => {
       dialogRef.current?.close()
       setIsClosing(false)
+      if (onClose) onClose();
     }, 300)
   }
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'General Enquiry';
+    const date = new Date(dateString);
+    if (isNaN(date)) return dateString;
+    const day = date.getDate();
+    const month = date.toLocaleString('en-GB', { month: 'long' });
+    const year = date.getFullYear();
+    const getOrdinal = (n) => {
+      const s = ["th", "st", "nd", "rd"],
+        v = n % 100;
+      return n + (s[(v - 20) % 10] || s[v] || s[0]);
+    };
+
+    return `${getOrdinal(day)} ${month} ${year}`;
+  };
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -26,6 +43,7 @@ function NotificationModal() {
     return () => document.removeEventListener('click', handleGlobalClick)
   }, [])
 
+  if (!notification) return null;
   return (
     <>
       <dialog ref={dialogRef} id="notification-modal" aria-labelledby="notification-modal-title" className="fixed inset-0 z-100 w-full h-full bg-transparent m-0 p-0 max-w-none max-h-none backdrop:bg-black/50 py-3 md:py-7">
@@ -43,20 +61,17 @@ function NotificationModal() {
                 </div>
                 <div>
                   <div className="mb-3 lg:mb-6">
-                    <div className='text-[#2A2A2A] text-[22px] font-semibold'>Alexander Sharington</div>
+                    <div className='text-[#2A2A2A] text-[22px] font-semibold'>{notification.name || 'Anonymous Customer'}</div>
                   </div>
-                  <div className="mb-3">
-                    <div className='text-[#5a5a5a] text-[15px] font-regular'>Hello Jhon Abraham! 👋Your booking is confirmed! Thank you for choosing Go Rogue. We are excited to take you on an adventure. Your booking is confirmed!</div>
-                  </div>
-                  <div className="mb-3">
-                    <div className='text-[#5a5a5a] text-[15px] font-regular'>Hello Jhon Abraham! 👋Your booking is confirmed! Thank you for choosing Go Rogue. We are excited to take you on an adventure. Your booking is confirmed!</div>
+                  <div className="mb-5">
+                    <div className='text-[#5a5a5a] text-[15px] font-regular'>{notification.message}</div>
                   </div>
                   <div className="mb-5">
                     <div className='text-[#252525] text-[15px] font-bold mb-3'>Here are your booking details:</div>
-                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>📦  Package: Summer Package</div>
-                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>🎯 Activity: Jetski</div>
-                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>👥 Guests: 1</div>
-                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>🗓️ Date: Friday, 6th February 2026</div>
+                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>📦  Package: {notification.package_name || 'General Enquiry'}</div>
+                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>🎯 Activity: {notification.activity_name || 'General Enquiry'}</div>
+                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>👥 Guests: {notification.guests || 'General Enquiry'}</div>
+                    <div className='text-[#5a5a5a] text-[15px] font-regular mb-2'>🗓️ Date: {formatDate(notification.created)}</div>
                   </div>
                   <div className="mb-3">
                     <div className='text-[#545454] text-[15px] font-regular'>Please feel free to contact us if you have any questions. We can't wait to see you!</div>

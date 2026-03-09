@@ -102,7 +102,7 @@ function App() {
           <Route path='vendor/add' element={<AddVendor />} />
           <Route path='packages-list' element={<PackagesList />} />
           <Route path='packages/add' element={<CreatePackage />} />
-          <Route path='packages/edit' element={<UpdatePackage />} />
+          <Route path='packages/edit/:id' element={<UpdatePackage />} />
           <Route path='packages/view' element={<PackageView />} />
           <Route path='all-slots' element={<AllSlot />} />
           <Route path='day-schedule' element={<DayShadule />} />
@@ -115,7 +115,7 @@ function App() {
           <Route path='notifications-list' element={<Notification />} />
           <Route path='setting/categories' element={<EntityManagement />} />
           <Route path='setting/add-catagory' element={<AddCatagory />} />
-          <Route path='setting/edit-catagory' element={<UpdateCatagory />} />
+          <Route path='setting/edit-catagory/:id' element={<UpdateCatagory />} />
           <Route path='setting/location' element={<Location />} />
           <Route path='setting/content-management' element={<HomePageBanner />} />
           <Route path='setting/content-gallery' element={<AdminGallery />} />

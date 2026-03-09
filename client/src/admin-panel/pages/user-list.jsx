@@ -39,7 +39,7 @@ function UserList() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP',
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'ngrok-skip-browser-warning': 'true',
         },
       });
