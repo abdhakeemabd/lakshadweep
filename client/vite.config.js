@@ -110,6 +110,15 @@ export default defineConfig({
           'ngrok-skip-browser-warning': 'true',
         },
       },
+      '/homepage-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+         rewrite: (path) => path.replace(/^\/homepage-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
     },
   },
 })
