@@ -132,7 +132,6 @@ function HomePageBanner() {
           formData.append('destination', locId);
         }
 
-        // resolve activity id
         let actId = null;
         if (banner.activity && typeof banner.activity === 'object') {
           actId = banner.activity.id || banner.activity.pk;
@@ -150,13 +149,13 @@ function HomePageBanner() {
           }
         }
 
-        // post as seen working in EditBannerModal.jsx
         console.log(`Updating banner ${banner.id} to position ${newPosition}...`);
         const response = await fetch(`/setting-api/settings/banner-edit/${banner.id}/`, {
           method: 'POST',
           headers: {
             'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
             'ngrok-skip-browser-warning': 'true',
+            'User-Agent': 'postman'
           },
           body: formData
         });
@@ -184,16 +183,21 @@ function HomePageBanner() {
   const fetchBanners = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/setting-api/settings/banner/', {
+      setError(null);
+      const response = await fetch('/setting-api/settings/banner', {
         method: 'GET',
         headers: {
           'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+          'User-Agent': 'postman'
         },
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch banners');
+        const errorText = await response.text();
+        console.error(`Banner fetch failed (${response.status}):`, errorText.substring(0, 500));
+        throw new Error(`Failed to fetch banners: ${response.status}`);
       }
       const data = await response.json();
       let bannerList = [];
@@ -207,6 +211,8 @@ function HomePageBanner() {
         }
       } else if (data.data && Array.isArray(data.data)) {
         bannerList = data.data;
+      } else if (data.data && data.data.banners && Array.isArray(data.data.banners)) {
+        bannerList = data.data.banners;
       } else if (data.results && Array.isArray(data.results)) {
         bannerList = data.results;
       } else {
@@ -214,11 +220,16 @@ function HomePageBanner() {
         if (arrays.length > 0) bannerList = arrays[0];
       }
 
+      if (bannerList.length === 0 && data) {
+        console.log('No banner items found. Data keys:', Object.keys(data));
+        console.log('Full data:', data);
+      }
+
       const processedList = bannerList.map(item => {
-        let img = item.image || item.banner_image;
+        let img = item.image || item.banner_image || item.gallery_image;
 
         if (img) {
-          if (img.includes('ngrok-free.dev')) {
+          if (img.includes('ngrok-free.dev') || img.includes('devtunnels.ms')) {
             img = img.replace(/^https?:\/\/[^\/]+/, '/setting-api');
           } else if (!img.startsWith('http') && !img.startsWith('/setting-api')) {
             img = `/setting-api${img.startsWith('/') ? '' : '/'}${img}`;
@@ -382,6 +393,8 @@ function HomePageBanner() {
         method: 'DELETE',
         headers: {
           'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'ngrok-skip-browser-warning': 'true',
+          'User-Agent': 'postman'
         },
       });
 
@@ -406,12 +419,14 @@ function HomePageBanner() {
 
     try {
       console.log(`Toggling status for banner ${bannerId} at /setting-api/settings/banner-toggle-status/${bannerId}/`);
-      const response = await fetch(`/setting-api/settings/banner-toggle-status/${bannerId}/`, {
+      const response = await fetch(`/setting-api/settings/banner-toggle-status/${bannerId}`, {
         method: 'GET',
         headers: {
           'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+          'User-Agent': 'postman'
         },
       });
 
@@ -515,7 +530,7 @@ function HomePageBanner() {
                 }
               }}
               type="button"
-              className={`flex min-w-[147px] h-[36px] text-[12px] items-center justify-center gap-4 rounded-[8px] py-[7px] px-[20px] text-white font-semibold cursor-pointer transition-all ${isReordering ? 'bg-[#1C9762] hover:bg-[#157347]' : 'bg-[#007BFF] hover:bg-[#0069D9]'}`}
+              className={`flex min-w-[147px] h-[36px] text-[12px] items-center justify-center gap-4 rounded-[8px] py-[7px] px-[20px] text-white font-semibold cursor-pointer transition-all ${isReordering ? 'bg-[#1C9762] hover:bg-[#157347]' : 'bg-[#0F2446] hover:bg-[#0F2450]'}`}
             >
               {isReordering ? 'Save Position' : '+ Change Position'}
             </button>

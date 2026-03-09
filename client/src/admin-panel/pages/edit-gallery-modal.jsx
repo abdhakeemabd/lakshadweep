@@ -10,8 +10,9 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
   const [formData, setFormData] = useState({
     location: ''
   })
-  const [locations, setLocations] = useState([]) // Stores full objects [{id, name}, ...]
+  const [locations, setLocations] = useState([])
   const [error, setError] = useState(null)
+  const [imagePreview, setImagePreview] = useState(null)
   const fileInputRef = useRef(null)
 
   const handleSelectChange = (id, value) => {
@@ -39,14 +40,30 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
       });
       if (response.ok) {
         const data = await response.json();
+        let locs = [];
         if (data.locations && Array.isArray(data.locations)) {
-          setLocations(data.locations);
-        } else if (Array.isArray(data)) {
-           setLocations(data);
-        } else {
-           const arrays = Object.values(data).filter(val => Array.isArray(val));
-           if (arrays.length > 0) setLocations(arrays[0]);
+          locs = data.locations;
+        } else if (data.data && Array.isArray(data.data.locations)) {
+          locs = data.data.locations;
+        } else if (data.results && Array.isArray(data.results.locations)) {
+          locs = data.results.locations;
         }
+        
+        if (locs.length === 0) {
+          let list = [];
+          if (Array.isArray(data)) list = data;
+          else if (data.gallery && Array.isArray(data.gallery)) list = data.gallery;
+          else if (data.data && Array.isArray(data.data)) list = data.data;
+          else if (data.results && Array.isArray(data.results)) list = data.results;
+          else if (data.data && data.data.gallery && Array.isArray(data.data.gallery)) list = data.data.gallery;
+          
+          if (list.length > 0) {
+            const extracted = list.map(item => item.location_name || item.location || item.destination).filter(Boolean);
+            locs = [...new Set(extracted)].map(name => ({ id: name, name: name }));
+          }
+        }
+        
+        setLocations(locs);
       }
     } catch (err) {
       console.error('Error fetching locations list:', err);
@@ -59,6 +76,7 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
       dialogRef.current?.close()
       setIsClosing(false)
       setFileName("No file chosen")
+      setImagePreview(null)
       setError(null)
       if (onClose) onClose()
     }, 300)
@@ -92,7 +110,7 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
       const result = await response.json();
       console.log('Gallery details response full object:', result);
       
-      const itemData = result.gallery || result.data || result.location || result;
+      const itemData = result.gallery_detail || result.gallery || result.data || result.location || result;
       const data = Array.isArray(itemData) ? itemData[0] : itemData;
 
       if (data) {
@@ -105,12 +123,19 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
         }
 
         console.log('Detected Initial Location Value:', locVal);
+        const resolvedName = locVal;
         setFormData({ location: String(locVal) });
         
-        const imgUrl = data.image || data.gallery_image || data.image_path;
+        let imgUrl = data.image || data.gallery_image || data.image_path || data.banner_image;
         if (imgUrl) {
+          if (typeof imgUrl === 'string' && imgUrl.startsWith('http') && (imgUrl.includes('ngrok-free.dev') || imgUrl.includes('devtunnels.ms'))) {
+             imgUrl = imgUrl.replace(/^https?:\/\/[^\/]+/, '/setting-api');
+          } else if (typeof imgUrl === 'string' && !imgUrl.startsWith('http') && !imgUrl.startsWith('/setting-api')) {
+             imgUrl = `/setting-api${imgUrl.startsWith('/') ? '' : '/'}${imgUrl}`;
+          }
           const filename = typeof imgUrl === 'string' ? imgUrl.split('/').pop() : 'Image selected';
           setFileName(filename);
+          setImagePreview(typeof imgUrl === 'string' ? imgUrl : null);
         }
       } else {
         throw new Error('No item data found in response');
@@ -156,12 +181,15 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
     if (formData.location && locations.length > 0) {
       // Check if current value is an ID (number or string number)
       const isId = !isNaN(formData.location) && String(formData.location).trim() !== '';
-      if (isId) {
-        const matched = locations.find(l => String(l.id || l.location_id) === String(formData.location));
+      if (isId || typeof formData.location === 'string') {
+        const matched = locations.find(l => 
+          String(l.id || l.location_id) === String(formData.location) || 
+          String(l.name || l.location_name).toLowerCase() === String(formData.location).toLowerCase()
+        );
         if (matched) {
-          const name = matched.name || matched.location_name;
-          if (name) {
-            console.log(`Resolver linked ID ${formData.location} to: ${name}`);
+          const name = matched.name || matched.location_name || (typeof matched === 'string' ? matched : '');
+          if (name && name !== formData.location) {
+            console.log(`Resolver linked ${formData.location} to: ${name}`);
             setFormData(prev => ({ ...prev, location: name }));
           }
         }
@@ -235,7 +263,7 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
                       <label className="text-[#3D3D3D] font-poppins font-medium text-[13px]">Select Location <span className="text-red-500">*</span></label>
                       <div className='mt-3'>
                         <SearchableSelect 
-                          options={locations.map(loc => loc.name || loc.location_name).filter(Boolean)} 
+                          options={locations.map(loc => typeof loc === 'object' ? (loc.name || loc.location_name) : loc).filter(Boolean)} 
                           value={formData.location} 
                           onChange={(val) => handleSelectChange('location', val)} 
                           placeholder="Select Location" 

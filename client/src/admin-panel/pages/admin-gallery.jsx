@@ -36,20 +36,39 @@ function AdminGallery() {
 
       const data = await response.json();
       
-      // Extract gallery items based on provided structure
-      let list = data.gallery || [];
+      let list = [];
+      if (Array.isArray(data)) {
+        list = data;
+      } else if (data.gallery && Array.isArray(data.gallery)) {
+        list = data.gallery;
+      } else if (data.data && Array.isArray(data.data)) {
+        list = data.data;
+      } else if (data.results && Array.isArray(data.results)) {
+        list = data.results;
+      } else if (data.data && data.data.gallery && Array.isArray(data.data.gallery)) {
+        list = data.data.gallery;
+      } else {
+        const arrays = Object.values(data).filter(val => Array.isArray(val));
+        if (arrays.length > 0) list = arrays[0];
+      }
       
-      // Extract locations for the filter
       let locs = [];
       if (Array.isArray(data.locations)) {
-        locs = data.locations.map(l => typeof l === 'object' ? l.name : l).filter(Boolean);
+        locs = data.locations.map(l => typeof l === 'object' ? (l.name || l.location_name) : l).filter(Boolean);
+      } else if (data.data && Array.isArray(data.data.locations)) {
+        locs = data.data.locations.map(l => typeof l === 'object' ? (l.name || l.location_name) : l).filter(Boolean);
       }
       setLocationsList(locs);
 
+      if (list.length === 0 && data) {
+        console.log('No gallery items found. Data structure received:', data);
+        console.log('Available keys:', Object.keys(data));
+      }
+
       const processedList = list.map(item => {
-        let img = item.image || item.gallery_image;
+        let img = item.image || item.gallery_image || item.banner_image;
         if (img) {
-          if (img.includes('ngrok-free.dev')) {
+          if (img.includes('ngrok-free.dev') || img.includes('devtunnels.ms')) {
             img = img.replace(/^https?:\/\/[^\/]+/, '/setting-api');
           } else if (!img.startsWith('http') && !img.startsWith('/setting-api')) {
             img = `/setting-api${img.startsWith('/') ? '' : '/'}${img}`;

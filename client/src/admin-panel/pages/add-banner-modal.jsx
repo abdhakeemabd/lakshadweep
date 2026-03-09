@@ -212,10 +212,16 @@ function AddBannerModal({ onSuccess }) {
       const actValue = selectedAct ? selectedAct.id : formData.activity;
       
       data.append('title', formData.title);
-      data.append('location', locValue);
-      data.append('destination', locValue);
-      data.append('activity', actValue);
-      data.append('activity_name', formData.activity); 
+      if (locValue) {
+        data.append('location', locValue);
+        data.append('destination', locValue);
+      }
+      if (actValue) {
+        data.append('activity', actValue);
+      }
+      if (formData.activity) {
+        data.append('activity_name', formData.activity); 
+      }
       data.append('image', fileInputRef.current.files[0]);
 
       const response = await fetch('/setting-api/settings/banner/', {

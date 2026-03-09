@@ -59,6 +59,8 @@ function EditBannerModal({ bannerId, onSuccess, onClose }) {
         headers: {
           'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+          'User-Agent': 'postman'
         },
       });
 
@@ -308,10 +310,16 @@ function EditBannerModal({ bannerId, onSuccess, onClose }) {
       
       // Sending variations to be safe against backend revisions
       data.append('title', formData.title);
-      data.append('location', locValue);
-      data.append('destination', locValue);
-      data.append('activity', actValue);
-      data.append('activity_name', formData.activity);
+      if (locValue) {
+        data.append('location', locValue);
+        data.append('destination', locValue);
+      }
+      if (actValue) {
+        data.append('activity', actValue);
+      }
+      if (formData.activity) {
+        data.append('activity_name', formData.activity);
+      }
       if (fileInputRef.current.files[0]) {
         data.append('image', fileInputRef.current.files[0]);
       }
@@ -321,6 +329,7 @@ function EditBannerModal({ bannerId, onSuccess, onClose }) {
         headers: {
           'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'ngrok-skip-browser-warning': 'true',
+          'User-Agent': 'postman'
         },
         body: data,
       });
