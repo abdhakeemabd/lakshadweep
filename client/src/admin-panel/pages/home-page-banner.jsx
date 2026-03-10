@@ -111,43 +111,42 @@ function HomePageBanner() {
       console.log("Saving new banner order for subjects:", banners.map(b => ({ id: b.id, title: b.title, pos: b.position })));
       for (let i = 0; i < banners.length; i++) {
         const banner = banners[i];
+        const getResponse = await fetch(`/setting-api/settings/banner-edit/${banner.id}/`, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Accept': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
+            'User-Agent': 'postman'
+          },
+        });
+        
+        let existingData = {};
+        if (getResponse.ok) {
+          const data = await getResponse.json();
+          existingData = data.data || data.banner || data;
+        } else {
+          console.warn(`Could not fetch existing data for banner ${banner.id}. Using local state.`);
+          existingData = banner;
+        }
+
         const formData = new FormData();
         const newPosition = i + 1;
-
         formData.append('position', newPosition);
-        if (banner.title) formData.append('title', banner.title);
-
-        let locId = null;
-        if (banner.location && typeof banner.location === 'object') {
-          locId = banner.location.id || banner.location.pk;
-        } else if (banner.location && !isNaN(banner.location)) {
-          locId = banner.location;
-        } else if (banner.location_display) {
-          const matched = locations.find(l => (l.name || l.location_name) === banner.location_display);
-          if (matched) locId = matched.id;
+        
+        if (existingData.title) formData.append('title', existingData.title);
+        
+        const rawLoc = existingData.destination || existingData.location;
+        if (rawLoc) {
+           formData.append('location', rawLoc);
+           formData.append('destination', rawLoc);
         }
 
-        if (locId) {
-          formData.append('location', locId);
-          formData.append('destination', locId);
-        }
-
-        let actId = null;
-        if (banner.activity && typeof banner.activity === 'object') {
-          actId = banner.activity.id || banner.activity.pk;
-        } else if (banner.activity && !isNaN(banner.activity)) {
-          actId = banner.activity;
-        } else if (banner.activity_display) {
-          const matched = dynamicActivities.find(a => a.name === banner.activity_display);
-          if (matched) actId = matched.id;
-        }
-
-        if (actId) {
-          formData.append('activity', actId);
-          if (banner.activity_display) {
-            formData.append('activity_name', banner.activity_display);
-          }
-        }
+        const rawAct = existingData.activity_id || existingData.activity;
+        if (rawAct) formData.append('activity', rawAct);
+        
+        const actName = existingData.activity_name;
+        if (actName && actName !== 'N/A') formData.append('activity_name', actName);
 
         console.log(`Updating banner ${banner.id} to position ${newPosition}...`);
         const response = await fetch(`/setting-api/settings/banner-edit/${banner.id}/`, {
@@ -257,6 +256,12 @@ function HomePageBanner() {
           activity_display: actDisplay,
           location_display: locDisplay
         };
+      });
+
+      processedList.sort((a, b) => {
+        const posA = a.position !== undefined ? Number(a.position) : (a.pos !== undefined ? Number(a.pos) : 0);
+        const posB = b.position !== undefined ? Number(b.position) : (b.pos !== undefined ? Number(b.pos) : 0);
+        return posA - posB;
       });
 
       setBanners(processedList);

@@ -103,7 +103,7 @@ function App() {
           <Route path='packages-list' element={<PackagesList />} />
           <Route path='packages/add' element={<CreatePackage />} />
           <Route path='packages/edit/:id' element={<UpdatePackage />} />
-          <Route path='packages/view' element={<PackageView />} />
+          <Route path='packages/view/:id' element={<PackageView />} />
           <Route path='all-slots' element={<AllSlot />} />
           <Route path='day-schedule' element={<DayShadule />} />
           <Route path='bookings-list' element={<BookingList />} />
