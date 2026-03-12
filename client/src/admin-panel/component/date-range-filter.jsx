@@ -1,10 +1,17 @@
-import React, { useState, forwardRef } from 'react'
+import React, { useState, forwardRef, useEffect } from 'react'
 import DatePicker, { CalendarContainer } from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
-const DateRangeFilter = ({ onRangeChange, initialRange = [null, null] }) => {
-  const [dateRange, setDateRange] = useState(initialRange);
+const DateRangeFilter = ({ onRangeChange, value, onChange, initialRange = [null, null] }) => {
+  const [internalRange, setInternalRange] = useState(initialRange);
+  
+  // Support both onRangeChange (old) and onChange (standard)
+  const handleChange = onChange || onRangeChange;
+  
+  // Use controlled value if provided, otherwise internal state
+  const dateRange = value || internalRange;
   const [startDate, endDate] = dateRange;
+
   const [isOpen, setIsOpen] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -43,21 +50,23 @@ const DateRangeFilter = ({ onRangeChange, initialRange = [null, null] }) => {
         setShowCalendar(true);
         return;
     }
-    setDateRange([start, end]);
-    onRangeChange([start, end]);
+    const newRange = [start, end];
+    if (!value) setInternalRange(newRange);
+    if (handleChange) handleChange(newRange);
     setIsOpen(false);
     setShowCalendar(false);
   };
 
   const handleApply = () => {
-    onRangeChange(dateRange);
+    if (handleChange) handleChange(dateRange);
     setIsOpen(false);
     setShowCalendar(false);
   };
 
   const handleCancel = () => {
-    setDateRange([null, null]);
-    onRangeChange([null, null]);
+    const newRange = [null, null];
+    if (!value) setInternalRange(newRange);
+    if (handleChange) handleChange(newRange);
     setIsOpen(false);
     setShowCalendar(false);
   };
@@ -97,13 +106,13 @@ const DateRangeFilter = ({ onRangeChange, initialRange = [null, null] }) => {
       <CalendarContainer className={`${className} custom-daterange-picker ${!showCalendar ? 'picker-presets-only' : ''}`}>
         <div className="flex">
           <div className="datepicker-sidebar">
-            <button onClick={() => setPreset('today')}>Today</button>
-            <button onClick={() => setPreset('yesterday')}>Yesterday</button>
-            <button onClick={() => setPreset('last7')}>Last 7 Days</button>
-            <button onClick={() => setPreset('last30')}>Last 30 Days</button>
-            <button onClick={() => setPreset('thisMonth')}>This Month</button>
-            <button onClick={() => setPreset('lastMonth')}>Last Month</button>
-            <button className={showCalendar ? 'active' : ''} onClick={() => setShowCalendar(true)}>Custom Range</button>
+            <button key="today" onClick={() => setPreset('today')}>Today</button>
+            <button key="yesterday" onClick={() => setPreset('yesterday')}>Yesterday</button>
+            <button key="last7" onClick={() => setPreset('last7')}>Last 7 Days</button>
+            <button key="last30" onClick={() => setPreset('last30')}>Last 30 Days</button>
+            <button key="thisMonth" onClick={() => setPreset('thisMonth')}>This Month</button>
+            <button key="lastMonth" onClick={() => setPreset('lastMonth')}>Last Month</button>
+            <button key="custom" className={showCalendar ? 'active' : ''} onClick={() => setShowCalendar(true)}>Custom Range</button>
           </div>
           {showCalendar && (
             <div className="datepicker-content">
@@ -124,7 +133,24 @@ const DateRangeFilter = ({ onRangeChange, initialRange = [null, null] }) => {
 
   return (
     <div className="flex items-center gap-4">
-      <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={(update) => setDateRange(update)} customInput={<CustomDateInput />} calendarContainer={MyContainer} shouldCloseOnSelect={false} monthsShown={2} popperPlacement="bottom-end" dateFormat="dd/MM/yyyy" open={isOpen} onClickOutside={() => setIsOpen(false)} onInputClick={() => setIsOpen(true)} />
+      <DatePicker 
+        selectsRange={true} 
+        startDate={startDate} 
+        endDate={endDate} 
+        onChange={(update) => {
+          if (!value) setInternalRange(update);
+          if (handleChange) handleChange(update);
+        }} 
+        customInput={<CustomDateInput />} 
+        calendarContainer={MyContainer} 
+        shouldCloseOnSelect={false} 
+        monthsShown={2} 
+        popperPlacement="bottom-end" 
+        dateFormat="dd/MM/yyyy" 
+        open={isOpen} 
+        onClickOutside={() => setIsOpen(false)} 
+        onInputClick={() => setIsOpen(true)} 
+      />
       {startDate && (
         <button onClick={() => {
           handleCancel();

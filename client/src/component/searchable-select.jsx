@@ -2,20 +2,24 @@ import React, { useState, useMemo } from 'react'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react'
 import { HiChevronDown, HiCheck, HiSearch } from 'react-icons/hi'
 
-const SearchableSelect = ({ options, value, onChange, placeholder = 'Select Option', searchPlaceholder = 'Search...', align = 'left' }) => {
+const SearchableSelect = ({ options, value, onChange, placeholder = 'Select Option', searchPlaceholder = 'Search...', align = 'left', loading = false }) => {
   const [query, setQuery] = useState('');
   const filteredOptions = useMemo(() =>
     query === '' ? options : options.filter((option) => option.toLowerCase().replace(/\s+/g, '').includes(query.toLowerCase().replace(/\s+/g, ''))), [query, options]);
   return (
-    <Listbox value={value} onChange={onChange}>
+    <Listbox value={value} onChange={onChange} disabled={loading}>
       {({ open }) => (
         <div className="relative">
-          <ListboxButton className="relative w-full cursor-pointer rounded-xl border border-gray-200 bg-white text-left focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all h-[45px] flex items-center px-4 min-w-[130px]">
+          <ListboxButton className={`relative w-full cursor-pointer rounded-xl border border-gray-200 bg-white text-left focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all h-[45px] flex items-center px-4 min-w-[130px] ${loading ? 'opacity-75 cursor-wait' : ''}`}>
             <span className={`block truncate text-sm pr-6 ${value ? 'text-gray-900' : 'text-gray-400'}`}>
-              {value || placeholder}
+              {loading ? 'Loading...' : (value || placeholder)}
             </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <HiChevronDown className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
+              {loading ? (
+                <div className="h-4 w-4 border-2 border-gray-300 border-t-orange-500 rounded-full animate-spin"></div>
+              ) : (
+                <HiChevronDown className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
+              )}
             </span>
           </ListboxButton>
           <Transition show={open} as={React.Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setQuery('')}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DateRangeFilter from '../component/date-range-filter'
 import NotificationModal from '../component/notification-modal'
+import PaginationCard from '../component/pagination'
 
 function Notification() {
 
@@ -95,7 +96,7 @@ function Notification() {
                         <div className="max-w-[400px] line-clamp-1 opacity-70">{item?.message}</div>
                       </td>
                       <td className="px-4 py-2 text-right">
-                        <button onClick={() => setSelectedNotification(item)} command="show-modal" commandfor="notification-modal" className="text-[#007BFF] text-nowrap text-[13px] font-semibold hover:underline cursor-pointer">View Details</button>
+                        <button onClick={() => setSelectedNotification(item)} command="show-modal" commandfor="notification-modal" className="text-[#007BFF] text-nowrap text-[13px] font-normal hover:underline cursor-pointer">View</button>
                       </td>
                     </tr>
                   ))
@@ -104,6 +105,9 @@ function Notification() {
             </table>
           </div>
         </div>
+        <div className="card-footer p-3">
+        <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
+      </div>
       </div>
       <NotificationModal notification={selectedNotification} onClose={() => setSelectedNotification(null)} />
 

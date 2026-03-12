@@ -3,6 +3,7 @@ import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg";
 import DeleteIcon from "../../assets/admin-panel-icon/icons/delete-icon.svg";
 import { NavLink, Link } from 'react-router-dom';
 import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
+import PaginationCard from '../component/pagination';
 
 function EntityManagement() {
   const [categories, setCategories] = useState([]);
@@ -158,6 +159,9 @@ function EntityManagement() {
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="card-footer p-3">
+        <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
       </div>
     </div>
   )

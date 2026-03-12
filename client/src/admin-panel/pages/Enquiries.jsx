@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
+import PaginationCard from '../component/pagination';
 
 function Enquiries() {
   const [enquiries, setEnquiries] = useState([]);
@@ -104,6 +105,9 @@ function Enquiries() {
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="card-footer p-3">
+        <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
       </div>
     </div>
   )

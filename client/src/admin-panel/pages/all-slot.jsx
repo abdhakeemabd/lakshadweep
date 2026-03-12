@@ -4,6 +4,7 @@ import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../componen
 import EditIcon from "../../assets/admin-panel-icon/icons/edit-icon.svg"
 import EditSlotModal from '../component/edit-solt'
 import SearchableSelect from '../../component/searchable-select'
+import PaginationCard from '../component/pagination'
 
 function AllSlot() {
 
@@ -165,8 +166,10 @@ function AllSlot() {
             </table>
           </div>
         </div>
+        <div className="card-footer p-3">
+          <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
+        </div>
       </div>
-
       <AddSlotModal onSave={fetchSlots} vendors={vendors} packages={packages} />
       <EditSlotModal onSave={fetchSlots} vendors={vendors} packages={packages} slot={selectedSlotForEdit} onClose={() => setSelectedSlotForEdit(null)} />
     </>

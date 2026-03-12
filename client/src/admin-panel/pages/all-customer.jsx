@@ -3,6 +3,7 @@ import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
 import { Link } from 'react-router-dom';
 import SearchableSelect from '../../component/searchable-select';
+import PaginationCard from '../component/pagination';
 
 const API_URL = '/customer-api/customer/customers/';
 const API_TOKEN = '8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X';
@@ -274,6 +275,9 @@ function AllCustomer() {
             </table>
           )}
         </div>
+      </div>
+      <div className="card-footer p-3">
+        <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
       </div>
     </div>
   );

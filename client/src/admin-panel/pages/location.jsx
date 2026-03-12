@@ -5,6 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 import AddLocationModal from '../component/add-location-modal';
 import EditLocationModal from '../component/edit-location-modal';
 import { showDeleteAlert, showDeleteSuccess, showDeleteError } from '../component/swal-delete';
+import PaginationCard from '../component/pagination';
 
 function Location() {
   const [locations, setLocations] = useState([]);
@@ -172,6 +173,9 @@ function Location() {
               </tbody>
             </table>
           </div>
+        </div>
+        <div className="card-footer p-3">
+          <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
         </div>
       </div>
       <AddLocationModal onSuccess={fetchLocations} />

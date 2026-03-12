@@ -4,6 +4,7 @@ import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
 import DateRangeFilter from '../component/date-range-filter';
 import { Link } from 'react-router-dom';
 import SearchableSelect from '../../component/searchable-select';
+import PaginationCard from '../component/pagination';
 
 function Payment() {
   const [filterVendor, setFilterVendor] = useState('');
@@ -77,6 +78,9 @@ function Payment() {
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="card-footer p-3">
+        <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
       </div>
     </div>
   )

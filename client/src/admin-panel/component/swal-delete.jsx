@@ -185,7 +185,7 @@ export const showBookingCancelSuccess = () => {
 };
 
 export const showSuccess = (title = 'Success!', text = 'Operation completed successfully.') => {
-  Swal.fire({
+  return Swal.fire({
     title: title,
     text: text,
     imageUrl: SuccessIcon,
@@ -204,7 +204,7 @@ export const showSuccess = (title = 'Success!', text = 'Operation completed succ
 };
 
 export const showError = (title = 'Error', text = 'Something went wrong...') => {
-  Swal.fire({
+  return Swal.fire({
     title: title,
     text: text,
     imageUrl: ErrorIcon,

@@ -114,7 +114,6 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
       const data = Array.isArray(itemData) ? itemData[0] : itemData;
 
       if (data) {
-        // Advanced detection to handle string, ID, or full object
         let locVal = '';
         if (typeof data.location === 'object' && data.location !== null) {
           locVal = data.location.name || data.location.location_name || data.location.id || '';
@@ -216,7 +215,7 @@ function EditGalleryModal({ itemId, onSuccess, onClose }) {
       }
 
       const response = await fetch(`/setting-api/settings/gallery-update/${itemId}/`, {
-        method: 'POST', // Kept as POST as per user requirement
+        method: 'POST', 
         headers: {
           'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'ngrok-skip-browser-warning': 'true',

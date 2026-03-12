@@ -7,20 +7,51 @@ import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
 import { showDeleteAlert, showDeleteSuccess, showDeleteError, showActivateAlert, showActivateSuccess, showDeactivateAlert, showDeactivateSuccess, showError } from '../component/swal-delete';
 import SearchableSelect from '../../component/searchable-select';
+import PaginationCard from '../component/pagination';
 
 function PackagesList() {
   const [openIndex, setOpenIndex] = useState(null);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
   const [filterVendor, setFilterVendor] = useState('');
+  const [filterMinPrice, setFilterMinPrice] = useState('');
+  const [filterMaxPrice, setFilterMaxPrice] = useState('');
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchPackages = async () => {
+  const [categories, setCategories] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [vendors, setVendors] = useState([]);
+  const [vendorObjsList, setVendorObjsList] = useState([]);
+
+  const [packageLabel, setPackageLabel] = useState('Packages');
+  const [categoryLabel, setCategoryLabel] = useState('Category');
+  const [locationLabel, setLocationLabel] = useState('Location');
+  const [vendorLabel, setVendorLabel] = useState('Vendor');
+  const [activityLabel, setActivityLabel] = useState('Activity');
+
+  const fetchPackages = async (overrides = null) => {
     try {
       setLoading(true);
-      const response = await fetch('/package-api/package/packages/', {
+
+      const params = new URLSearchParams();
+      const cat = overrides?.category !== undefined ? overrides.category : filterCategory;
+      const loc = overrides?.location !== undefined ? overrides.location : filterLocation;
+      const ven = overrides?.vendor !== undefined ? overrides.vendor : filterVendor;
+      const minP = overrides?.minPrice !== undefined ? overrides.minPrice : filterMinPrice;
+      const maxP = overrides?.maxPrice !== undefined ? overrides.maxPrice : filterMaxPrice;
+
+      if (cat) params.append('category', cat);
+      if (loc) params.append('location', loc);
+      if (ven) params.append('vendor', ven);
+      if (minP) params.append('min_price', minP);
+      if (maxP) params.append('max_price', maxP);
+
+      const queryString = params.toString();
+      const url = `/package-api/package/packages/${queryString ? `?${queryString}` : ''}`;
+
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
@@ -56,6 +87,9 @@ function PackagesList() {
       }
 
       setPackages(packagesList);
+      if (data.vendor_objs && Array.isArray(data.vendor_objs)) {
+        setVendorObjsList(data.vendor_objs);
+      }
       setError(null);
     } catch (err) {
       console.error('Error fetching packages:', err);
@@ -65,8 +99,103 @@ function PackagesList() {
     }
   };
 
+  const fetchFilters = async () => {
+    try {
+      const headers = {
+        'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+        'Accept': 'application/json',
+      };
+
+      // Fetch Categories and dynamic labels
+      const catRes = await fetch('/category-api/settings/category-activities/', { headers });
+      if (catRes.ok) {
+        const catData = await catRes.json();
+
+        // Try to derive labels from API response if possible
+        if (catData.label) setCategoryLabel(catData.label);
+        if (catData.package_label) setPackageLabel(catData.package_label);
+        if (catData.category_label) setCategoryLabel(catData.category_label);
+        if (catData.location_label) setLocationLabel(catData.location_label);
+        if (catData.vendor_label) setVendorLabel(catData.vendor_label);
+        if (catData.activity_label) setActivityLabel(catData.activity_label);
+        if (catData.destination_label) setLocationLabel(catData.destination_label);
+
+        let fetchedCategories = [];
+        if (Array.isArray(catData)) {
+          fetchedCategories = catData;
+        } else if (catData.category_objs && Array.isArray(catData.category_objs)) {
+          fetchedCategories = catData.category_objs;
+        } else if (catData.data && Array.isArray(catData.data)) {
+          fetchedCategories = catData.data;
+        } else if (catData.categories && Array.isArray(catData.categories)) {
+          fetchedCategories = catData.categories;
+        } else if (catData.results && Array.isArray(catData.results)) {
+          fetchedCategories = catData.results;
+        } else {
+          const arrays = Object.values(catData).filter(v => Array.isArray(v));
+          if (arrays.length > 0) fetchedCategories = arrays[0];
+        }
+        setCategories([...new Set(fetchedCategories.map(c => c.name || c.category_name).filter(Boolean))]);
+      }
+
+      // Fetch Locations
+      const locRes = await fetch('/category-api/settings/location-category-activity/', { headers });
+      if (locRes.ok) {
+        const locData = await locRes.json();
+        let fetchedLocs = [];
+        if (Array.isArray(locData)) {
+          fetchedLocs = locData;
+        } else if (locData.location_objs && Array.isArray(locData.location_objs)) {
+          fetchedLocs = locData.location_objs;
+        } else if (locData.locations && Array.isArray(locData.locations)) {
+          fetchedLocs = locData.locations;
+        } else if (locData.data && Array.isArray(locData.data)) {
+          fetchedLocs = locData.data;
+        } else if (locData.results && Array.isArray(locData.results)) {
+          fetchedLocs = locData.results;
+        } else {
+          // Final fallback: find any array in the response
+          const arrays = Object.values(locData).filter(val => Array.isArray(val));
+          if (arrays.length > 0) fetchedLocs = arrays[0];
+        }
+        setLocations([...new Set(fetchedLocs.map(l => l.name || l.location_name || (typeof l === 'string' ? l : '')).filter(Boolean))]);
+      }
+
+      // Fetch Vendors
+      const venRes = await fetch('/vendor-api/vendor/vendors/', { headers });
+      if (venRes.ok) {
+        const venData = await venRes.json();
+        let fetchedVendors = [];
+        if (Array.isArray(venData)) {
+          fetchedVendors = venData;
+        } else if (venData.vendor_objs && Array.isArray(venData.vendor_objs)) {
+          fetchedVendors = venData.vendor_objs;
+        } else if (venData.vendors && Array.isArray(venData.vendors)) {
+          fetchedVendors = venData.vendors;
+        } else if (venData.data && Array.isArray(venData.data)) {
+          fetchedVendors = venData.data;
+        } else if (venData.data?.vendors && Array.isArray(venData.data.vendors)) {
+          fetchedVendors = venData.data.vendors;
+        } else if (venData.results && Array.isArray(venData.results)) {
+          fetchedVendors = venData.results;
+        } else {
+          const arrays = Object.values(venData).filter(val => Array.isArray(val));
+          if (arrays.length > 0) fetchedVendors = arrays[0];
+        }
+
+        if (fetchedVendors.length > 0) {
+          setVendorObjsList(fetchedVendors);
+          setVendors([...new Set(fetchedVendors.map(v => v.vendor_name || v.name || v.shop_name || (typeof v === 'string' ? v : '')).filter(Boolean))]);
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching filters:', err);
+    }
+  };
+
   useEffect(() => {
     fetchPackages();
+    fetchFilters();
   }, []);
   const toggleDropdown = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -82,7 +211,7 @@ function PackagesList() {
             'Accept': 'application/json',
           },
         });
-        
+
         if (!response.ok && response.status !== 204) {
           throw new Error('Failed to delete package');
         }
@@ -158,7 +287,7 @@ function PackagesList() {
       <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
         <div className="card-header p-4  flex gap-3 flex-wrap justify-between items-center border-b border-[#e3e3e3]">
           <div>
-            <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>Packages</h1>
+            <h1 className='font-poppins font-semibold text-[20px] md:text-[24px] leading-[100%] text-[#2A2A2A]'>{packageLabel}</h1>
           </div>
           <div className='flex flex-wrap items-center gap-3'>
             <button className='bg-[#007BFF] text-white flex items-center gap-2 justify-center py-2 min-w-[111px] h-[36px] text-[12px] rounded-[8px] cursor-pointer'>
@@ -177,46 +306,81 @@ function PackagesList() {
                     <div className="card-body p-3">
                       <div className="flex flex-col gap-4">
                         <div className="item">
-                          <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Category</label>
+                          <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">{categoryLabel}</label>
                           <div className="mt-1">
-                            <SearchableSelect options={["Watersports", "Adventure", "Eco Tourism", "Leisure"]} value={filterCategory} onChange={(val) => setFilterCategory(val)} placeholder="Select Category" searchPlaceholder="Search category..." />
+                            <SearchableSelect options={categories.length > 0 ? categories : ["Watersports", "Adventure", "Eco Tourism", "Leisure"]} value={filterCategory} onChange={(val) => setFilterCategory(val)} placeholder={`Select ${categoryLabel}`} searchPlaceholder={`Search ${categoryLabel.toLowerCase()}...`} />
                           </div>
                         </div>
                         <div className="items">
-                          <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Location</label>
+                          <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">{locationLabel}</label>
                           <div className="mt-1">
-                            <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={filterLocation} onChange={(val) => setFilterLocation(val)} placeholder="Select Location" searchPlaceholder="Search location..." />
+                            <SearchableSelect options={locations.length > 0 ? locations : ["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={filterLocation} onChange={(val) => setFilterLocation(val)} placeholder={`Select ${locationLabel}`} searchPlaceholder={`Search ${locationLabel.toLowerCase()}...`} />
                           </div>
                         </div>
                         <div className="items">
-                          <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Vendor</label>
+                          <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">{vendorLabel}</label>
                           <div className="mt-1">
-                            <SearchableSelect options={["Vendor A", "Vendor B", "Vendor C"]} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder="Select Vendor" searchPlaceholder="Search vendor..." />
+                            <SearchableSelect options={vendors.length > 0 ? vendors : ["Vendor A", "Vendor B", "Vendor C"]} value={filterVendor} onChange={(val) => setFilterVendor(val)} placeholder={`Select ${vendorLabel}`} searchPlaceholder={`Search ${vendorLabel.toLowerCase()}...`} />
                           </div>
                         </div>
                         <div className="flex gap-3 mb-3">
                           <div className="items">
                             <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Price</label>
                             <div className="relative rounded-[8px] overflow-hidden">
-                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px]'>
-                                <span className='text-[12px] text-white flex items-center justify-center h-full'>Min</span>
+                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px] flex items-center justify-center'>
+                                <span className='text-[12px] text-white'>Min</span>
                               </div>
-                              <input type="text" className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />
+                              <input
+                                type="number"
+                                value={filterMinPrice}
+                                onChange={(e) => setFilterMinPrice(e.target.value)}
+                                placeholder="0"
+                                className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]"
+                              />
                             </div>
                           </div>
                           <div className="items">
                             <label className="text-[#2A2A2A] font-semibold text-[12px] leading-[100%]">Price</label>
                             <div className="relative rounded-[8px] overflow-hidden">
-                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px]'>
-                                <span className='text-[12px] text-white flex items-center justify-center h-full'>Max</span>
+                              <div className='absolute left-0 h-full top-0 bg-[#494949] w-[38px] flex items-center justify-center'>
+                                <span className='text-[12px] text-white'>Max</span>
                               </div>
-                              <input type="text" className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]" />
+                              <input
+                                type="number"
+                                value={filterMaxPrice}
+                                onChange={(e) => setFilterMaxPrice(e.target.value)}
+                                placeholder="10000"
+                                className="ps-[45px] w-full border border-[#E5E5E5] rounded-lg pe-3 py-2 text-[14px] focus:outline-none focus:ring-[#0F2446] bg-[#F4F4F4]"
+                              />
                             </div>
                           </div>
                         </div>
                         <div className="flex gap-3">
-                          <button type='button' className='bg-[#EDEDED] font-[12px] w-[117px] h-[38px] px-5 cursor-pointer py-2 rounded-[8px] text-[#131313] font-semibold'>Reset</button>
-                          <button type='button' className='bg-[#007BFF] font-[12px] w-[117px] h-[38px] px-5 cursor-pointer py-2 rounded-[8px] text-[#FFFFFF] font-semibold'>Apply</button>
+                          <button
+                            type='button'
+                            onClick={() => {
+                              setFilterCategory('');
+                              setFilterLocation('');
+                              setFilterVendor('');
+                              setFilterMinPrice('');
+                              setFilterMaxPrice('');
+                              fetchPackages({ category: '', location: '', vendor: '', minPrice: '', maxPrice: '' });
+                              setOpenIndex(null);
+                            }}
+                            className='bg-[#EDEDED] font-[12px] w-[117px] h-[38px] px-5 cursor-pointer py-2 rounded-[8px] text-[#131313] font-semibold'
+                          >
+                            Reset
+                          </button>
+                          <button
+                            type='button'
+                            onClick={() => {
+                              fetchPackages();
+                              setOpenIndex(null);
+                            }}
+                            className='bg-[#007BFF] font-[12px] w-[117px] h-[38px] px-5 cursor-pointer py-2 rounded-[8px] text-[#FFFFFF] font-semibold'
+                          >
+                            Apply
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -246,7 +410,7 @@ function PackagesList() {
                 <tr className='border-b border-[#dee2e6]'>
                   <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">#</th>
                   <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Title </th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Category</th>
+                  <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">{categoryLabel}</th>
                   <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Activity</th>
                   <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Location</th>
                   <th className="px-4 py-2 text-left text-xs font-semibold text-[#383838]">Vendor</th>
@@ -289,6 +453,7 @@ function PackagesList() {
                     const pId = pkg.id || pkg.pk || pkg.package_id;
                     const pTitle = pkg.name || pkg.title || pkg.package_name || 'Package';
                     const isActive = pkg.status === 'Active' || pkg.status?.toLowerCase() === 'active' || pkg.is_active;
+                    const extrName = (val) => val && typeof val === 'object' ? (val.name || val.category_name || val.activity_name || val.location_name || val.vendor_name || val.title) : val;
 
                     return (
                       <tr key={pId || index} className='border-b border-[#dee2e6] last:border-0'>
@@ -297,11 +462,16 @@ function PackagesList() {
                           <div className="font-medium text-[13px] mb-1 text-[#2A2A2A]">{pTitle}</div>
                           <div className="text-[#751CC2] font-medium text-[9px]">{pkg.package_code || pkg.code || `#PKG${String(pId || index + 1).padStart(4, '0')}`}</div>
                         </td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.category_name || pkg.category || 'N/A'}</td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.activity_name || pkg.activity || 'N/A'}</td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.location_name || pkg.location || 'N/A'}</td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">{pkg.vendor_name || pkg.vendor || 'N/A'}</td>
-                        <td className="px-4 py-2 text-[12px] text-[#383838]">INR {pkg.price || pkg.base_price || 0}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{extrName(pkg.category) || pkg.category_name || 'N/A'}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{extrName(pkg.activity) || pkg.activity_name || 'N/A'}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">{extrName(pkg.island) || pkg.island_location_name || 'N/A'}</td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">
+                          {(() => {
+                            const vObj = vendorObjsList.find(v => String(v.id) === String(pId));
+                            return vObj ? vObj.vendor_name : (extrName(pkg.vendor) || pkg.vendor_name || pkg.shop_name || 'N/A');
+                          })()}
+                        </td>
+                        <td className="px-4 py-2 text-[12px] text-[#383838]">INR {pkg.default_price || pkg.price || pkg.base_price || 0}</td>
                         <td className="py-2 text-[12px] text-[#383838]">
                           <span className={`badge font-semibold text-[9px] py-[5px] px-4 rounded-[22px] ${isActive ? 'bg-[#B5FFDF] text-[#1C9762] border border-[#1C9762]' : 'bg-[#ffd6d6] text-[#dc3545] border border-[#dc3545]'}`}>
                             {pkg.status || (isActive ? 'Active' : 'Inactive')}
@@ -344,6 +514,9 @@ function PackagesList() {
               </tbody>
             </table>
           </div>
+        </div>
+        <div className="card-footer p-3">
+         <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
         </div>
       </div>
       <NotificationModal />
