@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import AddSlotIcon from "../../../src/assets/admin-panel-icon/icons/add_icon.svg";
 import DeleteIcon from "../../../src/assets/admin-panel-icon/icons/delete-icon.svg";
+import { showSuccess, showError, showDeleteAlert, showDeleteSuccess, showDeleteError } from './swal-delete';
 
 function CreateDefaultSlot() {
   const { id: packageId } = useParams();
@@ -79,11 +80,12 @@ function CreateDefaultSlot() {
           })
         });
         if (res.ok) {
+          showSuccess('Slot Saved', 'Default slot has been saved successfully.');
           fetchSlots(); // Refresh list after saving
         } else {
           const text = await res.text();
           console.error("Failed to default slot:", text);
-          alert("Failed to save slot. Check inputs.");
+          showError("Save Failed", "Failed to save slot. Check inputs.");
         }
       } catch (err) {
         console.error(err);
@@ -97,7 +99,8 @@ function CreateDefaultSlot() {
         setSlots(slots.filter(slot => slot.id !== id));
       }
     } else {
-      if (!window.confirm("Are you sure you want to delete this slot?")) return;
+      const confirmed = await showDeleteAlert('this slot');
+      if (!confirmed) return;
       try {
         const res = await fetch(`/package-api/package/default-slot/${id}/`, {
           method: 'DELETE',
@@ -108,12 +111,14 @@ function CreateDefaultSlot() {
           }
         });
         if (res.ok || res.status === 204) {
+          showDeleteSuccess('Slot');
           setSlots(slots.filter(slot => slot.id !== id));
         } else {
-          alert('Failed to delete slot.');
+          showDeleteError();
         }
       } catch (err) {
         console.error(err);
+        showDeleteError();
       }
     }
   };

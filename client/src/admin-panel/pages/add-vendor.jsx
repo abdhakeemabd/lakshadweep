@@ -502,7 +502,6 @@ function AddVendor() {
                         ref={fileRef}
                         type="file"
                         accept="image/*"
-                        hidden
                         onChange={handleImageChange}
                       />
                       {!preview && (

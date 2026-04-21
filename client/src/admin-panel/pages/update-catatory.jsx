@@ -57,7 +57,7 @@ function UpdateCatagory() {
       try {
         const response = await fetch(`/category-api/settings/edit-category-activity/?id=${id}`, {
           headers: {
-            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
+            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
             'Accept': 'application/json',
           },
         });
@@ -67,17 +67,19 @@ function UpdateCatagory() {
         
         const data = result.data || result;
         
-        const newCategoryName = data.name || data.category_name || '';
+        const newCategoryName = data.category?.name || data.name || data.category_name || '';
         setCategoryName(newCategoryName);
         
         let newRows = [];
-        if (Array.isArray(data.activities)) {
-          newRows = data.activities.map(act => {
-             const docs = (act.vendor_documents || act.vendorDocs || act.vendor_docs || []);
+        const activitiesList = data.activity_data || data.activities;
+
+        if (Array.isArray(activitiesList) && activitiesList.length > 0) {
+          newRows = activitiesList.map(act => {
+             const docs = (act.documents || act.vendor_documents || act.vendorDocs || act.vendor_docs || []);
              const mappedDocs = docs.length > 0 
                 ? docs.map(doc => ({
-                    docName: doc.name || doc.doc_name || doc.docName || doc.docName || '',
-                    docType: (doc.is_mandatory || doc.docType === 'Mandatory' || doc.doc_type === 'Mandatory') ? 'Mandatory' : 'Optional'
+                    docName: doc.document_name || doc.name || doc.doc_name || doc.docName || '',
+                    docType: (doc.options === 'required' || doc.is_mandatory || doc.docType === 'Mandatory' || doc.doc_type === 'Mandatory') ? 'Mandatory' : 'Optional'
                   }))
                 : [{ docName: '', docType: 'Mandatory' }];
              
@@ -120,9 +122,9 @@ function UpdateCatagory() {
         category_name: categoryName,
         activities: activityRows.map(act => ({
           name: act.name,
-          vendor_documents: act.vendorDocs.map(doc => ({
-            name: doc.docName,
-            is_mandatory: doc.docType === 'Mandatory'
+          documents: act.vendorDocs.map(doc => ({
+            document_name: doc.docName,
+            options: doc.docType === 'Mandatory' ? 'required' : 'optional'
           }))
         }))
       };
@@ -130,7 +132,7 @@ function UpdateCatagory() {
       const response = await fetch(`/category-api/settings/edit-category-activity/?id=${id}`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },

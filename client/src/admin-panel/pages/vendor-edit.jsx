@@ -181,7 +181,7 @@ function VendorEdit() {
                 { island_location: locationVal || '', activity: activityVal || '', documents: [] }
               ]);
 
-              let imageUrl = data.image || data.photo || data.vendor_image || data.profile_picture;
+              let imageUrl = data.image || data.photo || data.vendor_image || data.profileure;
               if (imageUrl && typeof imageUrl === 'string') {
                 if (!imageUrl.startsWith('http')) {
                   // Ensure relative path starts with /media to hit the proxy
@@ -492,7 +492,7 @@ function VendorEdit() {
     // Add image with multiple potential keys
     if (imageFile) {
       data.append('image', imageFile);
-      data.append('profile_picture', imageFile);
+      data.append('profileure', imageFile);
       data.append('vendor_image', imageFile);
       data.append('vendor_logo', imageFile);
       data.append('photo', imageFile);
