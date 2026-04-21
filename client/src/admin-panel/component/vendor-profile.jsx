@@ -66,7 +66,7 @@ function VendorProfile({ vendor: passedVendor, loading: passedLoading }) {
     description: vendor.vendor_description || vendor.description || "None",
     docs: vendor.docs || [],
     state: vendor.state || "",
-    pincode: vendor.pin_code || "",
+    pincode: vendor.pincode || "",
     image: vendor.profile_picture || vendor.profile_img || vendor.image || vendor.vendor_image
   };
 

@@ -10,7 +10,7 @@ const AdminLayout = () => {
     <div className="container-fluid mx-auto px-3 lg:px-0 lg:pr-3">
       <div className="flex gap-0 lg:gap-4">
         {/* Sidebar */}
-        <div className="lg:fixed lg:left-0 lg:top-0 lg:h-full lg:w-[262px] z-[1001] lg:z-auto">
+        <div className="lg:block fixed left-0 top-0 h-full w-0 lg:w-[262px] z-1000 lg:z-auto">
           <Slidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
         </div>
 
