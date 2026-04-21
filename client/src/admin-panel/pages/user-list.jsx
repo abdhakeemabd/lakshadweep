@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
+import PaginationCard from '../component/pagination';
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -39,7 +40,7 @@ function UserList() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP',
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'ngrok-skip-browser-warning': 'true',
         },
       });
@@ -155,6 +156,9 @@ function UserList() {
             </table>
           )}
         </div>
+      </div>
+      <div className="card-footer p-3">
+        <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
       </div>
     </div>
   );

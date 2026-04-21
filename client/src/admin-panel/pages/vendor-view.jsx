@@ -22,8 +22,15 @@ function VendorView() {
         setLoading(true);
         const candidates = [
           `/vendor-api/vendor/vendor-details/${id}/`,
+          `/vendor-api/api/vendor/vendor-details/${id}/`,
+          `/vendor-api/vendor/vendors/${id}/`,
+          `/vendor-api/api/vendor/vendors/${id}/`,
+          `/vendor-api/vendor/vendor-detail/${id}/`,
+          `/vendor-api/vendor/details/${id}/`,
+          `/vendor-api/vendor/detail/${id}/`,
           `/vendor-api/vendor/${id}/`,
-          `/vendor-api/vendor/vendor-detail/${id}/`
+          `/vendor-api/vendor/vendor-details/?id=${id}`,
+          `/vendor-api/vendor/details/?id=${id}`
         ];
 
         let fetchedData = null;
@@ -34,7 +41,7 @@ function VendorView() {
             const response = await fetch(url, {
               method: 'GET',
               headers: {
-                'Authorization': 'Token D9SIHYWOO9FC8BYFBTQC2STOKF33FZ6GDL047A4Q',
+                'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
                 'Accept': 'application/json',
               },
             });

@@ -183,3 +183,41 @@ export const showBookingCancelSuccess = () => {
     showConfirmButton: true
   });
 };
+
+export const showSuccess = (title = 'Success!', text = 'Operation completed successfully.') => {
+  return Swal.fire({
+    title: title,
+    text: text,
+    imageUrl: SuccessIcon,
+    imageAlt: 'Success',
+    confirmButtonText: 'OK',
+    buttonsStyling: false,
+    customClass: {
+      popup: '!rounded-[18px] !w-[390px]',
+      title: '!text-[24px] !font-bold !text-[#262626]',
+      htmlContainer: '!text-[16px] !leading-[24px] !text-[#393939] !font-normal !pl-[56px] !pr-[56px] !pb-[20px]',
+      actions: 'gap-3',
+      confirmButton: 'bg-[#0F2446] text-white h-[52px] w-[342px] text-[16px] px-6 py-2.5 rounded-[14px] font-semibold hover:bg-[#1a3a6b] transition-colors',
+    },
+    showConfirmButton: true
+  });
+};
+
+export const showError = (title = 'Error', text = 'Something went wrong...') => {
+  return Swal.fire({
+    title: title,
+    text: text,
+    imageUrl: ErrorIcon,
+    imageAlt: 'Error',
+    confirmButtonText: 'OK',
+    buttonsStyling: false,
+    customClass: {
+      popup: '!rounded-[18px] !w-[390px]',
+      title: '!text-[24px] !font-bold !text-[#262626]',
+      htmlContainer: '!text-[16px] !leading-[24px] !text-[#393939] !font-normal !pl-[56px] !pr-[56px] !pb-[20px]',
+      actions: 'gap-3',
+      confirmButton: 'bg-[#0F2446] text-white h-[52px] w-[342px] text-[16px] px-6 py-2.5 rounded-[14px] font-semibold hover:bg-[#1a3a6b] transition-colors',
+    },
+    showConfirmButton: true
+  });
+};

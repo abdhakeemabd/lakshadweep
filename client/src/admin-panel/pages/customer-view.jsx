@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import CustomerProfile from '../component/customer-profile'
 import SearchableSelect from '../../component/searchable-select'
 
-const API_TOKEN = 'CHPQ9LCXLZEEQ5UVPWLQ40U1X6URZVBTH64LP0CP';
+const API_TOKEN = '8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X';
 const BASE_URL = '/customer-api';
 
 const fetchHeaders = {

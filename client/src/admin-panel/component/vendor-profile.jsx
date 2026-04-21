@@ -1,54 +1,89 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Fancybox } from "@fancyapps/ui";
 import CallIcon from "../../../src/assets/admin-panel-icon/icons/call-icon.svg";
 import EmailIcon from "../../../src/assets/admin-panel-icon/icons/email-icon.svg";
 import pdfIcon from "../../../src/assets/admin-panel-icon/icons/pdf-icon.svg";
 import DefaultProfile from "../../../src/assets/admin-panel-icon/icons/user-default.jpeg";
 
-function VendorProfile({ vendor: passedVendor, loading }) {
-  const defaultVendor = {
-    vendor_name: "Ocean Adventure Sports",
-    profile_picture: DefaultProfile,
-    user: {
-      mobile_no: "+91 99999 99999",
-      email: "oceanadventure@gmail.com",
-    },
-    address1: "Beach Road",
-    address2: "Near Lighthouse, Kozhikode",
-    latitude: "11.2588",
-    longitude: "75.7804",
-    unique_islands: ["Agatti", "Bangaram", "Kavaratti"],
-    unique_categories: ["Scuba Diving", "Snorkeling", "Kayaking"],
-    docs: [
-      { document_name: "Vendor License.pdf", file: "/docs/sample.pdf" },
-      { document_name: "Insurance Certificate.pdf", file: "/docs/sample.pdf" },
-    ],
-  };
+function VendorProfile({ vendor: passedVendor, loading: passedLoading }) {
+  const { id } = useParams();
+  const [vendorData, setVendorData] = useState(passedVendor || null);
+  const [loading, setLoading] = useState(passedLoading !== undefined ? passedLoading : !passedVendor);
 
-  const vendor = passedVendor || defaultVendor;
-  const displayData = {
-    name: vendor.name || vendor.vendor_name || defaultVendor.vendor_name,
-    code: vendor.vendor_code || vendor.code || "#VND567",
-    phone: vendor.phone || vendor.mobile_no || (vendor.user && vendor.user.mobile_no) || defaultVendor.user.mobile_no,
-    email: vendor.email || vendor.vendor_email || (vendor.user && vendor.user.email) || defaultVendor.user.email,
-    address: vendor.address_line_1 || vendor.address1 || defaultVendor.address1,
-    address2: vendor.address_line_2 || vendor.address2 || defaultVendor.address2,
-    latitude: vendor.latitude || vendor.vendor_latitude || defaultVendor.latitude,
-    longitude: vendor.longitude || vendor.vendor_longitude || defaultVendor.longitude,
-    islands: vendor.unique_islands || (vendor.location ? [vendor.location] : []) || defaultVendor.unique_islands,
-    categories: vendor.unique_categories || (vendor.category ? [vendor.category] : []) || defaultVendor.unique_categories,
-    description: vendor.description || vendor.vendor_description || "Experienced watersports vendor offering safe and exciting activities.",
-    docs: vendor.docs || defaultVendor.docs,
-    state: vendor.state || "Kerala",
-    pincode: vendor.pin_code || "673645",
-    image: vendor.image || vendor.profile_picture || vendor.vendor_image || DefaultProfile
-  };
-
-  const [profileImg, setProfileImg] = useState(displayData.image);
 
   useEffect(() => {
-    setProfileImg(displayData.image);
+    if (passedVendor) {
+      setVendorData(passedVendor);
+      setLoading(passedLoading || false);
+      return;
+    }
+
+    const fetchVendor = async () => {
+      if (!id) return;
+      try {
+        setLoading(true);
+        const response = await fetch(`/vendor-api/vendor/vendor-details/${id}/`, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Accept': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const result = await response.json();
+          let fetchedData = result;
+          if (result.status === true || result.status === 'success') {
+            fetchedData = result.data || result.vendor || result.vendor_details || result;
+          }
+          if (Array.isArray(fetchedData)) fetchedData = fetchedData[0];
+          setVendorData(fetchedData);
+        }
+      } catch (e) {
+        console.warn("Failed to fetch vendor details:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVendor();
+  }, [id, passedVendor, passedLoading]);
+
+  const vendor = vendorData || {};
+
+  const displayData = {
+    profile_picture: vendor.profile_picture || DefaultProfile,
+    name: vendor.vendor_name || vendor.name || "",
+    code: vendor.vendor_code || vendor.code || "#VND567",
+    phone: vendor.mobile_no || vendor.phone || (vendor.user && vendor.user.mobile_no) || "",
+    email: vendor.vendor_email || vendor.email || (vendor.user && vendor.user.email) || "",
+    address: vendor.address1 || vendor.address_line_1 || "",
+    address2: vendor.address2 || vendor.address_line_2 || "",
+    latitude: vendor.latitude || vendor.vendor_latitude || "",
+    longitude: vendor.longitude || vendor.vendor_longitude || "",
+    island_location: vendor.island_location || vendor.location || (Array.isArray(vendor.unique_islands) ? vendor.unique_islands.join(", ") : vendor.unique_islands) || "",
+    category: vendor.category || (Array.isArray(vendor.unique_categories) ? vendor.unique_categories.join(", ") : vendor.unique_categories) || "",
+    description: vendor.vendor_description || vendor.description || "None",
+    docs: vendor.docs || [],
+    state: vendor.state || "",
+    pincode: vendor.pincode || "",
+    image: vendor.profile_picture || vendor.profile_img || vendor.image || vendor.vendor_image
+  };
+
+  const getFullImageUrl = (path) => {
+    if (!path) return DefaultProfile;
+    if (path.startsWith('http') || path.startsWith('blob:') || path.startsWith('data:')) return path;
+    // Prepend /media if it's a relative path from the backend
+    if (!path.startsWith('/media/') && !path.startsWith('media/')) {
+        return `/media/${path}`;
+    }
+    return path.startsWith('/') ? path : `/${path}`;
+  };
+
+  const [profileImg, setProfileImg] = useState(getFullImageUrl(displayData.image));
+
+  useEffect(() => {
+    setProfileImg(getFullImageUrl(displayData.image));
   }, [displayData.image]);
 
   useEffect(() => {
@@ -92,12 +127,7 @@ function VendorProfile({ vendor: passedVendor, loading }) {
           <div className="flex gap-4">
             <div className="relative aspect-[92/89] max-w-[92px] w-full">
               <a href={profileImg} data-fancybox="profile" data-caption={displayData.name}>
-                <img
-                  src={profileImg}
-                  alt="Profile"
-                  className="w-full h-full rounded-[0.875rem] object-cover cursor-pointer"
-                  onError={() => setProfileImg(DefaultProfile)}
-                />
+                <img src={profileImg} alt="Profile" className="w-full h-full rounded-[0.875rem] object-cover cursor-pointer" onError={() => setProfileImg(DefaultProfile)} />
               </a>
             </div>
             <div>
@@ -124,8 +154,14 @@ function VendorProfile({ vendor: passedVendor, loading }) {
             <a href={`https://www.google.com/maps?q=${displayData.latitude},${displayData.longitude}`} target="_blank" rel="noreferrer" className="text-[14px] font-semibold text-[#007BFF] hover:underline transition-all">View on Google Maps</a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <InfoList label="Island/Location" items={displayData.islands} />
-            <InfoList label="Category" items={displayData.categories} />
+            <div>
+              <label className="block mb-1 text-[12px] font-medium text-[#8c8c8c]">Island/Location</label>
+              <div className="text-[14px] font-semibold text-[#3d3d3d]">{displayData.island_location}</div>
+            </div>
+            <div>
+              <label className="block mb-1 text-[12px] font-medium text-[#8c8c8c]">Category</label>
+              <div className="text-[14px] font-semibold text-[#3d3d3d]">{displayData.category}</div>
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
@@ -138,11 +174,11 @@ function VendorProfile({ vendor: passedVendor, loading }) {
             </div>
           </div>
           <div>
-            <label className="block mb-1 text-[13px] font-medium text-[#9CA3AF]">Description</label>
+            <label className="block mb-1 text-[13px] font-medium text-[#8c8c8c]">Description</label>
             <div className="text-[14px] font-semibold text-[#3d3d3d] line-clamp-4">{displayData.description}</div>
           </div>
           <div>
-            <label className="block mb-2 text-[13px] font-medium text-[#9CA3AF]">Documents</label>
+            <label className="block mb-2 text-[13px] font-medium text-[#8c8c8c]">Documents</label>
             {displayData.docs.length > 0 ? displayData.docs.map((doc, i) => (
               <div key={i} className="mb-2">
                 <div className="relative flex items-center gap-2 p-2 bg-gray-50 rounded-lg group hover:bg-gray-100 transition-all">
@@ -161,18 +197,6 @@ function VendorProfile({ vendor: passedVendor, loading }) {
   );
 }
 
-function InfoList({ label, items = [] }) {
-  const fullText = items.join(", ");
-  return (
-    <div title={fullText}>
-      <label className="block mb-1 text-[13px] font-medium text-[#9CA3AF]">
-        {label}
-      </label>
-      <div className="text-[14px] font-semibold text-[#3d3d3d] truncate">
-        {fullText || "N/A"}
-      </div>
-    </div>
-  );
-}
+
 
 export default VendorProfile;

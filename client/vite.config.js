@@ -16,25 +16,104 @@ export default defineConfig({
         changeOrigin: true,
       },
       '/vendor-api': {
-        target: 'https://z71mwq0q-8000.inc1.devtunnels.ms',
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/vendor-api/, ''),
+        secure: false,
         headers: {
-          'X-Tunnel-Skip-AntiPhishing-Page': 'true',
+          'ngrok-skip-browser-warning': 'true',
         },
       },
       '/homepage-api': {
-        target: 'https://z71mwq0q-8000.inc1.devtunnels.ms/',
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/homepage-api/, ''),
         headers: {
-          'X-Tunnel-Skip-AntiPhishing-Page': 'true',
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/notification-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/notification-api/, ''),
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+       '/slot-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/slot-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/package-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/package-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
         },
       },
       '/customer-api': {
-        target: 'https://subdorsal-pretracheal-natashia.ngrok-free.dev',
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/customer-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/notification-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/notification-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/category-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/category-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/setting-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/setting-api/, ''),
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/settings': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/media': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+        secure: false,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+        },
+      },
+      '/homepage-api': {
+        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        changeOrigin: true,
+         rewrite: (path) => path.replace(/^\/homepage-api/, ''),
         secure: false,
         headers: {
           'ngrok-skip-browser-warning': 'true',

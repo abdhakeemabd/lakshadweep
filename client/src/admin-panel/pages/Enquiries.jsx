@@ -1,8 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchIcon from "../../assets/admin-panel-icon/icons/search.svg";
 import ExportIcon from "../../assets/admin-panel-icon/icons/export.svg";
+import PaginationCard from '../component/pagination';
 
 function Enquiries() {
+  const [enquiries, setEnquiries] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const fetchEnquiries = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/customer-api/customer/enquiries/", {
+        headers: {
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        }
+      });
+
+      const data = await response.json();
+      if (data?.status) {
+        setEnquiries(data.enquiries || []);
+      } else {
+        setEnquiries([]);
+      }
+    } catch (error) {
+      console.error("Error fetching enquiries:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEnquiries();
+  }, []);
+
+  const filteredEnquiries = enquiries.filter(item => 
+    item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.subject?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.message?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="card relative flex flex-col bg-white bg-clip-border rounded-[1.25rem] shadow-[3px_4px_20px_0px_#0000000F] border-0 mt-3 py-3 px-3">
       <div className="card-header p-4 flex justify-between items-center border-b border-[#e3e3e3]">
@@ -16,12 +56,18 @@ function Enquiries() {
       </div>
       <div className="card-sub-header p-4 flex justify-end items-center">
         <div className="inline-block">
-          <form className="relative flex items-center">
-            <input className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" type="search" placeholder="Search" />
+          <div className="relative flex items-center">
+            <input 
+              className="w-full border border-[#E5E5E5] rounded-lg px-3 py-2 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0F2446] bg-[#F4F4F4]" 
+              type="search" 
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} 
+            />
             <button type="button" className="absolute right-2 flex items-center justify-center">
               <img src={SearchIcon} alt="search" className="w-4 h-4" />
             </button>
-          </form>
+          </div>
         </div>
       </div>
       <div className="card-body py-4">
@@ -37,16 +83,31 @@ function Enquiries() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="pl-10 pr-4 py-2 text-[12px] text-[#383838]">1.</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">Jacob Lamarstein</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">alexandert007@gmail.com</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">Lorem Ipsum dolor</td>
-                <td className="px-4 py-2 text-[12px] text-[#383838]">Lorem ipsum dolor sert is simplt dummy</td>
-              </tr>
+              {loading ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-10 text-[12px] text-gray-400 italic">Loading enquiries...</td>
+                </tr>
+              ) : filteredEnquiries.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-10 text-[12px] text-gray-400 italic">No enquiries found.</td>
+                </tr>
+              ) : (
+                filteredEnquiries.map((item, index) => (
+                  <tr key={item.id || index} className='border-b border-[#f0f0f0] last:border-0 hover:bg-gray-50 transition-colors'>
+                    <td className="pl-10 pr-4 py-3 text-[12px] text-[#383838]">{index + 1}.</td>
+                    <td className="px-4 py-3 text-[12px] text-[#383838] font-medium">{item.name}</td>
+                    <td className="px-4 py-3 text-[12px] text-[#383838]">{item.email}</td>
+                    <td className="px-4 py-3 text-[12px] text-[#383838]">{item.subject}</td>
+                    <td className="px-4 py-3 text-[12px] text-[#383838] leading-relaxed max-w-[300px] truncate">{item.message}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="card-footer p-3">
+        <PaginationCard totalPages={1} currentPage={1} onPageChange={(page) => console.log(page)} />
       </div>
     </div>
   )

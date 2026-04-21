@@ -1,22 +1,40 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import AddImageIcon from '../../assets/admin-panel-icon/icons/cam.svg'
 import SearchableSelect from '../../component/searchable-select'
+import { showSuccess, showError } from '../component/swal-delete'
+import DeleteIcon from '../../assets/admin-panel-icon/icons/delete-icon.svg'
 
 function AddVendor() {
   const fileRef = useRef(null);
-  const licenseFileRef1 = useRef(null);
-  const licenseFileRef2 = useRef(null);
-  const licenseFileRef3 = useRef(null);
   const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [islandOptions, setIslandOptions] = useState([]);
+  const [fullIslandData, setFullIslandData] = useState([]);
+  const [fullStatesData, setFullStatesData] = useState([]);
+  const [activitiesData, setActivitiesData] = useState([]);
+  const [activityOptions, setActivityOptions] = useState([]);
+  const [statesList, setStatesList] = useState([]);
+  const [statesLoading, setStatesLoading] = useState(false);
+  const [islandLoading, setIslandLoading] = useState(false);
+  const [activitiesLoading, setActivitiesLoading] = useState(false);
   const [imageFile, setImageFile] = useState(null);
-  const [licenseFile1, setLicenseFile1] = useState(null);
-  const [licenseFile2, setLicenseFile2] = useState(null);
-  const [licenseFile3, setLicenseFile3] = useState(null);
+  const [activityRows, setActivityRows] = useState([
+    { island_location: '', activity: '', documents: [] }
+  ]);
+
+  const indiaStates = [
+    "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar",
+    "Chandigarh", "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Goa",
+    "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
+    "Kerala", "Ladakh", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur",
+    "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan",
+    "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
+  ];
 
   const [formData, setFormData] = useState({
     vendor_name: '',
@@ -27,28 +45,239 @@ function AddVendor() {
     vendor_email: '',
     vendor_state: '',
     vendor_pin_code: '',
-    island_location: '',
-    activity: '',
+    profile: '',
     vendor_description: '',
+    unique_categories: '',
+    unique_islands: '',
+    documents:'',
     mobile_no: '',
     country_code: '+91',
   });
+
+  const addActivityRow = () => {
+    setActivityRows(prev => [...prev, { island_location: '', activity: '', documents: [] }]);
+  };
+
+  const removeActivityRow = (index) => {
+    setActivityRows(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const updateActivityRow = (index, field, value) => {
+    setActivityRows(prev => {
+      const updated = [...prev];
+      if (field === 'activity') {
+        const selectedAct = activitiesData.find(a => a.name.trim().toLowerCase() === value.trim().toLowerCase());
+        const docs = selectedAct ? selectedAct.documents.map(d => ({
+          name: d.name,
+          isMandatory: d.isMandatory || false,
+          file: null
+        })) : [];
+        updated[index] = { ...updated[index], activity: value, documents: docs };
+      } else {
+        updated[index] = { ...updated[index], [field]: value };
+      }
+      return updated;
+    });
+  };
+
+  const handleRowDocChange = (rowIdx, docIdx, file) => {
+    setActivityRows(prev => {
+      const updated = [...prev];
+      const updatedDocs = [...updated[rowIdx].documents];
+      updatedDocs[docIdx] = { ...updatedDocs[docIdx], file };
+      updated[rowIdx] = { ...updated[rowIdx], documents: updatedDocs };
+      return updated;
+    });
+  };
+
+  useEffect(() => {
+    const fetchStates = async () => {
+      try {
+        setStatesLoading(true);
+        const response = await fetch('/vendor-api/user/states/?country=India', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Accept': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          let list = [];
+          if (Array.isArray(data)) list = data;
+          else if (data.data && Array.isArray(data.data)) list = data.data;
+          else if (data.states && Array.isArray(data.states)) list = data.states;
+          else if (data.results && Array.isArray(data.results)) list = data.results;
+
+          if (list && list.length > 0) {
+            setFullStatesData(list);
+            const mapped = list.map(s => {
+              if (typeof s === 'string') return s;
+              return s.name || s.state_name || s.state || '';
+            }).filter(Boolean);
+            if (mapped.length > 0) {
+              const filtered = mapped.filter(s =>
+                indiaStates.some(is => is.toLowerCase() === s.toLowerCase())
+              );
+              setStatesList([...new Set(filtered)]);
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching states:', err);
+      } finally {
+        setStatesLoading(false);
+      }
+    };
+
+    const fetchLocations = async () => {
+      try {
+        setIslandLoading(true);
+        const response = await fetch('/category-api/settings/location-category-activity/', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Accept': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          let list = [];
+          if (Array.isArray(data)) list = data;
+          else if (data.data && Array.isArray(data.data)) list = data.data;
+          else if (data.results && Array.isArray(data.results)) list = data.results;
+          else {
+            const arrays = Object.values(data).filter(val => Array.isArray(val));
+            if (arrays.length > 0) list = arrays[0];
+          }
+
+          if (list.length > 0) {
+            setFullIslandData(list);
+            const mapped = list.map(loc => {
+              if (typeof loc === 'string') return loc.trim();
+              if (typeof loc === 'object' && loc !== null) {
+                return loc.name || loc.location_name || loc.island_name || loc.location || loc.place || '';
+              }
+              return '';
+            }).filter(Boolean);
+            if (mapped.length > 0) {
+              setIslandOptions([...new Set(mapped)]);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching locations:", err);
+      } finally {
+        setIslandLoading(false);
+      }
+    };
+
+    const fetchActivities = async () => {
+      try {
+        setActivitiesLoading(true);
+        const response = await fetch('/category-api/settings/category-activities/', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Accept': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          let categoriesList = [];
+          if (Array.isArray(data)) categoriesList = data;
+          else if (data.data && Array.isArray(data.data)) categoriesList = data.data;
+          else if (data.categories && Array.isArray(data.categories)) categoriesList = data.categories;
+          else if (data.results && Array.isArray(data.results)) categoriesList = data.results;
+          else {
+            const arrays = Object.values(data).filter(val => Array.isArray(val));
+            if (arrays.length > 0) categoriesList = arrays[0];
+          }
+
+          if (categoriesList.length > 0) {
+            const activityMap = new Map();
+            categoriesList.forEach(cat => {
+              const rawActs = cat.activity_data || cat.activities_data || cat.activities || [];
+              let acts = [];
+              if (Array.isArray(rawActs)) {
+                acts = rawActs;
+              } else if (typeof rawActs === 'string' && rawActs.trim()) {
+                acts = rawActs.split(',').map(n => ({ name: n.trim() }));
+              } else if (cat.activity_names) {
+                acts = cat.activity_names.split(',').map(n => ({ name: n.trim() }));
+              }
+
+              acts.forEach(a => {
+                const name = (typeof a === 'object' && a !== null)
+                  ? (a.name || a.activity_name || a.activity || a.title || '').trim()
+                  : a?.toString().trim();
+
+                if (!name) return;
+
+                const actId = (typeof a === 'object' && a !== null) ? (a.id || a.activity_id) : null;
+
+                const rawDocs = (typeof a === 'object' && a !== null)
+                  ? (a.documents || a.vendor_documents || a.vendorDocs || a.vendor_docs || a.vendor_doc_data || [])
+                  : [];
+
+                const docs = Array.isArray(rawDocs) ? rawDocs.map(doc => ({
+                  name: doc.document_name || doc.name || doc.doc_name || doc.docName || doc.title || '',
+                  isMandatory: doc.options === 'required' || doc.is_mandatory || doc.docType === 'Mandatory' || doc.doc_type === 'Mandatory' || false
+                })).filter(d => d.name) : [];
+
+                if (!activityMap.has(name.toLowerCase())) {
+                  activityMap.set(name.toLowerCase(), { id: actId, name, documents: docs });
+                } else {
+                  const existing = activityMap.get(name.toLowerCase());
+                  if (actId && !existing.id) existing.id = actId;
+                  docs.forEach(d => {
+                    const alreadyExists = existing.documents.some(ed => ed.name.trim().toLowerCase() === d.name.trim().toLowerCase());
+                    if (!alreadyExists) {
+                      existing.documents.push(d);
+                    }
+                  });
+                }
+              });
+            });
+
+            const processedList = Array.from(activityMap.values());
+            setActivitiesData(processedList);
+            setActivityOptions(processedList.map(a => a.name).sort());
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching activities:", err);
+      } finally {
+        setActivitiesLoading(false);
+      }
+    };
+
+    fetchStates();
+    fetchLocations();
+    fetchActivities();
+  }, []);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSelectChange = (id, value) => {
-    setFormData(prev => ({ ...prev, [id]: value }));
+  const handleImageChange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    setPreview(URL.createObjectURL(file));
+    setImageFile(file);
+
+    setFormData(prev => ({
+      ...prev,
+      profile: file
+    }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-      setImageFile(file);
-    }
+  const handleStateChange = (val) => {
+    setFormData(prev => ({ ...prev, vendor_state: val }));
   };
 
   const removeImage = () => {
@@ -57,57 +286,101 @@ function AddVendor() {
     if (fileRef.current) fileRef.current.value = '';
   };
 
-  const handleLicenseFile1Change = (e) => {
-    const file = e.target.files[0];
-    if (file) setLicenseFile1(file);
-  };
-
-  const handleLicenseFile2Change = (e) => {
-    const file = e.target.files[0];
-    if (file) setLicenseFile2(file);
-  };
-
-  const handleLicenseFile3Change = (e) => {
-    const file = e.target.files[0];
-    if (file) setLicenseFile3(file);
-  };
-
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+
+    // Basic Validation
+    if (!formData.vendor_name || !formData.vendor_email || !formData.mobile_no || !formData.vendor_state || !formData.vendor_pin_code || !formData.profile) {
+      showError('Validation Error', 'Please fill in all required fields marked with *');
+      return;
+    }
+
     setLoading(true);
 
-    const data = new FormData();
-    data.append('name', formData.vendor_name);
-    data.append('latitude', formData.vendor_latitude);
-    data.append('longitude', formData.vendor_longitude);
-
     const fullPhone = `${formData.country_code}${formData.mobile_no}`;
-    data.append('phone', fullPhone);
 
-    data.append('address_line_1', formData.vendor_address_line_1);
-    data.append('address_line_2', formData.vendor_address_line_2);
+    const data = new FormData();
+    data.append('vendor_name', formData.vendor_name);
     data.append('email', formData.vendor_email);
-    data.append('state', formData.vendor_state);
-    data.append('pin_code', formData.vendor_pin_code);
-    data.append('location', formData.island_location);
-    data.append('category', formData.activity);
-    data.append('description', formData.vendor_description);
-
-    if (licenseFile1) data.append('instructor_license_1', licenseFile1);
-    if (licenseFile2) data.append('instructor_license_2', licenseFile2);
-    if (licenseFile3) data.append('instructor_license_3', licenseFile3);
-
+    data.append('mobile_no', fullPhone);
+    data.append('address1', formData.vendor_address_line_1 || '');
+    data.append('address2', formData.vendor_address_line_2 || '');
+    data.append('pincode', formData.vendor_pin_code);
     if (imageFile) {
-      data.append('image', imageFile);
-    } else if (fileRef.current?.files[0]) {
-      data.append('image', fileRef.current.files[0]);
+      data.append('profile', imageFile);
     }
+    data.append('latitude', formData.vendor_latitude || '');
+    data.append('longitude', formData.vendor_longitude || '');
+    data.append('description', formData.vendor_description || '');
+    data.append('unique_islands', formData.unique_islands || '');
+    data.append('unique_categories', formData.unique_categories || '');
+
+    // State ID mapping
+    if (formData.vendor_state) {
+      const stateMatch = fullStatesData.find(s => {
+        const sName = (s.name || s.state_name || s.state || '').toLowerCase().trim();
+        return sName === formData.vendor_state.toLowerCase().trim();
+      });
+      if (stateMatch && stateMatch.id) {
+        data.append('state', stateMatch.id);
+        data.append('state_id', stateMatch.id);
+      } else {
+        data.append('state', formData.vendor_state);
+      }
+    }
+
+    // Location and Activity IDs mapping
+    if (activityRows.length > 0) {
+      const firstRow = activityRows[0];
+
+      const selectedIsland = fullIslandData.find(i => {
+        const iName = (i.name || i.location_name || i.island_name || i.island || i.place || '').toLowerCase().trim();
+        return iName === (firstRow.island_location || '').toLowerCase().trim();
+      });
+
+      const selectedActivity = activitiesData.find(a =>
+        (a.name || '').toLowerCase().trim() === (firstRow.activity || '').toLowerCase().trim()
+      );
+
+      if (selectedIsland && selectedIsland.id) {
+        data.append('location_id', selectedIsland.id);
+        data.append('island_id', selectedIsland.id);
+      } else if (firstRow.island_location) {
+        data.append('location', firstRow.island_location);
+        data.append('island_location', firstRow.island_location);
+      }
+
+      if (selectedActivity && selectedActivity.id) {
+        data.append('activity_id', selectedActivity.id);
+        data.append('activity_ids', selectedActivity.id); // Primary key matching Postman
+        data.append('category_id', selectedActivity.id);
+      } else if (firstRow.activity) {
+        data.append('activity', firstRow.activity);
+        data.append('category', firstRow.activity);
+      }
+    }
+
+    // Add image with multiple potential keys
+    if (imageFile) {
+      data.append('profile', imageFile);
+    }
+
+    // Add document files if any
+    activityRows.forEach((row, index) => {
+      row.documents.forEach((doc, docIdx) => {
+        if (doc.file) {
+          data.append(`vendor_doc_${index + 1}_${docIdx + 1}`, doc.file);
+          const docKey = (doc.name || 'doc').toLowerCase().replace(/\s+/g, '_');
+          data.append(docKey, doc.file);
+        }
+      });
+    });
 
     try {
       const response = await fetch('/vendor-api/vendor/create-vendor/', {
         method: 'POST',
         headers: {
-          'Authorization': 'Token D9SIHYWOO9FC8BYFBTQC2STOKF33FZ6GDL047A4Q',
+          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         },
@@ -115,29 +388,23 @@ function AddVendor() {
       });
 
       if (response.ok) {
-        alert('Vendor added successfully!');
+        const resData = await response.json();
+        if (resData.status === false || resData.success === false) {
+          throw new Error(resData.message || 'Server returned logical failure');
+        }
+        await showSuccess('Vendor Added!', 'The vendor has been successfully added.');
         navigate('/admin/vendor/list');
       } else {
         const text = await response.text();
-        let errorMsg = 'Failed to add vendor';
+        let errorMsg = text;
         try {
-          const errorData = JSON.parse(text);
-          console.error('API Error Detail:', errorData);
-          if (typeof errorData === 'object' && !errorData.message) {
-            errorMsg = Object.entries(errorData)
-              .map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`)
-              .join('\n');
-          } else {
-            errorMsg = errorData.message || JSON.stringify(errorData);
-          }
-        } catch {
-          errorMsg = text.substring(0, 300) || `HTTP ${response.status}`;
-        }
-        alert(`Failed to add vendor:\n${errorMsg}`);
+          const errJson = JSON.parse(text);
+          errorMsg = errJson.message || JSON.stringify(errJson);
+        } catch (e) { }
+        showError('Submission Failed', errorMsg);
       }
     } catch (error) {
-      console.error('Network/Fetch Error:', error);
-      alert('Network error. Please check your connection or console for details.');
+      showError('Unexpected Error', error.message || 'An error occurred while connecting to the server.');
     } finally {
       setLoading(false);
     }
@@ -214,7 +481,14 @@ function AddVendor() {
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_state" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor State <span className='text-red-700 font-semibold'>*</span></label>
-                <input type="text" id="vendor_state" value={formData.vendor_state} onChange={handleInputChange} className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141]" placeholder='Enter Vendor State' required />
+                <SearchableSelect
+                  options={statesList}
+                  value={formData.vendor_state}
+                  onChange={handleStateChange}
+                  placeholder="Select State"
+                  searchPlaceholder="Search state..."
+                  loading={statesLoading}
+                />
               </div>
               <div className="col-span-12 sm:col-span-6 lg:col-span-4">
                 <label htmlFor="vendor_pin_code" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Pin code <span className='text-red-700 font-semibold'>*</span></label>
@@ -224,7 +498,12 @@ function AddVendor() {
                 <div className="xl:flex gap-6">
                   <div className="mb-4 xl:mb-0">
                     <label className="relative w-[160px] h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-[#79A4F9E8] rounded-[16px] cursor-pointer hover:border-[#FF5C1A] transition bg-[#fafafa] overflow-hidden">
-                      <input ref={fileRef} type="file" accept="image/*" hidden onChange={handleImageChange} />
+                      <input
+                        ref={fileRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                      />
                       {!preview && (
                         <>
                           <img src={AddImageIcon} alt="" className="w-8 h-8 mb-2 opacity-70" />
@@ -243,65 +522,58 @@ function AddVendor() {
                   </div>
                 </div>
               </div>
-              <div className="col-span-12 md:col-span-8">
-                <div className="flex-1 space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
-                    <div>
-                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Island Location <span className="text-red-700 font-semibold">*</span></label>
-                      <SearchableSelect options={["Agatti", "Amini", "Andrott", "Bangaram", "Bitra", "Chetlat", "Kadmat", "Kalpeni", "Kavaratti", "Kiltan", "Minicoy"]} value={formData.island_location} onChange={(val) => handleSelectChange('island_location', val)} placeholder="Select Any" searchPlaceholder="Search island..." />
-                    </div>
-                    <div>
-                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Activity <span className="text-red-700 font-semibold">*</span></label>
-                      <SearchableSelect options={["Kayakking", "Snorkeling", "Scuba Diving", "Parasailing", "Glass Bottom Boat", "Wind Surfing", "Water Skiing", "Deep Sea Fishing", "Island Hopping", "Dolphin Watching"]} value={formData.activity} onChange={(val) => handleSelectChange('activity', val)} placeholder="Select Any" searchPlaceholder="Search activity..." />
-                    </div>
-                    <button type="button" className="h-[42px] px-5 rounded-[10px] bg-[#DCEAFF] text-[#0267FE] text-[12px] font-semibold hover:bg-[#DCEAFF] transition">+ Add</button>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <div className="col-span-1 sm:col-span-1 lg:col-span-1">
-                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 1</label>
-                      <input ref={licenseFileRef1} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile1Change} />
-                      <button type="button" onClick={() => licenseFileRef1.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
-                        Choose File
-                      </button>
-                      {licenseFile1 && (
-                        <p className="mt-2 text-[12px] text-[#666] truncate" title={licenseFile1.name}>
-                          {licenseFile1.name}
-                        </p>
+              <div className="col-span-12 md:col-span-9">
+                <div className="flex-1 space-y-8">
+                  {activityRows.map((row, idx) => (
+                    <div key={idx} className="mt-3 p-6 shadow-[3px_4px_20px_0px_#0000000F] rounded-3xl last:p-0 last:shadow-none">
+                      <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
+                        <div>
+                          <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Island Location <span className="text-red-700 font-semibold">*</span></label>
+                          <SearchableSelect options={islandOptions} value={row.unique_islands} onChange={(val) => updateActivityRow(idx, 'unique_islands', val)} placeholder="Select Island" searchPlaceholder="Search island..." loading={islandLoading} />
+                        </div>
+                        <div>
+                          <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Activity <span className="text-red-700 font-semibold">*</span></label>
+                          <SearchableSelect options={activityOptions} value={row.unique_categories} onChange={(val) => updateActivityRow(idx, 'unique_categories', val)} placeholder="Select Activity" searchPlaceholder="Search activity..." loading={activitiesLoading} />
+                        </div>
+                        {idx === activityRows.length - 1 ? (
+                          <button type="button" onClick={addActivityRow} disabled={!row.island_location || !row.activity} className="h-[42px] px-6 rounded-[10px] bg-[#007BFF] text-white text-[12px] font-semibold hover:bg-blue-600 transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">+ Add</button>
+                        ) : (
+                          <button type="button" onClick={() => removeActivityRow(idx)} className="h-[42px] px-6">
+                            <img src={DeleteIcon} alt="" />
+                          </button>
+                        )}
+                      </div>
+                      {row.documents && row.documents.length > 0 && (
+                        <div className=" mt-4">
+                          <div className="text-[14px] font-bold text-[#3D3D3D] mb-[15px] mt-[20px]"> Upload Document</div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border-t border-gray-50 pt-2">
+                            {row.documents.map((doc, docIdx) => (
+                              <div key={docIdx}>
+                                <input id={`doc-${idx}-${docIdx}`} type="file" accept=".pdf,.jpg,.jpeg,.png" onChange={(e) => handleRowDocChange(idx, docIdx, e.target.files && e.target.files[0])} />
+                                <button type="button" onClick={() => {
+                                  const el = document.getElementById(`doc-${idx}-${docIdx}`);
+                                  if (el) el.click();
+                                }} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border border-[#DCEAFF] bg-[#343434] text-white font-medium hover:bg-black transition flex items-center justify-center gap-2 overflow-hidden">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+                                  <span className="truncate">{doc.file ? doc.file.name : (doc.name.toLowerCase().includes('licen') ? 'Uploaded Documents' : doc.name)}</span>
+                                </button>
+                                {doc.file && (
+                                  <p className="mt-2 text-[12px] text-[#0267FE] font-medium truncate bg-blue-50 p-2 rounded-md" title={doc.file.name}>
+                                    {doc.file.name}
+                                  </p>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       )}
                     </div>
-                    <div className="col-span-1 sm:col-span-1 lg:col-span-1">
-                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 2</label>
-                      <input ref={licenseFileRef2} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile2Change} />
-                      <button type="button" onClick={() => licenseFileRef2.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
-                        Choose File
-                      </button>
-                      {licenseFile2 && (
-                        <p className="mt-2 text-[12px] text-[#666] truncate" title={licenseFile2.name}>
-                          {licenseFile2.name}
-                        </p>
-                      )}
-                    </div>
-                    <div className="col-span-1 sm:col-span-1 lg:col-span-1">
-                      <label className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Instructor License 3</label>
-                      <input ref={licenseFileRef3} type="file" accept=".pdf,.jpg,.jpeg,.png" hidden onChange={handleLicenseFile3Change} />
-                      <button type="button" onClick={() => licenseFileRef3.current?.click()} className="w-full h-[42px] rounded-[10px] px-3 py-2 text-[14px] border-0 bg-[#DCEAFF] text-[#0267FE] font-medium hover:bg-[#C5DBFF] transition flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
-                        Choose File
-                      </button>
-                      {licenseFile3 && (
-                        <p className="mt-2 text-[12px] text-[#666] truncate" title={licenseFile3.name}>
-                          {licenseFile3.name}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
               <div className="col-span-12 lg:col-span-8">
                 <label htmlFor="vendor_description" className="block mb-2 text-[14px] font-medium text-[#3d3d3d]">Vendor Description</label>
-                <textarea id="vendor_description" value={formData.vendor_description} onChange={handleInputChange} className="w-full border rounded-[10px] px-3 py-2 text-[14px] border-0 focus:outline-none bg-[#f5f5f5] text-[#414141] min-h-[100px]" placeholder='Enter Description'></textarea>
+                <textarea id="vendor_description" value={formData.vendor_description} onChange={handleInputChange} className="w-full  rounded-[10px] px-3 py-2 text-[14px] focus:outline-none bg-[#f5f5f5] text-[#414141] min-h-[100px]" placeholder='Enter Description'></textarea>
               </div>
             </div>
           </form>
