@@ -5,7 +5,7 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 function Gallery() {
 
-  const API_TOKEN = "8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X";
+  const API_TOKEN = "2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM";
 
   const [galleryData, setGalleryData] = useState([]);
   const [loading, setLoading] = useState(false);

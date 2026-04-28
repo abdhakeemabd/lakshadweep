@@ -31,7 +31,7 @@ function DayShadule() {
       setSidebarLoading(true)
       const response = await fetch("/slot-api/slot/all/", {
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'ngrok-skip-browser-warning': 'true'
         }
       })
@@ -53,7 +53,7 @@ function DayShadule() {
       const url = `/slot-api/slot/day-schedule/?package_id=${pkgId}${vndId ? `&vendor_id=${vndId}` : ''}`
       const response = await fetch(url, {
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'ngrok-skip-browser-warning': 'true'
         }
       })

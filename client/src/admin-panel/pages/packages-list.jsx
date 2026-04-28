@@ -54,7 +54,7 @@ function PackagesList() {
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
         },
       });
@@ -102,7 +102,7 @@ function PackagesList() {
   const fetchFilters = async () => {
     try {
       const headers = {
-        'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+        'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
         'Accept': 'application/json',
       };
 
@@ -207,7 +207,7 @@ function PackagesList() {
         const response = await fetch(`/package-api/package/package-delete/${packageId}/`, {
           method: 'DELETE',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
           },
         });
@@ -234,7 +234,7 @@ function PackagesList() {
       const response = await fetch(`/package-api/package/package-activate/${packageId}/`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
         },
       });
@@ -258,7 +258,7 @@ function PackagesList() {
       const response = await fetch(`/package-api/package/${packageId}/deactivate/`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
         },
       });

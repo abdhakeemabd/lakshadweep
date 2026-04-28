@@ -49,7 +49,7 @@ function VendorList() {
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
         },
       });
@@ -110,7 +110,7 @@ function VendorList() {
         const response = await fetch(endpoint.url, {
           method: endpoint.method,
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
             'ngrok-skip-browser-warning': 'true',
           },
@@ -144,7 +144,7 @@ function VendorList() {
           const res = await fetch(url, {
             method: 'PATCH',
             headers: {
-              'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+              'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'ngrok-skip-browser-warning': 'true',
@@ -170,7 +170,7 @@ function VendorList() {
   const fetchFilters = async () => {
     try {
       const headers = {
-        'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+        'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
         'Accept': 'application/json',
         'ngrok-skip-browser-warning': 'true'
       };
@@ -238,7 +238,7 @@ function VendorList() {
       const response = await fetch(`/vendor-api/vendor/vendor-toggle-status/${vendorId}/`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         },
@@ -263,7 +263,7 @@ function VendorList() {
       const response = await fetch(`/vendor-api/vendor/vendor-toggle-status/${vendorId}/`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         },

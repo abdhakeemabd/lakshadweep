@@ -97,7 +97,7 @@ function AddVendor() {
         const response = await fetch('/vendor-api/user/states/?country=India', {
           method: 'GET',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
             'ngrok-skip-browser-warning': 'true',
           },
@@ -137,7 +137,7 @@ function AddVendor() {
         const response = await fetch('/category-api/settings/location-category-activity/', {
           method: 'GET',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
           },
         });
@@ -179,7 +179,7 @@ function AddVendor() {
         const response = await fetch('/category-api/settings/category-activities/', {
           method: 'GET',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
           },
         });
@@ -380,7 +380,7 @@ function AddVendor() {
       const response = await fetch('/vendor-api/vendor/create-vendor/', {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         },
