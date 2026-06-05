@@ -28,17 +28,17 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: '/favicon.ico',
+            src: '/favicon.svg',
             sizes: '192x192',
             type: 'image/svg+xml'
           },
           {
-            src: '/favicon.ico',
+            src: '/favicon.svg',
             sizes: '512x512',
             type: 'image/svg+xml'
           },
           {
-            src: '/favicon.ico',
+            src: '/favicon.svg',
             sizes: '512x512',
             type: 'image/svg+xml',
             purpose: 'any maskable'
