@@ -28,34 +28,20 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: 'vite.svg',
+            src: '/gorogue-logo.svg',
             sizes: '192x192',
             type: 'image/svg+xml'
           },
           {
-            src: 'vite.svg',
+            src: '/gorogue-logo.svg',
             sizes: '512x512',
             type: 'image/svg+xml'
           },
           {
-            src: 'vite.svg',
+            src: '/gorogue-logo.svg',
             sizes: '512x512',
             type: 'image/svg+xml',
             purpose: 'any maskable'
-          }
-        ],
-        screenshots: [
-          {
-            src: 'vite.svg',
-            sizes: '512x512',
-            type: 'image/svg+xml',
-            form_factor: 'wide'
-          },
-          {
-            src: 'vite.svg',
-            sizes: '512x512',
-            type: 'image/svg+xml',
-            form_factor: 'narrow'
           }
         ],
       },
