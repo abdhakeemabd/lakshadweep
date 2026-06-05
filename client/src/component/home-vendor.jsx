@@ -128,8 +128,8 @@ function HomeVendor({ hideHeader = false, columns = 3, noPadding = false }) {
               <div className="relative max-w-4xl mx-auto mt-6 mb-10 z-[10] group">
                 <div className="flex bg-white border border-blue-200 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-100" data-aos="fade-up" data-aos-delay="400">
                   <input type="text" placeholder="Where do you want to go?" className="flex-1 px-5 py-3 text-gray-700 placeholder-gray-400 outline-none text-base" />
-                  <button className="bg-[#FF5C1A] text-white px-6 py-3 hover:bg-[#ff4500] transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                  <button className="flex-shrink-0 flex items-center justify-center bg-[#FF5C1A] text-white px-4 md:px-6 py-3 hover:bg-[#ff4500] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 md:w-6 md:h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
                   </button>
