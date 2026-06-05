@@ -30,7 +30,7 @@ function CreateDefaultSlot() {
     try {
       const res = await fetch(`/slot-api/slot/fetch/?package=${packageId}`, {
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true'
         }
@@ -66,7 +66,7 @@ function CreateDefaultSlot() {
         const res = await fetch(`/package-api/package/${packageId}/default-slots/`, {
           method: 'POST',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'ngrok-skip-browser-warning': 'true'
@@ -105,7 +105,7 @@ function CreateDefaultSlot() {
         const res = await fetch(`/package-api/package/default-slot/${id}/`, {
           method: 'DELETE',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
             'ngrok-skip-browser-warning': 'true'
           }

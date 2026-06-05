@@ -27,7 +27,7 @@ function EditLocationModal({ locationId, onSuccess }) {
       const response = await fetch(`/category-api/settings/location-category-activity-edit/?id=${id}`, {
         method: 'GET',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
@@ -68,7 +68,7 @@ function EditLocationModal({ locationId, onSuccess }) {
       const response = await fetch('/category-api/settings/location-category-activity-edit/', {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 

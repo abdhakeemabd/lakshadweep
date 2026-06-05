@@ -16,7 +16,7 @@ export default defineConfig({
         changeOrigin: true,
       },
       '/vendor-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/vendor-api/, ''),
         secure: false,
@@ -25,7 +25,7 @@ export default defineConfig({
         },
       },
       '/homepage-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/homepage-api/, ''),
         headers: {
@@ -33,7 +33,7 @@ export default defineConfig({
         },
       },
       '/notification-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/notification-api/, ''),
         headers: {
@@ -41,7 +41,7 @@ export default defineConfig({
         },
       },
        '/slot-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/slot-api/, ''),
         secure: false,
@@ -50,7 +50,7 @@ export default defineConfig({
         },
       },
       '/package-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/package-api/, ''),
         secure: false,
@@ -59,7 +59,7 @@ export default defineConfig({
         },
       },
       '/customer-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/customer-api/, ''),
         secure: false,
@@ -68,7 +68,7 @@ export default defineConfig({
         },
       },
       '/notification-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/notification-api/, ''),
         secure: false,
@@ -77,7 +77,7 @@ export default defineConfig({
         },
       },
       '/category-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/category-api/, ''),
         secure: false,
@@ -86,7 +86,7 @@ export default defineConfig({
         },
       },
       '/setting-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/setting-api/, ''),
         secure: false,
@@ -95,7 +95,7 @@ export default defineConfig({
         },
       },
       '/settings': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         secure: false,
         headers: {
@@ -103,7 +103,7 @@ export default defineConfig({
         },
       },
       '/media': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
         secure: false,
         headers: {
@@ -111,7 +111,7 @@ export default defineConfig({
         },
       },
       '/homepage-api': {
-        target: 'https://unexalting-bronchopneumonic-betsey.ngrok-free.dev',
+        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
          rewrite: (path) => path.replace(/^\/homepage-api/, ''),
         secure: false,

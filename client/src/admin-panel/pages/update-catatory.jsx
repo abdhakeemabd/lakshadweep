@@ -57,7 +57,7 @@ function UpdateCatagory() {
       try {
         const response = await fetch(`/category-api/settings/edit-category-activity/?id=${id}`, {
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
           },
         });
@@ -132,7 +132,7 @@ function UpdateCatagory() {
       const response = await fetch(`/category-api/settings/edit-category-activity/?id=${id}`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },

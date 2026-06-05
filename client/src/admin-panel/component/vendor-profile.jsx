@@ -26,7 +26,7 @@ function VendorProfile({ vendor: passedVendor, loading: passedLoading }) {
         const response = await fetch(`/vendor-api/vendor/vendor-details/${id}/`, {
           method: 'GET',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
           },
         });

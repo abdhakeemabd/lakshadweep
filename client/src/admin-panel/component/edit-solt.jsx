@@ -97,7 +97,7 @@ function EditSlotModal({ onSave, vendors = [], packages = [], slot, onClose }) {
         setFetchingSlots(true);
         const response = await fetch(`/slot-api/slot/fetch/?package=${pkgId}${vndId ? `&vendor_id=${vndId}` : ''}`, {
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
             'ngrok-skip-browser-warning': 'true'
           }
@@ -199,7 +199,7 @@ function EditSlotModal({ onSave, vendors = [], packages = [], slot, onClose }) {
           const response = await fetch(candidate.url, {
             method: candidate.method,
             headers: {
-              'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+              'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'ngrok-skip-browser-warning': 'true'

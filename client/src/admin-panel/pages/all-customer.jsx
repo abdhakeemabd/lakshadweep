@@ -6,7 +6,7 @@ import SearchableSelect from '../../component/searchable-select';
 import PaginationCard from '../component/pagination';
 
 const API_URL = '/customer-api/customer/customers/';
-const API_TOKEN = '8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X';
+const API_TOKEN = '2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM';
 
 function AllCustomer() {
   const [customers, setCustomers] = useState([]);

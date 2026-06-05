@@ -57,7 +57,7 @@ function EditBannerModal({ bannerId, onSuccess, onClose }) {
       const response = await fetch(`/setting-api/settings/banner-edit/${bannerId}/`, {
         method: 'GET',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
           'User-Agent': 'postman'
@@ -103,7 +103,7 @@ function EditBannerModal({ bannerId, onSuccess, onClose }) {
       const response = await fetch('/setting-api/settings/category-activities/', {
         method: 'GET',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
           'User-Agent': 'postman'
@@ -199,7 +199,7 @@ function EditBannerModal({ bannerId, onSuccess, onClose }) {
       const response = await fetch('/category-api/settings/location-category-activity/', {
         method: 'GET',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         },
@@ -327,7 +327,7 @@ function EditBannerModal({ bannerId, onSuccess, onClose }) {
       const response = await fetch(`/setting-api/settings/banner-edit/${bannerId}/`, {
         method: 'POST', // or PATCH
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'ngrok-skip-browser-warning': 'true',
           'User-Agent': 'postman'
         },

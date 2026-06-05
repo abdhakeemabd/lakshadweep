@@ -52,7 +52,7 @@ function PackageView() {
     try {
       const response = await fetch(`/package-api/package/package-details/${id}/`, {
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         }
@@ -76,7 +76,7 @@ function PackageView() {
     try {
       const response = await fetch(`/package-api/package/${id}/gallery/`, {
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
           'User-Agent': 'postman'
@@ -164,7 +164,7 @@ function PackageView() {
         const response = await fetch(`/package-api/package/gallery/${prevImage.id}/delete/`, {
           method: 'DELETE',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
             'ngrok-skip-browser-warning': 'true',
           }
@@ -206,7 +206,7 @@ function PackageView() {
           const res = await fetch(`/package-api/package/${id}/gallery/`, {
             method: 'POST',
             headers: {
-              'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+              'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
               'Accept': 'application/json',
               'ngrok-skip-browser-warning': 'true',
               'User-Agent': 'postman'
@@ -243,7 +243,7 @@ function PackageView() {
       const response = await fetch(`/package-api/package/${id}/deactivate/`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         }
@@ -266,7 +266,7 @@ function PackageView() {
       const response = await fetch(`/package-api/package/package-activate/${id}/`, {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         }

@@ -43,7 +43,7 @@ function UpdatePackage() {
         const response = await fetch(`/package-api/package/package-details/${id}/`, {
           method: 'GET',
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
             'ngrok-skip-browser-warning': 'true',
           },
@@ -105,7 +105,7 @@ function UpdatePackage() {
         // Fetch Categories
         const catRes = await fetch('/category-api/settings/category-activities/', {
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
           }
         });
@@ -130,7 +130,7 @@ function UpdatePackage() {
         // Fetch Locations
         const locRes = await fetch('/category-api/settings/location-category-activity/', {
           headers: {
-            'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+            'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
             'Accept': 'application/json',
           }
         });
@@ -237,7 +237,7 @@ function UpdatePackage() {
       const response = await fetch(`/package-api/package/package-update/${id}/`, {
         method: 'PUT',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
         },

@@ -23,7 +23,7 @@ function AdminGallery() {
       const response = await fetch('/setting-api/settings/gallery/', {
         method: 'GET',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
           'User-Agent': 'postman'
@@ -103,7 +103,7 @@ function AdminGallery() {
       const response = await fetch(`/setting-api/settings/gallery-delete/${itemId}/`, {
         method: 'DELETE',
         headers: {
-          'Authorization': 'Token 8RWYE3BKLZCFIN2FHQNNQEAEWBNDY184TGNYTY6X',
+          'Authorization': 'Token 2Y2PDTAATXX7B0SJRUMOA1EX4JFM4L6UMS38ZDDM',
         },
       });
 
