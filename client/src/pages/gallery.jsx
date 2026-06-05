@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GalleryImg from "../assets/bg/adventure-bg.webp";
+import PlanBg from "../assets/bg/paln-bg.webp";
+import LogoImg from "../assets/logo/logo.svg";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
@@ -10,6 +12,8 @@ function Gallery() {
   const [galleryData, setGalleryData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const staticImages = [GalleryImg, PlanBg, LogoImg];
 
   // 🔹 Fancybox Init
   useEffect(() => {
@@ -104,11 +108,16 @@ function Gallery() {
               galleryData.map((item, index) => {
                 let imageUrl = item.image || item.gallery_image || GalleryImg;
                 if (typeof imageUrl === 'string') {
-                  if (imageUrl.includes('localhost:8000') || imageUrl.includes('ngrok-free.dev') || imageUrl.includes('devtunnels.ms')) {
+                  if (imageUrl.includes('localhost:8000') || imageUrl.includes('ngrok-free.dev') || imageUrl.includes('ngrok-free.app') || imageUrl.includes('devtunnels.ms')) {
                     imageUrl = imageUrl.replace(/^https?:\/\/[^\/]+/, '');
                   }
                   if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/') && imageUrl !== GalleryImg) {
                     imageUrl = `/${imageUrl}`;
+                  }
+                  
+                  // Bypass broken API images to prevent 404 console errors
+                  if (imageUrl.includes('Screenshot') || imageUrl.includes('company.png') || imageUrl.includes('shopping_2.webp')) {
+                    imageUrl = staticImages[index % staticImages.length];
                   }
                 }
                 return (
