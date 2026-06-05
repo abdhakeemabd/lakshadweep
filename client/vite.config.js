@@ -153,15 +153,7 @@ export default defineConfig({
           'ngrok-skip-browser-warning': 'true',
         },
       },
-      '/notification-api': {
-        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/notification-api/, ''),
-        secure: false,
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-        },
-      },
+
       '/category-api': {
         target: 'https://bright-cunning-buffalo.ngrok-free.app/',
         changeOrigin: true,
@@ -196,15 +188,7 @@ export default defineConfig({
           'ngrok-skip-browser-warning': 'true',
         },
       },
-      '/homepage-api': {
-        target: 'https://bright-cunning-buffalo.ngrok-free.app/',
-        changeOrigin: true,
-         rewrite: (path) => path.replace(/^\/homepage-api/, ''),
-        secure: false,
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-        },
-      },
+
     },
   },
 })
