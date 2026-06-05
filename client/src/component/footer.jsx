@@ -18,10 +18,10 @@ function Footer() {
               <li><Link to="/gallery" aria-label="Gallery">Gallery</Link></li>
               <li><Link to="/about" aria-label="About Us">About Us</Link></li>
               <li><Link to="/faq" aria-label="FAQ">FAQ</Link></li>
-              <li><Link to="/terms-of-services" aria-label="Terms of Service">Terms of Service</Link></li>
+              <li><Link to="/" aria-label="Terms of Service">Terms of Service</Link></li>
               <li><Link to="/contact" aria-label="Contact Us">Contact Us</Link></li>
-              <li><Link to="/refund-policy" aria-label="Refund Policy">Refund Policy</Link></li>
-              <li><Link to="/privacy-policy" aria-label="Privacy Policy">Privacy Policy</Link></li>
+              <li><Link to="/" aria-label="Refund Policy">Refund Policy</Link></li>
+              <li><Link to="/" aria-label="Privacy Policy">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
